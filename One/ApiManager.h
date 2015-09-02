@@ -14,4 +14,7 @@
 
 + (void)checkAppVersionAndExecuteSucess:(void(^)(NSDictionary *))successBlock;
 
++ (void)logInWithTwitterAndExecuteSuccess:(void(^)())successBlock
+                                  failure:(void(^)(NSError *error))failureBlock;
+
 @end

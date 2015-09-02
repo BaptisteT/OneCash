@@ -20,6 +20,12 @@
 		3C86E0FE1B8DB577005AD52B /* ApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0FD1B8DB577005AD52B /* ApiManager.m */; };
 		3C86E1021B8DBA5E005AD52B /* InternalNotifView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E1001B8DBA5E005AD52B /* InternalNotifView.m */; };
 		3C86E1031B8DBA5E005AD52B /* InternalNotifView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */; };
+		3C86E1061B8DBBE6005AD52B /* ColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E1051B8DBBE6005AD52B /* ColorUtils.m */; };
+		3C86E1091B8DE501005AD52B /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E1081B8DE501005AD52B /* WelcomeViewController.m */; };
+		3CC5FD941B97431000514A43 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FD931B97431000514A43 /* Transaction.m */; };
+		3CC5FD961B974A4F00514A43 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC5FD951B974A4F00514A43 /* Social.framework */; };
+		3CC5FD981B974A5500514A43 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC5FD971B974A5500514A43 /* Accounts.framework */; };
+		3CC5FD9B1B976F4400514A43 /* EmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FD9A1B976F4400514A43 /* EmailViewController.m */; };
 		BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +54,16 @@
 		3C86E0FF1B8DBA5E005AD52B /* InternalNotifView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InternalNotifView.h; sourceTree = "<group>"; };
 		3C86E1001B8DBA5E005AD52B /* InternalNotifView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InternalNotifView.m; sourceTree = "<group>"; };
 		3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InternalNotifView.xib; sourceTree = "<group>"; };
+		3C86E1041B8DBBE6005AD52B /* ColorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorUtils.h; sourceTree = "<group>"; };
+		3C86E1051B8DBBE6005AD52B /* ColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorUtils.m; sourceTree = "<group>"; };
+		3C86E1071B8DE501005AD52B /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		3C86E1081B8DE501005AD52B /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		3CC5FD921B97431000514A43 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
+		3CC5FD931B97431000514A43 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
+		3CC5FD951B974A4F00514A43 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		3CC5FD971B974A5500514A43 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		3CC5FD991B976F4400514A43 /* EmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailViewController.h; sourceTree = "<group>"; };
+		3CC5FD9A1B976F4400514A43 /* EmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailViewController.m; sourceTree = "<group>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One.release.xcconfig"; path = "Pods/Target Support Files/Pods-One/Pods-One.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CC5FD981B974A5500514A43 /* Accounts.framework in Frameworks */,
+				3CC5FD961B974A4F00514A43 /* Social.framework in Frameworks */,
 				BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,6 +85,8 @@
 		03794D7AE0960F429C553BEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CC5FD971B974A5500514A43 /* Accounts.framework */,
+				3CC5FD951B974A4F00514A43 /* Social.framework */,
 				5B40DD4CC7DBD68EA7060432 /* libPods-One.a */,
 			);
 			name = Frameworks;
@@ -98,8 +118,6 @@
 				3C2E03921B8DA1D800D22D48 /* Utils */,
 				3C2E03931B8DA1DF00D22D48 /* Views */,
 				3C2E03941B8DA1E900D22D48 /* Controllers */,
-				3C2E036B1B8DA18B00D22D48 /* AppDelegate.h */,
-				3C2E036C1B8DA18B00D22D48 /* AppDelegate.m */,
 			);
 			path = One;
 			sourceTree = "<group>";
@@ -131,6 +149,8 @@
 				3C86E0FD1B8DB577005AD52B /* ApiManager.m */,
 				3C86E0F31B8DB2BF005AD52B /* User.h */,
 				3C86E0F41B8DB2BF005AD52B /* User.m */,
+				3CC5FD921B97431000514A43 /* Transaction.h */,
+				3CC5FD931B97431000514A43 /* Transaction.m */,
 			);
 			name = Backend;
 			sourceTree = "<group>";
@@ -146,6 +166,8 @@
 				3C86E0F71B8DB3DD005AD52B /* NotifUtils.m */,
 				3C86E0F91B8DB4DD005AD52B /* OneLogger.h */,
 				3C86E0FA1B8DB4DD005AD52B /* OneLogger.m */,
+				3C86E1041B8DBBE6005AD52B /* ColorUtils.h */,
+				3C86E1051B8DBBE6005AD52B /* ColorUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -163,6 +185,12 @@
 		3C2E03941B8DA1E900D22D48 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3C2E036B1B8DA18B00D22D48 /* AppDelegate.h */,
+				3C2E036C1B8DA18B00D22D48 /* AppDelegate.m */,
+				3C86E1071B8DE501005AD52B /* WelcomeViewController.h */,
+				3C86E1081B8DE501005AD52B /* WelcomeViewController.m */,
+				3CC5FD991B976F4400514A43 /* EmailViewController.h */,
+				3CC5FD9A1B976F4400514A43 /* EmailViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -210,6 +238,7 @@
 				TargetAttributes = {
 					3C2E03631B8DA18B00D22D48 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 86N86JY2JG;
 					};
 				};
 			};
@@ -296,14 +325,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CC5FD9B1B976F4400514A43 /* EmailViewController.m in Sources */,
 				3C86E0F51B8DB2BF005AD52B /* User.m in Sources */,
 				3C86E0FB1B8DB4DD005AD52B /* OneLogger.m in Sources */,
 				3C2E036D1B8DA18B00D22D48 /* AppDelegate.m in Sources */,
 				3C86E1021B8DBA5E005AD52B /* InternalNotifView.m in Sources */,
 				3C2E036A1B8DA18B00D22D48 /* main.m in Sources */,
 				3C86E0FE1B8DB577005AD52B /* ApiManager.m in Sources */,
+				3C86E1091B8DE501005AD52B /* WelcomeViewController.m in Sources */,
 				3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */,
+				3C86E1061B8DBBE6005AD52B /* ColorUtils.m in Sources */,
 				3C86E0F81B8DB3DD005AD52B /* NotifUtils.m in Sources */,
+				3CC5FD941B97431000514A43 /* Transaction.m in Sources */,
 				3C86E0EF1B8DAF0B005AD52B /* ConstantUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,10 +448,13 @@
 			baseConfigurationReference = 1F0138CD4900B04DB2B1B667 /* Pods-One.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitch Buchannon (NMWVMQS5Z5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mitch Buchannon (NMWVMQS5Z5)";
 				INFOPLIST_FILE = One/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a6fa2bd2-89f4-4a7f-9c2d-118acdd2767b";
 			};
 			name = Debug;
 		};
@@ -427,6 +463,8 @@
 			baseConfigurationReference = F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitch Buchannon (NMWVMQS5Z5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mitch Buchannon (NMWVMQS5Z5)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -436,6 +474,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a6fa2bd2-89f4-4a7f-9c2d-118acdd2767b";
 			};
 			name = Release;
 		};

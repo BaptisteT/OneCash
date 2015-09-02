@@ -4,11 +4,15 @@ PODS:
   - Fabric (1.4.0):
     - Fabric/Base (= 1.4.0)
   - Fabric/Base (1.4.0)
+  - MBProgressHUD (0.9.1)
   - Mixpanel (2.8.2):
     - Mixpanel/Mixpanel (= 2.8.2)
   - Mixpanel/Mixpanel (2.8.2)
   - Parse (1.8.1):
     - Bolts/Tasks (>= 1.2.0)
+  - ParseTwitterUtils (1.8.1):
+    - Bolts/Tasks (>= 1.2.0)
+    - Parse (~> 1.8.0)
   - Stripe (5.1.2):
     - Stripe/Core (= 5.1.2)
   - Stripe/Core (5.1.2)
@@ -16,16 +20,20 @@ PODS:
 DEPENDENCIES:
   - Crashlytics
   - Fabric
+  - MBProgressHUD (~> 0.9.1)
   - Mixpanel
   - Parse
+  - ParseTwitterUtils
   - Stripe
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   Crashlytics: 39ab395565bc03c29cdecd2b9d103ebf30930c10
   Fabric: 6d1d1c1eaf7ebc76fc3307e2c0259456411baf26
+  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Mixpanel: f4d71ac2a306e7cda6ad03d4a2be249a0fd7a967
   Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
+  ParseTwitterUtils: 80512bea19d3d0950ad04d7300a434f86977feeb
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
 
 COCOAPODS: 0.36.0

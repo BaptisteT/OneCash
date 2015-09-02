@@ -13,12 +13,11 @@
 
 @implementation TrackingUtils
 
-+ (void)identifyUser:(User *)user signup:(BOOL)flag
++ (void)identifyUser:(User *)user
 {
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
-//    [self setPeopleProperties:@{@"name": user.flashUsername ? user.flashUsername : @"", @"number": user.username, @"score": [NSNumber numberWithInteger:user.score]}];
     
-    if (flag) {
+    if (user.isNew) {
         [mixpanel createAlias:user.objectId forDistinctID:mixpanel.distinctId];
         [mixpanel identify:mixpanel.distinctId];
         [TrackingUtils trackEvent:EVENT_USER_SIGNUP properties:nil];

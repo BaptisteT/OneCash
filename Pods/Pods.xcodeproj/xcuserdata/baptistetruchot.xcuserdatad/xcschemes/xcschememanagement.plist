@@ -9,12 +9,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-One-MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-One-Mixpanel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-One-Parse.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-One-ParseTwitterUtils.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,27 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0C3B475F84D19E7D2E5D99D1</key>
+		<key>1D6DA4D14489DBFB92688DFB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>16D256C4CAA968E357670BD5</key>
+		<key>3E2EB38C2F9D0ED198C9BA5E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2518A27CBEEEA778DFD1C993</key>
+		<key>57C4D71047F1FD695C7E02E8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4B0C8B08A9F5B3C94D2832B8</key>
+		<key>91B0568C2667CA356B0A932E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BD8BD6095B9B0020630526AF</key>
+		<key>ACB6D9DC6FA9D5A3E4FB8CB4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CFE0BFEF3E1B710F09EA3587</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DBA0BB1A33BA70F971BCF3D5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

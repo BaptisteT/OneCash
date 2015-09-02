@@ -14,14 +14,18 @@
 @end
 
 //Mixpanel token
-static NSString * const kMixpanelProdToken = @"51d7f02e924b3babe98ea09ca2dd423b";
-static NSString * const kMixpanelDevToken =  @"63dfc77a4f9c9db92af63498197bb327";
+static NSString * const kMixpanelProdToken = @"506506437bc51d99f01653de9a7712b5"; // todo BT
+static NSString * const kMixpanelDevToken =  @"506506437bc51d99f01653de9a7712b5";
 
 // Parse
-static NSString * const kParseDevApplicationId = @"Posts";
-static NSString * const kParseDevClientKey = @"Posts";
-static NSString * const kParseProdApplicationId = @"Posts";
-static NSString * const kParseProdClientKey = @"Posts";
+static NSString * const kParseDevApplicationId = @"K2INUP4OggQhZYPbONUhuXj20gaPXmg8HLlQQGjx";
+static NSString * const kParseDevClientKey = @"JAmgr9Bu4Oua4bE8fToQshpeNVWDVIrF4cJVMAyz";
+static NSString * const kParseProdApplicationId = @"K2INUP4OggQhZYPbONUhuXj20gaPXmg8HLlQQGjx"; // todo BT
+static NSString * const kParseProdClientKey = @"JAmgr9Bu4Oua4bE8fToQshpeNVWDVIrF4cJVMAyz"; // todo BT
+
+// Parse
+static NSString * const kTwitterConsumerKey = @"VCkXZcl0CyQbU1EQIJJBMYcBx";
+static NSString * const kTwitterConsumerSecret = @"xrejgXmle9yqsrUYNXtn6wsqpN1spBmRSEjQZ0hVIIV1KrVPPJ";
 
 // Notif
 static float const kInternalNotifDuration = 3;

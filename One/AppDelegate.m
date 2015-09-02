@@ -9,6 +9,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import <Mixpanel.h>
 #import <Parse/Parse.h>
+#import <ParseTwitterUtils/ParseTwitterUtils.h>
 
 #import "AppDelegate.h"
 #import "ApiManager.h"
@@ -43,6 +44,10 @@
     [Parse setApplicationId:DEBUG ? kParseDevApplicationId : kParseProdApplicationId
                   clientKey:DEBUG ? kParseDevClientKey : kParseProdClientKey];
     
+    // Twitter
+    [PFTwitterUtils initializeWithConsumerKey:kTwitterConsumerKey
+                               consumerSecret:kTwitterConsumerSecret];
+    
     // Fabrick
     [Fabric with:@[CrashlyticsKit]];
     
@@ -59,6 +64,8 @@
     // Obsolete API
     [ApiManager checkAppVersionAndExecuteSucess:^(NSDictionary * resultDictionnary) {
         if (resultDictionnary && [resultDictionnary valueForKey:@"title"]) {
+            // todo BT
+            // custom screen ??
             self.alertTitle = [resultDictionnary valueForKey:@"title"];
             self.alertMessage = [resultDictionnary valueForKey:@"message"];
             self.repeat = [[resultDictionnary valueForKey:@"blocking"] boolValue];
@@ -70,9 +77,16 @@
     }];
     
     User *currentUser = [User currentUser];
+    
+    // if no email => log out
+    if (currentUser && (!currentUser.email || currentUser.email.length == 0) ) {
+        currentUser = nil;
+        [User logOut];
+    }
+
     if (currentUser) {
         // Identify user
-        [TrackingUtils identifyUser:[User currentUser] signup:NO];
+        [TrackingUtils identifyUser:[User currentUser]];
         
         // Register for notif
         [NotifUtils registerForRemoteNotif];

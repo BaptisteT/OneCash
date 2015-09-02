@@ -16,7 +16,7 @@
 
 @interface TrackingUtils : NSObject
 
-+ (void)identifyUser:(User *)user signup:(BOOL)flag;
++ (void)identifyUser:(User *)user;
 
 + (void)trackEvent:(NSString *)eventName properties:(NSDictionary *)properties;
 
