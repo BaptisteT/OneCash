@@ -26,6 +26,19 @@
 		3CC5FD961B974A4F00514A43 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC5FD951B974A4F00514A43 /* Social.framework */; };
 		3CC5FD981B974A5500514A43 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC5FD971B974A5500514A43 /* Accounts.framework */; };
 		3CC5FD9B1B976F4400514A43 /* EmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FD9A1B976F4400514A43 /* EmailViewController.m */; };
+		3CC5FDA01B98835C00514A43 /* NSString+EmailAddresses.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FD9F1B98835C00514A43 /* NSString+EmailAddresses.m */; };
+		3CC5FDAC1B98836D00514A43 /* NSString+LevenshteinDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDA31B98836D00514A43 /* NSString+LevenshteinDistance.m */; };
+		3CC5FDAF1B98836D00514A43 /* SHEmailValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDA91B98836D00514A43 /* SHEmailValidator.m */; };
+		3CC5FDB01B98836D00514A43 /* SHValidationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDAB1B98836D00514A43 /* SHValidationResult.m */; };
+		3CC5FDB31B98861D00514A43 /* HowToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDB21B98861D00514A43 /* HowToViewController.m */; };
+		3CC5FDB51B98886700514A43 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDB41B98886700514A43 /* Localizable.strings */; };
+		3CC5FDBA1B989DCE00514A43 /* GeneralUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDB91B989DCE00514A43 /* GeneralUtils.m */; };
+		3CC5FDBD1B98A14F00514A43 /* DesignUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDBC1B98A14F00514A43 /* DesignUtils.m */; };
+		3CC5FDC01B98A56300514A43 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDBF1B98A56300514A43 /* CardViewController.m */; };
+		3CC5FDC31B98A6D400514A43 /* SendCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDC21B98A6D400514A43 /* SendCashViewController.m */; };
+		3CC5FDC61B98A6E100514A43 /* RecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDC51B98A6E100514A43 /* RecipientViewController.m */; };
+		3CC5FDC91B98A6EA00514A43 /* BalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDC81B98A6EA00514A43 /* BalanceViewController.m */; };
+		3CC5FDCC1B98A72800514A43 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDCB1B98A72800514A43 /* SettingsViewController.m */; };
 		BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +77,32 @@
 		3CC5FD971B974A5500514A43 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		3CC5FD991B976F4400514A43 /* EmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailViewController.h; sourceTree = "<group>"; };
 		3CC5FD9A1B976F4400514A43 /* EmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailViewController.m; sourceTree = "<group>"; };
+		3CC5FD9E1B98835C00514A43 /* NSString+EmailAddresses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EmailAddresses.h"; sourceTree = "<group>"; };
+		3CC5FD9F1B98835C00514A43 /* NSString+EmailAddresses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EmailAddresses.m"; sourceTree = "<group>"; };
+		3CC5FDA21B98836D00514A43 /* NSString+LevenshteinDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LevenshteinDistance.h"; sourceTree = "<group>"; };
+		3CC5FDA31B98836D00514A43 /* NSString+LevenshteinDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LevenshteinDistance.m"; sourceTree = "<group>"; };
+		3CC5FDA81B98836D00514A43 /* SHEmailValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHEmailValidator.h; sourceTree = "<group>"; };
+		3CC5FDA91B98836D00514A43 /* SHEmailValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHEmailValidator.m; sourceTree = "<group>"; };
+		3CC5FDAA1B98836D00514A43 /* SHValidationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHValidationResult.h; sourceTree = "<group>"; };
+		3CC5FDAB1B98836D00514A43 /* SHValidationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHValidationResult.m; sourceTree = "<group>"; };
+		3CC5FDB11B98861D00514A43 /* HowToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HowToViewController.h; sourceTree = "<group>"; };
+		3CC5FDB21B98861D00514A43 /* HowToViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HowToViewController.m; sourceTree = "<group>"; };
+		3CC5FDB41B98886700514A43 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		3CC5FDB61B988DB300514A43 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3CC5FDB81B989DCE00514A43 /* GeneralUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralUtils.h; sourceTree = "<group>"; };
+		3CC5FDB91B989DCE00514A43 /* GeneralUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralUtils.m; sourceTree = "<group>"; };
+		3CC5FDBB1B98A14F00514A43 /* DesignUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignUtils.h; sourceTree = "<group>"; };
+		3CC5FDBC1B98A14F00514A43 /* DesignUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignUtils.m; sourceTree = "<group>"; };
+		3CC5FDBE1B98A56300514A43 /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
+		3CC5FDBF1B98A56300514A43 /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
+		3CC5FDC11B98A6D400514A43 /* SendCashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendCashViewController.h; sourceTree = "<group>"; };
+		3CC5FDC21B98A6D400514A43 /* SendCashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendCashViewController.m; sourceTree = "<group>"; };
+		3CC5FDC41B98A6E100514A43 /* RecipientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipientViewController.h; sourceTree = "<group>"; };
+		3CC5FDC51B98A6E100514A43 /* RecipientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipientViewController.m; sourceTree = "<group>"; };
+		3CC5FDC71B98A6EA00514A43 /* BalanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BalanceViewController.h; sourceTree = "<group>"; };
+		3CC5FDC81B98A6EA00514A43 /* BalanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceViewController.m; sourceTree = "<group>"; };
+		3CC5FDCA1B98A72800514A43 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		3CC5FDCB1B98A72800514A43 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One.release.xcconfig"; path = "Pods/Target Support Files/Pods-One/Pods-One.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,6 +124,7 @@
 		03794D7AE0960F429C553BEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CC5FDB61B988DB300514A43 /* UIKit.framework */,
 				3CC5FD971B974A5500514A43 /* Accounts.framework */,
 				3CC5FD951B974A4F00514A43 /* Social.framework */,
 				5B40DD4CC7DBD68EA7060432 /* libPods-One.a */,
@@ -98,6 +138,7 @@
 				3C2E03661B8DA18B00D22D48 /* One */,
 				3C2E03651B8DA18B00D22D48 /* Products */,
 				6003251E0CB60950663BAB8E /* Pods */,
+				3CC5FD9C1B9880DC00514A43 /* 3rdParty */,
 				03794D7AE0960F429C553BEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -115,6 +156,7 @@
 			children = (
 				3C2E03901B8DA1BF00D22D48 /* Ressources */,
 				3C2E03911B8DA1D100D22D48 /* Backend */,
+				3CC5FD9D1B98834400514A43 /* Categories */,
 				3C2E03921B8DA1D800D22D48 /* Utils */,
 				3C2E03931B8DA1DF00D22D48 /* Views */,
 				3C2E03941B8DA1E900D22D48 /* Controllers */,
@@ -127,6 +169,7 @@
 			children = (
 				3C2E03681B8DA18B00D22D48 /* Info.plist */,
 				3C2E03691B8DA18B00D22D48 /* main.m */,
+				3CC5FDB41B98886700514A43 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -160,6 +203,8 @@
 			children = (
 				3C86E0ED1B8DAF0B005AD52B /* ConstantUtils.h */,
 				3C86E0EE1B8DAF0B005AD52B /* ConstantUtils.m */,
+				3CC5FDB81B989DCE00514A43 /* GeneralUtils.h */,
+				3CC5FDB91B989DCE00514A43 /* GeneralUtils.m */,
 				3C86E0F01B8DB07C005AD52B /* TrackingUtils.h */,
 				3C86E0F11B8DB07C005AD52B /* TrackingUtils.m */,
 				3C86E0F61B8DB3DD005AD52B /* NotifUtils.h */,
@@ -168,6 +213,8 @@
 				3C86E0FA1B8DB4DD005AD52B /* OneLogger.m */,
 				3C86E1041B8DBBE6005AD52B /* ColorUtils.h */,
 				3C86E1051B8DBBE6005AD52B /* ColorUtils.m */,
+				3CC5FDBB1B98A14F00514A43 /* DesignUtils.h */,
+				3CC5FDBC1B98A14F00514A43 /* DesignUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -189,10 +236,53 @@
 				3C2E036C1B8DA18B00D22D48 /* AppDelegate.m */,
 				3C86E1071B8DE501005AD52B /* WelcomeViewController.h */,
 				3C86E1081B8DE501005AD52B /* WelcomeViewController.m */,
+				3CC5FDB11B98861D00514A43 /* HowToViewController.h */,
+				3CC5FDB21B98861D00514A43 /* HowToViewController.m */,
 				3CC5FD991B976F4400514A43 /* EmailViewController.h */,
 				3CC5FD9A1B976F4400514A43 /* EmailViewController.m */,
+				3CC5FDBE1B98A56300514A43 /* CardViewController.h */,
+				3CC5FDBF1B98A56300514A43 /* CardViewController.m */,
+				3CC5FDC11B98A6D400514A43 /* SendCashViewController.h */,
+				3CC5FDC21B98A6D400514A43 /* SendCashViewController.m */,
+				3CC5FDC41B98A6E100514A43 /* RecipientViewController.h */,
+				3CC5FDC51B98A6E100514A43 /* RecipientViewController.m */,
+				3CC5FDC71B98A6EA00514A43 /* BalanceViewController.h */,
+				3CC5FDC81B98A6EA00514A43 /* BalanceViewController.m */,
+				3CC5FDCA1B98A72800514A43 /* SettingsViewController.h */,
+				3CC5FDCB1B98A72800514A43 /* SettingsViewController.m */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		3CC5FD9C1B9880DC00514A43 /* 3rdParty */ = {
+			isa = PBXGroup;
+			children = (
+				3CC5FDA11B98836D00514A43 /* SHEmailValidator */,
+			);
+			name = 3rdParty;
+			path = One;
+			sourceTree = "<group>";
+		};
+		3CC5FD9D1B98834400514A43 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				3CC5FD9E1B98835C00514A43 /* NSString+EmailAddresses.h */,
+				3CC5FD9F1B98835C00514A43 /* NSString+EmailAddresses.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		3CC5FDA11B98836D00514A43 /* SHEmailValidator */ = {
+			isa = PBXGroup;
+			children = (
+				3CC5FDA21B98836D00514A43 /* NSString+LevenshteinDistance.h */,
+				3CC5FDA31B98836D00514A43 /* NSString+LevenshteinDistance.m */,
+				3CC5FDA81B98836D00514A43 /* SHEmailValidator.h */,
+				3CC5FDA91B98836D00514A43 /* SHEmailValidator.m */,
+				3CC5FDAA1B98836D00514A43 /* SHValidationResult.h */,
+				3CC5FDAB1B98836D00514A43 /* SHValidationResult.m */,
+			);
+			path = SHEmailValidator;
 			sourceTree = "<group>";
 		};
 		6003251E0CB60950663BAB8E /* Pods */ = {
@@ -265,6 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CC5FDB51B98886700514A43 /* Localizable.strings in Resources */,
 				3C2E03761B8DA18B00D22D48 /* Main.storyboard in Resources */,
 				3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */,
 				3C86E1031B8DBA5E005AD52B /* InternalNotifView.xib in Resources */,
@@ -325,19 +416,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CC5FDAF1B98836D00514A43 /* SHEmailValidator.m in Sources */,
 				3CC5FD9B1B976F4400514A43 /* EmailViewController.m in Sources */,
+				3CC5FDC01B98A56300514A43 /* CardViewController.m in Sources */,
+				3CC5FDBA1B989DCE00514A43 /* GeneralUtils.m in Sources */,
+				3CC5FDA01B98835C00514A43 /* NSString+EmailAddresses.m in Sources */,
 				3C86E0F51B8DB2BF005AD52B /* User.m in Sources */,
+				3CC5FDAC1B98836D00514A43 /* NSString+LevenshteinDistance.m in Sources */,
+				3CC5FDC91B98A6EA00514A43 /* BalanceViewController.m in Sources */,
 				3C86E0FB1B8DB4DD005AD52B /* OneLogger.m in Sources */,
 				3C2E036D1B8DA18B00D22D48 /* AppDelegate.m in Sources */,
+				3CC5FDC31B98A6D400514A43 /* SendCashViewController.m in Sources */,
 				3C86E1021B8DBA5E005AD52B /* InternalNotifView.m in Sources */,
 				3C2E036A1B8DA18B00D22D48 /* main.m in Sources */,
 				3C86E0FE1B8DB577005AD52B /* ApiManager.m in Sources */,
+				3CC5FDBD1B98A14F00514A43 /* DesignUtils.m in Sources */,
 				3C86E1091B8DE501005AD52B /* WelcomeViewController.m in Sources */,
+				3CC5FDC61B98A6E100514A43 /* RecipientViewController.m in Sources */,
+				3CC5FDB31B98861D00514A43 /* HowToViewController.m in Sources */,
 				3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */,
 				3C86E1061B8DBBE6005AD52B /* ColorUtils.m in Sources */,
 				3C86E0F81B8DB3DD005AD52B /* NotifUtils.m in Sources */,
 				3CC5FD941B97431000514A43 /* Transaction.m in Sources */,
+				3CC5FDCC1B98A72800514A43 /* SettingsViewController.m in Sources */,
 				3C86E0EF1B8DAF0B005AD52B /* ConstantUtils.m in Sources */,
+				3CC5FDB01B98836D00514A43 /* SHValidationResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

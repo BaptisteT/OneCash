@@ -43,7 +43,7 @@
 
 
 // --------------------------------------------
-#pragma mark - Log in
+#pragma mark - Twitter log in
 // --------------------------------------------
 + (void)logInWithTwitterAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock
@@ -74,10 +74,6 @@
     }];
 }
 
-
-// --------------------------------------------
-#pragma mark - Twitter API Call
-// --------------------------------------------
 + (void)getOtherTwitterInfoAndExecuteSuccess:(void(^)())successBlock
                             failure:(void(^)(NSError *error))failureBlock
 {
@@ -86,22 +82,14 @@
     NSString * twitterUserID = [PFTwitterUtils twitter].userId;
     NSString * twitterScreenName = [PFTwitterUtils twitter].screenName;
     
+    if (twitterUserID && twitterUserID.length > 0) {
+        user.twitterId = twitterUserID;
+    }
     if (twitterScreenName && twitterScreenName.length > 0) {
         [user setUsername:twitterScreenName];
     }
     NSURL *verify = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"];
 
-//    
-//    NSString * urlString = @"https://api.twitter.com/1.1/users/show.json?";
-//    if (twitterUserID.length > 0) {
-//        urlString = [urlString stringByAppendingString:[NSString stringWithFormat:@"user_id=%@", twitterUserID]];
-//    } else if (twitterScreenName.length > 0) {
-//        urlString = [urlString stringByAppendingString:[NSString stringWithFormat:@"screen_name=%@", twitterScreenName]];
-//    } else {
-//        OneLog(ONEAPIMANAGERLOG, @"There are no credentials for Twitter login. Something went really wrong !");
-//        return;
-//    }
-//    NSURL *verify = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
     [[PFTwitterUtils twitter] signRequest:request];
     
@@ -142,4 +130,29 @@
         }
     }];
 }
+
+
+
+// --------------------------------------------
+#pragma mark - User
+// --------------------------------------------
++ (void)updateCurrentUserInfo:(NSString *)email
+                      success:(void(^)())successBlock
+                      failure:(void(^)(NSError *error))failureBlock
+{
+    User *user = [User currentUser]; // there should be unsaved changed (username / picture URL..)
+    user.email = email;
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            if (successBlock) {
+                successBlock();
+            }
+        } else {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }];
+}
+
 @end

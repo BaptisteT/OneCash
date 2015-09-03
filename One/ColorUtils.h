@@ -6,8 +6,15 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
 
 @interface ColorUtils : NSObject
+
++ (UIColor *)lightGreen;
+
++ (UIColor *)darkGreen;
+
++ (UIColor *)red;
 
 @end

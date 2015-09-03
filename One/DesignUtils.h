@@ -1,0 +1,24 @@
+//
+//  DesignUtils.h
+//  One
+//
+//  Created by Baptiste Truchot on 9/3/15.
+//  Copyright (c) 2015 Mindie. All rights reserved.
+//
+
+@import Foundation;
+@import UIKit;
+
+@interface DesignUtils : NSObject
+
++ (void)addBottomBorder:(UIView *)view borderSize:(float)borderSize color:(UIColor *)color;
+
++ (void)addTopBorder:(UIView *)view borderSize:(float)borderSize color:(UIColor *)color;
+
++ (void)showProgressHUDAddedTo:(UIView *)view;
+
++ (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color;
+
++ (void)hideProgressHUDForView:(UIView *)view;
+
+@end

@@ -17,4 +17,7 @@
 + (void)logInWithTwitterAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
 
++ (void)updateCurrentUserInfo:(NSString *)email
+                      success:(void(^)())successBlock
+                      failure:(void(^)(NSError *error))failureBlock;
 @end

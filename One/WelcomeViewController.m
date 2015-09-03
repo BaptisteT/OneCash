@@ -5,13 +5,13 @@
 //  Created by Baptiste Truchot on 8/26/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
-#import <MBProgressHUD.h>
-
 #import "ApiManager.h"
 
 #import "WelcomeViewController.h"
 
+#import "ColorUtils.h"
 #import "ConstantUtils.h"
+#import "DesignUtils.h"
 #import "OneLogger.h"
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
@@ -19,31 +19,65 @@
 @interface WelcomeViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *howToButton;
+@property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
 
 @end
 
 @implementation WelcomeViewController
 
+// --------------------------------------------
+#pragma mark - Life Cycle
+// --------------------------------------------
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // wording
+    self.taglineLabel.text = NSLocalizedString(@"tagline_label", nil);
+    [self.loginButton setTitle:NSLocalizedString(@"twitter_button", nil) forState:UIControlStateNormal];
+    
+    // UI
+    self.view.backgroundColor = [ColorUtils lightGreen];
+    self.loginButton.layer.cornerRadius = self.loginButton.frame.size.height / 2;
+    [self.loginButton setTitleColor:[ColorUtils lightGreen] forState:UIControlStateNormal];
+    self.howToButton.layer.cornerRadius = self.howToButton.frame.size.height / 2;
+    [self.howToButton setTitleColor:[ColorUtils lightGreen] forState:UIControlStateNormal];
 }
 
 
+// --------------------------------------------
+#pragma mark - Actions
+// --------------------------------------------
+
 - (IBAction)loginWithTwitter:(id)sender {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
     [ApiManager logInWithTwitterAndExecuteSuccess:^() {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [DesignUtils hideProgressHUDForView:self.view];
+            
+            // todo BT
+            // segue depending of email ?? + credit card
             [self performSegueWithIdentifier:@"Email From Welcome" sender:nil];
         });
     } failure:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [DesignUtils hideProgressHUDForView:self.view];
         });
         // todo BT
         // differentiate between expected & unexpected error
     }];
+}
+
+- (IBAction)howToButtonClicked:(id)sender {
+    [self performSegueWithIdentifier:@"How From Welcome" sender:nil];
+}
+
+// --------------------------------------------
+#pragma mark - UI
+// --------------------------------------------
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end

@@ -14,5 +14,6 @@
 @property (retain) NSString *pictureURL;
 @property (retain) NSString *firstName;
 @property (retain) NSString *lastName;
+@property (retain) NSString *twitterId;
 
 @end

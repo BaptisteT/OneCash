@@ -27,6 +27,9 @@ static NSString * const kParseProdClientKey = @"JAmgr9Bu4Oua4bE8fToQshpeNVWDVIrF
 static NSString * const kTwitterConsumerKey = @"VCkXZcl0CyQbU1EQIJJBMYcBx";
 static NSString * const kTwitterConsumerSecret = @"xrejgXmle9yqsrUYNXtn6wsqpN1spBmRSEjQZ0hVIIV1KrVPPJ";
 
+// Web
+static NSString * const kOneWebsiteTermsLink = @"http://flashtape.co/#terms"; // todo
+
 // Notif
 static float const kInternalNotifDuration = 3;
 static NSInteger const kInternalNotifHeight = 60;
