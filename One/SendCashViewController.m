@@ -8,30 +8,48 @@
 
 #import "SendCashViewController.h"
 
+#import "ColorUtils.h"
+#import "DesignUtils.h"
+
 @interface SendCashViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *balanceButton;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
 @implementation SendCashViewController
 
+// --------------------------------------------
+#pragma mark - Life cycle
+// --------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // Wording
+    [self.balanceButton setTitle:NSLocalizedString(@"balance_button", nil) forState:UIControlStateNormal];
+    self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
+    
+    // UI
+    self.view.backgroundColor = [ColorUtils lightGreen];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+// --------------------------------------------
+#pragma mark - Actions
+// --------------------------------------------
+
+- (IBAction)balanceButtonClicked:(id)sender {
+    [self performSegueWithIdentifier:@"Balance From Send" sender:nil];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+// --------------------------------------------
+#pragma mark - UI
+// --------------------------------------------
+// Set status bar color to white
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
-*/
 
 @end

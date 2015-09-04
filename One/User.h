@@ -11,9 +11,17 @@
 
 @interface User : PFUser <PFSubclassing>
 
+typedef NS_ENUM(NSInteger,PaymentMethod) {
+    kPaymentMethodNone = 0,
+    kPaymentMethodApplePay = 1,
+    kPaymentMethodStripe = 2,
+};
+
 @property (retain) NSString *pictureURL;
 @property (retain) NSString *firstName;
 @property (retain) NSString *lastName;
 @property (retain) NSString *twitterId;
+@property (nonatomic) PaymentMethod paymentMethod;
+@property (nonatomic) NSInteger balance;
 
 @end

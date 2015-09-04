@@ -46,7 +46,7 @@
     [self.settingsButton setTitleColor:[ColorUtils lightGreen] forState:UIControlStateNormal];
     self.titleLabel.textColor = [ColorUtils lightGreen];
     self.balanceContainer.backgroundColor = [ColorUtils lightGreen];
-    self.balanceContainer.layer.cornerRadius = self.balanceContainer.frame.size.height;
+    self.balanceContainer.layer.cornerRadius = self.balanceContainer.frame.size.height / 20;
     
     // Balance
     // todo BT

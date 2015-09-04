@@ -23,9 +23,16 @@ static NSString * const kParseDevClientKey = @"JAmgr9Bu4Oua4bE8fToQshpeNVWDVIrF4
 static NSString * const kParseProdApplicationId = @"K2INUP4OggQhZYPbONUhuXj20gaPXmg8HLlQQGjx"; // todo BT
 static NSString * const kParseProdClientKey = @"JAmgr9Bu4Oua4bE8fToQshpeNVWDVIrF4cJVMAyz"; // todo BT
 
-// Parse
+// Stripe
+static NSString * const kStripeTestPublishableKey = @"pk_test_vJ757snlktvqXQsaVU7XHD4i";
+static NSString * const kStripeLivePublishableKey = @"pk_live_uyualJWipSrd8tNzfGQDw0Ne";
+
+// Twitter
 static NSString * const kTwitterConsumerKey = @"VCkXZcl0CyQbU1EQIJJBMYcBx";
 static NSString * const kTwitterConsumerSecret = @"xrejgXmle9yqsrUYNXtn6wsqpN1spBmRSEjQZ0hVIIV1KrVPPJ";
+
+// Apple
+static NSString * const kApplePayMerchantId = @"merchant.cash.one";
 
 // Web
 static NSString * const kOneWebsiteTermsLink = @"http://flashtape.co/#terms"; // todo

@@ -23,6 +23,19 @@
 "privacy_policy" = "privacy policy";
 "invalid_email_title" = "Ooops";
 "invalid_email_message" = "Your email seems invalid.";
+"save_email_error_title" = "Sorry, we could not save your email";
+"save_email_error_message" = "Please, try again.";
+
+// Card
+"later_" = "Later";
+"card_title" = "We'll never charge if you don't tip someone.";
+"stripe_card_title" = "Bitch Better Have My Money";
+"create_token_with_card_error_title" = "The information you entered seems incorrect";
+"create_token_with_card_error_message" = "Please, try again.";
+
+// Send
+"balance_button" = "Balance";
+"send_controller_title" = "Tip $1";
 
 // Balance
 "close_button" = "Close";
@@ -30,5 +43,7 @@
 "balance_title" = "Your balance";
 "cashout_button" = "Cashout";
 "history_label" = "Your history";
+
+
 
 

@@ -14,6 +14,8 @@
 @dynamic firstName;
 @dynamic lastName;
 @dynamic twitterId;
+@dynamic paymentMethod;
+@dynamic balance;
 
 + (void)load {
     [self registerSubclass];

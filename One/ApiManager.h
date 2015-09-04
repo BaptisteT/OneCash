@@ -7,17 +7,33 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class User;
+#import "User.h"
 
 @interface ApiManager : NSObject
 
+// --------------------------------------------
+#pragma mark - Api
+// --------------------------------------------
+
 + (void)checkAppVersionAndExecuteSucess:(void(^)(NSDictionary *))successBlock;
+
+// --------------------------------------------
+#pragma mark - Log in
+// --------------------------------------------
 
 + (void)logInWithTwitterAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
 
+// --------------------------------------------
+#pragma mark - User
+// --------------------------------------------
+
 + (void)updateCurrentUserInfo:(NSString *)email
                       success:(void(^)())successBlock
                       failure:(void(^)(NSError *error))failureBlock;
+
++ (void)createStripeCustomerWithToken:(NSString *)token
+                        paymentMethod:(PaymentMethod)method
+                              success:(void(^)())successBlock
+                              failure:(void(^)(NSError *error))failureBlock;
 @end

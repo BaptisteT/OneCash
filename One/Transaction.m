@@ -8,7 +8,12 @@
 
 #import "Transaction.h"
 
-@implementation OneTransaction
+@implementation Transaction
+
+@dynamic sender;
+@dynamic transactionType;
+@dynamic receiver;
+@dynamic transactionAmount;
 
 + (void)load {
     [self registerSubclass];
@@ -19,9 +24,9 @@
     return NSStringFromClass([self class]);
 }
 
-+ (OneTransaction *)createTransaction
++ (Transaction *)createTransaction
 {
-    OneTransaction *transaction = [OneTransaction object];
+    Transaction *transaction = [Transaction object];
     
     // Security = no write access
     PFACL *acl = [PFACL ACL];

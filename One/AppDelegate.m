@@ -10,6 +10,7 @@
 #import <Mixpanel.h>
 #import <Parse/Parse.h>
 #import <ParseTwitterUtils/ParseTwitterUtils.h>
+#import <Stripe.h>
 
 #import "AppDelegate.h"
 #import "ApiManager.h"
@@ -57,8 +58,12 @@
         
         // Track statistics around application opens.
 //        [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+        
+        // Stripe
+        [Stripe setDefaultPublishableKey:kStripeTestPublishableKey];
     } else {
         [Mixpanel sharedInstanceWithToken:kMixpanelDevToken launchOptions:launchOptions];
+        [Stripe setDefaultPublishableKey:kStripeTestPublishableKey];
     }
     
     // Obsolete API

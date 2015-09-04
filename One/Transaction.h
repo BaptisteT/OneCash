@@ -9,6 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <Parse/parse.h>
 
-@interface OneTransaction : PFObject <PFSubclassing>
+@class User;
+
+@interface Transaction : PFObject <PFSubclassing>
+
+typedef NS_ENUM(NSInteger,TransactionType) {
+    kTransactionNone = 0,
+    kTransactionPayment = 1,
+    kTransactionCashout = 2
+};
+
+@property (nonatomic) User *sender;
+@property (nonatomic) TransactionType transactionType;
+@property (nonatomic) NSInteger transactionAmount; // in $, 1 if kTransactionPayment
+@property (nonatomic) User *receiver; // if kTransactionPayment
+
 
 @end

@@ -32,7 +32,7 @@
                        withParameters:@{ @"version" : version, @"build" : build }
                                 block:^(id object, NSError *error) {
                                     if (error != nil) {
-                                        OneLog(ONEAPIMANAGERLOG,@"checkAppVersion error : %@",error.description);
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - checkAppVersion - %@",error.description);
                                     } else {
                                         if (successBlock) {
                                             successBlock((NSDictionary *)object);
@@ -75,10 +75,16 @@
 }
 
 + (void)getOtherTwitterInfoAndExecuteSuccess:(void(^)())successBlock
-                            failure:(void(^)(NSError *error))failureBlock
+                                     failure:(void(^)(NSError *error))failureBlock
 {
     User *user = [User currentUser];
-    if (!user) return;
+    if (!user) {
+        if (failureBlock) {
+            failureBlock(nil);
+        }
+        return;
+    }
+
     NSString * twitterUserID = [PFTwitterUtils twitter].userId;
     NSString * twitterScreenName = [PFTwitterUtils twitter].screenName;
     
@@ -144,15 +150,38 @@
     user.email = email;
     [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
+            OneLog(ONEAPIMANAGERLOG,@"Success - Update User");
             if (successBlock) {
                 successBlock();
             }
         } else {
+            OneLog(ONEAPIMANAGERLOG,@"Failure - Update User - %@",error.description);
             if (failureBlock) {
                 failureBlock(error);
             }
         }
     }];
+}
+
++ (void)createStripeCustomerWithToken:(NSString *)token
+                        paymentMethod:(PaymentMethod)method
+                              success:(void(^)())successBlock
+                              failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"createStripeCustomer"
+                       withParameters:@{ @"stripeToken" : token, @"paymentMethod" : [NSNumber numberWithInteger:method] }
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createStripeCustomer - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock((NSDictionary *)object);
+                                        }
+                                    }
+                                }];
 }
 
 @end

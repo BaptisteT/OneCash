@@ -36,10 +36,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEJ-Tv-APs">
-                                <rect key="frame" x="230" y="511" width="139" height="34"/>
+                                <rect key="frame" x="220" y="511" width="159" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="5" maxX="20" maxY="5"/>
                                 <state key="normal" title="login / signup">
                                     <color key="titleColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -88,6 +88,7 @@
                         <outlet property="taglineLabel" destination="s2j-Nh-PAq" id="ccK-cH-xwQ"/>
                         <segue destination="z09-dk-URt" kind="show" identifier="Email From Welcome" id="WgX-CF-7G0"/>
                         <segue destination="Bef-pm-plE" kind="presentation" identifier="How From Welcome" id="YVN-0x-kbu"/>
+                        <segue destination="WNA-kw-5yZ" kind="custom" identifier="Send From Welcom" customClass="PushNoAnimationSegue" id="CWh-84-eC0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cbG-Qj-SfJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -300,7 +301,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="backButtonClicked:" destination="z09-dk-URt" eventType="touchUpInside" id="ULO-Nd-xLl"/>
+                                            <action selector="skipButtonClicked:" destination="Koy-ZE-4HZ" eventType="touchUpInside" id="C4Y-Ym-HPS"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="provide card label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWv-lg-EV8">
@@ -326,22 +327,139 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rph-Fx-cWl">
+                                <rect key="frame" x="275" y="322" width="50" height="30"/>
+                                <state key="normal" title="manual">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="manualCardClicked:" destination="Koy-ZE-4HZ" eventType="touchUpInside" id="eFH-1a-TnF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2n-zt-6oG">
+                                <rect key="frame" x="266" y="240" width="68" height="30"/>
+                                <state key="normal" title="apple pay">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="applePayClicked:" destination="Koy-ZE-4HZ" eventType="touchUpInside" id="WAN-om-gWh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="w2n-zt-6oG" firstAttribute="top" secondItem="Pu5-Ep-cbd" secondAttribute="bottom" constant="96" id="2oG-hy-yUt"/>
+                            <constraint firstItem="Rph-Fx-cWl" firstAttribute="top" secondItem="w2n-zt-6oG" secondAttribute="bottom" constant="52" id="EU1-w4-j1t"/>
+                            <constraint firstAttribute="centerX" secondItem="w2n-zt-6oG" secondAttribute="centerX" id="Hs9-Zo-0jM"/>
                             <constraint firstAttribute="trailing" secondItem="Pu5-Ep-cbd" secondAttribute="trailing" id="Ruy-u8-IBz"/>
+                            <constraint firstAttribute="centerX" secondItem="Rph-Fx-cWl" secondAttribute="centerX" id="bEg-5M-Dlc"/>
                             <constraint firstItem="Pu5-Ep-cbd" firstAttribute="top" secondItem="oAa-5q-iqy" secondAttribute="top" id="omS-e7-bGf"/>
                             <constraint firstItem="Pu5-Ep-cbd" firstAttribute="leading" secondItem="oAa-5q-iqy" secondAttribute="leading" id="uao-Dz-9DA"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
+                        <outlet property="applePayButton" destination="w2n-zt-6oG" id="iOX-l9-tbF"/>
+                        <outlet property="manualPayButton" destination="Rph-Fx-cWl" id="8wT-mY-eb8"/>
+                        <outlet property="skipButton" destination="tGg-VA-sK0" id="J5x-zs-6qW"/>
+                        <outlet property="titleLabel" destination="tWv-lg-EV8" id="PfV-D1-bXE"/>
+                        <outlet property="topBar" destination="Pu5-Ep-cbd" id="WJQ-8p-EZC"/>
                         <segue destination="WNA-kw-5yZ" kind="show" identifier="Send From Card" id="0H9-Pw-zbF"/>
+                        <segue destination="Qp9-af-myn" kind="show" identifier="Stripe From Card" id="kK8-ek-Kwl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dIQ-5I-ehe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2053" y="-468"/>
+        </scene>
+        <!--Stripe Card View Controller-->
+        <scene sceneID="CS0-jz-lMi">
+            <objects>
+                <viewController id="Qp9-af-myn" customClass="StripeCardViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="D7Y-aS-s4I"/>
+                        <viewControllerLayoutGuide type="bottom" id="aaY-RW-32X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LPz-Iu-2Fk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q3W-PY-tci">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="144"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpP-OD-Ylm">
+                                        <rect key="frame" x="10" y="15" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="5sV-ib-2aA"/>
+                                            <constraint firstAttribute="height" constant="40" id="kUa-qd-8SM"/>
+                                        </constraints>
+                                        <state key="normal" title="back">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonClicked:" destination="Qp9-af-myn" eventType="touchUpInside" id="ALh-y2-EM3"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="stripe card" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtY-is-a5O">
+                                        <rect key="frame" x="50" y="72" width="500" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="qpP-OD-Ylm" firstAttribute="leading" secondItem="Q3W-PY-tci" secondAttribute="leading" constant="10" id="PwG-hw-dBB"/>
+                                    <constraint firstAttribute="height" constant="144" id="YBq-3h-bIt"/>
+                                    <constraint firstItem="qpP-OD-Ylm" firstAttribute="top" secondItem="Q3W-PY-tci" secondAttribute="top" constant="15" id="aik-1f-phT"/>
+                                    <constraint firstItem="qpP-OD-Ylm" firstAttribute="leading" secondItem="Q3W-PY-tci" secondAttribute="leading" constant="10" id="bEJ-nC-Y27"/>
+                                    <constraint firstAttribute="centerX" secondItem="EtY-is-a5O" secondAttribute="centerX" id="g4w-Kg-it2"/>
+                                    <constraint firstAttribute="centerY" secondItem="EtY-is-a5O" secondAttribute="centerY" constant="-10" id="lWl-LJ-RDi"/>
+                                    <constraint firstAttribute="trailing" secondItem="qpP-OD-Ylm" secondAttribute="trailing" constant="10" id="pf5-rU-StI"/>
+                                    <constraint firstAttribute="trailing" secondItem="EtY-is-a5O" secondAttribute="trailing" constant="50" id="umB-3u-A8e"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="bEJ-nC-Y27"/>
+                                        <exclude reference="pf5-rU-StI"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARJ-8e-JZh">
+                                <rect key="frame" x="260" y="254" width="81" height="32"/>
+                                <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="5" maxX="20" maxY="5"/>
+                                <state key="normal" title="done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonClicked:" destination="Qp9-af-myn" eventType="touchUpInside" id="cge-A7-Sz6"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Q3W-PY-tci" secondAttribute="trailing" id="Acg-b7-yPz"/>
+                            <constraint firstAttribute="centerX" secondItem="ARJ-8e-JZh" secondAttribute="centerX" constant="-0.5" id="Amj-zp-Gbk"/>
+                            <constraint firstItem="Q3W-PY-tci" firstAttribute="top" secondItem="LPz-Iu-2Fk" secondAttribute="top" id="T1G-I7-yv9"/>
+                            <constraint firstItem="Q3W-PY-tci" firstAttribute="leading" secondItem="LPz-Iu-2Fk" secondAttribute="leading" id="oqE-e1-MyZ"/>
+                            <constraint firstAttribute="centerY" secondItem="ARJ-8e-JZh" secondAttribute="centerY" constant="30" id="qlX-gC-MNN"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="qpP-OD-Ylm" id="hCK-yj-GVN"/>
+                        <outlet property="doneButton" destination="ARJ-8e-JZh" id="m9a-LH-KTM"/>
+                        <outlet property="topBar" destination="Q3W-PY-tci" id="F6m-sH-95J"/>
+                        <outlet property="topLabel" destination="EtY-is-a5O" id="0BR-t9-hef"/>
+                        <segue destination="WNA-kw-5yZ" kind="show" identifier="Send From Stripe" id="WX6-Iv-dA8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fiO-Tv-WYa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2864" y="-468"/>
         </scene>
         <!--Balance View Controller-->
         <scene sceneID="AuI-ZF-ZQB">
@@ -458,7 +576,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WiH-rA-uGu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3464" y="64"/>
+            <point key="canvasLocation" x="4328" y="276"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="9cf-au-QEO">
@@ -476,12 +594,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="why-7Y-f45" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4164" y="64"/>
+            <point key="canvasLocation" x="5028" y="276"/>
         </scene>
-        <!--Balance View Controller-->
+        <!--Send Cash View Controller-->
         <scene sceneID="2Yk-MR-zqM">
             <objects>
-                <viewController id="WNA-kw-5yZ" customClass="BalanceViewController" sceneMemberID="viewController">
+                <viewController id="WNA-kw-5yZ" customClass="SendCashViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pBP-Bj-f9L"/>
                         <viewControllerLayoutGuide type="bottom" id="IzF-Uo-ATe"/>
@@ -499,6 +617,9 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="balanceButtonClicked:" destination="WNA-kw-5yZ" eventType="touchUpInside" id="H3l-QC-9pZ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nji-5G-axu">
                                 <rect key="frame" x="286" y="25" width="28" height="20"/>
@@ -516,13 +637,15 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="balanceButton" destination="71X-ED-w10" id="ztZ-Q1-MWn"/>
+                        <outlet property="titleLabel" destination="nji-5G-axu" id="bUL-Yv-Isu"/>
                         <segue destination="cLq-3c-hSu" kind="presentation" identifier="Balance From Send" id="eZD-os-4ei"/>
                         <segue destination="Sg7-PG-Ydg" kind="presentation" identifier="Recipient From Send" id="9qY-8U-Mxz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKn-61-Mg4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2776" y="64"/>
+            <point key="canvasLocation" x="3640" y="276"/>
         </scene>
         <!--Recipient View Controller-->
         <scene sceneID="sk2-Gd-vg4">
@@ -540,7 +663,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xNs-xH-xvH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2776" y="798"/>
+            <point key="canvasLocation" x="3640" y="1010"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="CWh-84-eC0"/>
+    </inferredMetricsTieBreakers>
 </document>

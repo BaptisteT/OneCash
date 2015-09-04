@@ -17,6 +17,9 @@
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
+#import "OneLogger.h"
+
+#define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
 @interface EmailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *termsLabel;
@@ -95,12 +98,10 @@
     [ApiManager updateCurrentUserInfo:email
                               success:^{
                                   [DesignUtils hideProgressHUDForView:self.view];
-                                  // todo BT
-                                  // segue
+                                  [self performSegueWithIdentifier:@"Card From Email" sender:nil];
                               } failure:^(NSError *error) {
                                   [DesignUtils hideProgressHUDForView:self.view];
-                                  // todo BT
-                                  // handle error
+                                  [GeneralUtils showAlertWithTitle:NSLocalizedString(@"save_email_error_title", nil) andMessage:NSLocalizedString(@"save_email_error_message", nil)];
                               }];
 }
 
