@@ -41,3 +41,6 @@ static NSString * const kOneWebsiteTermsLink = @"http://flashtape.co/#terms"; //
 static float const kInternalNotifDuration = 3;
 static NSInteger const kInternalNotifHeight = 60;
 static float const kNotifAnimationDuration = 0.5;
+
+// Image
+static NSInteger const kDisplayedPictureSize = 128;

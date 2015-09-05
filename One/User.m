@@ -6,7 +6,10 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 
+#import "ImageCache.h"
 #import "User.h"
+
+#import "ConstantUtils.h"
 
 @implementation User
 
@@ -17,12 +20,40 @@
 @dynamic paymentMethod;
 @dynamic balance;
 
+@synthesize avatar;
+
 + (void)load {
     [self registerSubclass];
 }
 
 + (User *)currentUser {
     return (User *)[PFUser currentUser];
+}
+
+// Set avatar in imageview (download it first if necessary)
+- (void)setAvatarInImageView:(UIImageView *)imageView {
+    imageView.image = nil; // clean
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    if (self.avatar) {
+        [imageView setImage:self.avatar];
+    } else {
+        CGSize rescaleSize = {kDisplayedPictureSize, kDisplayedPictureSize};
+        [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
+                                              size:rescaleSize
+                                              mode:UIViewContentModeScaleAspectFill
+                                    availableBlock:^(UIImage *image) {
+                                        if (image) {
+                                            self.avatar = image;
+                                            [imageView setImage:self.avatar];
+                                        }
+                                    }];
+    }
+}
+
+// Delete image
+- (void)deleteCachedImage {
+    CGSize rescaleSize = {kDisplayedPictureSize, kDisplayedPictureSize};
+    [[ImageCache defaultCache] deleteCashedImageForURL:[NSURL URLWithString:self.pictureURL] size:rescaleSize];
 }
 
 @end

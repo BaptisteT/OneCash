@@ -14,6 +14,7 @@
 @interface SendCashViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *balanceButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *pickRecipientButton;
 
 @end
 
@@ -42,6 +43,13 @@
     [self performSegueWithIdentifier:@"Balance From Send" sender:nil];
 }
 
+// payment if balance > 0
+// else if apple pay => payment
+// else
+
+- (IBAction)pickRecipientButtonClicked:(id)sender {
+    [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
+}
 
 // --------------------------------------------
 #pragma mark - UI

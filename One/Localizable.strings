@@ -44,6 +44,10 @@
 "cashout_button" = "Cashout";
 "history_label" = "Your history";
 
+// Recipients
+"to" = "to";
+"recipient_title" = "Pick a recipient";
+
 
 
 

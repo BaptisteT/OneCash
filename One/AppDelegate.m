@@ -16,6 +16,8 @@
 #import "ApiManager.h"
 #import "User.h"
 
+#import "WelcomeViewController.h"
+
 #import "ConstantUtils.h"
 #import "OneLogger.h"
 #import "InternalNotifView.h"
@@ -103,6 +105,9 @@
         }
 
         // todo BT sign up redirection
+        // Navigate
+        WelcomeViewController* welcomeViewController = (WelcomeViewController *)  self.window.rootViewController.childViewControllers[0];
+        [welcomeViewController performSegueWithIdentifier:@"Send From Welcome" sender:nil];
     }
     
     return YES;

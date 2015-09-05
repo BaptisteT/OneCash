@@ -17,11 +17,17 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
     kPaymentMethodStripe = 2,
 };
 
+// Server
 @property (retain) NSString *pictureURL;
 @property (retain) NSString *firstName;
 @property (retain) NSString *lastName;
 @property (retain) NSString *twitterId;
 @property (nonatomic) PaymentMethod paymentMethod;
 @property (nonatomic) NSInteger balance;
+
+// Local
+@property (nonatomic, strong) UIImage *avatar;
+
+- (void)setAvatarInImageView:(UIImageView *)imageView;
 
 @end
