@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RecipientVCProtocol;
+@class User;
+
 @interface RecipientViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+
+@property (weak, nonatomic) id <RecipientVCProtocol> delegate;
+
+@end
+
+@protocol RecipientVCProtocol
+
+- (void)setSelectedUser:(User *)user;
 
 @end

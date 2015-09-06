@@ -44,6 +44,8 @@
 		3CC5FDD61B9B524A00514A43 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDD51B9B524A00514A43 /* UserTableViewCell.m */; };
 		3CC5FDD91B9B597600514A43 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDD81B9B597600514A43 /* ImageCache.m */; };
 		3CC5FDDC1B9B5A6000514A43 /* BackEndUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDDB1B9B5A6000514A43 /* BackEndUtils.m */; };
+		3CC5FDDF1B9C391600514A43 /* KeyboardUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */; };
+		3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE11B9C47F800514A43 /* CashView.m */; };
 		BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +121,10 @@
 		3CC5FDD81B9B597600514A43 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		3CC5FDDA1B9B5A6000514A43 /* BackEndUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackEndUtils.h; sourceTree = "<group>"; };
 		3CC5FDDB1B9B5A6000514A43 /* BackEndUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackEndUtils.m; sourceTree = "<group>"; };
+		3CC5FDDD1B9C391600514A43 /* KeyboardUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardUtils.h; sourceTree = "<group>"; };
+		3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardUtils.m; sourceTree = "<group>"; };
+		3CC5FDE01B9C47F800514A43 /* CashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashView.h; sourceTree = "<group>"; };
+		3CC5FDE11B9C47F800514A43 /* CashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashView.m; sourceTree = "<group>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One.release.xcconfig"; path = "Pods/Target Support Files/Pods-One/Pods-One.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -238,6 +244,8 @@
 				3CC5FDBC1B98A14F00514A43 /* DesignUtils.m */,
 				3CC5FDDA1B9B5A6000514A43 /* BackEndUtils.h */,
 				3CC5FDDB1B9B5A6000514A43 /* BackEndUtils.m */,
+				3CC5FDDD1B9C391600514A43 /* KeyboardUtils.h */,
+				3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -250,6 +258,8 @@
 				3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */,
 				3CC5FDD41B9B524A00514A43 /* UserTableViewCell.h */,
 				3CC5FDD51B9B524A00514A43 /* UserTableViewCell.m */,
+				3CC5FDE01B9C47F800514A43 /* CashView.h */,
+				3CC5FDE11B9C47F800514A43 /* CashView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -478,6 +488,8 @@
 				3CC5FDD91B9B597600514A43 /* ImageCache.m in Sources */,
 				3C86E0EF1B8DAF0B005AD52B /* ConstantUtils.m in Sources */,
 				3CC5FDB01B98836D00514A43 /* SHValidationResult.m in Sources */,
+				3CC5FDDF1B9C391600514A43 /* KeyboardUtils.m in Sources */,
+				3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

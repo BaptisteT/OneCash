@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SendCashViewController : UIViewController
+#import "RecipientViewController.h"
+
+@interface SendCashViewController : UIViewController <RecipientVCProtocol>
+
 
 @end
