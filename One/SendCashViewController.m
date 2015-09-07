@@ -71,7 +71,6 @@
 // --------------------------------------------
 
 - (IBAction)balanceButtonClicked:(id)sender {
-//    [self performSegueWithIdentifier:@"Card From Send" sender:nil];
     [self performSegueWithIdentifier:@"Balance From Send" sender:nil];
 }
 

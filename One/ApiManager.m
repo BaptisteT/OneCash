@@ -209,4 +209,22 @@
     }];
 }
 
++ (void)fetchCurrentUserAndExecuteSuccess:(void(^)())successBlock
+                                  failure:(void(^)(NSError *error))failureBlock
+{
+    [[User currentUser] fetchInBackgroundWithBlock:^(PFObject *user, NSError *error) {
+        if (!error) {
+            OneLog(ONEAPIMANAGERLOG,@"Success - Fetch User");
+            if (successBlock) {
+                successBlock();
+            }
+        } else {
+            OneLog(ONEAPIMANAGERLOG,@"Failure - Fetch User - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }];
+}
+
 @end

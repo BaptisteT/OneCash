@@ -45,8 +45,8 @@
     
     // UI
     self.topLabel.numberOfLines = 0;
-    self.topBar.backgroundColor = [ColorUtils lightGreen];
-    self.doneButton.backgroundColor = [ColorUtils lightGreen];
+    self.topBar.backgroundColor = [ColorUtils mainGreen];
+    self.doneButton.backgroundColor = [ColorUtils mainGreen];
     self.doneButton.layer.cornerRadius = self.doneButton.frame.size.height / 2;
     self.doneButton.enabled = NO;
     
@@ -100,6 +100,7 @@
     [ApiManager createStripeCustomerWithToken:token.tokenId
                                 paymentMethod:kPaymentMethodStripe
                                       success:^{
+                                          [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
                                           [DesignUtils hideProgressHUDForView:self.view];
                                           [self navigateToSend];
                                       } failure:^(NSError *error) {

@@ -760,7 +760,7 @@
                         <outlet property="toLabel" destination="QGi-oQ-ONd" id="CSP-6M-uAT"/>
                         <segue destination="cLq-3c-hSu" kind="presentation" identifier="Balance From Send" id="eZD-os-4ei"/>
                         <segue destination="Sg7-PG-Ydg" kind="presentation" identifier="Recipient From Send" id="9qY-8U-Mxz"/>
-                        <segue destination="Koy-ZE-4HZ" kind="show" identifier="Card From Send" id="GvJ-k5-awv"/>
+                        <segue destination="Koy-ZE-4HZ" kind="show" identifier="Card From Send" id="0bD-CV-jtZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKn-61-Mg4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -934,7 +934,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="GvJ-k5-awv"/>
+        <segue reference="0bD-CV-jtZ"/>
         <segue reference="WX6-Iv-dA8"/>
     </inferredMetricsTieBreakers>
 </document>
