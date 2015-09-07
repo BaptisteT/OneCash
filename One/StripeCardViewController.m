@@ -9,6 +9,7 @@
 
 #import "ApiManager.h"
 
+#import "SendCashViewController.h"  
 #import "StripeCardViewController.h"
 
 #import "ColorUtils.h"
@@ -100,12 +101,20 @@
                                 paymentMethod:kPaymentMethodStripe
                                       success:^{
                                           [DesignUtils hideProgressHUDForView:self.view];
-                                          [self performSegueWithIdentifier:@"Send From Stripe" sender:nil];
+                                          [self navigateToSend];
                                       } failure:^(NSError *error) {
                                           [DesignUtils hideProgressHUDForView:self.view];
                                           // todo BT
                                           // warm user
                                       }];
+}
+
+- (void)navigateToSend {
+    if (self.redirectionViewController && [self.redirectionViewController isKindOfClass:[SendCashViewController class]]) {
+        [self.navigationController popToViewController:self.redirectionViewController animated:YES];
+    } else {
+        [self performSegueWithIdentifier:@"Send From Stripe" sender:nil];
+    }
 }
 
 // --------------------------------------------

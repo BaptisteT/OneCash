@@ -10,4 +10,6 @@
 
 @interface CardViewController : UIViewController
 
+@property (weak, nonatomic) UIViewController *redirectionViewController;
+
 @end

@@ -11,7 +11,11 @@
 
 @interface ColorUtils : NSObject
 
++ (UIColor *)veryLightGreen;
+
 + (UIColor *)lightGreen;
+
++ (UIColor *)mainGreen;
 
 + (UIColor *)darkGreen;
 

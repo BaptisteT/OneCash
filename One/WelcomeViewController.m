@@ -38,11 +38,11 @@
     [self.loginButton setTitle:NSLocalizedString(@"twitter_button", nil) forState:UIControlStateNormal];
     
     // UI
-    self.view.backgroundColor = [ColorUtils lightGreen];
+    self.view.backgroundColor = [ColorUtils mainGreen];
     self.loginButton.layer.cornerRadius = self.loginButton.frame.size.height / 2;
-    [self.loginButton setTitleColor:[ColorUtils lightGreen] forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.howToButton.layer.cornerRadius = self.howToButton.frame.size.height / 2;
-    [self.howToButton setTitleColor:[ColorUtils lightGreen] forState:UIControlStateNormal];
+    [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
 }
 
 

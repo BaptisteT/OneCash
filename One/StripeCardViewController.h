@@ -10,4 +10,6 @@
 
 @interface StripeCardViewController : UIViewController
 
+@property (weak, nonatomic) UIViewController *redirectionViewController;
+
 @end

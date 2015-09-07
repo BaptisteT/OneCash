@@ -50,11 +50,11 @@
     self.toLabel.text = NSLocalizedString(@"to", nil);
     
     // UI
-    self.topBar.backgroundColor = [ColorUtils lightGreen];
-    self.toLabel.textColor = [ColorUtils lightGreen];
+    self.topBar.backgroundColor = [ColorUtils mainGreen];
+    self.toLabel.textColor = [ColorUtils mainGreen];
     [DesignUtils addBottomBorder:self.recipientTextfield borderSize:0.2 color:[UIColor lightGrayColor]];
     [DesignUtils addTopBorder:self.textfieldContainer borderSize:0.5 color:[UIColor lightGrayColor]];
-    self.recipientTextfield.textColor = [ColorUtils lightGreen];
+    self.recipientTextfield.textColor = [ColorUtils mainGreen];
     self.loadingContainer.hidden = YES;
     
     // Table view
@@ -157,7 +157,7 @@
         // Show HUD if not already
         if (self.loadingContainer.hidden) {
             self.loadingContainer.hidden = NO;
-            [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils lightGreen] transform:CGAffineTransformMakeScale(0.5, 0.5)];
+            [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils mainGreen] transform:CGAffineTransformMakeScale(0.5, 0.5)];
         }
         [ApiManager findUsersMatchingStartString:textField.text
                                          success:^(NSString *string, NSArray *users) {

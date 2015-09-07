@@ -31,9 +31,9 @@
     self.howToTextView.text = NSLocalizedString(@"how_to_wording", nil);
     
     // UI
-    self.backButton.backgroundColor = [ColorUtils lightGreen];
+    self.backButton.backgroundColor = [ColorUtils mainGreen];
     self.backButton.layer.cornerRadius = self.backButton.frame.size.height / 2;
-    self.titleLabel.textColor = [ColorUtils lightGreen];
+    self.titleLabel.textColor = [ColorUtils mainGreen];
 }
 
 

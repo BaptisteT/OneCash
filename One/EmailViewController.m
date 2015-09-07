@@ -51,15 +51,15 @@
     // UI
     self.titleLabel.numberOfLines = 0;
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:completeString];
-    NSDictionary *attribute = @{NSForegroundColorAttributeName : [ColorUtils lightGreen]};
+    NSDictionary *attribute = @{NSForegroundColorAttributeName : [ColorUtils mainGreen]};
     [attrString addAttributes:attribute range:[completeString rangeOfString:terms]];
     [attrString addAttributes:attribute range:[completeString rangeOfString:privacy]];
     self.termsLabel.textColor = [UIColor lightGrayColor];
     self.termsLabel.attributedText = attrString;
     self.termsLabel.numberOfLines = 0;
-    self.validateButton.backgroundColor = [ColorUtils lightGreen];
+    self.validateButton.backgroundColor = [ColorUtils mainGreen];
     self.validateButton.layer.cornerRadius = self.validateButton.frame.size.height / 2;
-    self.topView.backgroundColor = [ColorUtils lightGreen];
+    self.topView.backgroundColor = [ColorUtils mainGreen];
     [DesignUtils addBottomBorder:self.emailTextField borderSize:0.5 color:[UIColor lightGrayColor]];
     
     // Gesture

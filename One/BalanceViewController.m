@@ -56,10 +56,10 @@
     // UI
     self.cashoutButton.backgroundColor = [ColorUtils red];
     self.cashoutButton.layer.cornerRadius = self.cashoutButton.frame.size.height / 2;
-    [self.closeButton setTitleColor:[ColorUtils lightGreen] forState:UIControlStateNormal];
-    [self.settingsButton setTitleColor:[ColorUtils lightGreen] forState:UIControlStateNormal];
-    self.titleLabel.textColor = [ColorUtils lightGreen];
-    self.balanceContainer.backgroundColor = [ColorUtils lightGreen];
+    [self.closeButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    [self.settingsButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    self.titleLabel.textColor = [ColorUtils mainGreen];
+    self.balanceContainer.backgroundColor = [ColorUtils mainGreen];
     self.balanceContainer.layer.cornerRadius = self.balanceContainer.frame.size.height / 20;
     self.leftDownOne.textColor = [ColorUtils darkGreen];
     self.leftUpOne.textColor = [ColorUtils darkGreen];
@@ -76,7 +76,7 @@
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
     UIFont *font = self.balanceLabel.font;
     font = [font fontWithSize:font.pointSize / 2];
-    [attr addAttributes:@{NSForegroundColorAttributeName : [ColorUtils lightGreen], NSFontAttributeName: font, NSBaselineOffsetAttributeName: @10.} range:NSMakeRange(0,1)];
+    [attr addAttributes:@{NSForegroundColorAttributeName : [ColorUtils mainGreen], NSFontAttributeName: font, NSBaselineOffsetAttributeName: @10.} range:NSMakeRange(0,1)];
     self.balanceLabel.attributedText = attr;
     
     // Table view

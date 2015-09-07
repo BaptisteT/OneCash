@@ -42,7 +42,7 @@
 
 // Show HUD in view
 + (void)showProgressHUDAddedTo:(UIView *)view {
-    [self showProgressHUDAddedTo:view withColor:[ColorUtils lightGreen]];
+    [self showProgressHUDAddedTo:view withColor:[ColorUtils mainGreen]];
 }
 
 + (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color {

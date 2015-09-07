@@ -8,11 +8,14 @@
 #import <Stripe.h>
 
 #import "CardViewController.h"
+#import "SendCashViewController.h"
 
 #import "ColorUtils.h"  
 #import "ConstantUtils.h"
+#import "DesignUtils.h"
 
 @interface CardViewController ()
+
 @property (weak, nonatomic) IBOutlet UIButton *skipButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
@@ -32,10 +35,25 @@
     // wording
     [self.skipButton setTitle:NSLocalizedString(@"later_", nil) forState:UIControlStateNormal];
     self.titleLabel.text = NSLocalizedString(@"card_title", nil);
+    [self.applePayButton setTitle:NSLocalizedString(@"apple_pay_button_title", nil) forState:UIControlStateNormal];
+    [self.manualPayButton setTitle:NSLocalizedString(@"manual_pay_button_title", nil) forState:UIControlStateNormal];
     
     // UI
     self.titleLabel.numberOfLines = 0;
-    self.topBar.backgroundColor = [ColorUtils lightGreen];
+    self.topBar.backgroundColor = [ColorUtils mainGreen];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [DesignUtils addBottomBorder:self.applePayButton borderSize:0.5 color:[UIColor lightGrayColor]];
+    [DesignUtils addBottomBorder:self.manualPayButton borderSize:0.5 color:[UIColor lightGrayColor]];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSString * segueName = segue.identifier;
+    if ([segueName isEqualToString:@"Stripe From Card"]) {
+        ((CardViewController *) [segue destinationViewController]).redirectionViewController = self.redirectionViewController;
+    }
 }
 
 
@@ -43,7 +61,7 @@
 #pragma mark - Actions
 // --------------------------------------------
 - (IBAction)skipButtonClicked:(id)sender {
-    [self performSegueWithIdentifier:@"Send From Card" sender:nil];
+    [self navigateToSend];
 }
 
 - (IBAction)applePayClicked:(id)sender {
@@ -52,11 +70,19 @@
         // alert user
         return;
     }
-    [self performSegueWithIdentifier:@"Send From Card" sender:nil];
+    [self navigateToSend];
 }
 
 - (IBAction)manualCardClicked:(id)sender {
     [self performSegueWithIdentifier:@"Stripe From Card" sender:nil];
+}
+
+- (void)navigateToSend {
+    if (self.redirectionViewController && [self.redirectionViewController isKindOfClass:[SendCashViewController class]]) {
+        [self.navigationController popToViewController:self.redirectionViewController animated:YES];
+    } else {
+        [self performSegueWithIdentifier:@"Send From Card" sender:nil];
+    }
 }
 
 

@@ -32,11 +32,18 @@
 "stripe_card_title" = "Bitch Better Have My Money";
 "create_token_with_card_error_title" = "The information you entered seems incorrect";
 "create_token_with_card_error_message" = "Please, try again.";
+"apple_pay_button_title" = "Add my debit card with Apple Pay";
+"manual_pay_button_title" = "Add my debit card manually";
 
 // Send
 "balance_button" = "Balance";
 "send_controller_title" = "Tip $1";
 "swipe_to_send" = "Swipe up to send";
+"no_receiver_title" = "We can't send this dollar";
+"no_receiver_message" = "You forgot to pick the recipient!";
+"no_card_title" = "We can't send this dollar";
+"no_card_message" = "You need to add a debit card!";
+"add_button" = "Add";
 
 // Balance
 "close_button" = "Close";

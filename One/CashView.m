@@ -5,8 +5,6 @@
 //  Created by Baptiste Truchot on 9/6/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
-#import <POP/POP.h>
-
 #import "CashView.h"
 
 #import "ColorUtils.h"
@@ -18,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *rightUpOne;
 @property (weak, nonatomic) IBOutlet UILabel *leftBottomOne;
 @property (weak, nonatomic) IBOutlet UILabel *rightBottomOne;
-@property (strong, nonatomic) NSString *message;
 @property (nonatomic) CGPoint initialCenter;
 @end
 
@@ -31,19 +28,18 @@
     // UI
     [self setStaticUI];
     self.layer.cornerRadius = self.frame.size.height / 40;
-    self.centralLabel.backgroundColor = [ColorUtils lightGreen];
     self.centralLabel.textColor = [ColorUtils darkGreen];
     self.centralLabel.adjustsFontSizeToFitWidth = YES;
     self.centralLabel.layer.cornerRadius = 2./6. * frame.size.width;
     self.centralLabel.clipsToBounds = YES;
     self.leftUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-90));
-    self.leftUpOne.textColor = [ColorUtils lightGreen];
+    self.leftUpOne.textColor = [ColorUtils mainGreen];
     self.rightUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
-    self.rightUpOne.textColor = [ColorUtils lightGreen];
+    self.rightUpOne.textColor = [ColorUtils mainGreen];
     self.leftBottomOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-90));
-    self.leftBottomOne.textColor = [ColorUtils lightGreen];
+    self.leftBottomOne.textColor = [ColorUtils mainGreen];
     self.rightBottomOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
-    self.rightBottomOne.textColor = [ColorUtils lightGreen];
+    self.rightBottomOne.textColor = [ColorUtils mainGreen];
     
     // Pan Gesture
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
@@ -53,10 +49,17 @@
 
 - (void)setStaticUI {
     self.backgroundColor = [ColorUtils darkGreen];
+    self.centralLabel.backgroundColor = [ColorUtils mainGreen];
 }
 
 - (void)setMovingUI {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [ColorUtils veryLightGreen];
+    self.centralLabel.backgroundColor = [ColorUtils lightGreen];
+}
+
+- (IBAction)viewTouchedDown:(id)sender {
+    [self setMovingUI];
+    [self.layer pop_removeAllAnimations];
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer
@@ -66,14 +69,11 @@
                                          recognizer.view.center.y + translation.y);
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.superview];
     
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        [self setMovingUI];
-        [self.layer pop_removeAllAnimations];
-    } else if(recognizer.state == UIGestureRecognizerStateEnded) {
+    if(recognizer.state == UIGestureRecognizerStateEnded) {
         CGPoint velocity = [recognizer velocityInView:self.superview];
         POPDecayAnimation *positionAnimation = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPosition];
         positionAnimation.delegate = self;
-        positionAnimation.deceleration = 0.99;
+        positionAnimation.deceleration = 0.992;
         positionAnimation.velocity = [NSValue valueWithCGPoint:velocity];
         [recognizer.view.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
     }
@@ -84,10 +84,10 @@
 - (void)pop_animationDidApply:(POPDecayAnimation *)anim
 {
     CGPoint currentVelocity = [anim.velocity CGPointValue];
-    BOOL flag = self.frame.origin.x <= -20
-                || self.frame.origin.x + self.frame.size.width >= self.superview.frame.size.width + 20
+    BOOL flag = self.frame.origin.x <= -50
+                || self.frame.origin.x + self.frame.size.width >= self.superview.frame.size.width + 50
                 || self.frame.origin.y + self.frame.size.height >= self.superview.frame.size.height + 20
-                || fabs(currentVelocity.y) < 100;
+                || fabs(currentVelocity.y) < 200;
     if (flag) {
         [self.layer pop_removeAllAnimations];
     }
@@ -95,28 +95,37 @@
 
 - (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished {
     if ([anim isKindOfClass:[POPDecayAnimation class]]) {
-        
         CGPoint currentVelocity = [((POPDecayAnimation *)anim).velocity CGPointValue];
-//        CGPoint velocity = CGPointMake(currentVelocity.x, -currentVelocity.y);
-        POPSpringAnimation *positionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
-//        positionAnimation.velocity = [NSValue valueWithCGPoint:velocity];
         if (self.center.y < 0) {
-            positionAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(currentVelocity.x, currentVelocity.y)];
-            positionAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.center.x, - self.frame.size.height / 2)];
-            positionAnimation.completionBlock = ^void(POPAnimation *anim,BOOL completed) {
-                // Create the transaction
-                [self.delegate createTransactionWithMessage:self.message];
-                [self removeFromSuperview];
-            };
+            CGFloat xDirection = self.center.x + (self.center.x - self.initialCenter.x) / (self.center.y - self.initialCenter.y) * (-self.frame.size.height- self.center.y);
+            [self moveViewToPoint:CGPointMake(xDirection, -self.frame.size.height)
+                         velocity:CGPointMake(currentVelocity.x, -currentVelocity.y)
+                       completion:^void(POPAnimation *anim,BOOL completed) {
+                           // Create the transaction
+                           [self.delegate createTransactionWithCashView:self];
+            }];
         } else {
-            positionAnimation.velocity = [NSValue valueWithCGPoint:CGPointMake(currentVelocity.x, -currentVelocity.y)];
-            positionAnimation.toValue = [NSValue valueWithCGPoint:self.initialCenter];
-            positionAnimation.completionBlock = ^void(POPAnimation *anim,BOOL completed) {
-                [self setStaticUI];
-            };
+            [self moveViewToPoint:self.initialCenter
+                         velocity:CGPointMake(currentVelocity.x, -currentVelocity.y)
+                       completion:^void(POPAnimation *anim,BOOL completed) {
+                           [self setStaticUI];
+            }];
         }
-        [self.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
     }
+}
+
+- (void)moveViewToPoint:(CGPoint)point velocity:(CGPoint)velocity completion:(void(^)(POPAnimation *anim,BOOL completed))completionBlock {
+    POPSpringAnimation *positionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
+    positionAnimation.velocity = [NSValue valueWithCGPoint:velocity];
+    positionAnimation.springBounciness = 10;
+    positionAnimation.toValue = [NSValue valueWithCGPoint:point];
+    positionAnimation.completionBlock = completionBlock;
+    [self.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
+}
+
+- (void)moveViewToCenterAndExecute:(void(^)(POPAnimation *anim,BOOL completed))completionBlock
+{
+    [self moveViewToPoint:self.initialCenter velocity:CGPointMake(100, 100) completion:completionBlock];
 }
 
 @end
