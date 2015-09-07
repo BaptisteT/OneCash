@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 };
 
 // Server
+@property (retain) NSString *caseUsername;
 @property (retain) NSString *pictureURL;
 @property (retain) NSString *firstName;
 @property (retain) NSString *lastName;

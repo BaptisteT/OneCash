@@ -92,7 +92,8 @@
         user.twitterId = twitterUserID;
     }
     if (twitterScreenName && twitterScreenName.length > 0) {
-        [user setUsername:twitterScreenName];
+        user.caseUsername = twitterScreenName;
+        [user setUsername:[user.caseUsername lowercaseString]];
     }
     NSURL *verify = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"];
 
@@ -112,8 +113,10 @@
             }
             
             NSString * username = [result objectForKey:@"screen_name"];
-            if (username.length > 0)
-                [user setUsername:[result objectForKey:@"screen_name"]];
+            if (username.length > 0) {
+                user.caseUsername = [result objectForKey:@"screen_name"];
+                [user setUsername:[user.caseUsername lowercaseString]];
+            }
             
             NSString * names = [result objectForKey:@"name"];
             if (names.length > 0) {
@@ -178,10 +181,32 @@
                                         }
                                     } else {
                                         if (successBlock) {
-                                            successBlock((NSDictionary *)object);
+                                            successBlock();
                                         }
                                     }
                                 }];
+}
+
++ (void)findUsersMatchingStartString:(NSString *)startString
+                            success:(void(^)(NSString *string, NSArray *users))successBlock
+                            failure:(void(^)(NSError *error))failureBlock
+{
+    PFQuery *query = [User query];
+    [query whereKey:@"username" hasPrefix:startString];
+    [query setLimit:10];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (error != nil) {
+            OneLog(ONEAPIMANAGERLOG,@"Failure - findUserMatchingStartString - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        } else {
+            OneLog(ONEAPIMANAGERLOG,@"Success - findUserMatchingStartString - %lu users found",users.count);
+            if (successBlock) {
+                successBlock(startString, users);
+            }
+        }
+    }];
 }
 
 @end

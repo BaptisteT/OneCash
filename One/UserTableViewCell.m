@@ -20,7 +20,7 @@
 
 - (void)setUser:(User *)user {
     _user = user;
-    self.usernameLabel.text = user.username;
+    self.usernameLabel.text = user.caseUsername;
     [user setAvatarInImageView:self.userPicture];
     self.userPicture.layer.cornerRadius = self.userPicture.frame.size.height / 2;
     self.userPicture.clipsToBounds = YES;

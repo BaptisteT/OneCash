@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CashViewDelegateProtocol;
+
 @interface CashView : UIView
+
+@property (weak, nonatomic) id<CashViewDelegateProtocol> delegate;
+
+@end
+
+@protocol CashViewDelegateProtocol
+
+- (void)createTransactionWithMessage:(NSString *)message;
 
 @end

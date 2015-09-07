@@ -14,6 +14,7 @@
 @implementation User
 
 @dynamic pictureURL;
+@dynamic caseUsername;
 @dynamic firstName;
 @dynamic lastName;
 @dynamic twitterId;

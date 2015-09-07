@@ -10,6 +10,7 @@ pod 'MBProgressHUD', '~> 0.9.1'
 pod 'Mixpanel'
 pod 'Parse'
 pod 'ParseTwitterUtils'
+pod 'pop', :git => 'https://github.com/facebook/pop.git'
 
 end
 

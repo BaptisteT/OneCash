@@ -14,6 +14,7 @@
 @dynamic transactionType;
 @dynamic receiver;
 @dynamic transactionAmount;
+@dynamic message;
 
 + (void)load {
     [self registerSubclass];

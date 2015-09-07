@@ -5,6 +5,7 @@
 //  Created by Baptiste Truchot on 9/3/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import "ApiManager.h"
 #import "User.h"
 
 #import "RecipientViewController.h"
@@ -22,6 +23,10 @@
 @property (weak, nonatomic) IBOutlet UIView *textfieldContainer;
 @property (weak, nonatomic) IBOutlet UITextField *recipientTextfield;
 @property (weak, nonatomic) IBOutlet UILabel *toLabel;
+@property (weak, nonatomic) IBOutlet UIView *loadingContainer;
+// Users
+@property (strong, nonatomic) NSString *lastStringSearched;
+@property (strong, nonatomic) NSArray *usersArray;
 
 @end
 
@@ -50,6 +55,7 @@
     [DesignUtils addBottomBorder:self.recipientTextfield borderSize:0.2 color:[UIColor lightGrayColor]];
     [DesignUtils addTopBorder:self.textfieldContainer borderSize:0.5 color:[UIColor lightGrayColor]];
     self.recipientTextfield.textColor = [ColorUtils lightGreen];
+    self.loadingContainer.hidden = YES;
     
     // Table view
     self.recipientsTableView.delegate = self;
@@ -71,6 +77,7 @@
     
     // todo BT
     // load list of already used used users
+    
 
 }
 
@@ -79,7 +86,6 @@
     if (_layoutFlag) {
         _layoutFlag = NO;
         self.textfieldContainer.translatesAutoresizingMaskIntoConstraints = YES;
-//        [self.recipientTextfield becomeFirstResponder];
     }
 }
 
@@ -110,13 +116,13 @@
 #pragma mark - Table view
 // --------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return self.usersArray ? self.usersArray.count : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UserTableViewCell *cell = (UserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"UserCell"];
-    cell.user = [User currentUser];
+    cell.user = (User *)self.usersArray[indexPath.row];
     return cell;
 }
 
@@ -143,8 +149,33 @@
     }
     
     textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    // todo BT
-    // check if a user with this username exists
+    
+    
+    // check username starting with these strings
+    if (textField.text.length > 0) {
+        self.lastStringSearched = textField.text;
+        // Show HUD if not already
+        if (self.loadingContainer.hidden) {
+            self.loadingContainer.hidden = NO;
+            [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils lightGreen] transform:CGAffineTransformMakeScale(0.5, 0.5)];
+        }
+        [ApiManager findUsersMatchingStartString:textField.text
+                                         success:^(NSString *string, NSArray *users) {
+                                             if ([self.lastStringSearched isEqualToString:string]) {
+                                                 self.usersArray = users;
+                                                 [self.recipientsTableView reloadData];
+                                                 
+                                                 // end search indicator
+                                                 if (!self.loadingContainer.hidden) {
+                                                     self.loadingContainer.hidden = YES;
+                                                     [DesignUtils hideProgressHUDForView:self.loadingContainer];
+                                                 }
+                                             }
+                                         } failure:nil];
+    } else {
+        self.usersArray = nil;
+        [self.recipientsTableView reloadData];
+    }
     
     return NO;
 }

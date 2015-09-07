@@ -36,6 +36,7 @@
 // Send
 "balance_button" = "Balance";
 "send_controller_title" = "Tip $1";
+"swipe_to_send" = "Swipe up to send";
 
 // Balance
 "close_button" = "Close";

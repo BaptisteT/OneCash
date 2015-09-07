@@ -9,6 +9,9 @@
 @import Foundation;
 @import UIKit;
 
+#define DEGREES_TO_RADIANS(x) (x)/180.0*M_PI
+#define RADIANS_TO_DEGREES(x) (x)/M_PI*180.0
+
 @interface DesignUtils : NSObject
 
 + (void)addBottomBorder:(UIView *)view borderSize:(float)borderSize color:(UIColor *)color;
@@ -20,5 +23,7 @@
 + (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color;
 
 + (void)hideProgressHUDForView:(UIView *)view;
+
++ (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color transform:(CGAffineTransform)transform;
 
 @end

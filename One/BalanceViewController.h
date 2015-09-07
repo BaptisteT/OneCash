@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BalanceViewController : UIViewController
+@interface BalanceViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

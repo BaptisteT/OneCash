@@ -36,4 +36,8 @@
                         paymentMethod:(PaymentMethod)method
                               success:(void(^)())successBlock
                               failure:(void(^)(NSError *error))failureBlock;
+
++ (void)findUsersMatchingStartString:(NSString *)startString
+                            success:(void(^)(NSString *string, NSArray *users))successBlock
+                            failure:(void(^)(NSError *error))failureBlock;
 @end

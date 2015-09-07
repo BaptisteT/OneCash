@@ -13,6 +13,7 @@ PODS:
   - ParseTwitterUtils (1.8.1):
     - Bolts/Tasks (>= 1.2.0)
     - Parse (~> 1.8.0)
+  - pop (1.0.7)
   - Stripe (5.1.2):
     - Stripe/Core (= 5.1.2)
   - Stripe/Core (5.1.2)
@@ -24,7 +25,17 @@ DEPENDENCIES:
   - Mixpanel
   - Parse
   - ParseTwitterUtils
+  - pop (from `https://github.com/facebook/pop.git`)
   - Stripe
+
+EXTERNAL SOURCES:
+  pop:
+    :git: https://github.com/facebook/pop.git
+
+CHECKOUT OPTIONS:
+  pop:
+    :commit: 4d1a49d0f31274aeae23104ad7be6b62e2abac2d
+    :git: https://github.com/facebook/pop.git
 
 SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
@@ -34,6 +45,7 @@ SPEC CHECKSUMS:
   Mixpanel: f4d71ac2a306e7cda6ad03d4a2be249a0fd7a967
   Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
   ParseTwitterUtils: 80512bea19d3d0950ad04d7300a434f86977feeb
+  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
 
 COCOAPODS: 0.36.0

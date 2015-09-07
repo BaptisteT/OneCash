@@ -46,6 +46,8 @@
 		3CC5FDDC1B9B5A6000514A43 /* BackEndUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDDB1B9B5A6000514A43 /* BackEndUtils.m */; };
 		3CC5FDDF1B9C391600514A43 /* KeyboardUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */; };
 		3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE11B9C47F800514A43 /* CashView.m */; };
+		3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
+		3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */; };
 		BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +127,9 @@
 		3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardUtils.m; sourceTree = "<group>"; };
 		3CC5FDE01B9C47F800514A43 /* CashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashView.h; sourceTree = "<group>"; };
 		3CC5FDE11B9C47F800514A43 /* CashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashView.m; sourceTree = "<group>"; };
+		3CC5FDE31B9CA08600514A43 /* CashView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CashView.xib; sourceTree = "<group>"; };
+		3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewCell.h; sourceTree = "<group>"; };
+		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One.release.xcconfig"; path = "Pods/Target Support Files/Pods-One/Pods-One.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -260,6 +265,9 @@
 				3CC5FDD51B9B524A00514A43 /* UserTableViewCell.m */,
 				3CC5FDE01B9C47F800514A43 /* CashView.h */,
 				3CC5FDE11B9C47F800514A43 /* CashView.m */,
+				3CC5FDE31B9CA08600514A43 /* CashView.xib */,
+				3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */,
+				3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -402,6 +410,7 @@
 				3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */,
 				3C86E1031B8DBA5E005AD52B /* InternalNotifView.xib in Resources */,
 				3C2E03781B8DA18B00D22D48 /* Images.xcassets in Resources */,
+				3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +486,7 @@
 				3CC5FDBD1B98A14F00514A43 /* DesignUtils.m in Sources */,
 				3C86E1091B8DE501005AD52B /* WelcomeViewController.m in Sources */,
 				3CC5FDC61B98A6E100514A43 /* RecipientViewController.m in Sources */,
+				3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */,
 				3CC5FDD01B98C7DE00514A43 /* StripeCardViewController.m in Sources */,
 				3CC5FDB31B98861D00514A43 /* HowToViewController.m in Sources */,
 				3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */,

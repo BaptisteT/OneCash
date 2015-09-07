@@ -46,9 +46,14 @@
 }
 
 + (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color {
+    [DesignUtils showProgressHUDAddedTo:view withColor:color transform:CGAffineTransformIdentity];
+}
+
++ (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color transform:(CGAffineTransform)transform {
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:view];
     hud.color = [UIColor clearColor];
     hud.activityIndicatorColor = color;
+    hud.transform = transform;
     [view addSubview:hud];
     [hud show:YES];
 }

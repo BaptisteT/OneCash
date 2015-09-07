@@ -8,9 +8,15 @@
 
 #import "SettingsViewController.h"
 
+#import "ColorUtils.h"
+
 @interface SettingsViewController ()
 
 @end
+
+// --------------------------------------------
+#pragma mark - Life Cycle
+// --------------------------------------------
 
 @implementation SettingsViewController
 
