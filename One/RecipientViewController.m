@@ -144,7 +144,7 @@
 // --------------------------------------------
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if ([string isEqualToString:@"\n"]) {
+    if ([string isEqualToString:@"\n"] || (textField.text.length == 0 && [string isEqualToString:@" "])) {
         return NO;
     }
     
@@ -159,7 +159,7 @@
             self.loadingContainer.hidden = NO;
             [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils mainGreen] transform:CGAffineTransformMakeScale(0.5, 0.5)];
         }
-        [ApiManager findUsersMatchingStartString:textField.text
+        [ApiManager findUsersMatchingStartString:self.lastStringSearched
                                          success:^(NSString *string, NSArray *users) {
                                              if ([self.lastStringSearched isEqualToString:string]) {
                                                  self.usersArray = users;

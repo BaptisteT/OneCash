@@ -8,7 +8,9 @@
 
 #import "InternalNotifView.h"
 
+#import "ColorUtils.h"
 #import "ConstantUtils.h"
+#import "DesignUtils.h"
 
 @interface InternalNotifView()
 
@@ -35,6 +37,10 @@
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(notifExpired)];
     swipeGesture.direction = UISwipeGestureRecognizerDirectionUp;
     [self addGestureRecognizer:swipeGesture];
+    
+    // IO
+    self.notifLabel.textColor = [ColorUtils mainGreen];
+    [DesignUtils addBottomBorder:self borderSize:1 color:[ColorUtils mainGreen]];
 }
 
 // Navigate to chat

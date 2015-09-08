@@ -5,6 +5,9 @@
 //  Created by Baptiste Truchot on 9/3/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import "Reachability.h"
+
+#import "ApiManager.h"
 #import "User.h"
 
 #import "CardViewController.h"
@@ -12,8 +15,12 @@
 #import "CashView.h"
 
 #import "ColorUtils.h"
+#import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
+#import "OneLogger.h"   
+
+#define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
 @interface SendCashViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *balanceButton;
@@ -25,6 +32,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectedUserLabel;
 @property (weak, nonatomic) IBOutlet UILabel *swipeTutoLabel;
 
+@property (nonatomic) NSInteger ongoingTransactionsCount;
+
+@property (strong, nonatomic) Reachability *internetReachableFoo;
+
 @end
 
 @implementation SendCashViewController
@@ -34,6 +45,9 @@
 // --------------------------------------------
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Init
+    self.ongoingTransactionsCount = 0;
     
     // Wording
     [self.balanceButton setTitle:NSLocalizedString(@"balance_button", nil) forState:UIControlStateNormal];
@@ -50,6 +64,18 @@
     // Cash view
     [self addNewCashSubview];
     [self addNewCashSubview];
+    
+    // Load server data
+    [self loadLatestTransactions];
+    
+    // Internet connection
+    [self testInternetConnection];
+    
+    // Callback
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(willBecomeActiveCallback)
+                                                 name: UIApplicationWillEnterForegroundNotification
+                                               object: nil];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -66,6 +92,10 @@
     }
 }
 
+- (void)willBecomeActiveCallback {
+    // load new transactions
+    [self loadLatestTransactions];
+}
 // --------------------------------------------
 #pragma mark - Actions
 // --------------------------------------------
@@ -76,6 +106,14 @@
 
 - (IBAction)pickRecipientButtonClicked:(id)sender {
     [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
+}
+
+// --------------------------------------------
+#pragma mark - Transactions
+// --------------------------------------------
+- (void)loadLatestTransactions {
+    // load transactions (should fetch the user auto
+    [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
 }
 
 // --------------------------------------------
@@ -93,8 +131,8 @@
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"no_receiver_title", nil) andMessage:NSLocalizedString(@"no_receiver_message", nil)];
         }];
          
-     // No card
-     } else if ([User currentUser].paymentMethod == kPaymentMethodNone) {
+     // No cash, no card
+     } else if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodNone) {
          [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
              // todo BT test this flow
              // send back to payment controller
@@ -109,26 +147,40 @@
      } else if (self.receiver == [User currentUser]) {
          [self addNewCashSubview];
          [cashView removeFromSuperview];
-     
-     // Apple pay
+
+     // Create transaction
      } else {
          
-         if ([User currentUser].paymentMethod == kPaymentMethodApplePay) {
+         // Apple pay
+         if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
              // todo BT
              // ask user & get token
              // get token
          }
          
          [self addNewCashSubview];
-         // todo BT
-         // pay
-         // in case of success, remove from superview. Else show it again ?
-         [cashView removeFromSuperview];
+         
+         self.ongoingTransactionsCount ++;
+         [ApiManager createPaymentTransactionWithReceiver:self.receiver
+                                                  message:cashView.message
+                                                  success:^{
+                                                      [ApiManager fetchCurrentUserAndExecuteSuccess:^{
+                                                          self.ongoingTransactionsCount --;
+                                                      } failure:^(NSError *error) {
+                                                          self.ongoingTransactionsCount --;
+                                                      }];
+                                                      [cashView removeFromSuperview];
+                                                  } failure:^(NSError *error) {
+                                                      self.ongoingTransactionsCount --;
+                                                      [cashView moveViewToCenterAndExecute:nil];
+                                                      // todo BT
+                                                      // indicate cause of error ?
+                                                  }];
      }
 }
 
-- (void)sendingFailAnim:(CashView *)cashView {
-    
+- (BOOL)userExpectedBalanceIsPositive {
+    return [User currentUser].balance + self.ongoingTransactionsCount > 0;
 }
 
 - (void)addNewCashSubview {
@@ -167,8 +219,29 @@
 }
 
 // --------------------------------------------
-#pragma mark - UI
+#pragma mark - Misc
 // --------------------------------------------
+
+// Checks if we have an internet connection or not
+- (void)testInternetConnection
+{
+    self.internetReachableFoo = [Reachability reachabilityForInternetConnection];
+    // Internet is reachable
+    self.internetReachableFoo.reachableBlock = ^(Reachability*reach) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            OneLog(LOCALLOGENABLED,@"Yayyy, we have the interwebs!");
+        });
+    };
+    
+    // Internet is not reachable
+    self.internetReachableFoo.unreachableBlock = ^(Reachability*reach) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            OneLog(LOCALLOGENABLED,@"Someone broke the internet :(");
+        });
+    };
+    [self.internetReachableFoo startNotifier];
+}
+
 // Set status bar color to white
 -(UIStatusBarStyle)preferredStatusBarStyle
 {

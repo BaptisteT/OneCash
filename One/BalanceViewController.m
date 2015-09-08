@@ -67,16 +67,17 @@
     self.rightDownOne.textColor = [ColorUtils darkGreen];
     self.rightDownOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
     self.leftDownOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
+    self.balanceLabel.backgroundColor = [ColorUtils darkGreen];
     self.balanceLabel.clipsToBounds = YES;
     self.balanceLabel.adjustsFontSizeToFitWidth = YES;
     self.balanceLabel.minimumScaleFactor = 0.1;
     
     // Balance
-    NSString *string = [NSString stringWithFormat:@"$%lu",[User currentUser].balance];
+    NSString *string = [NSString stringWithFormat:@"$%ld",[User currentUser].balance];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
     UIFont *font = self.balanceLabel.font;
     font = [font fontWithSize:font.pointSize / 2];
-    [attr addAttributes:@{NSForegroundColorAttributeName : [ColorUtils mainGreen], NSFontAttributeName: font, NSBaselineOffsetAttributeName: @10.} range:NSMakeRange(0,1)];
+    [attr addAttributes:@{NSFontAttributeName: font, NSBaselineOffsetAttributeName: @10.} range:NSMakeRange(0,1)];
     self.balanceLabel.attributedText = attr;
     
     // Table view

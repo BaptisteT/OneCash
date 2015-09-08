@@ -48,30 +48,38 @@
 + (void)logInWithTwitterAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock
 {
-    [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
-        if (!user) {
-            OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
-            if (failureBlock) {
-                failureBlock(error);
-            }
-        } else {
-            OneLog(ONEAPIMANAGERLOG,@"Success - Twitter login - isNew: %d",user.isNew);
-            
-            // tracking
-            [TrackingUtils identifyUser:(User *)user];
-            
-            // Get twitter info
-            [ApiManager getOtherTwitterInfoAndExecuteSuccess:^{
-                if (successBlock){
-                    successBlock();
-                }
-            } failure:^(NSError *error) {
+    @try {
+        [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
+            if (!user) {
+                OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
                 if (failureBlock) {
                     failureBlock(error);
                 }
-            }];
+            } else {
+                OneLog(ONEAPIMANAGERLOG,@"Success - Twitter login - isNew: %d",user.isNew);
+                
+                // tracking
+                [TrackingUtils identifyUser:(User *)user];
+                
+                // Get twitter info
+                [ApiManager getOtherTwitterInfoAndExecuteSuccess:^{
+                    if (successBlock){
+                        successBlock();
+                    }
+                } failure:^(NSError *error) {
+                    if (failureBlock) {
+                        failureBlock(error);
+                    }
+                }];
+            }
+        }];
+    }
+    @catch (NSException * e) {
+        OneLog(ONEAPIMANAGERLOG,@"Exception: %@", e);
+        if (failureBlock) {
+            failureBlock(nil);
         }
-    }];
+    }
 }
 
 + (void)getOtherTwitterInfoAndExecuteSuccess:(void(^)())successBlock
@@ -225,6 +233,40 @@
             }
         }
     }];
+}
+
+// --------------------------------------------
+#pragma mark - Transactions
+// --------------------------------------------
++ (void)createPaymentTransactionWithReceiver:(User *)receiver
+                                     message:(NSString *)message
+                                     success:(void(^)())successBlock
+                                     failure:(void(^)(NSError *error))failureBlock
+{
+    NSDictionary *params = message ? @{ @"receiverId" : receiver.objectId, @"message" : message } : @{ @"receiverId" : receiver.objectId};
+    [PFCloud callFunctionInBackground:@"createPaymentTransaction"
+                       withParameters:params
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createPaymentTransaction - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
+
++ (void)getTransactionsFromDate:(NSDate *)fromDate
+                         toDate:(NSDate *)toDate
+                        success:(void(^)())successBlock
+                        failure:(void(^)(NSError *error))failureBlock
+{
+    // get transactions
+    // pin the 100 latest ?
 }
 
 @end

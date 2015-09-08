@@ -5,7 +5,9 @@
 //  Created by Baptiste Truchot on 8/26/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import <AudioToolbox/AudioServices.h>
 #import <Fabric/Fabric.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Mixpanel.h>
 #import <Parse/Parse.h>
@@ -104,19 +106,18 @@
             // todo BT notif opening
         }
 
-        // todo BT sign up redirection
         // Navigate
         WelcomeViewController* welcomeViewController = (WelcomeViewController *)  self.window.rootViewController.childViewControllers[0];
         [welcomeViewController performSegueWithIdentifier:@"Send From Welcome" sender:nil];
     }
     
-    return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                    didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     self.sessionStartDate = [NSDate date];
-    
-//    [FBSDKAppEvents activateApp];
+    [FBSDKAppEvents activateApp];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -143,20 +144,29 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     UIApplicationState state = [application applicationState];
-    if ([[userInfo valueForKey:@"notif_type"] isEqualToString:@"xxxxxx"]) {
+    if ([[userInfo valueForKey:@"notif_type"] isEqualToString:@"new_transaction"]) {
         if (state == UIApplicationStateActive) {
+            // internal notif
+            [self displayInternalNotif:userInfo];
+            
             // todo BT
+            // reload transactions & send a notif to balance to refresh table view !
+            // no need for fetch user
+            [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
+            
+            // Vibrate
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         }
     }
 }
 
-//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-//{
-//    return [[FBSDKApplicationDelegate sharedInstance] application:application
-//                                                          openURL:url
-//                                                sourceApplication:sourceApplication
-//                                                       annotation:annotation];
-//}
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
+}
 
 // --------------------------------------------
 #pragma mark - Internal notif

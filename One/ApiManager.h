@@ -43,4 +43,14 @@
 
 + (void)fetchCurrentUserAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
+
+// --------------------------------------------
+#pragma mark - Transactions
+// --------------------------------------------
++ (void)createPaymentTransactionWithReceiver:(User *)receiver
+                                     message:(NSString *)message
+                                     success:(void(^)())successBlock
+                                     failure:(void(^)(NSError *error))failureBlock;
+
+
 @end

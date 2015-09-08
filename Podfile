@@ -8,8 +8,9 @@ pod 'Fabric'
 pod 'Crashlytics'
 pod 'MBProgressHUD', '~> 0.9.1'
 pod 'Mixpanel'
-pod 'Parse'
 pod 'ParseTwitterUtils'
+pod 'Parse'
+pod 'Facebook-iOS-SDK'
 pod 'pop', :git => 'https://github.com/facebook/pop.git'
 
 end

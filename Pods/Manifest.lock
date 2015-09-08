@@ -1,18 +1,39 @@
 PODS:
-  - Bolts/Tasks (1.2.0)
-  - Crashlytics (3.1.1)
-  - Fabric (1.4.0):
-    - Fabric/Base (= 1.4.0)
-  - Fabric/Base (1.4.0)
+  - Bolts (1.2.1):
+    - Bolts/AppLinks (= 1.2.1)
+    - Bolts/Tasks (= 1.2.1)
+  - Bolts/AppLinks (1.2.1):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.2.1)
+  - Crashlytics (3.2.0)
+  - Fabric (1.4.1):
+    - Fabric/Base (= 1.4.1)
+  - Fabric/Base (1.4.1)
+  - Facebook-iOS-SDK (4.1.0):
+    - Bolts (~> 1.1)
+    - Facebook-iOS-SDK/CoreKit (= 4.1.0)
+    - Facebook-iOS-SDK/LoginKit (= 4.1.0)
+    - Facebook-iOS-SDK/ShareKit (= 4.1.0)
+  - Facebook-iOS-SDK/CoreKit (4.1.0):
+    - Bolts (~> 1.1)
+    - Facebook-iOS-SDK/CoreKit/no-arc (= 4.1.0)
+  - Facebook-iOS-SDK/CoreKit/no-arc (4.1.0):
+    - Bolts (~> 1.1)
+  - Facebook-iOS-SDK/LoginKit (4.1.0):
+    - Bolts (~> 1.1)
+    - Facebook-iOS-SDK/CoreKit
+  - Facebook-iOS-SDK/ShareKit (4.1.0):
+    - Bolts (~> 1.1)
+    - Facebook-iOS-SDK/CoreKit
   - MBProgressHUD (0.9.1)
-  - Mixpanel (2.8.2):
-    - Mixpanel/Mixpanel (= 2.8.2)
-  - Mixpanel/Mixpanel (2.8.2)
-  - Parse (1.8.1):
-    - Bolts/Tasks (>= 1.2.0)
-  - ParseTwitterUtils (1.8.1):
-    - Bolts/Tasks (>= 1.2.0)
-    - Parse (~> 1.8.0)
+  - Mixpanel (2.8.3):
+    - Mixpanel/Mixpanel (= 2.8.3)
+  - Mixpanel/Mixpanel (2.8.3)
+  - Parse (1.8.2):
+    - Bolts/Tasks (>= 1.2.1)
+  - ParseTwitterUtils (1.8.2):
+    - Bolts/Tasks (>= 1.2.1)
+    - Parse (~> 1.8.2)
   - pop (1.0.7)
   - Stripe (5.1.2):
     - Stripe/Core (= 5.1.2)
@@ -21,6 +42,7 @@ PODS:
 DEPENDENCIES:
   - Crashlytics
   - Fabric
+  - Facebook-iOS-SDK
   - MBProgressHUD (~> 0.9.1)
   - Mixpanel
   - Parse
@@ -38,13 +60,14 @@ CHECKOUT OPTIONS:
     :git: https://github.com/facebook/pop.git
 
 SPEC CHECKSUMS:
-  Bolts: d176cb1e0012175589e389a9db49b85e27787576
-  Crashlytics: 39ab395565bc03c29cdecd2b9d103ebf30930c10
-  Fabric: 6d1d1c1eaf7ebc76fc3307e2c0259456411baf26
+  Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
+  Crashlytics: a29e4f820aa401482b26043dc5d78adf08ac7573
+  Fabric: 4f718eeca4c02c7d6f6f4e5f0e5f87c63aa38458
+  Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  Mixpanel: f4d71ac2a306e7cda6ad03d4a2be249a0fd7a967
-  Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
-  ParseTwitterUtils: 80512bea19d3d0950ad04d7300a434f86977feeb
+  Mixpanel: fd52e097ae0d27295d0595b2261c60b94d191fda
+  Parse: 188601c6cd91fae55906badd283b513104a3a8c9
+  ParseTwitterUtils: af5c073b0750519b9efb33c3069a161cdeafe433
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
 

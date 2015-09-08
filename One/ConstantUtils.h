@@ -28,8 +28,8 @@ static NSString * const kStripeTestPublishableKey = @"pk_test_vJ757snlktvqXQsaVU
 static NSString * const kStripeLivePublishableKey = @"pk_live_uyualJWipSrd8tNzfGQDw0Ne";
 
 // Twitter
-static NSString * const kTwitterConsumerKey = @"VCkXZcl0CyQbU1EQIJJBMYcBx";
-static NSString * const kTwitterConsumerSecret = @"xrejgXmle9yqsrUYNXtn6wsqpN1spBmRSEjQZ0hVIIV1KrVPPJ";
+static NSString * const kTwitterConsumerKey = @"x0mcI75RVimsVZahtSNbhEZWn";
+static NSString * const kTwitterConsumerSecret = @"silyysZvTNaNLJxLk1IlJblEh0NhCUPBUXkArgg7of1baAE36u";
 
 // Apple
 static NSString * const kApplePayMerchantId = @"merchant.cash.one";

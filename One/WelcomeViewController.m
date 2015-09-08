@@ -55,10 +55,13 @@
     [ApiManager logInWithTwitterAndExecuteSuccess:^() {
         dispatch_async(dispatch_get_main_queue(), ^{
             [DesignUtils hideProgressHUDForView:self.view];
-            
-            // todo BT
-            // segue depending of email ?? + credit card
-            [self performSegueWithIdentifier:@"Email From Welcome" sender:nil];
+            // Rediect to send if email already in / email otherwise
+            NSString *email = [User currentUser].email;
+            if (email && email.length > 0) {
+                [self performSegueWithIdentifier:@"Send From Welcome" sender:nil];
+            } else {
+               [self performSegueWithIdentifier:@"Email From Welcome" sender:nil];
+            }
         });
     } failure:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
