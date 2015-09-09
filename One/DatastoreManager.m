@@ -49,7 +49,7 @@
 
 + (NSDate *)getLatestTransactionsRetrievalDate {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    return [prefs objectForKey:LATEST_TRANSACTIONS_RETRIEVAL];
+    return [prefs objectForKey:LATEST_TRANSACTIONS_RETRIEVAL] ? [prefs objectForKey:LATEST_TRANSACTIONS_RETRIEVAL] : [NSDate dateWithTimeIntervalSince1970:0];
 }
 
 + (void)saveLatestTransactionsRetrievalDate:(NSDate *)date {

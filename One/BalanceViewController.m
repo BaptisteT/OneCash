@@ -81,15 +81,9 @@
     self.balanceLabel.minimumScaleFactor = 0.1;
     
     // Balance
-    NSString *string = [NSString stringWithFormat:@"$%ld",[User currentUser].balance];
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
-    UIFont *font = self.balanceLabel.font;
-    font = [font fontWithSize:font.pointSize / 2];
-    [attr addAttributes:@{NSFontAttributeName: font, NSBaselineOffsetAttributeName: @10.} range:NSMakeRange(0,1)];
-    self.balanceLabel.attributedText = attr;
+    [self setBalance];
     
     // Table view
-    [DesignUtils addTopBorder:self.transactionsTableView borderSize:0.5 color:[UIColor lightGrayColor]];
     self.transactionsTableView.delegate = self;
     self.transactionsTableView.dataSource = self;
     self.transactionsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -121,9 +115,13 @@
 // --------------------------------------------
 - (void)loadLatestTransactionsLocally {
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
+        // relaod transactions
         [self scrollToTop];
         self.transactions = [NSMutableArray arrayWithArray:transactions];
         [self.transactionsTableView reloadData];
+        
+        // reset balance
+        [self setBalance];
     } failure:nil];
 }
 
@@ -144,6 +142,15 @@
                                   }];
 }
 
+- (void)setBalance {
+    NSString *string = [NSString stringWithFormat:@"$%ld",[User currentUser].balance];
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+    UIFont *font = self.balanceLabel.font;
+    font = [font fontWithSize:14];
+    [attr addAttributes:@{NSFontAttributeName: font, NSBaselineOffsetAttributeName: @10.} range:NSMakeRange(0,1)];
+    self.balanceLabel.attributedText = attr;
+}
+
 
 // --------------------------------------------
 #pragma mark - Table view
@@ -154,12 +161,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TransactionTableViewCell *cell = (TransactionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"TransactionCell"];
+    Transaction *transaction = (Transaction *)self.transactions[indexPath.row];
+    NSString *cellIdentifier;
+    if (transaction.sender == [User currentUser]) {
+        cellIdentifier = @"TransactionSentCell";
+    } else {
+        cellIdentifier = @"TransactionReceivedCell";
+    }
+    TransactionTableViewCell *cell = (TransactionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    [cell initWithTransaction:(Transaction *)self.transactions[indexPath.row]];
+    [cell layoutIfNeeded];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60;
+    return 80;
 }
 
 - (void)scrollToTop {

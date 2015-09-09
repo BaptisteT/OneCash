@@ -6,6 +6,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.2.1)
   - Crashlytics (3.2.0)
+  - DateTools (1.7.0)
   - Fabric (1.4.1):
     - Fabric/Base (= 1.4.1)
   - Fabric/Base (1.4.1)
@@ -35,6 +36,7 @@ PODS:
 
 DEPENDENCIES:
   - Crashlytics
+  - DateTools
   - Fabric
   - FBSDKCoreKit
   - MBProgressHUD (~> 0.9.1)
@@ -57,6 +59,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
   Crashlytics: a29e4f820aa401482b26043dc5d78adf08ac7573
+  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: 4f718eeca4c02c7d6f6f4e5f0e5f87c63aa38458
   FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad

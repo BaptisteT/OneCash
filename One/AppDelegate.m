@@ -149,10 +149,10 @@
             // internal notif
             [self displayInternalNotif:userInfo];
             
-            // todo BT
-            // reload transactions & send a notif to balance to refresh table view !
-            // no need for fetch user
-            [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
+            // load latest transactions
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"new_transaction"
+                                                                object:nil
+                                                              userInfo:nil];
             
             // Vibrate
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);

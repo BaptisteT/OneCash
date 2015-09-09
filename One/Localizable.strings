@@ -50,6 +50,7 @@
 "settings_button" = "Settings";
 "balance_title" = "Your balance";
 "cashout_button" = "Cashout";
+"cashout_string" = "Cashout";
 "history_label" = "Your history";
 
 // Recipients

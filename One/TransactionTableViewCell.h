@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class Transaction;
+
 @interface TransactionTableViewCell : UITableViewCell
+
+- (void)initWithTransaction:(Transaction *)transaction;
 
 @end

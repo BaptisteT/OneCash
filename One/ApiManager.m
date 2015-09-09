@@ -281,8 +281,8 @@
     [query includeKey:@"receiver"];
     [query orderByDescending:@"createdAt"];
     if (isStartDate) {
-        [query whereKey:@"createdAt" greaterThan:date];
-        [query setLimit:1000]; // everything above from
+        [query whereKey:@"createdAt" greaterThanOrEqualTo:date];
+        [query setLimit:200]; // everything above from
     } else {
         [query whereKey:@"createdAt" lessThan:date];
         [query setLimit:20];

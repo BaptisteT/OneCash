@@ -78,6 +78,10 @@
                                              selector: @selector(willBecomeActiveCallback)
                                                  name: UIApplicationWillEnterForegroundNotification
                                                object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadLatestTransactions)
+                                                 name:@"new_transaction"
+                                               object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
