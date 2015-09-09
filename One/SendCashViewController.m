@@ -8,6 +8,7 @@
 #import "Reachability.h"
 
 #import "ApiManager.h"
+#import "DatastoreManager.h"
 #import "User.h"
 
 #import "CardViewController.h"
@@ -31,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *toLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedUserLabel;
 @property (weak, nonatomic) IBOutlet UILabel *swipeTutoLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *tutoArrow;
 
 @property (nonatomic) NSInteger ongoingTransactionsCount;
 
@@ -112,8 +114,17 @@
 #pragma mark - Transactions
 // --------------------------------------------
 - (void)loadLatestTransactions {
-    // load transactions (should fetch the user auto
-    [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
+    [ApiManager getTransactionsAroundDate:[DatastoreManager getLatestTransactionsRetrievalDate]
+                                  isStart:YES
+                                  success:^(NSArray *transactions) {
+                                      // send notif to balance controller for refresh
+                                      [[NSNotificationCenter defaultCenter] postNotificationName: @"refresh_transactions_table"
+                                                                                          object:nil
+                                                                                        userInfo:nil];
+                                      // todo BT
+                                      // badge ?
+                                  }
+                                  failure:nil];
 }
 
 // --------------------------------------------
@@ -177,6 +188,13 @@
                                                       // indicate cause of error ?
                                                   }];
      }
+}
+
+- (void)adaptUIToCashViewState:(BOOL)isMoving {
+    self.balanceButton.hidden = isMoving;
+    self.titleLabel.hidden = isMoving;
+    self.swipeTutoLabel.hidden = isMoving;
+    self.tutoArrow.hidden = isMoving;
 }
 
 - (BOOL)userExpectedBalanceIsPositive {

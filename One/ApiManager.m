@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 
-#import "ApiManager.h"
 #import <ParseTwitterUtils/ParseTwitterUtils.h>
+
+#import "ApiManager.h"
+#import "DatastoreManager.h"
+#import "Transaction.h"
 #import "User.h"
 
 #import "ConstantUtils.h"
@@ -246,13 +249,15 @@
     NSDictionary *params = message ? @{ @"receiverId" : receiver.objectId, @"message" : message } : @{ @"receiverId" : receiver.objectId};
     [PFCloud callFunctionInBackground:@"createPaymentTransaction"
                        withParameters:params
-                                block:^(id object, NSError *error) {
+                                block:^(Transaction *object, NSError *error) {
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - createPaymentTransaction - %@",error.description);
                                         if (failureBlock) {
                                             failureBlock(error);
                                         }
                                     } else {
+                                        // pin transaction
+                                        [object pinInBackgroundWithName:kParseTransactionsName];
                                         if (successBlock) {
                                             successBlock();
                                         }
@@ -260,13 +265,59 @@
                                 }];
 }
 
-+ (void)getTransactionsFromDate:(NSDate *)fromDate
-                         toDate:(NSDate *)toDate
-                        success:(void(^)())successBlock
-                        failure:(void(^)(NSError *error))failureBlock
+// Get transactions (either all after date, or 20)
++ (void)getTransactionsAroundDate:(NSDate *)date
+                          isStart:(BOOL)isStartDate
+                          success:(void(^)(NSArray *transactions))successBlock
+                          failure:(void(^)(NSError *error))failureBlock
 {
-    // get transactions
-    // pin the 100 latest ?
+    PFQuery *receiverQuery = [PFQuery queryWithClassName:NSStringFromClass([Transaction class])];
+    [receiverQuery whereKey:@"sender" equalTo:[User currentUser]];
+    PFQuery *senderQuery = [PFQuery queryWithClassName:NSStringFromClass([Transaction class])];
+    [senderQuery whereKey:@"receiver" equalTo:[User currentUser]];
+    
+    PFQuery *query = [PFQuery orQueryWithSubqueries:@[receiverQuery, senderQuery]];
+    [query includeKey:@"sender"];
+    [query includeKey:@"receiver"];
+    [query orderByDescending:@"createdAt"];
+    if (isStartDate) {
+        [query whereKey:@"createdAt" greaterThan:date];
+        [query setLimit:1000]; // everything above from
+    } else {
+        [query whereKey:@"createdAt" lessThan:date];
+        [query setLimit:20];
+    }
+    [query findObjectsInBackgroundWithBlock:^(NSArray *transactions, NSError *error) {
+        if (error != nil) {
+            OneLog(ONEAPIMANAGERLOG,@"Failure - getTransactionsFromDate - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        } else {
+            OneLog(ONEAPIMANAGERLOG,@"Success - getTransactionsFromDate - %lu found",transactions.count);
+            // pin transactions (lastest ONLY !)
+            if (isStartDate) {
+                [DatastoreManager saveLatestTransactionsRetrievalDate:[NSDate date]];
+                [PFObject pinAllInBackground:transactions withName:kParseTransactionsName];
+            }
+            if (successBlock) {
+                successBlock(transactions);
+            }
+        }
+    }];
+}
+
+// --------------------------------------------
+#pragma mark - Installation
+// --------------------------------------------
+
++ (void)updateBadge:(NSInteger)count {
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    if (!currentInstallation.objectId || currentInstallation.badge != count) {
+        OneLog(ONEAPIMANAGERLOG,@"Update Badge");
+        currentInstallation.badge = count;
+        [currentInstallation saveEventually];
+    }
 }
 
 @end

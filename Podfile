@@ -10,8 +10,9 @@ pod 'MBProgressHUD', '~> 0.9.1'
 pod 'Mixpanel'
 pod 'ParseTwitterUtils'
 pod 'Parse'
-pod 'Facebook-iOS-SDK'
+pod 'FBSDKCoreKit'
 pod 'pop', :git => 'https://github.com/facebook/pop.git'
+pod 'SVPullToRefresh'
 
 end
 

@@ -8,7 +8,11 @@
 #import "CashView.h"
 
 #import "ColorUtils.h"
+#import "ConstantUtils.h"
 #import "DesignUtils.h"
+#import "OneLogger.h"
+
+#define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
 @interface CashView()
 @property (weak, nonatomic) IBOutlet UILabel *centralLabel;
@@ -47,6 +51,9 @@
     [self addGestureRecognizer:recognizer];
 }
 
+// --------------------------------------------
+#pragma mark - UI
+// --------------------------------------------
 - (void)setStaticUI {
     self.backgroundColor = [ColorUtils darkGreen];
     self.centralLabel.backgroundColor = [ColorUtils mainGreen];
@@ -55,11 +62,24 @@
 - (void)setMovingUI {
     self.backgroundColor = [ColorUtils veryLightGreen];
     self.centralLabel.backgroundColor = [ColorUtils lightGreen];
+    [self.delegate adaptUIToCashViewState:YES];
+}
+
+// --------------------------------------------
+#pragma mark - Actions
+// --------------------------------------------
+- (IBAction)viewTouchedUp:(id)sender {
+    if (CGPointEqualToPoint(self.initialCenter, self.center)) {
+        [self setStaticUI];
+        [self.delegate adaptUIToCashViewState:NO];
+    }
 }
 
 - (IBAction)viewTouchedDown:(id)sender {
     [self setMovingUI];
-    [self.layer pop_removeAllAnimations];
+    if (CGPointEqualToPoint(self.center, self.initialCenter)) {
+        [self.layer pop_removeAllAnimations];
+    }
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer
@@ -68,8 +88,11 @@
     recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
                                          recognizer.view.center.y + translation.y);
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.superview];
-    
-    if(recognizer.state == UIGestureRecognizerStateEnded) {
+
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [self setMovingUI];
+    }
+    if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateFailed) {
         CGPoint velocity = [recognizer velocityInView:self.superview];
         POPDecayAnimation *positionAnimation = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPosition];
         positionAnimation.delegate = self;
@@ -79,7 +102,10 @@
     }
 }
 
+
+// --------------------------------------------
 #pragma mark - POPAnimationDelegate
+// --------------------------------------------
 
 - (void)pop_animationDidApply:(POPDecayAnimation *)anim
 {
@@ -95,21 +121,21 @@
 }
 
 - (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished {
+    OneLog(LOCALLOGENABLED,@"anim did stop");
     if ([anim isKindOfClass:[POPDecayAnimation class]]) {
-        CGPoint currentVelocity = [((POPDecayAnimation *)anim).velocity CGPointValue];
         if (self.center.y < 0) {
             CGFloat xDirection = self.center.x + (self.center.x - self.initialCenter.x) / (self.center.y - self.initialCenter.y) * (-self.frame.size.height- self.center.y);
             [self moveViewToPoint:CGPointMake(xDirection, -self.frame.size.height)
-                         velocity:CGPointMake(currentVelocity.x, -currentVelocity.y)
+                         velocity:CGPointMake(100, 100)
                        completion:^void(POPAnimation *anim,BOOL completed) {
                            // Create the transaction
                            [self.delegate createTransactionWithCashView:self];
             }];
+            [self.delegate adaptUIToCashViewState:NO];
         } else {
-            [self moveViewToPoint:self.initialCenter
-                         velocity:CGPointMake(currentVelocity.x, -currentVelocity.y)
-                       completion:^void(POPAnimation *anim,BOOL completed) {
-                           [self setStaticUI];
+            [self moveViewToCenterAndExecute:^void(POPAnimation *anim,BOOL completed) {
+                [self.delegate adaptUIToCashViewState:NO];
+                [self setStaticUI];
             }];
         }
     }
@@ -126,7 +152,13 @@
 
 - (void)moveViewToCenterAndExecute:(void(^)(POPAnimation *anim,BOOL completed))completionBlock
 {
-    [self moveViewToPoint:self.initialCenter velocity:CGPointMake(100, 100) completion:completionBlock];
+    OneLog(LOCALLOGENABLED,@"Come back to center");
+    [self moveViewToPoint:self.initialCenter velocity:CGPointMake(100, 100) completion:^void(POPAnimation *anim,BOOL completed) {
+        [self setStaticUI];
+        if (completionBlock) {
+            completionBlock(anim, completed);
+        }
+    }];
 }
 
 @end

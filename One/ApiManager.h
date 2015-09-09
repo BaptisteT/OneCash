@@ -52,5 +52,15 @@
                                      success:(void(^)())successBlock
                                      failure:(void(^)(NSError *error))failureBlock;
 
++ (void)getTransactionsAroundDate:(NSDate *)date
+                          isStart:(BOOL)isStartDate
+                          success:(void(^)(NSArray *transactions))successBlock
+                          failure:(void(^)(NSError *error))failureBlock;
+
+// --------------------------------------------
+#pragma mark - Installation
+// --------------------------------------------
+
++ (void)updateBadge:(NSInteger)count;
 
 @end

@@ -202,8 +202,6 @@
 			children = (
 				3CC5FDCD1B98C5B600514A43 /* One.entitlements */,
 				3C2E03901B8DA1BF00D22D48 /* Ressources */,
-				3CC5FDD11B99D73100514A43 /* PushNoAnimationSegue.h */,
-				3CC5FDD21B99D73100514A43 /* PushNoAnimationSegue.m */,
 				3C2E03911B8DA1D100D22D48 /* Backend */,
 				3CC5FD9D1B98834400514A43 /* Categories */,
 				3C2E03921B8DA1D800D22D48 /* Utils */,
@@ -226,10 +224,12 @@
 		3C2E03901B8DA1BF00D22D48 /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
-				3C2E03671B8DA18B00D22D48 /* Supporting Files */,
 				3C2E03741B8DA18B00D22D48 /* Main.storyboard */,
 				3C2E03771B8DA18B00D22D48 /* Images.xcassets */,
 				3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */,
+				3CC5FDD11B99D73100514A43 /* PushNoAnimationSegue.h */,
+				3CC5FDD21B99D73100514A43 /* PushNoAnimationSegue.m */,
+				3C2E03671B8DA18B00D22D48 /* Supporting Files */,
 			);
 			name = Ressources;
 			sourceTree = "<group>";
@@ -634,6 +634,7 @@
 			baseConfigurationReference = 1F0138CD4900B04DB2B1B667 /* Pods-One.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -650,6 +651,7 @@
 			baseConfigurationReference = F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

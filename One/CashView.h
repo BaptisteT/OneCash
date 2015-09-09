@@ -22,5 +22,5 @@
 @protocol CashViewDelegateProtocol
 
 - (void)createTransactionWithCashView:(CashView *)cashView;
-
+- (void)adaptUIToCashViewState:(BOOL)isMoving;
 @end

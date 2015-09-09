@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-One-Facebook-iOS-SDK.xcscheme</key>
+		<key>Pods-One-FBSDKCoreKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-One-SVPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-One-Stripe.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,47 +57,52 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0A2845C381EFB07D8448DCDF</key>
+		<key>215AE9334C5765722CA4A337</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1B73112E7859BF7D8BB41DB3</key>
+		<key>2A640C6A330D322F9C9F6990</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6B02366A3C5ED9C422C3DBC7</key>
+		<key>3401A3BB37FCE5898E3335EB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>82606F8D6976252D096409B8</key>
+		<key>3982C5AC2A585BAF9935CA09</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>87BE6785AA9A9DE98D65C86D</key>
+		<key>6486C9A7946BC5E56E11F1D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>91DC454D0CBFDBDE8F451A23</key>
+		<key>64D135F5DC39C8D459C95CEF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C215E3DA80B8117E0BE2F99D</key>
+		<key>64E4539339A860DA7ED3F9A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C3CF03F8EE98D3B0ACE11735</key>
+		<key>B0EE652DAAE0224F3BBF7CBB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F2A8023DE0F40104654A1F8A</key>
+		<key>B74F9EFC95C5D64B0CA6B9C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D6EB800036519769CD2791C3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

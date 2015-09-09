@@ -5,6 +5,11 @@
 //  Created by Baptiste Truchot on 9/3/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import <UIScrollView+SVInfiniteScrolling.h>
+
+#import "ApiManager.h"
+#import "DatastoreManager.h"
+#import "Transaction.h"
 #import "User.h"
 
 #import "BalanceViewController.h"
@@ -20,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UILabel *historyLabel;
 @property (weak, nonatomic) IBOutlet UIButton *cashoutButton;
-@property (weak, nonatomic) IBOutlet UITableView *historyTableView;
+@property (weak, nonatomic) IBOutlet UITableView *transactionsTableView;
 
 @property (weak, nonatomic) IBOutlet UIView *balanceContainer;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
@@ -28,6 +33,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *leftUpOne;
 @property (weak, nonatomic) IBOutlet UILabel *rightUpOne;
 @property (weak, nonatomic) IBOutlet UILabel *rightDownOne;
+
+@property (strong, nonatomic) NSMutableArray *transactions;
 
 @end
 
@@ -45,6 +52,7 @@
     
     // init
     _layoutFlag = YES;
+    self.transactions = [NSMutableArray new];
     
     // Wording
     [self.closeButton setTitle:NSLocalizedString(@"close_button", nil) forState:UIControlStateNormal];
@@ -81,10 +89,25 @@
     self.balanceLabel.attributedText = attr;
     
     // Table view
-    [DesignUtils addTopBorder:self.historyTableView borderSize:0.5 color:[UIColor lightGrayColor]];
-    self.historyTableView.delegate = self;
-    self.historyTableView.dataSource = self;
-    self.historyTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [DesignUtils addTopBorder:self.transactionsTableView borderSize:0.5 color:[UIColor lightGrayColor]];
+    self.transactionsTableView.delegate = self;
+    self.transactionsTableView.dataSource = self;
+    self.transactionsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.transactionsTableView addInfiniteScrollingWithActionHandler:^() {
+        [self loadOlderTransactionsRemotely];
+    }];
+    
+    // Update badge
+    [ApiManager updateBadge:0];
+    
+    // Load transactions
+    [self loadLatestTransactionsLocally];
+    
+    // Notification observer
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadLatestTransactionsLocally)
+                                                 name:@"refresh_transactions_table"
+                                               object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -92,11 +115,41 @@
     self.balanceLabel.layer.cornerRadius = self.balanceLabel.frame.size.height / 2;
 }
 
+
+// --------------------------------------------
+#pragma mark - Transactions
+// --------------------------------------------
+- (void)loadLatestTransactionsLocally {
+    [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
+        [self scrollToTop];
+        self.transactions = [NSMutableArray arrayWithArray:transactions];
+        [self.transactionsTableView reloadData];
+    } failure:nil];
+}
+
+- (void)loadOlderTransactionsRemotely {
+    if (!self.transactions || self.transactions.count == 0) {
+        [self.transactionsTableView.infiniteScrollingView stopAnimating];
+        return;
+    }
+    Transaction *oldest = self.transactions.lastObject;
+    [ApiManager getTransactionsAroundDate:oldest.createdAt
+                                  isStart:NO
+                                  success:^(NSArray *transactions) {
+                                      [self.transactionsTableView.infiniteScrollingView stopAnimating];
+                                      [self.transactions addObjectsFromArray:transactions];
+                                      [self.transactionsTableView reloadData];
+                                  } failure:^(NSError *error) {
+                                      [self.transactionsTableView.infiniteScrollingView stopAnimating];
+                                  }];
+}
+
+
 // --------------------------------------------
 #pragma mark - Table view
 // --------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return self.transactions.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,7 +162,9 @@
     return 60;
 }
 
-
+- (void)scrollToTop {
+    [self.transactionsTableView setContentOffset:CGPointZero animated:YES];
+}
 
 // --------------------------------------------
 #pragma mark - Actions

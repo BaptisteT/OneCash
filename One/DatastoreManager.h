@@ -10,4 +10,11 @@
 
 @interface DatastoreManager : NSObject
 
++ (void)getTransactionsLocallyAndExecuteSuccess:(void(^)(NSArray *transactions))successBlock
+                                        failure:(void(^)(NSError *error))failureBlock;
+
+
++ (NSDate *)getLatestTransactionsRetrievalDate;
+
++ (void)saveLatestTransactionsRetrievalDate:(NSDate *)date;
 @end

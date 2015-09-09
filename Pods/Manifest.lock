@@ -9,22 +9,15 @@ PODS:
   - Fabric (1.4.1):
     - Fabric/Base (= 1.4.1)
   - Fabric/Base (1.4.1)
-  - Facebook-iOS-SDK (4.1.0):
+  - FBSDKCoreKit (4.5.1):
     - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit (= 4.1.0)
-    - Facebook-iOS-SDK/LoginKit (= 4.1.0)
-    - Facebook-iOS-SDK/ShareKit (= 4.1.0)
-  - Facebook-iOS-SDK/CoreKit (4.1.0):
+    - FBSDKCoreKit/arc (= 4.5.1)
+    - FBSDKCoreKit/no-arc (= 4.5.1)
+  - FBSDKCoreKit/arc (4.5.1):
     - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit/no-arc (= 4.1.0)
-  - Facebook-iOS-SDK/CoreKit/no-arc (4.1.0):
+  - FBSDKCoreKit/no-arc (4.5.1):
     - Bolts (~> 1.1)
-  - Facebook-iOS-SDK/LoginKit (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit
-  - Facebook-iOS-SDK/ShareKit (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit
+    - FBSDKCoreKit/arc
   - MBProgressHUD (0.9.1)
   - Mixpanel (2.8.3):
     - Mixpanel/Mixpanel (= 2.8.3)
@@ -38,17 +31,19 @@ PODS:
   - Stripe (5.1.2):
     - Stripe/Core (= 5.1.2)
   - Stripe/Core (5.1.2)
+  - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
   - Crashlytics
   - Fabric
-  - Facebook-iOS-SDK
+  - FBSDKCoreKit
   - MBProgressHUD (~> 0.9.1)
   - Mixpanel
   - Parse
   - ParseTwitterUtils
   - pop (from `https://github.com/facebook/pop.git`)
   - Stripe
+  - SVPullToRefresh
 
 EXTERNAL SOURCES:
   pop:
@@ -63,12 +58,13 @@ SPEC CHECKSUMS:
   Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
   Crashlytics: a29e4f820aa401482b26043dc5d78adf08ac7573
   Fabric: 4f718eeca4c02c7d6f6f4e5f0e5f87c63aa38458
-  Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
+  FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Mixpanel: fd52e097ae0d27295d0595b2261c60b94d191fda
   Parse: 188601c6cd91fae55906badd283b513104a3a8c9
   ParseTwitterUtils: af5c073b0750519b9efb33c3069a161cdeafe433
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
 
 COCOAPODS: 0.36.0

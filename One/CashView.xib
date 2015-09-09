@@ -19,6 +19,7 @@
                     </state>
                     <connections>
                         <action selector="viewTouchedDown:" destination="iN0-l3-epB" eventType="touchDown" id="4Ge-2a-lqv"/>
+                        <action selector="viewTouchedUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="cTd-uQ-VdI"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiW-wc-Bfo">

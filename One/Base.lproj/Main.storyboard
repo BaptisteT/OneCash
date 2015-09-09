@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -36,12 +35,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEJ-Tv-APs">
-                                <rect key="frame" x="220" y="511" width="159" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEJ-Tv-APs">
+                                <rect key="frame" x="218" y="513" width="164" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="DnM-zO-pEl"/>
+                                </constraints>
                                 <inset key="contentEdgeInsets" minX="20" minY="5" maxX="20" maxY="5"/>
-                                <state key="normal" title="login / signup">
+                                <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="login / signup" image="TwitterIcon">
                                     <color key="titleColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -65,25 +67,42 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tagline" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="s2j-Nh-PAq">
-                                <rect key="frame" x="30" y="460" width="540" height="20.5"/>
+                                <rect key="frame" x="30" y="462" width="540" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.5" id="z7F-bq-mmJ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeBills" translatesAutoresizingMaskIntoConstraints="NO" id="yGT-dn-fdb">
+                                <rect key="frame" x="30" y="100" width="540" height="337"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="55" id="33i-k5-8dP"/>
                             <constraint firstItem="s2j-Nh-PAq" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="30" id="69O-pM-698"/>
+                            <constraint firstItem="yGT-dn-fdb" firstAttribute="top" secondItem="MrP-XW-ciz" secondAttribute="bottom" constant="25" id="EZU-eu-5mD"/>
+                            <constraint firstItem="yGT-dn-fdb" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="30" id="GRW-aI-khI"/>
                             <constraint firstAttribute="centerX" secondItem="s2j-Nh-PAq" secondAttribute="centerX" id="Iny-04-38s"/>
+                            <constraint firstItem="yGT-dn-fdb" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="30" id="KpC-Nf-fYR"/>
                             <constraint firstItem="MrP-XW-ciz" firstAttribute="top" secondItem="9wp-hL-NXQ" secondAttribute="top" constant="20" id="LdK-hT-ZuN"/>
                             <constraint firstItem="vEJ-Tv-APs" firstAttribute="top" secondItem="s2j-Nh-PAq" secondAttribute="bottom" constant="30" id="W8R-tg-C1S"/>
+                            <constraint firstItem="s2j-Nh-PAq" firstAttribute="top" secondItem="yGT-dn-fdb" secondAttribute="bottom" constant="25" id="X1t-Qm-qPw"/>
+                            <constraint firstAttribute="centerX" secondItem="yGT-dn-fdb" secondAttribute="centerX" id="bP8-BO-oyG"/>
                             <constraint firstAttribute="trailing" secondItem="MrP-XW-ciz" secondAttribute="trailing" constant="20" id="hpZ-9K-x24"/>
                             <constraint firstAttribute="centerX" secondItem="vEJ-Tv-APs" secondAttribute="centerX" id="lJQ-hk-Hgy"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GRW-aI-khI"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="h9l-L3-9tl"/>
                     <connections>
+                        <outlet property="billsImageView" destination="yGT-dn-fdb" id="bvw-ba-xMk"/>
                         <outlet property="howToButton" destination="MrP-XW-ciz" id="xYN-Ky-XG7"/>
                         <outlet property="loginButton" destination="vEJ-Tv-APs" id="yIz-DK-9it"/>
                         <outlet property="taglineLabel" destination="s2j-Nh-PAq" id="ccK-cH-xwQ"/>
@@ -628,13 +647,13 @@
                         <outlet property="cashoutButton" destination="HOl-qM-dpM" id="kY3-Aj-oIY"/>
                         <outlet property="closeButton" destination="NYy-0U-TGn" id="jEv-7N-gla"/>
                         <outlet property="historyLabel" destination="sT7-z5-HyS" id="Y63-cY-TCR"/>
-                        <outlet property="historyTableView" destination="ZJy-Nb-mro" id="PSZ-Ah-EMx"/>
                         <outlet property="leftDownOne" destination="cze-uK-gix" id="O3i-F0-ef7"/>
                         <outlet property="leftUpOne" destination="9VS-oc-fAs" id="14e-nn-chI"/>
                         <outlet property="rightDownOne" destination="IXa-KR-G75" id="HKc-nh-2zO"/>
                         <outlet property="rightUpOne" destination="gvU-J2-4cX" id="KEn-mi-FHw"/>
                         <outlet property="settingsButton" destination="EgS-ct-9Bd" id="uW8-TS-soa"/>
                         <outlet property="titleLabel" destination="UgK-Uj-hZ5" id="nPv-BS-mhq"/>
+                        <outlet property="transactionsTableView" destination="ZJy-Nb-mro" id="rfb-pY-bDJ"/>
                         <segue destination="bFG-lE-Nfn" kind="presentation" identifier="Settings From Balance" id="iQR-bP-m9O"/>
                     </connections>
                 </viewController>
@@ -726,14 +745,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UpArrowIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-P7-4oq">
+                                <rect key="frame" x="290" y="405" width="20" height="6"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Xkf-i5-lEv" firstAttribute="centerX" secondItem="awX-1S-n1w" secondAttribute="centerX" id="0Q0-Ca-UYV"/>
                             <constraint firstItem="QGi-oQ-ONd" firstAttribute="centerY" secondItem="awX-1S-n1w" secondAttribute="centerY" id="76S-uw-n3O"/>
                             <constraint firstItem="IzF-Uo-ATe" firstAttribute="top" secondItem="Xkf-i5-lEv" secondAttribute="bottom" id="BAJ-nC-4aW"/>
+                            <constraint firstItem="Nn4-Dn-38P" firstAttribute="top" secondItem="n8F-P7-4oq" secondAttribute="bottom" constant="8" id="Cad-d1-JUa"/>
                             <constraint firstItem="Xkf-i5-lEv" firstAttribute="centerY" secondItem="awX-1S-n1w" secondAttribute="centerY" id="EtQ-tU-Bex"/>
                             <constraint firstItem="awX-1S-n1w" firstAttribute="leading" secondItem="QGi-oQ-ONd" secondAttribute="trailing" constant="-14" id="FzJ-7v-nMW"/>
+                            <constraint firstAttribute="centerX" secondItem="n8F-P7-4oq" secondAttribute="centerX" id="IlE-1v-XDY"/>
                             <constraint firstItem="71X-ED-w10" firstAttribute="top" secondItem="lUg-ge-fn2" secondAttribute="top" constant="15" id="NTM-xX-FsX"/>
                             <constraint firstAttribute="centerX" secondItem="nji-5G-axu" secondAttribute="centerX" id="Rih-cb-yRM"/>
                             <constraint firstItem="71X-ED-w10" firstAttribute="leading" secondItem="lUg-ge-fn2" secondAttribute="leading" constant="10" id="Sz0-JG-6Hk"/>
@@ -758,6 +782,7 @@
                         <outlet property="swipeTutoLabel" destination="Nn4-Dn-38P" id="cvB-Gr-4lw"/>
                         <outlet property="titleLabel" destination="nji-5G-axu" id="bUL-Yv-Isu"/>
                         <outlet property="toLabel" destination="QGi-oQ-ONd" id="CSP-6M-uAT"/>
+                        <outlet property="tutoArrow" destination="n8F-P7-4oq" id="Wjq-dL-kHL"/>
                         <segue destination="cLq-3c-hSu" kind="presentation" identifier="Balance From Send" id="eZD-os-4ei"/>
                         <segue destination="Sg7-PG-Ydg" kind="presentation" identifier="Recipient From Send" id="9qY-8U-Mxz"/>
                         <segue destination="Koy-ZE-4HZ" kind="show" identifier="Card From Send" id="0bD-CV-jtZ"/>
@@ -933,8 +958,13 @@
             <point key="canvasLocation" x="3640" y="1010"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="HomeBills" width="273" height="450"/>
+        <image name="TwitterIcon" width="15" height="13"/>
+        <image name="UpArrowIcon" width="20" height="6"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="0bD-CV-jtZ"/>
-        <segue reference="WX6-Iv-dA8"/>
+        <segue reference="CWh-84-eC0"/>
     </inferredMetricsTieBreakers>
 </document>
