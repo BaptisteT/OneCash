@@ -191,11 +191,43 @@
 }
 
 - (IBAction)cashoutButtonClicked:(id)sender {
-    // todo BT
+    if ([User currentUser].balance <= 0) {
+        [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_no_money_title", nil) andMessage:NSLocalizedString(@"cashout_no_money_message", nil)];
+    } else if ([User currentUser].paymentMethod == kPaymentMethodNone) {
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"no_card_title", nil)
+                                    message:NSLocalizedString(@"no_card_message", nil)
+                                   delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"later_", nil)
+                          otherButtonTitles:NSLocalizedString(@"add_button", nil), nil] show];
+    } else {
+        // todo BT
+        // cash out function
+        [DesignUtils showProgressHUDAddedTo:self.view];
+        [ApiManager createCashoutAndExecuteSuccess:^{
+            [DesignUtils hideProgressHUDForView:self.view];
+            [self loadLatestTransactionsLocally];
+        } failure:^(NSError *error) {
+            // todo BT
+            // analyse different error
+            [DesignUtils hideProgressHUDForView:self.view];
+            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message    ", nil)];
+        }];
+    }
 }
 
 - (IBAction)closeButtonClicked:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// --------------------------------------------
+#pragma mark - Alert View delegate
+// --------------------------------------------
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if ([alertView.title isEqualToString:NSLocalizedString(@"no_card_title", nil)]) {
+        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"add_button", nil)]) {
+            [self.delegate navigateToCardController];
+        }
+    }
 }
 
 @end

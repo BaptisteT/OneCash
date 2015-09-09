@@ -52,6 +52,10 @@
 "cashout_button" = "Cashout";
 "cashout_string" = "Cashout";
 "history_label" = "Your history";
+"cashout_no_money_title" = "You have no money to cash out!";
+"cashout_no_money_message" = "Maybe next time";
+"cashout_error_title" = "Sorry, the cashout failed.";
+"cashout_error_message" = "Please retry or contact us.";
 
 // Recipients
 "to" = "to";

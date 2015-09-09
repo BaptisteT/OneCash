@@ -51,8 +51,6 @@
     // cash out
     } else if (transaction.transactionType == kTransactionCashout) {
         self.valueLabel.backgroundColor = [ColorUtils red];
-        self.messageLabel.layer.borderColor = [ColorUtils red].CGColor;
-        self.messageLabel.layer.borderWidth = 1;
         self.messageLabel.textColor = [ColorUtils red];
         
         self.messageLabel.hidden = NO;
@@ -64,8 +62,6 @@
     // payment sent
     } else {
         self.valueLabel.backgroundColor = [ColorUtils mainGreen];
-        self.messageLabel.layer.borderColor = [ColorUtils mainGreen].CGColor;
-        self.messageLabel.layer.borderWidth = 1;
         self.messageLabel.textColor = [ColorUtils mainGreen];
         
         if (transaction.message && transaction.message.length > 0) {
@@ -76,11 +72,11 @@
         }
         
         [transaction.sender setAvatarInImageView:self.userPicture];
-        name = [NSString stringWithFormat:@"$%@, ",transaction.receiver.caseUsername];
+        name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
     }
     NSString *time = transaction.createdAt.shortTimeAgoSinceNow;
     self.nameAndTimeLabel.text = [NSString stringWithFormat:@"%@%@",name,time];
-    self.valueLabel.text = [NSString stringWithFormat:@"$%lu",transaction.transactionAmount];
+    self.valueLabel.text = [NSString stringWithFormat:@"$%lu",(long)transaction.transactionAmount];
     
     // UI
     self.valueLabel.clipsToBounds = YES;
@@ -125,7 +121,7 @@
         CAShapeLayer *borderLayer = [CAShapeLayer layer];
         [borderLayer setPath:messageShapeLayer.path];
         [borderLayer setLineWidth:2.0f];
-        [borderLayer setStrokeColor:[ColorUtils mainGreen].CGColor];
+        [borderLayer setStrokeColor:(self.transaction.transactionType == kTransactionCashout ? [ColorUtils red].CGColor : [ColorUtils mainGreen].CGColor)];
         [borderLayer setFillColor:[UIColor clearColor].CGColor];
         borderLayer.frame = self.bounds;
         [self.messageLabel.layer addSublayer:borderLayer];

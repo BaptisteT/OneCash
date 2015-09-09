@@ -57,6 +57,10 @@
                           success:(void(^)(NSArray *transactions))successBlock
                           failure:(void(^)(NSError *error))failureBlock;
 
+// Cashout
++ (void)createCashoutAndExecuteSuccess:(void(^)())successBlock
+                               failure:(void(^)(NSError *error))failureBlock;
+
 // --------------------------------------------
 #pragma mark - Installation
 // --------------------------------------------

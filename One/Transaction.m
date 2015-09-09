@@ -25,17 +25,6 @@
     return NSStringFromClass([self class]);
 }
 
-+ (Transaction *)createTransaction
-{
-    Transaction *transaction = [Transaction object];
-    
-    // Security = no write access
-    PFACL *acl = [PFACL ACL];
-    [acl setPublicReadAccess:true];
-    [acl setPublicWriteAccess:NO];
-    transaction.ACL = acl;
-    
-    return transaction;
-}
+
 
 @end

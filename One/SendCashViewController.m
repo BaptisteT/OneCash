@@ -95,6 +95,8 @@
         ((RecipientViewController *) [segue destinationViewController]).delegate = self;
     } else if ([segueName isEqualToString:@"Card From Send"]) {
         ((CardViewController *) [segue destinationViewController]).redirectionViewController = self;
+    } else if ([segueName isEqualToString:@"Balance From Send"]) {
+        ((BalanceViewController *) [segue destinationViewController]).delegate = self;
     }
 }
 
@@ -112,6 +114,11 @@
 
 - (IBAction)pickRecipientButtonClicked:(id)sender {
     [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
+}
+
+- (void)navigateToCardController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self performSegueWithIdentifier:@"Card From Send" sender:nil];
 }
 
 // --------------------------------------------
@@ -134,12 +141,8 @@
 // --------------------------------------------
 #pragma mark - Cash view
 // --------------------------------------------
-- (void)createTransactionWithCashView:(CashView *)cashView {
-    // todo BT
-    // payment if balance > 0
-    // else if apple pay => payment
-    // else
-    
+- (void)createTransactionWithCashView:(CashView *)cashView
+{
     // No receiver
     if (!self.receiver) {
         [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
@@ -149,8 +152,7 @@
      // No cash, no card
      } else if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodNone) {
          [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
-             // todo BT test this flow
-             // send back to payment controller
+             // if yes, send back to payment controller
              [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"no_card_title", nil)
                                          message:NSLocalizedString(@"no_card_message", nil)
                                         delegate:self
@@ -207,7 +209,7 @@
 
 - (void)addNewCashSubview {
     CGFloat width = self.view.frame.size.width * 0.85;
-    CGFloat height = self.view.frame.size.height * 0.85;
+    CGFloat height = self.view.frame.size.height * 0.80;
     CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height) / 2, width, height);
     CashView *cashView = [[[NSBundle mainBundle] loadNibNamed:@"CashView" owner:self options:nil] objectAtIndex:0];
     cashView.delegate = self;
@@ -235,7 +237,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([alertView.title isEqualToString:NSLocalizedString(@"no_card_title", nil)]) {
         if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"add_button", nil)]) {
-            [self performSegueWithIdentifier:@"Card From Send" sender:nil];
+            [self navigateToCardController];
         }
     }
 }

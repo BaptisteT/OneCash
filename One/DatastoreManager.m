@@ -27,6 +27,7 @@
 {
     PFQuery *query = [PFQuery queryWithClassName:[Transaction parseClassName]];
     [query fromLocalDatastore];
+    [query fromPinWithName:kParseTransactionsName];
     [query includeKey:@"sender"];
     [query includeKey:@"receiver"];
     [query orderByDescending:@"createdAt"];

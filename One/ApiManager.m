@@ -241,6 +241,7 @@
 // --------------------------------------------
 #pragma mark - Transactions
 // --------------------------------------------
+// Create payment transactions
 + (void)createPaymentTransactionWithReceiver:(User *)receiver
                                      message:(NSString *)message
                                      success:(void(^)())successBlock
@@ -298,13 +299,48 @@
             // pin transactions (lastest ONLY !)
             if (isStartDate) {
                 [DatastoreManager saveLatestTransactionsRetrievalDate:[NSDate date]];
-                [PFObject pinAllInBackground:transactions withName:kParseTransactionsName];
-            }
-            if (successBlock) {
-                successBlock(transactions);
+                [PFObject pinAllInBackground:transactions withName:kParseTransactionsName block:^(BOOL result, NSError *error) {
+                    if (result) {
+                        if (successBlock) {
+                            successBlock(transactions);
+                        }
+                    } else {
+                        OneLog(ONEAPIMANAGERLOG,@"Failure - pin transactions - %@",error.description);
+                        if (failureBlock) {
+                            failureBlock(error);
+                        }
+                    }
+                }];
+            } else {
+                if (successBlock) {
+                    successBlock(transactions);
+                }
             }
         }
     }];
+}
+
+
+// Cashout
++ (void)createCashoutAndExecuteSuccess:(void(^)())successBlock
+                               failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"createCashoutTransaction"
+                       withParameters:nil
+                                block:^(Transaction *object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createCashoutTransaction - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        // pin transaction
+                                        [object pinInBackgroundWithName:kParseTransactionsName];
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
 }
 
 // --------------------------------------------
@@ -319,5 +355,6 @@
         [currentInstallation saveEventually];
     }
 }
+
 
 @end

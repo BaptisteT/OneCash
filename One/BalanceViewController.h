@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BalanceViewControllerProtocol;
+
 @interface BalanceViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) id<BalanceViewControllerProtocol> delegate;
+
+@end
+
+@protocol BalanceViewControllerProtocol
+
+- (void)navigateToCardController;
 
 @end
