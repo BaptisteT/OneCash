@@ -20,6 +20,6 @@
 // Animation to move down the view as the keyboard hides
 + (void)pushDownTopView:(UIView *)topView whenKeyboardWillhideNotification:(NSNotification *) notification;
 
-
++ (void)moveView:(UIView *)view toCenter:(CGPoint)center withKeyboardNotif:(NSNotification *) notification;
 
 @end

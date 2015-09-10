@@ -25,6 +25,7 @@
 		3C86E1031B8DBA5E005AD52B /* InternalNotifView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */; };
 		3C86E1061B8DBBE6005AD52B /* ColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E1051B8DBBE6005AD52B /* ColorUtils.m */; };
 		3C86E1091B8DE501005AD52B /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E1081B8DE501005AD52B /* WelcomeViewController.m */; };
+		3C9BBB1F1BA1E3CB00BCAC26 /* PaddingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9BBB1E1BA1E3CB00BCAC26 /* PaddingTextField.m */; };
 		3CC5FD941B97431000514A43 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FD931B97431000514A43 /* Transaction.m */; };
 		3CC5FD961B974A4F00514A43 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC5FD951B974A4F00514A43 /* Social.framework */; };
 		3CC5FD981B974A5500514A43 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC5FD971B974A5500514A43 /* Accounts.framework */; };
@@ -88,6 +89,8 @@
 		3C86E1051B8DBBE6005AD52B /* ColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorUtils.m; sourceTree = "<group>"; };
 		3C86E1071B8DE501005AD52B /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		3C86E1081B8DE501005AD52B /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
+		3C9BBB1D1BA1E3CB00BCAC26 /* PaddingTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddingTextField.h; sourceTree = "<group>"; };
+		3C9BBB1E1BA1E3CB00BCAC26 /* PaddingTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddingTextField.m; sourceTree = "<group>"; };
 		3CC5FD921B97431000514A43 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
 		3CC5FD931B97431000514A43 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
 		3CC5FD951B974A4F00514A43 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -289,6 +292,8 @@
 				3CC5FDE31B9CA08600514A43 /* CashView.xib */,
 				3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */,
 				3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */,
+				3C9BBB1D1BA1E3CB00BCAC26 /* PaddingTextField.h */,
+				3C9BBB1E1BA1E3CB00BCAC26 /* PaddingTextField.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -498,6 +503,7 @@
 				3C86E0F51B8DB2BF005AD52B /* User.m in Sources */,
 				3CC5FDAC1B98836D00514A43 /* NSString+LevenshteinDistance.m in Sources */,
 				3CC5FDC91B98A6EA00514A43 /* BalanceViewController.m in Sources */,
+				3C9BBB1F1BA1E3CB00BCAC26 /* PaddingTextField.m in Sources */,
 				3CC5FDD31B99D73100514A43 /* PushNoAnimationSegue.m in Sources */,
 				3C86E0FB1B8DB4DD005AD52B /* OneLogger.m in Sources */,
 				3C13EE501B9F428D00930AC7 /* DatastoreManager.m in Sources */,

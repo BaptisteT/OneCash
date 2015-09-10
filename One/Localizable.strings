@@ -34,6 +34,7 @@
 "create_token_with_card_error_message" = "Please, try again.";
 "apple_pay_button_title" = "Add my debit card with Apple Pay";
 "manual_pay_button_title" = "Add my debit card manually";
+"message_placeholder" = "Add a message";
 
 // Send
 "balance_button" = "Balance";

@@ -46,7 +46,7 @@
 // Navigate to chat
 - (void)notifClicked {
     // notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"new_message_clicked"
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"new_cashout_clicked"
                                                         object:nil
                                                       userInfo:nil];
     [self removeFromSuperview];

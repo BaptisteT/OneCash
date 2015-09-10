@@ -12,6 +12,7 @@
 #import "DesignUtils.h"
 #import "OneLogger.h"
 
+
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
 @interface CashView()
@@ -25,16 +26,15 @@
 
 @implementation CashView
 
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    self.initialCenter = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
+- (void)initWithFrame:(CGRect)frame andDelegate:(id<CashViewDelegateProtocol>)delegate {
+    [self setFrame:frame];
+    self.delegate = delegate;
+    self.initialCenter = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     
     // UI
     [self setStaticUI];
-    self.layer.cornerRadius = self.frame.size.height / 40;
     self.centralLabel.textColor = [ColorUtils darkGreen];
     self.centralLabel.adjustsFontSizeToFitWidth = YES;
-    self.centralLabel.layer.cornerRadius = 2./6. * frame.size.width;
     self.centralLabel.clipsToBounds = YES;
     self.leftUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-90));
     self.leftUpOne.textColor = [ColorUtils mainGreen];
@@ -44,6 +44,12 @@
     self.leftBottomOne.textColor = [ColorUtils mainGreen];
     self.rightBottomOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
     self.rightBottomOne.textColor = [ColorUtils mainGreen];
+    self.messageTextField.backgroundColor = [ColorUtils mainGreen];
+    self.messageTextField.placeholder = NSLocalizedString(@"message_placeholder", nil);
+    self.messageTextField.clipsToBounds = YES;
+    self.messageTextField.delegate = self;
+    self.messageTextField.layer.cornerRadius = self.messageTextField.frame.size.height / 2;
+    self.messageTextField.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
     
     // Pan Gesture
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
@@ -51,15 +57,26 @@
     [self addGestureRecognizer:recognizer];
 }
 
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    
+    // UI
+    self.layer.cornerRadius = self.frame.size.height / 40;
+    self.centralLabel.layer.cornerRadius = 2./6. * frame.size.width;
+}
+
+
 // --------------------------------------------
 #pragma mark - UI
 // --------------------------------------------
 - (void)setStaticUI {
+    self.messageTextField.hidden = NO;
     self.backgroundColor = [ColorUtils darkGreen];
     self.centralLabel.backgroundColor = [ColorUtils mainGreen];
 }
 
 - (void)setMovingUI {
+    self.messageTextField.hidden = self.messageTextField.text.length == 0;
     self.backgroundColor = [ColorUtils veryLightGreen];
     self.centralLabel.backgroundColor = [ColorUtils lightGreen];
     [self.delegate adaptUIToCashViewState:YES];
@@ -76,6 +93,7 @@
 }
 
 - (IBAction)viewTouchedDown:(id)sender {
+    [self.messageTextField resignFirstResponder];
     [self setMovingUI];
     if (CGPointEqualToPoint(self.center, self.initialCenter)) {
         [self.layer pop_removeAllAnimations];
@@ -159,6 +177,27 @@
             completionBlock(anim, completed);
         }
     }];
+}
+
+
+// --------------------------------------------
+#pragma mark - UITextField delegate
+// --------------------------------------------
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@"\n"]) {
+        [self.messageTextField resignFirstResponder];
+        return NO;
+    }
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (newString.length > kMaxMessagesLength)
+        return NO;
+    textField.text = newString;
+    [textField layoutSubviews];
+    return NO;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.isEditingMessage = YES;
 }
 
 @end

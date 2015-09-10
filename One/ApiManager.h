@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "User.h"
+@class Transaction;
 
 @interface ApiManager : NSObject
 
@@ -47,10 +49,9 @@
 // --------------------------------------------
 #pragma mark - Transactions
 // --------------------------------------------
-+ (void)createPaymentTransactionWithReceiver:(User *)receiver
-                                     message:(NSString *)message
-                                     success:(void(^)())successBlock
-                                     failure:(void(^)(NSError *error))failureBlock;
++ (void)createPaymentTransactionWithTransaction:(Transaction *)transaction
+                                        success:(void(^)())successBlock
+                                        failure:(void(^)(NSError *error))failureBlock;
 
 + (void)getTransactionsAroundDate:(NSDate *)date
                           isStart:(BOOL)isStartDate

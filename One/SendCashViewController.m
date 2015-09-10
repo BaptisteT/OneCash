@@ -9,6 +9,7 @@
 
 #import "ApiManager.h"
 #import "DatastoreManager.h"
+#import "Transaction.h"
 #import "User.h"
 
 #import "CardViewController.h"
@@ -19,6 +20,7 @@
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
+#import "KeyboardUtils.h"
 #import "OneLogger.h"   
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
@@ -27,16 +29,19 @@
 @property (weak, nonatomic) IBOutlet UIButton *balanceButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *pickRecipientButton;
+@property (weak, nonatomic) IBOutlet UIButton *removeRecipientButton;
 
 @property (strong, nonatomic) User *receiver;
 @property (weak, nonatomic) IBOutlet UILabel *toLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedUserLabel;
 @property (weak, nonatomic) IBOutlet UILabel *swipeTutoLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *tutoArrow;
-
-@property (nonatomic) NSInteger ongoingTransactionsCount;
-
 @property (strong, nonatomic) Reachability *internetReachableFoo;
+
+@property (strong, nonatomic) NSMutableArray *presentedCashViews;
+@property (strong, nonatomic) NSTimer *associationTimer;
+@property (strong, nonatomic) Transaction *transactionToSend;
+@property (nonatomic) NSInteger ongoingTransactionsCount;
 
 @end
 
@@ -63,9 +68,9 @@
     self.view.backgroundColor = [ColorUtils mainGreen];
     [DesignUtils addTopBorder:self.pickRecipientButton borderSize:0.5 color:[UIColor lightGrayColor]];
     
-    // Cash view
-    [self addNewCashSubview];
-    [self addNewCashSubview];
+    // Cash views
+    self.presentedCashViews = [NSMutableArray new];
+    for (int i=0;i<3;i++) [self addNewCashSubview];
     
     // Load server data
     [self loadLatestTransactions];
@@ -81,6 +86,23 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadLatestTransactions)
                                                  name:@"new_transaction"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(navigateToBalance)
+                                                 name:@"new_cashout_clicked"
+                                               object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // Keyboard Observer
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
                                                object:nil];
 }
 
@@ -104,21 +126,38 @@
     // load new transactions
     [self loadLatestTransactions];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
 // --------------------------------------------
 #pragma mark - Actions
 // --------------------------------------------
 
 - (IBAction)balanceButtonClicked:(id)sender {
-    [self performSegueWithIdentifier:@"Balance From Send" sender:nil];
+    [self navigateToBalance];
 }
 
 - (IBAction)pickRecipientButtonClicked:(id)sender {
     [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
+    // Remove selected user
+    [self setSelectedUser:nil];
 }
 
 - (void)navigateToCardController {
     [self dismissViewControllerAnimated:YES completion:nil];
     [self performSegueWithIdentifier:@"Card From Send" sender:nil];
+}
+
+- (void)navigateToBalance {
+    [self performSegueWithIdentifier:@"Balance From Send" sender:nil];
+}
+
+- (IBAction)removeRecipientButtonClicked:(id)sender {
+    [self setSelectedUser:nil];
 }
 
 // --------------------------------------------
@@ -163,37 +202,75 @@
      // Receiver = current
      } else if (self.receiver == [User currentUser]) {
          [self addNewCashSubview];
-         [cashView removeFromSuperview];
+         [self removeCashSubview:cashView];
 
      // Create transaction
      } else {
-         
-         // Apple pay
-         if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
-             // todo BT
-             // ask user & get token
-             // get token
-         }
-         
          [self addNewCashSubview];
-         
+         [self removeCashSubview:cashView];
          self.ongoingTransactionsCount ++;
-         [ApiManager createPaymentTransactionWithReceiver:self.receiver
-                                                  message:cashView.message
-                                                  success:^{
-                                                      [ApiManager fetchCurrentUserAndExecuteSuccess:^{
-                                                          self.ongoingTransactionsCount --;
-                                                      } failure:^(NSError *error) {
-                                                          self.ongoingTransactionsCount --;
-                                                      }];
-                                                      [cashView removeFromSuperview];
-                                                  } failure:^(NSError *error) {
-                                                      self.ongoingTransactionsCount --;
-                                                      [cashView moveViewToCenterAndExecute:nil];
-                                                      // todo BT
-                                                      // indicate cause of error ?
-                                                  }];
+         
+         BOOL createNewTransaction = YES;
+         if (self.transactionToSend) {
+             [self.associationTimer invalidate];
+             BOOL sameReceiver = [self.transactionToSend.receiver.objectId isEqualToString:self.receiver.objectId];
+             BOOL noMessageConflict = !([self.transactionToSend containsMessage] && cashView.messageTextField.text.length > 0);
+             BOOL belowLimit = self.transactionToSend.transactionAmount <= kAssociationTransactionsLimit;
+             
+             // If we can't merge, send the first one
+             if (!sameReceiver || !noMessageConflict || !belowLimit) {
+                 [self sendTransaction];
+             } else {
+                 // update transaction
+                 createNewTransaction = NO;
+                 self.transactionToSend.transactionAmount ++;
+                 if (cashView.messageTextField.text.length > 0) {
+                     self.transactionToSend.message = cashView.messageTextField.text;
+                 }
+             }
+         }
+         if (createNewTransaction) {
+             self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
+                                                         transactionAmount:1
+                                                                      type:kTransactionPayment
+                                                                   message:cashView.messageTextField.text];
+         }
+         // Sending timer
+         [self startAssociationTimer];
      }
+}
+
+- (void)startAssociationTimer {
+    self.associationTimer = [NSTimer scheduledTimerWithTimeInterval:kAssociationTimerDuration
+                                                             target:self
+                                                           selector:@selector(sendTransaction)
+                                                           userInfo:nil
+                                                            repeats:NO];
+}
+
+- (void)sendTransaction {
+    if (self.transactionToSend) {
+        if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
+            // todo BT
+            // ask user & get token
+            // get token
+        }
+        
+        
+        [ApiManager createPaymentTransactionWithTransaction:self.transactionToSend
+                                                    success:^{
+                                                        [ApiManager fetchCurrentUserAndExecuteSuccess:^{
+                                                            self.ongoingTransactionsCount -= self.transactionToSend.transactionAmount;
+                                                        } failure:^(NSError *error) {
+                                                            self.ongoingTransactionsCount -= self.transactionToSend.transactionAmount;
+                                                        }];
+                                                    } failure:^(NSError *error) {
+                                                        self.ongoingTransactionsCount -= self.transactionToSend.transactionAmount;
+                                                        // todo BT
+                                                        // indicate cause of error ?
+                                                    }];
+        self.transactionToSend = nil;
+    }
 }
 
 - (void)adaptUIToCashViewState:(BOOL)isMoving {
@@ -212,9 +289,14 @@
     CGFloat height = self.view.frame.size.height * 0.80;
     CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height) / 2, width, height);
     CashView *cashView = [[[NSBundle mainBundle] loadNibNamed:@"CashView" owner:self options:nil] objectAtIndex:0];
-    cashView.delegate = self;
-    cashView.frame = frame;
+    [cashView initWithFrame:frame andDelegate:self];
     [self.view insertSubview:cashView atIndex:0];
+    [self.presentedCashViews addObject:cashView];
+}
+
+- (void)removeCashSubview:(CashView *)view {
+    [self.presentedCashViews removeObject:view];
+    [view removeFromSuperview];
 }
 
 // --------------------------------------------
@@ -223,9 +305,11 @@
 - (void)setSelectedUser:(User *)user {
     self.receiver = user;
     if (user) {
+        self.removeRecipientButton.hidden = NO;
         self.selectedUserLabel.text = user.caseUsername;
         self.selectedUserLabel.textColor = [ColorUtils mainGreen];
     } else {
+        self.removeRecipientButton.hidden = YES;
         self.selectedUserLabel.text = NSLocalizedString(@"recipient_title", nil);
         self.selectedUserLabel.textColor = [UIColor lightGrayColor];
     }
@@ -270,6 +354,38 @@
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+// ----------------------------------------------------------
+#pragma mark Keyboard
+// ----------------------------------------------------------
+// Move up create comment view on keyboard will show
+- (void)keyboardWillShow:(NSNotification *)notification {
+    CashView *editingView;
+    for (CashView *cashView in self.presentedCashViews) {
+        if (cashView.isEditingMessage) {
+            editingView = cashView;
+            break;
+        }
+    }
+    if (editingView) {
+        [KeyboardUtils pushUpTopView:editingView whenKeyboardWillShowNotification:notification];
+    }
+}
+
+// Move down create comment view on keyboard will hide
+- (void)keyboardWillHide:(NSNotification *)notification {
+    CashView *editingView;
+    for (CashView *cashView in self.presentedCashViews) {
+        if (cashView.isEditingMessage) {
+            editingView = cashView;
+            break;
+        }
+    }
+    if (editingView) {
+        [KeyboardUtils moveView:editingView toCenter:self.view.center withKeyboardNotif:notification];
+        editingView.isEditingMessage = NO;
+    }
 }
 
 @end

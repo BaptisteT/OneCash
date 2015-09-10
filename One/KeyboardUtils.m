@@ -33,13 +33,11 @@
 // Animation to move up the view as the keyboard shows
 + (void)pushUpTopView:(UIView *)topView whenKeyboardWillShowNotification:(NSNotification *)notification {
     NSDictionary *userInfo = [notification userInfo];
-    NSValue *beforeValue = [userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey];
     NSValue *afterValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect beforeKeyboardRect = [beforeValue CGRectValue];
     CGRect afterKeyboardRect = [afterValue CGRectValue];
     
     CGRect newTextViewFrame = topView.frame;
-    newTextViewFrame.origin.y = topView.frame.origin.y - beforeKeyboardRect.origin.y + afterKeyboardRect.origin.y;
+    newTextViewFrame.origin.y = afterKeyboardRect.origin.y - newTextViewFrame.size.height;
     
     // Get the duration of the animation.
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
@@ -56,13 +54,11 @@
 + (void)pushDownTopView:(UIView *)topView whenKeyboardWillhideNotification:(NSNotification *) notification {
     
     NSDictionary *userInfo = [notification userInfo];
-    NSValue *beforeValue = [userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey];
     NSValue *afterValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect beforeKeyboardRect = [beforeValue CGRectValue];
     CGRect afterKeyboardRect = [afterValue CGRectValue];
     
     CGRect newTextViewFrame = topView.frame;
-    newTextViewFrame.origin.y = topView.frame.origin.y - beforeKeyboardRect.origin.y + afterKeyboardRect.origin.y;
+    newTextViewFrame.origin.y = afterKeyboardRect.origin.y - newTextViewFrame.size.height;;
     
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval animationDuration;
@@ -70,6 +66,18 @@
     
     [UIView animateWithDuration:animationDuration animations:^() {
         topView.frame = newTextViewFrame;
+    }];
+}
+
++ (void)moveView:(UIView *)view toCenter:(CGPoint)center withKeyboardNotif:(NSNotification *) notification {
+    
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration;
+    [animationDurationValue getValue:&animationDuration];
+    
+    [UIView animateWithDuration:animationDuration animations:^() {
+        view.center = center;
     }];
 }
 

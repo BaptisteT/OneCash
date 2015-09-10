@@ -47,3 +47,10 @@ static NSInteger const kDisplayedPictureSize = 128;
 
 // Parse Pin Names
 static NSString * const kParseTransactionsName = @"Transactions";
+
+// Messages
+static NSInteger const kMaxMessagesLength = 60;
+
+// Sending
+static float const kAssociationTimerDuration = 1.;
+static NSInteger const kAssociationTransactionsLimit = 10;

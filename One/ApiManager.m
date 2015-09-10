@@ -99,10 +99,10 @@
     NSString * twitterUserID = [PFTwitterUtils twitter].userId;
     NSString * twitterScreenName = [PFTwitterUtils twitter].screenName;
     
-    if (twitterUserID && twitterUserID.length > 0) {
+    if (twitterUserID && twitterUserID.length > 0 && ![user.twitterId isEqualToString:twitterUserID]) {
         user.twitterId = twitterUserID;
     }
-    if (twitterScreenName && twitterScreenName.length > 0) {
+    if (twitterScreenName && twitterScreenName.length > 0  && ![user.caseUsername isEqualToString:twitterScreenName]) {
         user.caseUsername = twitterScreenName;
         [user setUsername:[user.caseUsername lowercaseString]];
     }
@@ -119,18 +119,18 @@
             OneLog(ONEAPIMANAGERLOG, @"Success - twitter info - %@",result);
             
             NSString * profileImageURL = [result objectForKey:@"profile_image_url_https"];
-            if (profileImageURL.length > 0) {
+            if (profileImageURL.length > 0 && ![user.pictureURL isEqualToString:profileImageURL]) {
                 user.pictureURL = profileImageURL;
             }
             
             NSString * username = [result objectForKey:@"screen_name"];
-            if (username.length > 0) {
+            if (username.length > 0 && ![user.caseUsername isEqualToString:username]) {
                 user.caseUsername = [result objectForKey:@"screen_name"];
                 [user setUsername:[user.caseUsername lowercaseString]];
             }
             
             NSString * names = [result objectForKey:@"name"];
-            if (names.length > 0) {
+            if (names.length > 0 && !user.lastName) {
                 NSMutableArray * array = [NSMutableArray arrayWithArray:[names componentsSeparatedByString:@" "]];
                 if ( array.count > 1){
                     user.lastName = [array lastObject];
@@ -161,20 +161,23 @@
                       failure:(void(^)(NSError *error))failureBlock
 {
     User *user = [User currentUser]; // there should be unsaved changed (username / picture URL..)
-    user.email = email;
-    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            OneLog(ONEAPIMANAGERLOG,@"Success - Update User");
-            if (successBlock) {
-                successBlock();
+    if (email)
+        user.email = email;
+    if (user.isDirty) {
+        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                OneLog(ONEAPIMANAGERLOG,@"Success - Update User");
+                if (successBlock) {
+                    successBlock();
+                }
+            } else {
+                OneLog(ONEAPIMANAGERLOG,@"Failure - Update User - %@",error.description);
+                if (failureBlock) {
+                    failureBlock(error);
+                }
             }
-        } else {
-            OneLog(ONEAPIMANAGERLOG,@"Failure - Update User - %@",error.description);
-            if (failureBlock) {
-                failureBlock(error);
-            }
-        }
-    }];
+        }];
+    }
 }
 
 + (void)createStripeCustomerWithToken:(NSString *)token
@@ -242,12 +245,16 @@
 #pragma mark - Transactions
 // --------------------------------------------
 // Create payment transactions
-+ (void)createPaymentTransactionWithReceiver:(User *)receiver
-                                     message:(NSString *)message
-                                     success:(void(^)())successBlock
-                                     failure:(void(^)(NSError *error))failureBlock
++ (void)createPaymentTransactionWithTransaction:(Transaction *)transaction
+                                        success:(void(^)())successBlock
+                                        failure:(void(^)(NSError *error))failureBlock
 {
-    NSDictionary *params = message ? @{ @"receiverId" : receiver.objectId, @"message" : message } : @{ @"receiverId" : receiver.objectId};
+    NSMutableDictionary *params = [NSMutableDictionary new];
+    params[@"receiverId"] = transaction.receiver.objectId;
+    if (transaction.message)
+        params[@"message"] = transaction.message;
+    params[@"transactionAmount"] = [NSNumber numberWithInteger:transaction.transactionAmount];
+
     [PFCloud callFunctionInBackground:@"createPaymentTransaction"
                        withParameters:params
                                 block:^(Transaction *object, NSError *error) {

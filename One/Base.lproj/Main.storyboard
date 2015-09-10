@@ -917,12 +917,23 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UpArrowIcon" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-P7-4oq">
                                 <rect key="frame" x="290" y="405" width="20" height="6"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geg-5G-UE5">
+                                <rect key="frame" x="554" y="553.5" width="36" height="33"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                <state key="normal" image="RemoveMessageIcon">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeRecipientButtonClicked:" destination="WNA-kw-5yZ" eventType="touchUpInside" id="gW6-H4-Gxg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Xkf-i5-lEv" firstAttribute="centerX" secondItem="awX-1S-n1w" secondAttribute="centerX" id="0Q0-Ca-UYV"/>
                             <constraint firstItem="QGi-oQ-ONd" firstAttribute="centerY" secondItem="awX-1S-n1w" secondAttribute="centerY" id="76S-uw-n3O"/>
                             <constraint firstItem="IzF-Uo-ATe" firstAttribute="top" secondItem="Xkf-i5-lEv" secondAttribute="bottom" id="BAJ-nC-4aW"/>
+                            <constraint firstAttribute="trailing" secondItem="geg-5G-UE5" secondAttribute="trailing" constant="10" id="Bhq-En-m2f"/>
                             <constraint firstItem="Nn4-Dn-38P" firstAttribute="top" secondItem="n8F-P7-4oq" secondAttribute="bottom" constant="8" id="Cad-d1-JUa"/>
                             <constraint firstItem="Xkf-i5-lEv" firstAttribute="centerY" secondItem="awX-1S-n1w" secondAttribute="centerY" id="EtQ-tU-Bex"/>
                             <constraint firstItem="awX-1S-n1w" firstAttribute="leading" secondItem="QGi-oQ-ONd" secondAttribute="trailing" constant="-14" id="FzJ-7v-nMW"/>
@@ -936,17 +947,21 @@
                             <constraint firstItem="Xkf-i5-lEv" firstAttribute="top" secondItem="Nn4-Dn-38P" secondAttribute="bottom" constant="100" id="ciI-19-JSM"/>
                             <constraint firstItem="Xkf-i5-lEv" firstAttribute="leading" secondItem="lUg-ge-fn2" secondAttribute="leading" id="eoQ-zQ-USP"/>
                             <constraint firstItem="nji-5G-axu" firstAttribute="centerY" secondItem="71X-ED-w10" secondAttribute="centerY" id="i0i-9n-F8D"/>
+                            <constraint firstItem="Xkf-i5-lEv" firstAttribute="centerX" secondItem="geg-5G-UE5" secondAttribute="centerX" constant="-280" id="oog-Lv-grL"/>
+                            <constraint firstItem="Xkf-i5-lEv" firstAttribute="centerY" secondItem="geg-5G-UE5" secondAttribute="centerY" id="qDv-eg-1gy"/>
                             <constraint firstAttribute="centerX" secondItem="Nn4-Dn-38P" secondAttribute="centerX" id="wPs-90-obF"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="0Q0-Ca-UYV"/>
+                                <exclude reference="oog-Lv-grL"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="balanceButton" destination="71X-ED-w10" id="ztZ-Q1-MWn"/>
                         <outlet property="pickRecipientButton" destination="Xkf-i5-lEv" id="7xK-qY-pxt"/>
+                        <outlet property="removeRecipientButton" destination="geg-5G-UE5" id="hM7-51-CID"/>
                         <outlet property="selectedUserLabel" destination="awX-1S-n1w" id="EqK-0R-Frl"/>
                         <outlet property="swipeTutoLabel" destination="Nn4-Dn-38P" id="cvB-Gr-4lw"/>
                         <outlet property="titleLabel" destination="nji-5G-axu" id="bUL-Yv-Isu"/>
@@ -1129,6 +1144,7 @@
     </scenes>
     <resources>
         <image name="HomeBills" width="273" height="450"/>
+        <image name="RemoveMessageIcon" width="26" height="23"/>
         <image name="TwitterIcon" width="15" height="13"/>
         <image name="UpArrowIcon" width="20" height="6"/>
     </resources>

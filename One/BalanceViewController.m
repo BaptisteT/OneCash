@@ -109,6 +109,10 @@
     self.balanceLabel.layer.cornerRadius = self.balanceLabel.frame.size.height / 2;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 // --------------------------------------------
 #pragma mark - Transactions

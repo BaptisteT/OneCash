@@ -7,6 +7,7 @@
 //
 
 #import "Transaction.h"
+#import "User.h"
 
 @implementation Transaction
 
@@ -25,6 +26,22 @@
     return NSStringFromClass([self class]);
 }
 
++ (Transaction *)transactionWithReceiver:(User *)receiver
+                       transactionAmount:(NSInteger)amount
+                                    type:(TransactionType)type
+                                 message:(NSString *)message
+{
+    Transaction *transaction = [Transaction object];
+    transaction.sender = [User currentUser];
+    transaction.receiver = receiver;
+    transaction.transactionAmount = amount;
+    transaction.transactionType = type;
+    transaction.message = message;
+    return transaction;
+}
 
+- (BOOL)containsMessage {
+    return self.message && self.message.length > 0;
+}
 
 @end

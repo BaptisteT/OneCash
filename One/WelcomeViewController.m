@@ -59,6 +59,7 @@
             // Rediect to send if email already in / email otherwise
             NSString *email = [User currentUser].email;
             if (email && email.length > 0) {
+                [ApiManager updateCurrentUserInfo:nil success:nil failure:nil];
                 [self performSegueWithIdentifier:@"Send From Welcome" sender:nil];
             } else {
                [self performSegueWithIdentifier:@"Email From Welcome" sender:nil];
