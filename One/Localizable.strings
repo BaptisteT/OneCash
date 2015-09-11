@@ -45,6 +45,8 @@
 "no_card_title" = "We can't send this dollar";
 "no_card_message" = "You need to add a debit card!";
 "add_button" = "Add";
+"sending_label" = "Sending (%lu)...";
+"sent_label" = "Sent!";
 
 // Balance
 "close_button" = "Close";
@@ -62,6 +64,20 @@
 "to" = "to";
 "recipient_title" = "Pick a recipient";
 
-
-
-
+// Settings
+"settings_title" = "Settings";
+"support_section" = "Support";
+"share_section" = "Share the app";
+"logout_section" = "Logout";
+"pin_section" = "Pin code security";
+"auto_tweet_section" = "Auto tweet my tips";
+"no_card_section" = "Add a credit card";
+"card_section" = "Change payment method";
+"sharing_text" = "Hey, send me tips on OneCash at $%@. %@";
+"sharing_email_object" = "OneCash, send tips to anyone";
+"logout_confirmation_message" = "Really?";
+"no_button_title" = "No";
+"yes_button_title" = "Yes";
+"pin_section_details" = "Secure the access to the app with a 4 digits code";
+"email_section" = "Email: %@";
+"email_verification" = "Resend email verification";

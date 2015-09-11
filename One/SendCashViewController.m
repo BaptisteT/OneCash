@@ -21,6 +21,7 @@
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
 #import "KeyboardUtils.h"
+#import "NotifUtils.h"
 #import "OneLogger.h"   
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
@@ -78,6 +79,9 @@
     // Internet connection
     [self testInternetConnection];
     
+    // Register for notif
+    [NotifUtils registerForRemoteNotif];
+    
     // Callback
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(willBecomeActiveCallback)
@@ -119,7 +123,7 @@
         ((CardViewController *) [segue destinationViewController]).redirectionViewController = self;
     } else if ([segueName isEqualToString:@"Balance From Send"]) {
         ((BalanceViewController *) [segue destinationViewController]).delegate = self;
-    }
+    } 
 }
 
 - (void)willBecomeActiveCallback {
@@ -160,6 +164,12 @@
     [self setSelectedUser:nil];
 }
 
+- (void)logoutUser {
+    [User logOut];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 // --------------------------------------------
 #pragma mark - Transactions
 // --------------------------------------------
@@ -175,6 +185,69 @@
                                       // badge ?
                                   }
                                   failure:nil];
+}
+
+
+// --------------------------------------------
+#pragma mark - Sending
+// --------------------------------------------
+
+- (void)startAssociationTimer {
+    self.associationTimer = [NSTimer scheduledTimerWithTimeInterval:kAssociationTimerDuration
+                                                             target:self
+                                                           selector:@selector(sendTransaction)
+                                                           userInfo:nil
+                                                            repeats:NO];
+}
+
+- (void)sendTransaction {
+    Transaction *transaction = self.transactionToSend;
+    if (transaction) {
+        if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
+            // todo BT
+            // ask user & get token
+            // get token
+        }
+        [ApiManager createPaymentTransactionWithTransaction:transaction
+                                                    success:^{
+                                                        self.ongoingTransactionsCount -= transaction.transactionAmount;
+                                                        // send notif to balance controller for refresh
+                                                        [[NSNotificationCenter defaultCenter] postNotificationName: @"refresh_transactions_table"
+                                                                                                            object:nil
+                                                                                                          userInfo:nil];
+                                                    } failure:^(NSError *error) {
+                                                        self.ongoingTransactionsCount -= transaction.transactionAmount;
+                                                        // todo BT
+                                                        // indicate cause of error ? instead of sent !
+                                                    }];
+        self.transactionToSend = nil;
+    }
+}
+
+- (void)setOngoingTransactionsCount:(NSInteger)ongoingTransactionsCount {
+    if (ongoingTransactionsCount > 0) {
+        self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sending_label", nil),ongoingTransactionsCount];
+    } else if (_ongoingTransactionsCount > 0 && ongoingTransactionsCount == 0)  {
+        [self sentAnimation];
+    }
+    _ongoingTransactionsCount = ongoingTransactionsCount;
+}
+
+- (void)sentAnimation {
+    self.titleLabel.alpha = 0;
+    self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
+    [UIView animateWithDuration:1 animations:^{
+        self.titleLabel.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.titleLabel.alpha = 0;
+            self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
+                self.titleLabel.alpha = 1;
+            } completion:nil];
+        }];
+    }];
 }
 
 // --------------------------------------------
@@ -240,39 +313,6 @@
      }
 }
 
-- (void)startAssociationTimer {
-    self.associationTimer = [NSTimer scheduledTimerWithTimeInterval:kAssociationTimerDuration
-                                                             target:self
-                                                           selector:@selector(sendTransaction)
-                                                           userInfo:nil
-                                                            repeats:NO];
-}
-
-- (void)sendTransaction {
-    if (self.transactionToSend) {
-        if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
-            // todo BT
-            // ask user & get token
-            // get token
-        }
-        
-        
-        [ApiManager createPaymentTransactionWithTransaction:self.transactionToSend
-                                                    success:^{
-                                                        [ApiManager fetchCurrentUserAndExecuteSuccess:^{
-                                                            self.ongoingTransactionsCount -= self.transactionToSend.transactionAmount;
-                                                        } failure:^(NSError *error) {
-                                                            self.ongoingTransactionsCount -= self.transactionToSend.transactionAmount;
-                                                        }];
-                                                    } failure:^(NSError *error) {
-                                                        self.ongoingTransactionsCount -= self.transactionToSend.transactionAmount;
-                                                        // todo BT
-                                                        // indicate cause of error ?
-                                                    }];
-        self.transactionToSend = nil;
-    }
-}
-
 - (void)adaptUIToCashViewState:(BOOL)isMoving {
     self.balanceButton.hidden = isMoving;
     self.titleLabel.hidden = isMoving;
@@ -298,6 +338,7 @@
     [self.presentedCashViews removeObject:view];
     [view removeFromSuperview];
 }
+
 
 // --------------------------------------------
 #pragma mark - Recipients delegate

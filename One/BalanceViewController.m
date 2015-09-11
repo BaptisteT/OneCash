@@ -13,6 +13,7 @@
 #import "User.h"
 
 #import "BalanceViewController.h"
+#import "SettingsViewController.h"
 #import "TransactionTableViewCell.h"
 
 #import "ColorUtils.h"
@@ -112,6 +113,13 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSString * segueName = segue.identifier;
+    if ([segueName isEqualToString:@"Settings From Balance"]) {
+        ((SettingsViewController *) [segue destinationViewController]).delegate = (id<SettingsVCProtocol>)self.delegate;
+    }
 }
 
 // --------------------------------------------

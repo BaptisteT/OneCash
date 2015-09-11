@@ -95,8 +95,8 @@
     
     // save user
     [DesignUtils showProgressHUDAddedTo:self.view];
-    [ApiManager updateCurrentUserInfo:email
-                              success:^{
+    [User currentUser].email = email;
+    [ApiManager saveCurrentUserAndExecuteSuccess:^{
                                   [DesignUtils hideProgressHUDForView:self.view];
                                   [self performSegueWithIdentifier:@"Card From Email" sender:nil];
                               } failure:^(NSError *error) {

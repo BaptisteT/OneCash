@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController
+#import "SwitchTableViewCell.h"
+
+@protocol SettingsVCProtocol;
+
+@interface SettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, SwitchTVCProtocol>
+
+@property (weak, nonatomic) id<SettingsVCProtocol> delegate;
+
+@end
+
+@protocol SettingsVCProtocol
+
+- (void)navigateToCardController;
+- (void)logoutUser;
 
 @end

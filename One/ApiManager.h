@@ -30,9 +30,8 @@
 #pragma mark - User
 // --------------------------------------------
 
-+ (void)updateCurrentUserInfo:(NSString *)email
-                      success:(void(^)())successBlock
-                      failure:(void(^)(NSError *error))failureBlock;
++ (void)saveCurrentUserAndExecuteSuccess:(void(^)())successBlock
+                                 failure:(void(^)(NSError *error))failureBlock;
 
 + (void)createStripeCustomerWithToken:(NSString *)token
                         paymentMethod:(PaymentMethod)method
@@ -45,6 +44,8 @@
 
 + (void)fetchCurrentUserAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
+
++ (void)resendEmailVerification;
 
 // --------------------------------------------
 #pragma mark - Transactions

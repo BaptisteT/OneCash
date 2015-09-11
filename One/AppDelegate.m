@@ -97,8 +97,6 @@
         // Identify user
         [TrackingUtils identifyUser:[User currentUser]];
         
-        // Register for notif
-        [NotifUtils registerForRemoteNotif];
         // Check if we come from a new message notif
 //        NSNumber *notifOpening = [NSNumber numberWithBool:NO];
         NSDictionary *remoteNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];

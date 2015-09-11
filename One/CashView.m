@@ -143,12 +143,17 @@
     if ([anim isKindOfClass:[POPDecayAnimation class]]) {
         if (self.center.y < 0) {
             CGFloat xDirection = self.center.x + (self.center.x - self.initialCenter.x) / (self.center.y - self.initialCenter.y) * (-self.frame.size.height- self.center.y);
-            [self moveViewToPoint:CGPointMake(xDirection, -self.frame.size.height)
-                         velocity:CGPointMake(100, 100)
-                       completion:^void(POPAnimation *anim,BOOL completed) {
-                           // Create the transaction
-                           [self.delegate createTransactionWithCashView:self];
-            }];
+            if (self.frame.origin.x + self.frame.size.height > 0) {
+                [self moveViewToPoint:CGPointMake(xDirection, -self.frame.size.height)
+                             velocity:CGPointMake(100, 100)
+                           completion:^void(POPAnimation *anim,BOOL completed) {
+                               // Create the transaction
+                               [self.delegate createTransactionWithCashView:self];
+                }];
+            } else {
+                // Create the transaction directly
+                [self.delegate createTransactionWithCashView:self];
+            }
             [self.delegate adaptUIToCashViewState:NO];
         } else {
             [self moveViewToCenterAndExecute:^void(POPAnimation *anim,BOOL completed) {

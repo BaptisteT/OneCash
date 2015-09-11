@@ -25,10 +25,14 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 @property (retain) NSString *twitterId;
 @property (nonatomic) PaymentMethod paymentMethod;
 @property (nonatomic) NSInteger balance;
+@property (nonatomic) BOOL autoTweet;
+@property (retain) NSString *tweetWording;
+@property (nonatomic) BOOL verified;
 
 // Local
 @property (nonatomic, strong) UIImage *avatar;
 
 - (void)setAvatarInImageView:(UIImageView *)imageView;
+- (BOOL)isEmailVerified;
 
 @end

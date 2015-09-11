@@ -35,7 +35,9 @@ static NSString * const kTwitterConsumerSecret = @"silyysZvTNaNLJxLk1IlJblEh0NhC
 static NSString * const kApplePayMerchantId = @"merchant.cash.one";
 
 // Web
-static NSString * const kOneWebsiteTermsLink = @"http://flashtape.co/#terms"; // todo
+static NSString * const kOneWebsiteTermsLink = @"http://flashtape.co/#terms"; // todo BT
+static NSString * const kOneWebsiteSupportLink = @"http://flashtape.co/#terms";// todo BT
+static NSString * const kOneWebsiteLink = @"http://one.cash";// todo BT
 
 // Notif
 static float const kInternalNotifDuration = 3;
@@ -54,3 +56,7 @@ static NSInteger const kMaxMessagesLength = 60;
 // Sending
 static float const kAssociationTimerDuration = 1.;
 static NSInteger const kAssociationTransactionsLimit = 10;
+
+// Settings
+static float const kSettingsHeaderHeight = 25.;
+static float const kSettingsCellHeight = 50.;

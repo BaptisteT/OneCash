@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *userPicture;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *certifiedImageView;
 
 @end
 
@@ -26,6 +27,8 @@
     self.userPicture.clipsToBounds = YES;
     self.userPicture.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.userPicture.layer.borderWidth = 0.5;
+    
+    self.certifiedImageView.hidden = ! user.verified;
 }
 
 @end

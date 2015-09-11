@@ -11,8 +11,9 @@
 #import "BalanceViewController.h"
 #import "CashView.h"
 #import "RecipientViewController.h"
+#import "SettingsViewController.h"
 
-@interface SendCashViewController : UIViewController <RecipientVCProtocol, CashViewDelegateProtocol, UIAlertViewDelegate, BalanceViewControllerProtocol>
+@interface SendCashViewController : UIViewController <RecipientVCProtocol, CashViewDelegateProtocol, UIAlertViewDelegate, BalanceViewControllerProtocol, SettingsVCProtocol>
 
 
 @end

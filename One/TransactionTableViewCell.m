@@ -71,7 +71,7 @@
             self.messageLabel.hidden = YES;
         }
         
-        [transaction.sender setAvatarInImageView:self.userPicture];
+        [transaction.receiver setAvatarInImageView:self.userPicture];
         name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
     }
     NSString *time = transaction.createdAt.shortTimeAgoSinceNow;

@@ -20,6 +20,9 @@
 @dynamic twitterId;
 @dynamic paymentMethod;
 @dynamic balance;
+@dynamic autoTweet;
+@dynamic tweetWording;
+@dynamic verified;
 
 @synthesize avatar;
 
@@ -56,5 +59,22 @@
     CGSize rescaleSize = {kDisplayedPictureSize, kDisplayedPictureSize};
     [[ImageCache defaultCache] deleteCashedImageForURL:[NSURL URLWithString:self.pictureURL] size:rescaleSize];
 }
+
++ (void)logOut {
+    [super logOut];
+}
+
+- (BOOL)isEmailVerified {
+    if ([self objectForKey:@"emailVerified"]) {
+        // refresh to ensure it did not change recently
+        if (![[self objectForKey:@"emailVerified"] boolValue]) {
+            [self fetch];
+        }
+        return [[self objectForKey:@"emailVerified"] boolValue];
+    } else {
+        return NO;
+    }
+}
+
 
 @end

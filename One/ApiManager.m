@@ -117,18 +117,18 @@
             NSError * error = nil;
             NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             OneLog(ONEAPIMANAGERLOG, @"Success - twitter info - %@",result);
-            
+            // Profile picture
             NSString * profileImageURL = [result objectForKey:@"profile_image_url_https"];
             if (profileImageURL.length > 0 && ![user.pictureURL isEqualToString:profileImageURL]) {
                 user.pictureURL = profileImageURL;
             }
-            
+            // Username
             NSString * username = [result objectForKey:@"screen_name"];
             if (username.length > 0 && ![user.caseUsername isEqualToString:username]) {
                 user.caseUsername = [result objectForKey:@"screen_name"];
                 [user setUsername:[user.caseUsername lowercaseString]];
             }
-            
+            // Names
             NSString * names = [result objectForKey:@"name"];
             if (names.length > 0 && !user.lastName) {
                 NSMutableArray * array = [NSMutableArray arrayWithArray:[names componentsSeparatedByString:@" "]];
@@ -138,6 +138,10 @@
                     [array removeLastObject];
                     user.firstName = [array componentsJoinedByString:@" " ];
                 }
+            }
+            // Certified
+            if ([result objectForKey:@"verified"] && user.verified != [[result objectForKey:@"verified"] boolValue]) {
+                user.verified = [[result objectForKey:@"verified"] boolValue];
             }
             if (successBlock) {
                 successBlock();
@@ -156,13 +160,10 @@
 // --------------------------------------------
 #pragma mark - User
 // --------------------------------------------
-+ (void)updateCurrentUserInfo:(NSString *)email
-                      success:(void(^)())successBlock
-                      failure:(void(^)(NSError *error))failureBlock
++ (void)saveCurrentUserAndExecuteSuccess:(void(^)())successBlock
+                                 failure:(void(^)(NSError *error))failureBlock
 {
     User *user = [User currentUser]; // there should be unsaved changed (username / picture URL..)
-    if (email)
-        user.email = email;
     if (user.isDirty) {
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
@@ -178,6 +179,16 @@
             }
         }];
     }
+}
+
++ (void)resendEmailVerification {
+    User *user = [User currentUser];
+    NSString *email = [User currentUser].email;
+    user.email = @"";
+    [ApiManager saveCurrentUserAndExecuteSuccess:^{
+        user.email = email;
+        [ApiManager saveCurrentUserAndExecuteSuccess:nil failure:nil];
+    } failure:nil];
 }
 
 + (void)createStripeCustomerWithToken:(NSString *)token
@@ -257,7 +268,7 @@
 
     [PFCloud callFunctionInBackground:@"createPaymentTransaction"
                        withParameters:params
-                                block:^(Transaction *object, NSError *error) {
+                                block:^(NSArray *objects, NSError *error) {
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - createPaymentTransaction - %@",error.description);
                                         if (failureBlock) {
@@ -265,7 +276,7 @@
                                         }
                                     } else {
                                         // pin transaction
-                                        [object pinInBackgroundWithName:kParseTransactionsName];
+                                        [(Transaction *)(objects[0]) pinInBackgroundWithName:kParseTransactionsName];
                                         if (successBlock) {
                                             successBlock();
                                         }
