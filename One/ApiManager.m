@@ -257,6 +257,7 @@
 // --------------------------------------------
 // Create payment transactions
 + (void)createPaymentTransactionWithTransaction:(Transaction *)transaction
+                                  applePaytoken:(NSString *)token
                                         success:(void(^)())successBlock
                                         failure:(void(^)(NSError *error))failureBlock
 {
@@ -265,6 +266,8 @@
     if (transaction.message)
         params[@"message"] = transaction.message;
     params[@"transactionAmount"] = [NSNumber numberWithInteger:transaction.transactionAmount];
+    if (token)
+        params[@"applePayToken"] = token;
 
     [PFCloud callFunctionInBackground:@"createPaymentTransaction"
                        withParameters:params

@@ -51,6 +51,7 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "ApplePayStubs/ApplePayStubs/STPTestPaymentSummaryViewController.xib"
   install_resource "DateTools/DateTools/DateTools.bundle"
   install_resource "Mixpanel/Mixpanel/Media.xcassets/MPArrowLeft.imageset/MPArrowLeft.png"
   install_resource "Mixpanel/Mixpanel/Media.xcassets/MPArrowLeft.imageset/MPArrowLeft@2x.png"
@@ -100,6 +101,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "Stripe/Stripe/Resources/Images"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "ApplePayStubs/ApplePayStubs/STPTestPaymentSummaryViewController.xib"
   install_resource "DateTools/DateTools/DateTools.bundle"
   install_resource "Mixpanel/Mixpanel/Media.xcassets/MPArrowLeft.imageset/MPArrowLeft.png"
   install_resource "Mixpanel/Mixpanel/Media.xcassets/MPArrowLeft.imageset/MPArrowLeft@2x.png"

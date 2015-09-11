@@ -32,7 +32,7 @@
 "stripe_card_title" = "Bitch Better Have My Money";
 "create_token_with_card_error_title" = "The information you entered seems incorrect";
 "create_token_with_card_error_message" = "Please, try again.";
-"apple_pay_button_title" = "Add my debit card with Apple Pay";
+"apple_pay_button_title" = "Add my debit card with ";
 "manual_pay_button_title" = "Add my debit card manually";
 "message_placeholder" = "Add a message";
 
@@ -47,6 +47,7 @@
 "add_button" = "Add";
 "sending_label" = "Sending (%lu)...";
 "sent_label" = "Sent!";
+"failed_label" = "Fail (%lu) !";
 
 // Balance
 "close_button" = "Close";

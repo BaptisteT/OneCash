@@ -25,9 +25,6 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     kSectionTypesCount = 7
 };
 
-// todo BT
-// change email
-
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -105,7 +102,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     User *user = [User currentUser];
     if (indexPath.section == kCardSection) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CardCell"];
-        cell.textLabel.text = user.paymentMethod == kPaymentMethodNone ? NSLocalizedString(@"no_card_title", nil) : NSLocalizedString(@"card_section", nil);
+        cell.textLabel.text = user.paymentMethod == kPaymentMethodNone ? NSLocalizedString(@"no_card_section", nil) : NSLocalizedString(@"card_section", nil);
         cell.backgroundColor = [ColorUtils mainGreen];
         return cell;
     } else if (indexPath.section == kAutoTweetSection) {

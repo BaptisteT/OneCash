@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 #import "Reachability.h"
+#import <ApplePayStubs/ApplePayStubs.h>
+#import <Stripe.h>
 
 #import "ApiManager.h"
 #import "DatastoreManager.h"
@@ -26,7 +28,8 @@
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
-@interface SendCashViewController ()
+@interface SendCashViewController () <PKPaymentAuthorizationViewControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *balanceButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *pickRecipientButton;
@@ -42,6 +45,7 @@
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
 @property (strong, nonatomic) NSTimer *associationTimer;
 @property (strong, nonatomic) Transaction *transactionToSend;
+@property (strong, nonatomic) Transaction *transactionSending;
 @property (nonatomic) NSInteger ongoingTransactionsCount;
 
 @end
@@ -171,7 +175,7 @@
 }
 
 // --------------------------------------------
-#pragma mark - Transactions
+#pragma mark - Load Transactions
 // --------------------------------------------
 - (void)loadLatestTransactions {
     [ApiManager getTransactionsAroundDate:[DatastoreManager getLatestTransactionsRetrievalDate]
@@ -192,63 +196,76 @@
 #pragma mark - Sending
 // --------------------------------------------
 
-- (void)startAssociationTimer {
-    self.associationTimer = [NSTimer scheduledTimerWithTimeInterval:kAssociationTimerDuration
-                                                             target:self
-                                                           selector:@selector(sendTransaction)
-                                                           userInfo:nil
-                                                            repeats:NO];
-}
-
-- (void)sendTransaction {
-    Transaction *transaction = self.transactionToSend;
-    if (transaction) {
+- (void)generateTokenAndSendTransaction {
+    if (self.transactionToSend) {
         if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
-            // todo BT
-            // ask user & get token
-            // get token
+            [self beginApplePay:self.transactionToSend];
+        } else {
+            [self createPaymentWithTransaction:self.transactionToSend token:nil];
         }
-        [ApiManager createPaymentTransactionWithTransaction:transaction
-                                                    success:^{
-                                                        self.ongoingTransactionsCount -= transaction.transactionAmount;
-                                                        // send notif to balance controller for refresh
-                                                        [[NSNotificationCenter defaultCenter] postNotificationName: @"refresh_transactions_table"
-                                                                                                            object:nil
-                                                                                                          userInfo:nil];
-                                                    } failure:^(NSError *error) {
-                                                        self.ongoingTransactionsCount -= transaction.transactionAmount;
-                                                        // todo BT
-                                                        // indicate cause of error ? instead of sent !
-                                                    }];
         self.transactionToSend = nil;
     }
 }
 
-- (void)setOngoingTransactionsCount:(NSInteger)ongoingTransactionsCount {
-    if (ongoingTransactionsCount > 0) {
-        self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sending_label", nil),ongoingTransactionsCount];
-    } else if (_ongoingTransactionsCount > 0 && ongoingTransactionsCount == 0)  {
-        [self sentAnimation];
-    }
-    _ongoingTransactionsCount = ongoingTransactionsCount;
+- (void)createPaymentWithTransaction:(Transaction *)transaction
+                               token:(NSString *)token
+{
+    [ApiManager createPaymentTransactionWithTransaction:transaction
+                                          applePaytoken:token
+                                                success:^{
+                                                    self.ongoingTransactionsCount -= transaction.transactionAmount;
+                                                    // send notif to balance controller for refresh
+                                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_transactions_table"
+                                                                                                        object:nil
+                                                                                                      userInfo:nil];
+                                                    if (self.ongoingTransactionsCount == 0) {
+                                                        [self sentAnimation];
+                                                    }
+                                                } failure:^(NSError *error) {
+                                                    self.ongoingTransactionsCount -= transaction.transactionAmount;
+                                                    [self failedAnimation:transaction.transactionAmount];
+                                                }];
 }
 
-- (void)sentAnimation {
-    self.titleLabel.alpha = 0;
-    self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
-    [UIView animateWithDuration:1 animations:^{
-        self.titleLabel.alpha = 1;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
-            self.titleLabel.alpha = 0;
-            self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
-                self.titleLabel.alpha = 1;
-            } completion:nil];
-        }];
-    }];
+
+// --------------------------------------------
+#pragma mark - Apple pay
+// --------------------------------------------
+
+- (void)beginApplePay:(Transaction *)transaction {
+    self.transactionSending = transaction;
+    PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
+    if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
+        [paymentRequest setRequiredBillingAddressFields:PKAddressFieldPostalAddress];
+        NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:transaction.transactionAmount];
+        paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:@"OneCash tips" amount:amount]];
+#if DEBUG
+        STPTestPaymentAuthorizationViewController *auth = [[STPTestPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
+#else
+        PKPaymentAuthorizationViewController *auth = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
+#endif
+        auth.delegate = self;
+        [self presentViewController:auth animated:YES completion:nil];
+    }
 }
+
+- (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
+                       didAuthorizePayment:(PKPayment *)payment
+                                completion:(void (^)(PKPaymentAuthorizationStatus))completion {
+    [[STPAPIClient sharedClient] createTokenWithPayment:payment
+                                             completion:^(STPToken *token, NSError *error) {
+                                                 completion(PKPaymentAuthorizationStatusSuccess);
+                                                 [self createPaymentWithTransaction:self.transactionSending
+                                                                              token:token.tokenId];
+                                             }];
+}
+
+- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
 
 // --------------------------------------------
 #pragma mark - Cash view
@@ -281,9 +298,7 @@
      } else {
          [self addNewCashSubview];
          [self removeCashSubview:cashView];
-         self.ongoingTransactionsCount ++;
          
-         BOOL createNewTransaction = YES;
          if (self.transactionToSend) {
              [self.associationTimer invalidate];
              BOOL sameReceiver = [self.transactionToSend.receiver.objectId isEqualToString:self.receiver.objectId];
@@ -292,24 +307,25 @@
              
              // If we can't merge, send the first one
              if (!sameReceiver || !noMessageConflict || !belowLimit) {
-                 [self sendTransaction];
+                 [self generateTokenAndSendTransaction];
              } else {
+                 self.ongoingTransactionsCount ++;
                  // update transaction
-                 createNewTransaction = NO;
                  self.transactionToSend.transactionAmount ++;
                  if (cashView.messageTextField.text.length > 0) {
                      self.transactionToSend.message = cashView.messageTextField.text;
                  }
+                 // Sending timer
+                 [self startAssociationTimer];
              }
-         }
-         if (createNewTransaction) {
+         } else {
+             self.ongoingTransactionsCount ++;
              self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
                                                          transactionAmount:1
                                                                       type:kTransactionPayment
                                                                    message:cashView.messageTextField.text];
+             [self startAssociationTimer];
          }
-         // Sending timer
-         [self startAssociationTimer];
      }
 }
 
@@ -321,7 +337,7 @@
 }
 
 - (BOOL)userExpectedBalanceIsPositive {
-    return [User currentUser].balance + self.ongoingTransactionsCount > 0;
+    return [User currentUser].balance - self.ongoingTransactionsCount > 0;
 }
 
 - (void)addNewCashSubview {
@@ -427,6 +443,67 @@
         [KeyboardUtils moveView:editingView toCenter:self.view.center withKeyboardNotif:notification];
         editingView.isEditingMessage = NO;
     }
+}
+
+// --------------------------------------------
+#pragma mark - Helpers
+// --------------------------------------------
+
+- (void)setOngoingTransactionsCount:(NSInteger)ongoingTransactionsCount {
+    _ongoingTransactionsCount = ongoingTransactionsCount;
+    [self setTitleLabelWording];
+}
+
+- (void)setTitleLabelWording {
+    if (_ongoingTransactionsCount > 0) {
+        self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sending_label", nil),_ongoingTransactionsCount];
+    } else {
+        self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
+    }
+}
+
+- (void)sentAnimation {
+    self.titleLabel.alpha = 0;
+    self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
+    [UIView animateWithDuration:1 animations:^{
+        self.titleLabel.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.titleLabel.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self setTitleLabelWording];
+            [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
+                self.titleLabel.alpha = 1;
+            } completion:nil];
+        }];
+    }];
+}
+
+- (void)failedAnimation:(NSInteger)failedCount {
+    self.titleLabel.alpha = 0;
+    self.titleLabel.textColor = [ColorUtils red];
+    self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"failed_label", nil),failedCount];
+    [UIView animateWithDuration:1 animations:^{
+        self.titleLabel.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
+            self.titleLabel.alpha = 0;
+            self.titleLabel.textColor = [UIColor whiteColor];
+        } completion:^(BOOL finished) {
+            [self setTitleLabelWording];
+            [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
+                self.titleLabel.alpha = 1;
+            } completion:nil];
+        }];
+    }];
+}
+
+- (void)startAssociationTimer {
+    self.associationTimer = [NSTimer scheduledTimerWithTimeInterval:kAssociationTimerDuration
+                                                             target:self
+                                                           selector:@selector(generateTokenAndSendTransaction)
+                                                           userInfo:nil
+                                                            repeats:NO];
 }
 
 @end

@@ -7,6 +7,9 @@
 //
 #import <Stripe.h>
 
+#import "ApiManager.h"
+#import "User.h"
+
 #import "CardViewController.h"
 #import "SendCashViewController.h"
 
@@ -69,8 +72,17 @@
         // todo BT
         // alert user
         return;
+    } else {
+        [User currentUser].paymentMethod = kPaymentMethodApplePay;
+        [DesignUtils showProgressHUDAddedTo:self.view];
+        [ApiManager saveCurrentUserAndExecuteSuccess:^{
+            [DesignUtils hideProgressHUDForView:self.view];
+            [self navigateToSend];
+        } failure:^(NSError *error) {
+            [DesignUtils hideProgressHUDForView:self.view];
+            // todo BT
+        }];
     }
-    [self navigateToSend];
 }
 
 - (IBAction)manualCardClicked:(id)sender {

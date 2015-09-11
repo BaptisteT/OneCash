@@ -51,7 +51,7 @@ static NSInteger const kDisplayedPictureSize = 128;
 static NSString * const kParseTransactionsName = @"Transactions";
 
 // Messages
-static NSInteger const kMaxMessagesLength = 60;
+static NSInteger const kMaxMessagesLength = 30;
 
 // Sending
 static float const kAssociationTimerDuration = 1.;

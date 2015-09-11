@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 #import "ApiManager.h"
+#import "DatastoreManager.h"
 #import "User.h"
 
 #import "RecipientViewController.h"
@@ -75,9 +76,13 @@
     // Textfield
     self.recipientTextfield.delegate = self;
     
-    // todo BT
-    // load list of already used used users
-    
+    // Show recent users
+    [DatastoreManager getRecentUsersAndExecuteSuccess:^(NSArray *users) {
+        if (self.recipientTextfield.text.length == 0) {
+            self.usersArray = users;
+            [self.recipientsTableView reloadData];
+        }
+    } failure:nil];
 
 }
 

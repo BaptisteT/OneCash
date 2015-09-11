@@ -44,10 +44,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if DEBUG
+    BOOL debug = true;
+#else
+    BOOL debug = false;
+#endif
+
     // Parse
     [Parse enableLocalDatastore];
-    [Parse setApplicationId:DEBUG ? kParseDevApplicationId : kParseProdApplicationId
-                  clientKey:DEBUG ? kParseDevClientKey : kParseProdClientKey];
+    [Parse setApplicationId:debug ? kParseDevApplicationId : kParseProdApplicationId
+                  clientKey:debug ? kParseDevClientKey : kParseProdClientKey];
     
     // Twitter
     [PFTwitterUtils initializeWithConsumerKey:kTwitterConsumerKey
@@ -56,12 +62,12 @@
     // Fabrick
     [Fabric with:@[CrashlyticsKit]];
     
-    if (!DEBUG) {
+    if (!debug) {
         // Mixpanel
         [Mixpanel sharedInstanceWithToken:kMixpanelProdToken launchOptions:launchOptions];
         
         // Track statistics around application opens.
-//        [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+        [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         
         // Stripe
         [Stripe setDefaultPublishableKey:kStripeTestPublishableKey];

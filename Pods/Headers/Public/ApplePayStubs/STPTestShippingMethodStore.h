@@ -1,0 +1,1 @@
+../../../ApplePayStubs/ApplePayStubs/STPTestShippingMethodStore.h

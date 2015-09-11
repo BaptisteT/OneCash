@@ -51,6 +51,7 @@
 #pragma mark - Transactions
 // --------------------------------------------
 + (void)createPaymentTransactionWithTransaction:(Transaction *)transaction
+                                  applePaytoken:(NSString *)token
                                         success:(void(^)())successBlock
                                         failure:(void(^)(NSError *error))failureBlock;
 

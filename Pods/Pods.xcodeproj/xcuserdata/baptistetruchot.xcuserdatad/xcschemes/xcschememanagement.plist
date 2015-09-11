@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-One-ApplePayStubs.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-One-Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,57 +67,62 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>09C489F6117EA6495B1BADA8</key>
+		<key>4E0DFF7041C985F78DE423CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>24CF7F56681F653920CE7EA7</key>
+		<key>5E38E208BD891AADDC9061ED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4571B59D1D29D900CC4398EB</key>
+		<key>6A99ECA8DCED08DA8C94C256</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>565CD7C56B7E434FE5DE8B4B</key>
+		<key>83E4DE9751F70634010E8C8C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6F75AF46ED73FD5A46B6584B</key>
+		<key>87E2279C56BC1813D7DFADFB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>741C63624D40A334644B0186</key>
+		<key>931E187D96B94B36D43EA79C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>88850E0B4A76797126E10C6B</key>
+		<key>98249ACD0D63A4C37A3AAD0B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>897FF2275AE154F4F408DEC4</key>
+		<key>A26A32E850A9E2E8743FCC73</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DBD411BD2E0B6A275F186762</key>
+		<key>B8681058865D80DB833E6413</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E34FAE501404E1A7A6FC21FB</key>
+		<key>C8CE5D1F54228E814660CD35</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EEAC1A25C670E4BD6531CEDC</key>
+		<key>E580350A53096BDEDBAE892D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F38CFFC72D12EF65E12A7DA1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

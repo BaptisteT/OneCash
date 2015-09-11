@@ -58,4 +58,32 @@
     [prefs setObject:date forKey:LATEST_TRANSACTIONS_RETRIEVAL];
     [prefs synchronize];
 }
+
+// --------------------------------------------
+#pragma mark - load recent users
+// --------------------------------------------
++ (void)getRecentUsersAndExecuteSuccess:(void(^)(NSArray *users))successBlock
+                                failure:(void(^)(NSError *error))failureBlock
+{
+    PFQuery *query = [User query];
+    [query fromLocalDatastore];
+    [query setLimit:10];
+    [query whereKey:@"objectId" notEqualTo:[User currentUser].objectId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *transactions, NSError *error) {
+        if (!error) {
+            OneLog(LOCALLOGENABLED,@"Datastore => %lu users  found",transactions.count);
+            if (successBlock) {
+                successBlock(transactions);
+            }
+        } else {
+            // Log details of the failure
+            OneLog(LOCALLOGENABLED,@"Error in users from local datastore: %@ %@", error, [error userInfo]);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }];
+}
+
+
 @end

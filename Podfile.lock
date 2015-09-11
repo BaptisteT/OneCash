@@ -1,4 +1,5 @@
 PODS:
+  - ApplePayStubs (0.2)
   - Bolts (1.2.1):
     - Bolts/AppLinks (= 1.2.1)
     - Bolts/Tasks (= 1.2.1)
@@ -35,6 +36,7 @@ PODS:
   - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
+  - ApplePayStubs
   - Crashlytics
   - DateTools
   - Fabric
@@ -57,6 +59,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/facebook/pop.git
 
 SPEC CHECKSUMS:
+  ApplePayStubs: 5dd63c36527d1117b2045939fb5b6581b4815433
   Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
   Crashlytics: a29e4f820aa401482b26043dc5d78adf08ac7573
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
