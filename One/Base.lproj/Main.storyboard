@@ -1074,6 +1074,17 @@
                                     <action selector="removeRecipientButtonClicked:" destination="WNA-kw-5yZ" eventType="touchUpInside" id="gW6-H4-Gxg"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdP-2U-JLO">
+                                <rect key="frame" x="77" y="29" width="12" height="12"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="12" id="7Mm-kW-y9e"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="pdP-2U-JLO" secondAttribute="height" multiplier="1:1" id="JOH-Xz-V9f"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1095,7 +1106,9 @@
                             <constraint firstItem="Xkf-i5-lEv" firstAttribute="leading" secondItem="lUg-ge-fn2" secondAttribute="leading" id="eoQ-zQ-USP"/>
                             <constraint firstItem="nji-5G-axu" firstAttribute="centerY" secondItem="71X-ED-w10" secondAttribute="centerY" id="i0i-9n-F8D"/>
                             <constraint firstItem="Xkf-i5-lEv" firstAttribute="centerX" secondItem="geg-5G-UE5" secondAttribute="centerX" constant="-280" id="oog-Lv-grL"/>
+                            <constraint firstItem="pdP-2U-JLO" firstAttribute="leading" secondItem="71X-ED-w10" secondAttribute="trailing" constant="5" id="p65-D5-iBG"/>
                             <constraint firstItem="Xkf-i5-lEv" firstAttribute="centerY" secondItem="geg-5G-UE5" secondAttribute="centerY" id="qDv-eg-1gy"/>
+                            <constraint firstItem="pdP-2U-JLO" firstAttribute="centerY" secondItem="71X-ED-w10" secondAttribute="centerY" id="tYM-nt-ck6"/>
                             <constraint firstAttribute="centerX" secondItem="Nn4-Dn-38P" secondAttribute="centerX" id="wPs-90-obF"/>
                         </constraints>
                         <variation key="default">
@@ -1106,6 +1119,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="balanceBadge" destination="pdP-2U-JLO" id="MyW-Zh-rfZ"/>
                         <outlet property="balanceButton" destination="71X-ED-w10" id="ztZ-Q1-MWn"/>
                         <outlet property="pickRecipientButton" destination="Xkf-i5-lEv" id="7xK-qY-pxt"/>
                         <outlet property="removeRecipientButton" destination="geg-5G-UE5" id="hM7-51-CID"/>

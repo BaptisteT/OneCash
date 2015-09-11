@@ -13,7 +13,8 @@
 #import "ConstantUtils.h"
 #import "OneLogger.h"
 
-#define LATEST_TRANSACTIONS_RETRIEVAL @"Lastest transaction retrieval date"
+#define LAST_TRANSACTIONS_RETRIEVAL @"Latest transactions last retrieval date"
+#define LAST_BALANCE_OPENING @"Last Balance opening"
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
 @implementation DatastoreManager
@@ -48,14 +49,47 @@
     }];
 }
 
++ (void)getNumberOfTransactionsSinceDate:(NSDate *)date
+                                      success:(void(^)(NSInteger count))successBlock
+                                      failure:(void(^)(NSError *error))failureBlock
+{
+    PFQuery *query = [PFQuery queryWithClassName:[Transaction parseClassName]];
+    [query fromLocalDatastore];
+    [query fromPinWithName:kParseTransactionsName];
+    [query whereKey:@"createdAt" greaterThan:date];
+    [query setLimit:1000];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *transactions, NSError *error) {
+        if (!error) {
+            if (successBlock) {
+                successBlock(transactions.count);
+            }
+        } else {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }];
+}
+
 + (NSDate *)getLatestTransactionsRetrievalDate {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    return [prefs objectForKey:LATEST_TRANSACTIONS_RETRIEVAL] ? [prefs objectForKey:LATEST_TRANSACTIONS_RETRIEVAL] : [NSDate dateWithTimeIntervalSince1970:0];
+    return [prefs objectForKey:LAST_TRANSACTIONS_RETRIEVAL] ? [prefs objectForKey:LAST_TRANSACTIONS_RETRIEVAL] : [NSDate dateWithTimeIntervalSince1970:0];
 }
 
 + (void)saveLatestTransactionsRetrievalDate:(NSDate *)date {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:date forKey:LATEST_TRANSACTIONS_RETRIEVAL];
+    [prefs setObject:date forKey:LAST_TRANSACTIONS_RETRIEVAL];
+    [prefs synchronize];
+}
+
++ (NSDate *)getLastBalanceOpening {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs objectForKey:LAST_BALANCE_OPENING] ? [prefs objectForKey:LAST_BALANCE_OPENING] : [NSDate dateWithTimeIntervalSince1970:0];
+}
+
++ (void)setLastBalanceOpeningDate:(NSDate *)date {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:date forKey:LAST_BALANCE_OPENING];
     [prefs synchronize];
 }
 

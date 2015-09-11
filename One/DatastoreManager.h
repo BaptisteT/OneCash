@@ -13,6 +13,9 @@
 + (void)getTransactionsLocallyAndExecuteSuccess:(void(^)(NSArray *transactions))successBlock
                                         failure:(void(^)(NSError *error))failureBlock;
 
++ (void)getNumberOfTransactionsSinceDate:(NSDate *)date
+                                 success:(void(^)(NSInteger count))successBlock
+                                 failure:(void(^)(NSError *error))failureBlock;
 
 + (NSDate *)getLatestTransactionsRetrievalDate;
 
@@ -20,4 +23,8 @@
 
 + (void)getRecentUsersAndExecuteSuccess:(void(^)(NSArray *users))successBlock
                                 failure:(void(^)(NSError *error))failureBlock;
+
++ (NSDate *)getLastBalanceOpening;
+
++ (void)setLastBalanceOpeningDate:(NSDate *)date;
 @end

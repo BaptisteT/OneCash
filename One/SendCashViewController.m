@@ -24,7 +24,7 @@
 #import "GeneralUtils.h"
 #import "KeyboardUtils.h"
 #import "NotifUtils.h"
-#import "OneLogger.h"   
+#import "OneLogger.h"
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *pickRecipientButton;
 @property (weak, nonatomic) IBOutlet UIButton *removeRecipientButton;
+@property (weak, nonatomic) IBOutlet UILabel *balanceBadge;
 
 @property (strong, nonatomic) User *receiver;
 @property (weak, nonatomic) IBOutlet UILabel *toLabel;
@@ -45,7 +46,8 @@
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
 @property (strong, nonatomic) NSTimer *associationTimer;
 @property (strong, nonatomic) Transaction *transactionToSend;
-@property (strong, nonatomic) Transaction *transactionSending;
+@property (strong, nonatomic) Transaction *applePaySendingTransaction;
+@property (nonatomic) BOOL applePaySucceeded;
 @property (nonatomic) NSInteger ongoingTransactionsCount;
 
 @end
@@ -60,6 +62,7 @@
     
     // Init
     self.ongoingTransactionsCount = 0;
+    [self setBadgeValue:0];
     
     // Wording
     [self.balanceButton setTitle:NSLocalizedString(@"balance_button", nil) forState:UIControlStateNormal];
@@ -72,6 +75,9 @@
     self.toLabel.textColor = [ColorUtils mainGreen];
     self.view.backgroundColor = [ColorUtils mainGreen];
     [DesignUtils addTopBorder:self.pickRecipientButton borderSize:0.5 color:[UIColor lightGrayColor]];
+    self.balanceBadge.backgroundColor = [ColorUtils red];
+    self.balanceBadge.layer.cornerRadius = self.balanceBadge.frame.size.height / 2;
+    self.balanceBadge.clipsToBounds = YES;
     
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
@@ -126,6 +132,7 @@
     } else if ([segueName isEqualToString:@"Card From Send"]) {
         ((CardViewController *) [segue destinationViewController]).redirectionViewController = self;
     } else if ([segueName isEqualToString:@"Balance From Send"]) {
+        [self setBadgeValue:0];
         ((BalanceViewController *) [segue destinationViewController]).delegate = self;
     } 
 }
@@ -185,12 +192,18 @@
                                       [[NSNotificationCenter defaultCenter] postNotificationName: @"refresh_transactions_table"
                                                                                           object:nil
                                                                                         userInfo:nil];
-                                      // todo BT
-                                      // badge ?
+                                      [self setBadgeValueToNewTransactionsCount];
                                   }
                                   failure:nil];
 }
 
+- (void)setBadgeValueToNewTransactionsCount
+{
+    [DatastoreManager getNumberOfTransactionsSinceDate:[DatastoreManager getLastBalanceOpening]
+                                               success:^(NSInteger count) {
+                                                   [self setBadgeValue:count];
+                                               } failure:nil];
+}
 
 // --------------------------------------------
 #pragma mark - Sending
@@ -233,7 +246,8 @@
 // --------------------------------------------
 
 - (void)beginApplePay:(Transaction *)transaction {
-    self.transactionSending = transaction;
+    self.applePaySucceeded = NO;
+    self.applePaySendingTransaction = transaction;
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
         [paymentRequest setRequiredBillingAddressFields:PKAddressFieldPostalAddress];
@@ -252,15 +266,21 @@
 - (void)paymentAuthorizationViewController:(PKPaymentAuthorizationViewController *)controller
                        didAuthorizePayment:(PKPayment *)payment
                                 completion:(void (^)(PKPaymentAuthorizationStatus))completion {
+    self.applePaySucceeded = YES;
     [[STPAPIClient sharedClient] createTokenWithPayment:payment
                                              completion:^(STPToken *token, NSError *error) {
                                                  completion(PKPaymentAuthorizationStatusSuccess);
-                                                 [self createPaymentWithTransaction:self.transactionSending
+                                                 [self createPaymentWithTransaction:self.applePaySendingTransaction
                                                                               token:token.tokenId];
+                                                 self.applePaySendingTransaction = nil;
                                              }];
 }
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
+    if (!self.applePaySucceeded) {
+        self.ongoingTransactionsCount -= self.applePaySendingTransaction.transactionAmount;
+        self.applePaySendingTransaction = nil;
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -330,6 +350,7 @@
 }
 
 - (void)adaptUIToCashViewState:(BOOL)isMoving {
+    self.balanceBadge.hidden = isMoving || [self.balanceBadge.text isEqualToString:@"0"];
     self.balanceButton.hidden = isMoving;
     self.titleLabel.hidden = isMoving;
     self.swipeTutoLabel.hidden = isMoving;
@@ -504,6 +525,11 @@
                                                            selector:@selector(generateTokenAndSendTransaction)
                                                            userInfo:nil
                                                             repeats:NO];
+}
+
+- (void)setBadgeValue:(NSInteger)count {
+    self.balanceBadge.text = [NSString stringWithFormat:@"%lu",count];
+    self.balanceBadge.hidden = (count == 0);
 }
 
 @end
