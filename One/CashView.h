@@ -28,4 +28,5 @@
 
 - (void)createTransactionWithCashView:(CashView *)cashView;
 - (void)adaptUIToCashViewState:(BOOL)isMoving;
+- (BOOL)isRecipientEmpty;
 @end

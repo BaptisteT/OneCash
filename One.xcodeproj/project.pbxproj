@@ -53,6 +53,7 @@
 		3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE11B9C47F800514A43 /* CashView.m */; };
 		3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
 		3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */; };
+		A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */; };
 		BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +146,7 @@
 		3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewCell.h; sourceTree = "<group>"; };
 		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One.release.xcconfig"; path = "Pods/Target Support Files/Pods-One/Pods-One.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,6 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */,
 				3C13EE4D1B9F32DE00930AC7 /* SystemConfiguration.framework in Frameworks */,
 				3CC5FD981B974A5500514A43 /* Accounts.framework in Frameworks */,
 				3CC5FD961B974A4F00514A43 /* Social.framework in Frameworks */,
@@ -166,6 +169,7 @@
 		03794D7AE0960F429C553BEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */,
 				3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */,
 				3CC5FDB61B988DB300514A43 /* UIKit.framework */,
 				3CC5FD971B974A5500514A43 /* Accounts.framework */,

@@ -32,8 +32,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *balanceButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *pickRecipientButton;
 @property (weak, nonatomic) IBOutlet UIButton *removeRecipientButton;
+@property (strong, nonatomic) IBOutlet UIButton *pickRecipientButton;
 @property (weak, nonatomic) IBOutlet UILabel *balanceBadge;
 
 @property (strong, nonatomic) User *receiver;
@@ -356,6 +356,15 @@
     self.swipeTutoLabel.hidden = isMoving;
     self.tutoArrow.hidden = isMoving;
 }
+
+//Check if the user already tried to pick a recipient
+-(BOOL)isRecipientEmpty {
+    if ([self.selectedUserLabel.text  isEqual: @"Pick a recipient"]) {
+        return true;
+    }
+    return false;
+}
+
 
 - (BOOL)userExpectedBalanceIsPositive {
     return [User currentUser].balance - self.ongoingTransactionsCount > 0;

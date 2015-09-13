@@ -11,6 +11,7 @@
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "OneLogger.h"
+#import <AudioToolbox/AudioServices.h>
 
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
@@ -21,7 +22,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *rightUpOne;
 @property (weak, nonatomic) IBOutlet UILabel *leftBottomOne;
 @property (weak, nonatomic) IBOutlet UILabel *rightBottomOne;
+@property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
 @property (nonatomic) CGPoint initialCenter;
+@property (nonatomic) BOOL isRecipientEmpty;
+
 @end
 
 @implementation CashView
@@ -33,6 +37,7 @@
     
     // UI
     [self setStaticUI];
+    self.pickRecipientAlertLabel.hidden = YES;
     self.centralLabel.textColor = [ColorUtils darkGreen];
     self.centralLabel.adjustsFontSizeToFitWidth = YES;
     self.centralLabel.clipsToBounds = YES;
@@ -73,6 +78,9 @@
     self.messageTextField.hidden = NO;
     self.backgroundColor = [ColorUtils darkGreen];
     self.centralLabel.backgroundColor = [ColorUtils mainGreen];
+    //hide recipient alert
+    self.pickRecipientAlertLabel.hidden = YES;
+
 }
 
 - (void)setMovingUI {
@@ -80,6 +88,10 @@
     self.backgroundColor = [ColorUtils veryLightGreen];
     self.centralLabel.backgroundColor = [ColorUtils lightGreen];
     [self.delegate adaptUIToCashViewState:YES];
+}
+
+-(void)displayAlertRecipient {
+    self.pickRecipientAlertLabel.hidden = NO;
 }
 
 // --------------------------------------------
@@ -98,15 +110,34 @@
     if (CGPointEqualToPoint(self.center, self.initialCenter)) {
         [self.layer pop_removeAllAnimations];
     }
+    
+    //check if recipient is set up
+    if ([self.delegate isRecipientEmpty] == true) {
+        [self displayAlertRecipient];
+        self.isRecipientEmpty = true;
+    } else {
+        self.isRecipientEmpty = false;
+    }
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint translation = [recognizer translationInView:self.superview];
-    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
-                                         recognizer.view.center.y + translation.y);
+    
+    if (translation.y > 0 && self.frame.origin.y > 0) {
+        translation.y = translation.y / 10;
+    }
+    
+    //slow down translation if recipient is empty
+    if (self.isRecipientEmpty == true) {
+        translation.y = translation.y /10;
+    }
+    
+    recognizer.view.center = CGPointMake(recognizer.view.center.x,
+                                         recognizer.view.center.y + translation.y * 1.3);
+    
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.superview];
-
+    
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         [self setMovingUI];
     }
@@ -144,6 +175,8 @@
         if (self.center.y < 0) {
             CGFloat xDirection = self.center.x + (self.center.x - self.initialCenter.x) / (self.center.y - self.initialCenter.y) * (-self.frame.size.height- self.center.y);
             if (self.frame.origin.x + self.frame.size.height > 0) {
+                //Vibration
+                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
                 [self moveViewToPoint:CGPointMake(xDirection, -self.frame.size.height)
                              velocity:CGPointMake(100, 100)
                            completion:^void(POPAnimation *anim,BOOL completed) {
@@ -167,7 +200,7 @@
 - (void)moveViewToPoint:(CGPoint)point velocity:(CGPoint)velocity completion:(void(^)(POPAnimation *anim,BOOL completed))completionBlock {
     POPSpringAnimation *positionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
     positionAnimation.velocity = [NSValue valueWithCGPoint:velocity];
-    positionAnimation.springBounciness = 10;
+    positionAnimation.springBounciness = 0;
     positionAnimation.toValue = [NSValue valueWithCGPoint:point];
     positionAnimation.completionBlock = completionBlock;
     [self.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
