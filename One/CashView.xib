@@ -83,7 +83,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="add_message" textAlignment="center" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="PPO-Xc-say" customClass="PaddingTextField">
-                    <rect key="frame" x="240" y="538" width="120" height="30"/>
+                    <rect key="frame" x="240" y="478" width="120" height="30"/>
                     <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -128,7 +128,7 @@
                 <constraint firstItem="fAf-x4-mf8" firstAttribute="centerY" secondItem="kiW-wc-Bfo" secondAttribute="centerY" id="T9Y-pc-Fic"/>
                 <constraint firstItem="Rhf-jq-iXI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="VPY-uR-tad"/>
                 <constraint firstAttribute="trailing" secondItem="Bsi-kk-ONP" secondAttribute="trailing" id="W7L-Iq-F3h"/>
-                <constraint firstAttribute="bottom" secondItem="PPO-Xc-say" secondAttribute="bottom" constant="32" id="ccz-hj-832"/>
+                <constraint firstAttribute="bottom" secondItem="PPO-Xc-say" secondAttribute="bottom" constant="92" id="ccz-hj-832"/>
                 <constraint firstAttribute="trailing" secondItem="GiO-jA-KHS" secondAttribute="trailing" id="dOC-WG-YnD"/>
                 <constraint firstAttribute="bottom" secondItem="WuC-xx-zOe" secondAttribute="bottom" constant="15" id="fQx-tc-TqI"/>
                 <constraint firstItem="PPO-Xc-say" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="fUc-gt-SaZ"/>

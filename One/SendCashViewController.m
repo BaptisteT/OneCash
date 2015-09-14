@@ -376,7 +376,7 @@
     CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height), width, height);
     CashView *cashView = [[[NSBundle mainBundle] loadNibNamed:@"CashView" owner:self options:nil] objectAtIndex:0];
     [cashView initWithFrame:frame andDelegate:self];
-    cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.3, 0.3);
+    cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
     [self.view insertSubview:cashView atIndex:0];
     [self.presentedCashViews addObject:cashView];
     CGRect newFrame = cashView.frame;
@@ -403,6 +403,11 @@
         for(UIView *view in views) {
             [view removeFromSuperview];
         }
+    }
+}
+-(void)checkIfStackIsEmpty {
+    if (self.presentedCashViews.count < 1) {
+        [self addNewCashSubview];
     }
 }
 

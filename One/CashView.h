@@ -31,4 +31,5 @@
 - (BOOL)isRecipientEmpty;
 - (void)addNewCashSubview;
 - (void)resetCashSubiewsStack;
+-(void)checkIfStackIsEmpty;
 @end

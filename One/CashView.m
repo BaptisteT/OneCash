@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 #import "CashView.h"
+#import <Foundation/Foundation.h>
 
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
@@ -68,7 +69,7 @@
     
     // UI
     self.layer.cornerRadius = self.frame.size.height / 40;
-    self.centralLabel.layer.cornerRadius = 2./6. * frame.size.width;
+    self.centralLabel.layer.cornerRadius = (2./6. * frame.size.width)*2;
 }
 
 - (void)layoutSubviews {
@@ -151,9 +152,15 @@
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         [self setMovingUI];
         [self.delegate addNewCashSubview];
-        int rads = 40 + arc4random() % (30 - 40);
+        int rads = arc4random_uniform(42) - 20; // values between -20 and 21 inclusive
+        if (rads <= 0) {
+            rads = rads - 30; // [-50;-30]
+        } else {
+            rads = rads + 29; // [30;50]
+        }
+        NSLog(@"degree: %d", rads);
         [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, rads);
+            self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, DEGREES_TO_RADIANS(rads));
         } completion:^(BOOL finished) {
         }];
     }
@@ -214,6 +221,7 @@
                 [self.delegate adaptUIToCashViewState:NO];
                 [self setStaticUI];
                 [self.delegate resetCashSubiewsStack];
+                [self.delegate checkIfStackIsEmpty];
             }];
         }
     }
