@@ -26,6 +26,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
 @property (nonatomic) CGPoint initialCenter;
 @property (nonatomic) BOOL isRecipientEmpty;
+@property (nonatomic) double rads;
+
 
 @end
 
@@ -141,7 +143,7 @@
     if (translation.y > 0 && self.frame.origin.y > 0) {
         translation.y = translation.y / 10;
     } else if (self.isRecipientEmpty == true) {
-        translation.y = translation.y / 10;
+        translation.y = translation.y / 10 ;
     }
         
     recognizer.view.center = CGPointMake(recognizer.view.center.x,
@@ -152,17 +154,26 @@
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         [self setMovingUI];
         [self.delegate addNewCashSubview];
-        int rads = arc4random_uniform(42) - 20; // values between -20 and 21 inclusive
-        if (rads <= 0) {
-            rads = rads - 30; // [-50;-30]
-        } else {
-            rads = rads + 29; // [30;50]
+        self.rads = 0;
+    }
+    
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        if (self.isRecipientEmpty == false) {
+            if (translation.x < 0) {
+                if (self.rads >= 30) {
+                    self.rads = self.rads + 0.3;
+                } else {
+                    self.rads = self.rads + 3;
+                }
+            } else {
+                if (self.rads <= -30) {
+                    self.rads = self.rads - 0.3;
+                } else {
+                    self.rads = self.rads - 3;
+                }
+            }
+            self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, DEGREES_TO_RADIANS(self.rads));
         }
-        NSLog(@"degree: %d", rads);
-        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, DEGREES_TO_RADIANS(rads));
-        } completion:^(BOOL finished) {
-        }];
     }
 
     if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateFailed) {
@@ -172,6 +183,7 @@
         positionAnimation.deceleration = 0.992;
         positionAnimation.velocity = [NSValue valueWithCGPoint:velocity];
         [recognizer.view.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
+        recognizer.enabled = YES;
         [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
             self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0);
         } completion:^(BOOL finished) {

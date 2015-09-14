@@ -73,7 +73,7 @@
 
     // UI
     self.toLabel.textColor = [ColorUtils mainGreen];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [ColorUtils mainGreen];
     [DesignUtils addTopBorder:self.pickRecipientButton borderSize:0.5 color:[UIColor lightGrayColor]];
     self.balanceBadge.backgroundColor = [ColorUtils red];
     self.balanceBadge.layer.cornerRadius = self.balanceBadge.frame.size.height / 2;
@@ -311,12 +311,10 @@
      
      // Receiver = current
      } else if (self.receiver == [User currentUser]) {
-//         [self addNewCashSubview];
          [self removeCashSubview:cashView];
 
      // Create transaction
      } else {
-//         [self addNewCashSubview];
          [self removeCashSubview:cashView];
          
          if (self.transactionToSend) {
