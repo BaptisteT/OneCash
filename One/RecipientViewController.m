@@ -166,16 +166,18 @@
         }
         [ApiManager findUsersMatchingStartString:self.lastStringSearched
                                          success:^(NSString *string, NSArray *users) {
-                                             if ([self.lastStringSearched isEqualToString:string]) {
-                                                 self.usersArray = users;
-                                                 [self.recipientsTableView reloadData];
-                                                 
-                                                 // end search indicator
-                                                 if (!self.loadingContainer.hidden) {
-                                                     self.loadingContainer.hidden = YES;
-                                                     [DesignUtils hideProgressHUDForView:self.loadingContainer];
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 if ([self.lastStringSearched isEqualToString:string]) {
+                                                     self.usersArray = users;
+                                                     [self.recipientsTableView reloadData];
+                                                     
+                                                     // end search indicator
+                                                     if (!self.loadingContainer.hidden) {
+                                                         self.loadingContainer.hidden = YES;
+                                                         [DesignUtils hideProgressHUDForView:self.loadingContainer];
+                                                     }
                                                  }
-                                             }
+                                             });
                                          } failure:nil];
     } else {
         self.usersArray = nil;

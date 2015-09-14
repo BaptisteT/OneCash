@@ -7,6 +7,7 @@
 //
 #import "ApiManager.h"
 
+#import "SendCashViewController.h"
 #import "WelcomeViewController.h"
 
 #import "ColorUtils.h"
@@ -46,6 +47,14 @@
     [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSString * segueName = segue.identifier;
+    if ([segueName isEqualToString: @"Send From Welcome"]) {
+        if ([sender boolValue]) {
+            ((SendCashViewController *) [segue destinationViewController]).navigateDirectlyToBalance = YES;
+        }
+    }
+}
 
 // --------------------------------------------
 #pragma mark - Actions
@@ -69,8 +78,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [DesignUtils hideProgressHUDForView:self.view];
         });
-        // todo BT
-        // differentiate between expected & unexpected error
     }];
 }
 

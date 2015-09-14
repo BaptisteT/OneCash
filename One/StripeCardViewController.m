@@ -83,15 +83,17 @@
     card.cvc = self.paymentTextField.cvc;
     [[STPAPIClient sharedClient] createTokenWithCard:card
                                           completion:^(STPToken *token, NSError *error) {
-                                              if (error) {
-                                                  OneLog(LOCALLOGENABLED,@"FAILURE - create token with card - %@",error.description);
-                                                  [DesignUtils hideProgressHUDForView:self.view];
-                                                  [GeneralUtils showAlertWithTitle:NSLocalizedString(@"create_token_with_card_error_title", nil) andMessage:NSLocalizedString(@"create_token_with_card_error_message", nil)];
-                                                  [self.paymentTextField clear];
-                                                  return;
-                                              }
-                                              
-                                              [self sendTokenToServer:token];
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  if (error) {
+                                                      OneLog(LOCALLOGENABLED,@"FAILURE - create token with card - %@",error.description);
+                                                      [DesignUtils hideProgressHUDForView:self.view];
+                                                      [GeneralUtils showAlertWithTitle:NSLocalizedString(@"create_token_with_card_error_title", nil) andMessage:NSLocalizedString(@"create_token_with_card_error_message", nil)];
+                                                      [self.paymentTextField clear];
+                                                      return;
+                                                  }
+                                                  
+                                                  [self sendTokenToServer:token];
+                                              });
                                           }];
 }
 
@@ -100,13 +102,32 @@
     [ApiManager createStripeCustomerWithToken:token.tokenId
                                 paymentMethod:kPaymentMethodStripe
                                       success:^{
-                                          [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
-                                          [DesignUtils hideProgressHUDForView:self.view];
-                                          [self navigateToSend];
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
+                                              [DesignUtils hideProgressHUDForView:self.view];
+                                              [self navigateToSend];
+                                          });
                                       } failure:^(NSError *error) {
-                                          [DesignUtils hideProgressHUDForView:self.view];
-                                          // todo BT
-                                          // warm user
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              [DesignUtils hideProgressHUDForView:self.view];
+                                              NSString *errorDesc = [error.userInfo valueForKey:@"error"];
+                                              BOOL showStandardError = YES;
+                                              if ([errorDesc containsString:@"stripeMessage"]) {
+                                                  NSError *jsonError;
+                                                  NSData *objectData = [errorDesc dataUsingEncoding:NSUTF8StringEncoding];
+                                                  NSDictionary *json = [NSJSONSerialization JSONObjectWithData:objectData
+                                                                                                       options:NSJSONReadingMutableContainers
+                                                                                                         error:&jsonError];
+                                                  if ([json valueForKey:@"stripeMessage"]) {
+                                                      showStandardError = NO;
+                                                      [GeneralUtils showAlertWithTitle:NSLocalizedString(@"create_stripe_customer_error_title", nil) andMessage:[json valueForKey:@"stripeMessage"]];
+                                                  }
+                                              }
+                                              
+                                              if (showStandardError) {
+                                                  [GeneralUtils showAlertWithTitle:NSLocalizedString(@"unexpected_error_title", nil) andMessage:NSLocalizedString(@"unexpected_error_message", nil)];
+                                              }
+                                          });
                                       }];
 }
 

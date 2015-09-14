@@ -103,7 +103,7 @@
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(navigateToBalance)
-                                                 name:@"new_cashout_clicked"
+                                                 name:@"new_transaction_clicked"
                                                object:nil];
 }
 
@@ -118,6 +118,11 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+    if (self.navigateDirectlyToBalance) {
+        self.navigateDirectlyToBalance = NO;
+        [self performSelector:@selector(navigateToBalance) withObject:nil afterDelay:0.1];
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -235,6 +240,7 @@
                                                         [self sentAnimation];
                                                     }
                                                 } failure:^(NSError *error) {
+                                                    [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
                                                     self.ongoingTransactionsCount -= transaction.transactionAmount;
                                                     [self failedAnimation:transaction.transactionAmount];
                                                 }];

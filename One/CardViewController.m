@@ -16,6 +16,7 @@
 #import "ColorUtils.h"  
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
+#import "GeneralUtils.h"
 
 @interface CardViewController ()
 
@@ -69,18 +70,21 @@
 
 - (IBAction)applePayClicked:(id)sender {
     if (![self applePayEnabled]) {
-        // todo BT
-        // alert user
+        [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_unavailable_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_unavailable_error_title", nil)];
         return;
     } else {
         [User currentUser].paymentMethod = kPaymentMethodApplePay;
         [DesignUtils showProgressHUDAddedTo:self.view];
         [ApiManager saveCurrentUserAndExecuteSuccess:^{
-            [DesignUtils hideProgressHUDForView:self.view];
-            [self navigateToSend];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [DesignUtils hideProgressHUDForView:self.view];
+                [self navigateToSend];
+            });
         } failure:^(NSError *error) {
-            [DesignUtils hideProgressHUDForView:self.view];
-            // todo BT
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [DesignUtils hideProgressHUDForView:self.view];
+                [GeneralUtils showAlertWithTitle:NSLocalizedString(@"unexpected_error_title", nil) andMessage:NSLocalizedString(@"unexpected_error_message", nil)];
+            });
         }];
     }
 }

@@ -84,7 +84,7 @@
 
 + (NSDate *)getLastBalanceOpening {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    return [prefs objectForKey:LAST_BALANCE_OPENING] ? [prefs objectForKey:LAST_BALANCE_OPENING] : [NSDate dateWithTimeIntervalSince1970:0];
+    return [prefs objectForKey:LAST_BALANCE_OPENING] ? [prefs objectForKey:LAST_BALANCE_OPENING] : [NSDate date];
 }
 
 + (void)setLastBalanceOpeningDate:(NSDate *)date {

@@ -97,12 +97,14 @@
     [DesignUtils showProgressHUDAddedTo:self.view];
     [User currentUser].email = email;
     [ApiManager saveCurrentUserAndExecuteSuccess:^{
-                                  [DesignUtils hideProgressHUDForView:self.view];
-                                  [self performSegueWithIdentifier:@"Card From Email" sender:nil];
-                              } failure:^(NSError *error) {
-                                  [DesignUtils hideProgressHUDForView:self.view];
-                                  [GeneralUtils showAlertWithTitle:NSLocalizedString(@"save_email_error_title", nil) andMessage:NSLocalizedString(@"save_email_error_message", nil)];
-                              }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DesignUtils hideProgressHUDForView:self.view];
+            [self performSegueWithIdentifier:@"Card From Email" sender:nil];
+        });
+    } failure:^(NSError *error) {
+        [DesignUtils hideProgressHUDForView:self.view];
+        [GeneralUtils showAlertWithTitle:NSLocalizedString(@"save_email_error_title", nil) andMessage:NSLocalizedString(@"save_email_error_message", nil)];
+    }];
 }
 
 // Redirect to terms webpage

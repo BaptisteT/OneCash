@@ -53,6 +53,9 @@
 {
     @try {
         [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
+            if (![PFTwitterUtils isLinkedWithUser:user]) {
+                OneLog(ONEAPIMANAGERLOG,@"User not linked to twitter",error.description);
+            }
             if (!user) {
                 OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
                 if (failureBlock) {

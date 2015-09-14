@@ -15,5 +15,6 @@
 
 @interface SendCashViewController : UIViewController <RecipientVCProtocol, CashViewDelegateProtocol, UIAlertViewDelegate, BalanceViewControllerProtocol, SettingsVCProtocol>
 
+@property (nonatomic) BOOL navigateDirectlyToBalance;
 
 @end

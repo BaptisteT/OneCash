@@ -219,13 +219,17 @@
         // cash out function
         [DesignUtils showProgressHUDAddedTo:self.view];
         [ApiManager createCashoutAndExecuteSuccess:^{
-            [DesignUtils hideProgressHUDForView:self.view];
-            [self loadLatestTransactionsLocally];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [DesignUtils hideProgressHUDForView:self.view];
+                [self loadLatestTransactionsLocally];
+            });
         } failure:^(NSError *error) {
             // todo BT
             // analyse different error
-            [DesignUtils hideProgressHUDForView:self.view];
-            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [DesignUtils hideProgressHUDForView:self.view];
+                [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
+            });
         }];
     }
 }

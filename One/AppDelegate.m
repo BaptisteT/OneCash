@@ -104,15 +104,17 @@
         [TrackingUtils identifyUser:[User currentUser]];
         
         // Check if we come from a new message notif
-//        NSNumber *notifOpening = [NSNumber numberWithBool:NO];
+        NSNumber *notifOpening = [NSNumber numberWithBool:NO];
         NSDictionary *remoteNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (remoteNotif) {
-            // todo BT notif opening
+            if ([[remoteNotif valueForKey:@"notif_type"] isEqualToString:@"new_transaction"]) {
+                notifOpening = [NSNumber numberWithBool:YES];
+            }
         }
 
         // Navigate
         WelcomeViewController* welcomeViewController = (WelcomeViewController *)  self.window.rootViewController.childViewControllers[0];
-        [welcomeViewController performSegueWithIdentifier:@"Send From Welcome" sender:nil];
+        [welcomeViewController performSegueWithIdentifier:@"Send From Welcome" sender:notifOpening];
     }
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
@@ -160,6 +162,10 @@
             
             // Vibrate
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName: @"new_transaction_clicked"
+                                                                object:nil
+                                                              userInfo:nil];
         }
     }
 }
