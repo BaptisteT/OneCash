@@ -71,6 +71,13 @@
     self.centralLabel.layer.cornerRadius = 2./6. * frame.size.width;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    for (UIView *view in self.subviews) {
+        view.translatesAutoresizingMaskIntoConstraints = YES;
+    }
+}
+
 
 // --------------------------------------------
 #pragma mark - UI
