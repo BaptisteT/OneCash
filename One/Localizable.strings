@@ -35,6 +35,8 @@
 "apple_pay_button_title" = "Add my debit card with ";
 "manual_pay_button_title" = "Add my debit card manually";
 "message_placeholder" = "Add a message";
+"recipient_alert" = "Pick a recipient first";
+
 
 // Send
 "balance_button" = "Balance";

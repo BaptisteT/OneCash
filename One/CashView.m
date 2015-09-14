@@ -51,6 +51,7 @@
     self.rightBottomOne.textColor = [ColorUtils mainGreen];
     self.messageTextField.backgroundColor = [ColorUtils mainGreen];
     self.messageTextField.placeholder = NSLocalizedString(@"message_placeholder", nil);
+    self.pickRecipientAlertLabel.text = NSLocalizedString(@"recipient_alert", nil);
     self.messageTextField.clipsToBounds = YES;
     self.messageTextField.delegate = self;
     self.messageTextField.layer.cornerRadius = self.messageTextField.frame.size.height / 2;
@@ -80,18 +81,21 @@
     self.centralLabel.backgroundColor = [ColorUtils mainGreen];
     //hide recipient alert
     self.pickRecipientAlertLabel.hidden = YES;
-
+    self.layer.shadowOpacity = 0;
 }
 
 - (void)setMovingUI {
+    [self checkIfRecipient];
     self.messageTextField.hidden = self.messageTextField.text.length == 0;
     self.backgroundColor = [ColorUtils veryLightGreen];
     self.centralLabel.backgroundColor = [ColorUtils lightGreen];
     [self.delegate adaptUIToCashViewState:YES];
-}
-
--(void)displayAlertRecipient {
-    self.pickRecipientAlertLabel.hidden = NO;
+    self.layer.shadowOffset = CGSizeMake(0, 0);
+    self.layer.shadowRadius = 5;
+    self.layer.shadowOpacity = 0.1;
+    if (self.isRecipientEmpty == true) {
+        self.pickRecipientAlertLabel.hidden = NO;
+    }
 }
 
 // --------------------------------------------
@@ -110,29 +114,28 @@
     if (CGPointEqualToPoint(self.center, self.initialCenter)) {
         [self.layer pop_removeAllAnimations];
     }
-    
-    //check if recipient is set up
+}
+
+-(void)checkIfRecipient {
     if ([self.delegate isRecipientEmpty] == true) {
-        [self displayAlertRecipient];
         self.isRecipientEmpty = true;
     } else {
         self.isRecipientEmpty = false;
     }
 }
 
+
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint translation = [recognizer translationInView:self.superview];
     
+    //slow down translation if recipient is empty or translation.y is positive
     if (translation.y > 0 && self.frame.origin.y > 0) {
         translation.y = translation.y / 10;
+    } else if (self.isRecipientEmpty == true) {
+        translation.y = translation.y / 10;
     }
-    
-    //slow down translation if recipient is empty
-    if (self.isRecipientEmpty == true) {
-        translation.y = translation.y /10;
-    }
-    
+        
     recognizer.view.center = CGPointMake(recognizer.view.center.x,
                                          recognizer.view.center.y + translation.y * 1.3);
     

@@ -372,8 +372,8 @@
 
 - (void)addNewCashSubview {
     CGFloat width = self.view.frame.size.width * 0.85;
-    CGFloat height = self.view.frame.size.height * 0.80;
-    CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height) / 2, width, height);
+    CGFloat height = self.view.frame.size.height * 0.90;
+    CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height), width, height);
     CashView *cashView = [[[NSBundle mainBundle] loadNibNamed:@"CashView" owner:self options:nil] objectAtIndex:0];
     [cashView initWithFrame:frame andDelegate:self];
     [self.view insertSubview:cashView atIndex:0];
