@@ -528,7 +528,7 @@
 }
 
 - (void)setBadgeValue:(NSInteger)count {
-    self.balanceBadge.text = [NSString stringWithFormat:@"%lu",count];
+    self.balanceBadge.text = [NSString stringWithFormat:@"%lu",(long)count];
     self.balanceBadge.hidden = (count == 0);
 }
 

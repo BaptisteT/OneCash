@@ -331,6 +331,12 @@
                             failureBlock(error);
                         }
                     }
+                    for (Transaction *transaction in transactions) {
+                        [transaction.sender pinInBackgroundWithName:kParseUsersName];
+                        if (transaction.receiver) {
+                            [transaction.receiver pinInBackgroundWithName:kParseUsersName];
+                        }
+                    }
                 }];
             } else {
                 if (successBlock) {

@@ -84,6 +84,9 @@
     // Balance
     [self setBalance];
     
+    // Last balance date
+    [DatastoreManager setLastBalanceOpeningDate:[NSDate date]];
+    
     // Table view
     self.transactionsTableView.delegate = self;
     self.transactionsTableView.dataSource = self;
@@ -155,7 +158,7 @@
 }
 
 - (void)setBalance {
-    NSString *string = [NSString stringWithFormat:@"$%ld",[User currentUser].balance];
+    NSString *string = [NSString stringWithFormat:@"$%lu",(long)[User currentUser].balance];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
     UIFont *font = self.balanceLabel.font;
     font = [font fontWithSize:14];
@@ -222,7 +225,7 @@
             // todo BT
             // analyse different error
             [DesignUtils hideProgressHUDForView:self.view];
-            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message    ", nil)];
+            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
         }];
     }
 }
