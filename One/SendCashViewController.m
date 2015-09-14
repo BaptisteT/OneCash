@@ -73,7 +73,7 @@
 
     // UI
     self.toLabel.textColor = [ColorUtils mainGreen];
-    self.view.backgroundColor = [ColorUtils mainGreen];
+    self.view.backgroundColor = [UIColor whiteColor];
     [DesignUtils addTopBorder:self.pickRecipientButton borderSize:0.5 color:[UIColor lightGrayColor]];
     self.balanceBadge.backgroundColor = [ColorUtils red];
     self.balanceBadge.layer.cornerRadius = self.balanceBadge.frame.size.height / 2;
@@ -81,7 +81,7 @@
     
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
-    for (int i=0;i<3;i++) [self addNewCashSubview];
+    for (int i=0;i<1;i++) [self addNewCashSubview];
     
     // Load server data
     [self loadLatestTransactions];
@@ -311,12 +311,12 @@
      
      // Receiver = current
      } else if (self.receiver == [User currentUser]) {
-         [self addNewCashSubview];
+//         [self addNewCashSubview];
          [self removeCashSubview:cashView];
 
      // Create transaction
      } else {
-         [self addNewCashSubview];
+//         [self addNewCashSubview];
          [self removeCashSubview:cashView];
          
          if (self.transactionToSend) {
@@ -376,13 +376,34 @@
     CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height), width, height);
     CashView *cashView = [[[NSBundle mainBundle] loadNibNamed:@"CashView" owner:self options:nil] objectAtIndex:0];
     [cashView initWithFrame:frame andDelegate:self];
+    cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.3, 0.3);
     [self.view insertSubview:cashView atIndex:0];
     [self.presentedCashViews addObject:cashView];
+    CGRect newFrame = cashView.frame;
+    newFrame.origin.y += height;
+    cashView.frame = newFrame;
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        CGRect newFrame2 = cashView.frame;
+        newFrame2.origin.y -= height;
+        cashView.frame = newFrame2;
+        cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)removeCashSubview:(CashView *)view {
     [self.presentedCashViews removeObject:view];
     [view removeFromSuperview];
+}
+
+- (void)resetCashSubiewsStack {
+    if (self.presentedCashViews.count >= 2) {
+        NSArray *views =[self.presentedCashViews subarrayWithRange:NSMakeRange(1, self.presentedCashViews.count-1)];
+        [self.presentedCashViews removeObjectsInRange:NSMakeRange(1, self.presentedCashViews.count-1)];
+        for(UIView *view in views) {
+            [view removeFromSuperview];
+        }
+    }
 }
 
 

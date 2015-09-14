@@ -87,8 +87,8 @@
 - (void)setMovingUI {
     [self checkIfRecipient];
     self.messageTextField.hidden = self.messageTextField.text.length == 0;
-    self.backgroundColor = [ColorUtils veryLightGreen];
-    self.centralLabel.backgroundColor = [ColorUtils lightGreen];
+//    self.backgroundColor = [ColorUtils veryLightGreen];
+//    self.centralLabel.backgroundColor = [ColorUtils lightGreen];
     [self.delegate adaptUIToCashViewState:YES];
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowRadius = 5;
@@ -143,7 +143,14 @@
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         [self setMovingUI];
+        [self.delegate addNewCashSubview];
+        int rads = 40 + arc4random() % (30 - 40);
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, rads);
+        } completion:^(BOOL finished) {
+        }];
     }
+
     if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateFailed) {
         CGPoint velocity = [recognizer velocityInView:self.superview];
         POPDecayAnimation *positionAnimation = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPosition];
@@ -151,6 +158,10 @@
         positionAnimation.deceleration = 0.992;
         positionAnimation.velocity = [NSValue valueWithCGPoint:velocity];
         [recognizer.view.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0);
+        } completion:^(BOOL finished) {
+        }];
     }
 }
 
@@ -195,6 +206,7 @@
             [self moveViewToCenterAndExecute:^void(POPAnimation *anim,BOOL completed) {
                 [self.delegate adaptUIToCashViewState:NO];
                 [self setStaticUI];
+                [self.delegate resetCashSubiewsStack];
             }];
         }
     }
