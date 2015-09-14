@@ -84,9 +84,6 @@
     // Balance
     [self setBalance];
     
-    // Last balance date
-    [DatastoreManager setLastBalanceOpeningDate:[NSDate date]];
-    
     // Table view
     self.transactionsTableView.delegate = self;
     self.transactionsTableView.dataSource = self;
@@ -116,6 +113,9 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    // Last balance date
+    [DatastoreManager setLastBalanceOpeningDate:[NSDate date]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

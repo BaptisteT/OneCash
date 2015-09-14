@@ -85,9 +85,8 @@
                                           completion:^(STPToken *token, NSError *error) {
                                               dispatch_async(dispatch_get_main_queue(), ^{
                                                   if (error) {
-                                                      OneLog(LOCALLOGENABLED,@"FAILURE - create token with card - %@",error.description);
                                                       [DesignUtils hideProgressHUDForView:self.view];
-                                                      [GeneralUtils showAlertWithTitle:NSLocalizedString(@"create_token_with_card_error_title", nil) andMessage:NSLocalizedString(@"create_token_with_card_error_message", nil)];
+                                                      [GeneralUtils showAlertWithTitle:NSLocalizedString(@"create_token_with_card_error_title", nil) andMessage:error.localizedDescription];
                                                       [self.paymentTextField clear];
                                                       return;
                                                   }
