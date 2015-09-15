@@ -32,8 +32,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *balanceButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *pickRecipientButton;
 @property (weak, nonatomic) IBOutlet UIButton *removeRecipientButton;
+@property (strong, nonatomic) IBOutlet UIButton *pickRecipientButton;
 @property (weak, nonatomic) IBOutlet UILabel *balanceBadge;
 
 @property (strong, nonatomic) User *receiver;
@@ -81,7 +81,7 @@
     
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
-    for (int i=0;i<3;i++) [self addNewCashSubview];
+    for (int i=0;i<1;i++) [self addNewCashSubview];
     
     // Load server data
     [self loadLatestTransactions];
@@ -320,12 +320,10 @@
      
      // Receiver = current
      } else if (self.receiver == [User currentUser]) {
-         [self addNewCashSubview];
          [self removeCashSubview:cashView];
 
      // Create transaction
      } else {
-         [self addNewCashSubview];
          [self removeCashSubview:cashView];
          
          if (self.transactionToSend) {
@@ -366,23 +364,58 @@
     self.tutoArrow.hidden = isMoving;
 }
 
+//Check if the user already tried to pick a recipient
+-(BOOL)isRecipientEmpty {
+    if ([self.selectedUserLabel.text  isEqual: @"Pick a recipient"]) {
+        return true;
+    }
+    return false;
+}
+
+
 - (BOOL)userExpectedBalanceIsPositive {
     return [User currentUser].balance - self.ongoingTransactionsCount > 0;
 }
 
 - (void)addNewCashSubview {
     CGFloat width = self.view.frame.size.width * 0.85;
-    CGFloat height = self.view.frame.size.height * 0.80;
-    CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height) / 2, width, height);
+    CGFloat height = self.view.frame.size.height * 0.90;
+    CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height), width, height);
     CashView *cashView = [[[NSBundle mainBundle] loadNibNamed:@"CashView" owner:self options:nil] objectAtIndex:0];
     [cashView initWithFrame:frame andDelegate:self];
+    cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
     [self.view insertSubview:cashView atIndex:0];
     [self.presentedCashViews addObject:cashView];
+    CGRect newFrame = cashView.frame;
+    newFrame.origin.y += height;
+    cashView.frame = newFrame;
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        CGRect newFrame2 = cashView.frame;
+        newFrame2.origin.y -= height;
+        cashView.frame = newFrame2;
+        cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)removeCashSubview:(CashView *)view {
     [self.presentedCashViews removeObject:view];
     [view removeFromSuperview];
+}
+
+- (void)resetCashSubiewsStack {
+    if (self.presentedCashViews.count >= 2) {
+        NSArray *views =[self.presentedCashViews subarrayWithRange:NSMakeRange(1, self.presentedCashViews.count-1)];
+        [self.presentedCashViews removeObjectsInRange:NSMakeRange(1, self.presentedCashViews.count-1)];
+        for(UIView *view in views) {
+            [view removeFromSuperview];
+        }
+    }
+}
+-(void)checkIfStackIsEmpty {
+    if (self.presentedCashViews.count < 1) {
+        [self addNewCashSubview];
+    }
 }
 
 

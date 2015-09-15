@@ -28,4 +28,8 @@
 
 - (void)createTransactionWithCashView:(CashView *)cashView;
 - (void)adaptUIToCashViewState:(BOOL)isMoving;
+- (BOOL)isRecipientEmpty;
+- (void)addNewCashSubview;
+- (void)resetCashSubiewsStack;
+-(void)checkIfStackIsEmpty;
 @end
