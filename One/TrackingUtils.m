@@ -21,7 +21,7 @@
         [mixpanel createAlias:user.objectId forDistinctID:mixpanel.distinctId];
         [mixpanel identify:mixpanel.distinctId];
         [TrackingUtils trackEvent:EVENT_USER_SIGNUP properties:nil];
-        [TrackingUtils setPeopleProperties:@{@"signup.date": [NSDate date]}];
+        [TrackingUtils setPeopleProperties:@{PEOPLE_SIGNUP_DATE: [NSDate date], PEOPLE_SENDING_TOTAL: @0, PEOPLE_CASHOUT_TOTAL: @0}];
         [mixpanel flush];
     } else {
         [mixpanel identify:user.objectId];
@@ -53,7 +53,7 @@
     [mixpanel.people set:properties];
 }
 
-+ (void)incrementPeopleProperty:(NSString *)property {
++ (void)incrementPeopleProperty:(NSString *)property byValue:(int)increment{
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     [mixpanel.people increment:property by:[NSNumber numberWithInt:1]];
 }

@@ -17,6 +17,7 @@
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
+#import "TrackingUtils.h"
 
 @interface CardViewController ()
 
@@ -68,11 +69,14 @@
 #pragma mark - Actions
 // --------------------------------------------
 - (IBAction)skipButtonClicked:(id)sender {
+    [TrackingUtils trackEvent:EVENT_CARD_LATER_CLICKED properties:nil];
     [self navigateToSend];
 }
 
 - (IBAction)applePayClicked:(id)sender {
-    if (![self applePayEnabled]) {
+    BOOL enabled = [self applePayEnabled];
+    [TrackingUtils trackEvent:EVENT_APPLE_PAY_CLICKED properties:@{@"enabled": [NSNumber numberWithBool:enabled]}];
+    if (!enabled) {
         [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_unavailable_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_unavailable_error_title", nil)];
         return;
     } else {
@@ -93,6 +97,7 @@
 }
 
 - (IBAction)manualCardClicked:(id)sender {
+    [TrackingUtils trackEvent:EVENT_STRIPE_CLICKED properties:nil];
     [self performSegueWithIdentifier:@"Stripe From Card" sender:nil];
 }
 

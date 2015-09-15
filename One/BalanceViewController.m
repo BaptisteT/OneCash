@@ -19,6 +19,7 @@
 #import "ColorUtils.h"
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
+#import "TrackingUtils.h"
 
 @interface BalanceViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -202,6 +203,7 @@
 // --------------------------------------------
 
 - (IBAction)settingsButtonClicked:(id)sender {
+    [TrackingUtils trackEvent:EVENT_SETTINGS_CLICKED properties:nil];
     [self performSegueWithIdentifier:@"Settings From Balance" sender:nil];
 }
 

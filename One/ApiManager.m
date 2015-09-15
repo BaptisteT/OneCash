@@ -53,9 +53,7 @@
 {
     @try {
         [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
-            if (![PFTwitterUtils isLinkedWithUser:user]) {
-                OneLog(ONEAPIMANAGERLOG,@"User not linked to twitter",error.description);
-            }
+            [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": [NSNumber numberWithBool:(error == nil)]}];
             if (!user) {
                 OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
                 if (failureBlock) {
@@ -174,6 +172,16 @@
                 if (successBlock) {
                     successBlock();
                 }
+                
+                // Mixpanel
+                NSMutableDictionary *peopleProperty = [NSMutableDictionary new];
+                [peopleProperty setObject:[NSNumber numberWithInteger:user.balance] forKey:PEOPLE_BALANCE];
+                [peopleProperty setObject:[NSNumber numberWithInteger:user.paymentMethod] forKey:PEOPLE_PAYMENT_METHOD];
+                if (user.email) [peopleProperty setObject:user.email forKey:PEOPLE_EMAIL];
+                if (user.firstName) [peopleProperty setObject:user.firstName forKey:PEOPLE_FIRST_NAME];
+                if (user.lastName) [peopleProperty setObject:user.lastName forKey:PEOPLE_LAST_NAME];
+                if (user.caseUsername) [peopleProperty setObject:user.caseUsername forKey:PEOPLE_USERNAME];
+                [TrackingUtils setPeopleProperties:peopleProperty];
             } else {
                 OneLog(ONEAPIMANAGERLOG,@"Failure - Update User - %@",error.description);
                 if (failureBlock) {
@@ -202,6 +210,7 @@
     [PFCloud callFunctionInBackground:@"createStripeCustomer"
                        withParameters:@{ @"stripeToken" : token, @"paymentMethod" : [NSNumber numberWithInteger:method] }
                                 block:^(id object, NSError *error) {
+                                    [TrackingUtils trackEvent:EVENT_STRIPE_CREATE_CUSTOMER properties:@{@"success" : [NSNumber numberWithBool:(error == nil)]}];
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - createStripeCustomer - %@",error.description);
                                         if (failureBlock) {
@@ -271,6 +280,8 @@
     params[@"transactionAmount"] = [NSNumber numberWithInteger:transaction.transactionAmount];
     if (token)
         params[@"applePayToken"] = token;
+    
+    NSString *method = transaction.transactionAmount > [User currentUser].balance ? @"balance" : [User currentUser].paymentMethod == kPaymentMethodApplePay ? @"Apple Pay" : @"Manual Card";
 
     [PFCloud callFunctionInBackground:@"createPaymentTransaction"
                        withParameters:params
@@ -280,12 +291,15 @@
                                         if (failureBlock) {
                                             failureBlock(error);
                                         }
+                                        [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method, @"error":@"create_payment_error"}];
                                     } else {
                                         // pin transaction
                                         [(Transaction *)(objects[0]) pinInBackgroundWithName:kParseTransactionsName];
                                         if (successBlock) {
                                             successBlock();
                                         }
+                                        [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method}];
+                                        [TrackingUtils incrementPeopleProperty:PEOPLE_SENDING_TOTAL byValue:(int)transaction.transactionAmount];
                                     }
                                 }];
 }

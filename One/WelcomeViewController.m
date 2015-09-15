@@ -14,6 +14,7 @@
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "OneLogger.h"
+#import "TrackingUtils.h"
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
@@ -82,6 +83,7 @@
 }
 
 - (IBAction)howToButtonClicked:(id)sender {
+    [TrackingUtils trackEvent:EVENT_HOW_TO properties:nil];
     [self performSegueWithIdentifier:@"How From Welcome" sender:nil];
 }
 

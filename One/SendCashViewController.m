@@ -25,6 +25,7 @@
 #import "KeyboardUtils.h"
 #import "NotifUtils.h"
 #import "OneLogger.h"
+#import "TrackingUtils.h"
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
@@ -158,10 +159,12 @@
 // --------------------------------------------
 
 - (IBAction)balanceButtonClicked:(id)sender {
+    [TrackingUtils trackEvent:EVENT_BALANCE_CLICKED properties:nil];
     [self navigateToBalance];
 }
 
 - (IBAction)pickRecipientButtonClicked:(id)sender {
+    [TrackingUtils trackEvent:EVENT_RECIPIENT_CLICKED properties:nil];
     [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
     // Remove selected user
     [self setSelectedUser:nil];
@@ -287,6 +290,7 @@
 
 - (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
     if (!self.applePaySucceeded) {
+        [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:self.applePaySendingTransaction.transactionAmount], @"message": [NSNumber numberWithBool:(self.applePaySendingTransaction.message !=nil)], @"method": @"Apple Pay", @"error":@"apple_pay_auth_fail"}];
         self.ongoingTransactionsCount -= self.applePaySendingTransaction.transactionAmount;
         self.applePaySendingTransaction = nil;
     }
@@ -301,6 +305,8 @@
 // --------------------------------------------
 - (void)createTransactionWithCashView:(CashView *)cashView
 {
+    [TrackingUtils trackEvent:EVENT_CASH_SWIPED properties:nil];
+    
     // No receiver
     if (!self.receiver) {
         [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {

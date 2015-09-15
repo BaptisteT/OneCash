@@ -15,6 +15,7 @@
 #import "ColorUtils.h"
 #import "DesignUtils.h"
 #import "KeyboardUtils.h"
+#import "TrackingUtils.h"
 
 @interface RecipientViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -136,6 +137,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [TrackingUtils trackEvent:EVENT_RECIPIENT_SET properties:@{@"preselected": [NSNumber numberWithBool:self.recipientTextfield.text.length == 0]}];
     UserTableViewCell *cell = (UserTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     User *selectedUser = cell.user;
     if (selectedUser) {

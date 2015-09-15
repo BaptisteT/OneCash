@@ -13,6 +13,7 @@
 
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
+#import "TrackingUtils.h"
 
 typedef NS_ENUM(NSInteger,SectionTypes) {
     kCardSection = 0,
@@ -209,6 +210,11 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     
     activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     activityViewController.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAddToReadingList, UIActivityTypeAirDrop];
+    activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
+        if (completed) {
+            [TrackingUtils trackEvent:EVENT_INVITE_SENT properties:@{@"sharing_type" : activityType}];
+        }
+    };
     [self presentViewController:activityViewController animated:YES completion:nil];
 }
 

@@ -30,7 +30,7 @@
 "later_" = "Not now";
 "card_title" = "Add your card to send and receive money on OneCash";
 "card_choice_explanation" = "One is free of charge.\nYou only pay the amount of the tips you send.";
-"stripe_card_title" = "Bitch Better Have My Money";
+"stripe_card_title" = "Enter your debit card information";
 "apple_pay_button_title" = "Add my debit card with ";
 "manual_pay_button_title" = "Add my debit card manually";
 "message_placeholder" = "Add a message";

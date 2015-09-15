@@ -143,7 +143,7 @@
     currentInstallation[@"iosSettings"] = [NSNumber numberWithInteger:[NotifUtils getUserNotificationSettings]];
     [currentInstallation saveEventually];
     
-    [TrackingUtils setPeopleProperties:@{PROPERTY_ALLOW_NOTIF: currentInstallation[@"iosSettings"]}];
+    [TrackingUtils setPeopleProperties:@{PEOPLE_ALLOW_NOTIF: currentInstallation[@"iosSettings"]}];
     
     // This sends the deviceToken to Mixpanel
     [[Mixpanel sharedInstance].people addPushDeviceToken:deviceToken];

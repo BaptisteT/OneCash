@@ -18,6 +18,7 @@
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
 #import "OneLogger.h"
+#import "TrackingUtils.h"
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
@@ -91,6 +92,7 @@
         [GeneralUtils showAlertWithTitle:NSLocalizedString(@"invalid_email_title", nil) andMessage:NSLocalizedString(@"invalid_email_message", nil)];
         return;
     }
+    [TrackingUtils trackEvent:EVENT_EMAIL_INPUT properties:nil];
     [self.emailTextField resignFirstResponder];
     
     // save user

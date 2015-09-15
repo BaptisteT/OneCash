@@ -10,9 +10,43 @@
 #import "User.h"
 
 #define EVENT_USER_SIGNUP @"user.signup"
-#define EVENT_SESSION @"session"
+#define EVENT_SESSION @"session" // property : length (seconds)
+#define EVENT_TWITTER_CONNECT @"twitter_connect" // property : success
+#define EVENT_HOW_TO @"how_to.clicked"
+#define EVENT_EMAIL_INPUT @"email.input"
+#define EVENT_CARD_LATER_CLICKED @"card_later.clicked"
+#define EVENT_APPLE_PAY_CLICKED @"apple_pay.clicked" // property : enabled
+#define EVENT_STRIPE_CLICKED @"stripe.clicked"
+#define EVENT_STRIPE_CREATE_TOKEN_WITH_CARD @"stripe.card.token.create" // property : success
+#define EVENT_STRIPE_CREATE_CUSTOMER @"stripe.customer.create" // property : success
+#define EVENT_CASH_SWIPED @"cash.swiped"
+#define EVENT_CREATE_PAYMENT @"payment.create" // property : amount, message, method
+#define EVENT_CREATE_PAYMENT_FAIL @"payment.fail" // property : amount, message, method, error
+// todo BT
+#define EVENT_CREATE_CASHOUT @"cashout.create"
+#define EVENT_CREATE_CASHOUT_FAIL @"cashout.fail"
+//
+#define EVENT_INVITE_SENT @"invite.sent" // property : sharing_type
+#define EVENT_SETTINGS_CLICKED @"settings.clicked"
+#define EVENT_BALANCE_CLICKED @"balance.clicked"
+#define EVENT_RECIPIENT_CLICKED @"recipient.clicked"
+#define EVENT_RECIPIENT_SET @"recipient.set" // property : preselected
 
-#define PROPERTY_ALLOW_NOTIF @"notif.allowed"
+#define PEOPLE_SIGNUP_DATE @"signup.date"
+#define PEOPLE_ALLOW_NOTIF @"notif"
+#define PEOPLE_PAYMENT_METHOD @"payment_method"
+#define PEOPLE_USERNAME @"username"
+#define PEOPLE_EMAIL @"email"
+#define PEOPLE_FIRST_NAME @"first_name"
+#define PEOPLE_LAST_NAME @"last_name"
+#define PEOPLE_BALANCE @"balance"
+#define PEOPLE_SENDING_TOTAL @"payment_sent.total"
+// todo bt
+#define PEOPLE_CASHOUT_TOTAL @"cashout.total"
+
+// todo BT
+//• Auto tweet tips (on/off)
+//• Pin code security (on/off)
 
 @interface TrackingUtils : NSObject
 
@@ -22,6 +56,6 @@
 
 + (void)setPeopleProperties:(NSDictionary *)properties;
 
-+ (void)incrementPeopleProperty:(NSString *)property;
++ (void)incrementPeopleProperty:(NSString *)property byValue:(int)increment;
 
 @end
