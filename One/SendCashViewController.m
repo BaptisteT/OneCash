@@ -321,12 +321,10 @@
      // Receiver = current
      } else if (self.receiver == [User currentUser]) {
          [self removeCashSubview:cashView];
-         [self resetCashSubiewsStack];
 
      // Create transaction
      } else {
          [self removeCashSubview:cashView];
-         [self resetCashSubiewsStack];
          
          if (self.transactionToSend) {
              [self.associationTimer invalidate];
@@ -395,7 +393,7 @@
         CGRect newFrame2 = cashView.frame;
         newFrame2.origin.y -= height;
         cashView.frame = newFrame2;
-        cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+        cashView.transform = CGAffineTransformIdentity;
     } completion:nil];
 }
 
@@ -409,8 +407,15 @@
         NSArray *views =[self.presentedCashViews subarrayWithRange:NSMakeRange(1, self.presentedCashViews.count-1)];
         for(CashView *cashView in views) {
             if ([cashView isAtInitialPosition]) {
-                [cashView removeFromSuperview];
+                cashView.userInteractionEnabled = NO;
                 [self.presentedCashViews removeObject:cashView];
+                [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+                    CGRect newFrame2 = cashView.frame;
+                    newFrame2.origin.y = self.view.frame.size.height;
+                    cashView.frame = newFrame2;
+                } completion:^(BOOL finished) {
+                    [cashView removeFromSuperview];
+                }];
             }
         }
     } else if (self.presentedCashViews.count < 1) {

@@ -28,13 +28,18 @@
 
 // Card
 "later_" = "Not now";
-"card_title" = "One is free of charge. We’ll only charge you the amount of your tip.";
+"card_title" = "Add your card to send and receive money on OneCash";
+"card_choice_explanation" = "One is free of charge.\nYou only pay the amount of the tips you send.";
 "stripe_card_title" = "Bitch Better Have My Money";
 "apple_pay_button_title" = "Add my debit card with ";
 "manual_pay_button_title" = "Add my debit card manually";
 "message_placeholder" = "Add a message";
 "recipient_alert" = "Pick a recipient first";
-
+"unexpected_error_title" = "Unexpected error";
+"unexpected_error_message" = "Please, try again or contact us.";
+"create_stripe_customer_error_title" = "Your card was declined by Stripe";
+"create_token_with_card_error_title" = "Sorry, we could not process your card.";
+"create_token_with_card_error_message" = "Please, try again or contact us.";
 
 // Send
 "balance_button" = "Balance";
@@ -48,6 +53,11 @@
 "sending_label" = "Processing (%lu)...";
 "sent_label" = "Sent!";
 "failed_label" = "Fail (%lu) ! Transaction cancelled";
+
+// APple pay
+"apple_pay_item" = "OneCash @%@";
+"apple_pay_unavailable_error_title" = "Apple pay is not available on your device.";
+"apple_pay_unavailable_error_message" = "Please, enter your card information manually.";
 
 // Balance
 "close_button" = "Close";
@@ -84,12 +94,4 @@
 "email_verification" = "Resend email verification";
 
 
-// A classer
-"apple_pay_unavailable_error_title" = "Apple pay is not available on your device.";
-"apple_pay_unavailable_error_message" = "Please, enter your card information manually.";
-"unexpected_error_title" = "Unexpected error";
-"unexpected_error_message" = "Please, try again or contact us.";
-"create_stripe_customer_error_title" = "Your card was declined by Stripe";
-"create_token_with_card_error_title" = "Sorry, we could not process your card.";
-"create_token_with_card_error_message" = "Please, try again or contact us.";
-"apple_pay_item" = "OneCash @%@";
+

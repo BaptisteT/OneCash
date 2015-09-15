@@ -108,7 +108,6 @@
 }
 
 - (BOOL)isAtInitialPosition {
-    NSLog(@"%f %f",self.initialCenter.y,self.center.y);
     return pow(self.initialCenter.x - self.center.x,2) + pow(self.initialCenter.y - self.center.y,2) < 0.01;
 }
 
@@ -225,10 +224,10 @@
             }
             [self.delegate adaptUIToCashViewState:NO];
         } else {
+            [self.delegate resetCashSubiewsStack];
             [self moveViewToCenterAndExecute:^void(POPAnimation *anim,BOOL completed) {
                 [self.delegate adaptUIToCashViewState:NO];
                 [self setStaticUI];
-                [self.delegate resetCashSubiewsStack];
             }];
         }
     }

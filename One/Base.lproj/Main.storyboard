@@ -313,7 +313,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="144"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGg-VA-sK0">
-                                        <rect key="frame" x="550" y="15" width="40" height="40"/>
+                                        <rect key="frame" x="560" y="15" width="30" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="PTv-Pd-edd"/>
                                             <constraint firstAttribute="width" constant="40" id="S6c-jl-i6v"/>
@@ -322,6 +322,11 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="S6c-jl-i6v"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <action selector="skipButtonClicked:" destination="Koy-ZE-4HZ" eventType="touchUpInside" id="C4Y-Ym-HPS"/>
                                         </connections>
@@ -374,11 +379,17 @@
                                 <rect key="frame" x="241" y="544" width="119" height="26"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="apple_pay" translatesAutoresizingMaskIntoConstraints="NO" id="iNu-Xb-hW1">
-                                <rect key="frame" x="503.5" y="236" width="56.5" height="36"/>
+                                <rect key="frame" x="503" y="236" width="56.5" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="iNu-Xb-hW1" secondAttribute="height" multiplier="14:9" id="yh3-jo-47L"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="explanation_label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwY-mN-z1B">
+                                <rect key="frame" x="245" y="512" width="111" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -389,10 +400,13 @@
                             <constraint firstItem="w2n-zt-6oG" firstAttribute="leading" secondItem="oAa-5q-iqy" secondAttribute="leading" constant="40" id="9l4-Hf-CVk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iNu-Xb-hW1" secondAttribute="trailing" constant="20" id="BsJ-mz-PQv"/>
                             <constraint firstItem="Rph-Fx-cWl" firstAttribute="leading" secondItem="oAa-5q-iqy" secondAttribute="leading" constant="40" id="ByH-V2-pP0"/>
+                            <constraint firstItem="zwY-mN-z1B" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oAa-5q-iqy" secondAttribute="leadingMargin" constant="10" id="E3J-Pj-RVt"/>
                             <constraint firstItem="Rph-Fx-cWl" firstAttribute="top" secondItem="w2n-zt-6oG" secondAttribute="bottom" constant="48" id="EU1-w4-j1t"/>
                             <constraint firstAttribute="centerX" secondItem="w2n-zt-6oG" secondAttribute="centerX" id="Hs9-Zo-0jM"/>
                             <constraint firstAttribute="trailing" secondItem="Pu5-Ep-cbd" secondAttribute="trailing" id="Ruy-u8-IBz"/>
                             <constraint firstAttribute="centerX" secondItem="f3G-Op-6nM" secondAttribute="centerX" id="XIN-6w-bSc"/>
+                            <constraint firstItem="zwY-mN-z1B" firstAttribute="centerX" secondItem="oAa-5q-iqy" secondAttribute="centerX" id="XKz-g7-Fi9"/>
+                            <constraint firstItem="f3G-Op-6nM" firstAttribute="top" secondItem="zwY-mN-z1B" secondAttribute="bottom" constant="15" id="aSJ-UV-s0E"/>
                             <constraint firstAttribute="centerX" secondItem="Rph-Fx-cWl" secondAttribute="centerX" id="bEg-5M-Dlc"/>
                             <constraint firstItem="UzU-te-Ord" firstAttribute="top" secondItem="f3G-Op-6nM" secondAttribute="bottom" constant="30" id="nXb-OU-Huy"/>
                             <constraint firstItem="Pu5-Ep-cbd" firstAttribute="top" secondItem="oAa-5q-iqy" secondAttribute="top" id="omS-e7-bGf"/>
@@ -410,6 +424,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="applePayButton" destination="w2n-zt-6oG" id="iOX-l9-tbF"/>
+                        <outlet property="explanationLabel" destination="zwY-mN-z1B" id="K5P-Er-CuV"/>
                         <outlet property="manualPayButton" destination="Rph-Fx-cWl" id="8wT-mY-eb8"/>
                         <outlet property="skipButton" destination="tGg-VA-sK0" id="J5x-zs-6qW"/>
                         <outlet property="titleLabel" destination="tWv-lg-EV8" id="PfV-D1-bXE"/>

@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet UIButton *applePayButton;
 @property (weak, nonatomic) IBOutlet UIButton *manualPayButton;
+@property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
 
 @end
 
@@ -41,10 +42,12 @@
     self.titleLabel.text = NSLocalizedString(@"card_title", nil);
     [self.applePayButton setTitle:NSLocalizedString(@"apple_pay_button_title", nil) forState:UIControlStateNormal];
     [self.manualPayButton setTitle:NSLocalizedString(@"manual_pay_button_title", nil) forState:UIControlStateNormal];
+    self.explanationLabel.text = NSLocalizedString(@"card_choice_explanation", nil);
     
     // UI
     self.titleLabel.numberOfLines = 0;
     self.topBar.backgroundColor = [ColorUtils mainGreen];
+    self.explanationLabel.numberOfLines = 0;
 }
 
 - (void)viewDidLayoutSubviews {

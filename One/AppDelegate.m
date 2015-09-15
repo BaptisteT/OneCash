@@ -102,6 +102,7 @@
     if (currentUser) {
         // Identify user
         [TrackingUtils identifyUser:[User currentUser]];
+        [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
         
         // Check if we come from a new message notif
         NSNumber *notifOpening = [NSNumber numberWithBool:NO];
