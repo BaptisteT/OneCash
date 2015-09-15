@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 @property (nonatomic) BOOL autoTweet;
 @property (retain) NSString *tweetWording;
 @property (nonatomic) BOOL verified;
+//@property (nonatomic) NSString *managedAccountId;
 
 // Local
 @property (nonatomic, strong) UIImage *avatar;

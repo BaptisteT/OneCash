@@ -250,6 +250,7 @@
                                                 } failure:^(NSError *error) {
                                                     if ([error.description containsString:@"card_error"]) {
                                                         // todo BT
+                                                        // go to check card ?
                                                     }
                                                     [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
                                                     self.ongoingTransactionsCount -= transaction.transactionAmount;
