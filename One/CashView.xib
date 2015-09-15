@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -82,25 +82,37 @@
                     <color key="textColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="add_message" textAlignment="center" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="PPO-Xc-say" customClass="PaddingTextField">
-                    <rect key="frame" x="240" y="478" width="120" height="30"/>
-                    <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5x-wJ-GfG">
+                    <rect key="frame" x="0.0" y="478" width="600" height="30"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="add_message" textAlignment="center" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="PPO-Xc-say" customClass="PaddingTextField">
+                            <rect key="frame" x="240" y="0.0" width="120" height="30"/>
+                            <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="J2u-xT-aq8"/>
+                                <constraint firstAttribute="height" constant="30" id="Rq4-Ic-iOn"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Y3I-zC-wZM"/>
+                            </constraints>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="Y3I-zC-wZM"/>
+                                </mask>
+                            </variation>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="J2u-xT-aq8"/>
-                        <constraint firstAttribute="height" constant="30" id="Rq4-Ic-iOn"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Y3I-zC-wZM"/>
+                        <constraint firstItem="PPO-Xc-say" firstAttribute="top" secondItem="B5x-wJ-GfG" secondAttribute="top" id="IVh-GP-ezh"/>
+                        <constraint firstItem="PPO-Xc-say" firstAttribute="centerX" secondItem="B5x-wJ-GfG" secondAttribute="centerX" id="aro-eM-mmN"/>
+                        <constraint firstItem="PPO-Xc-say" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="B5x-wJ-GfG" secondAttribute="leading" constant="10" id="fZZ-NF-8N8"/>
+                        <constraint firstAttribute="height" constant="30" id="yAF-mG-hfx"/>
                     </constraints>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="Y3I-zC-wZM"/>
-                        </mask>
-                    </variation>
-                </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vazy batard, mé un recipient!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRR-vx-r0J">
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recipient!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRR-vx-r0J">
                     <rect key="frame" x="0.0" y="538" width="600" height="62"/>
                     <color key="backgroundColor" red="0.96470588239999999" green="0.0" blue="0.090196078430000007" alpha="1" colorSpace="deviceRGB"/>
                     <constraints>
@@ -121,6 +133,7 @@
                 <constraint firstItem="GiO-jA-KHS" firstAttribute="width" secondItem="fAf-x4-mf8" secondAttribute="width" id="9sn-l4-ygy"/>
                 <constraint firstAttribute="centerX" secondItem="kiW-wc-Bfo" secondAttribute="centerX" id="CVv-g6-Zes"/>
                 <constraint firstAttribute="trailing" secondItem="xRR-vx-r0J" secondAttribute="trailing" id="Fl3-zO-f5Y"/>
+                <constraint firstItem="B5x-wJ-GfG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Jfd-Zg-6fy"/>
                 <constraint firstAttribute="bottom" secondItem="Bsi-kk-ONP" secondAttribute="bottom" id="LCm-R7-lha"/>
                 <constraint firstAttribute="bottom" secondItem="xRR-vx-r0J" secondAttribute="bottom" id="LLh-KE-q4e"/>
                 <constraint firstItem="xRR-vx-r0J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Nkt-aI-vmw"/>
@@ -128,13 +141,12 @@
                 <constraint firstItem="fAf-x4-mf8" firstAttribute="centerY" secondItem="kiW-wc-Bfo" secondAttribute="centerY" id="T9Y-pc-Fic"/>
                 <constraint firstItem="Rhf-jq-iXI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="VPY-uR-tad"/>
                 <constraint firstAttribute="trailing" secondItem="Bsi-kk-ONP" secondAttribute="trailing" id="W7L-Iq-F3h"/>
-                <constraint firstAttribute="bottom" secondItem="PPO-Xc-say" secondAttribute="bottom" constant="92" id="ccz-hj-832"/>
                 <constraint firstAttribute="trailing" secondItem="GiO-jA-KHS" secondAttribute="trailing" id="dOC-WG-YnD"/>
                 <constraint firstAttribute="bottom" secondItem="WuC-xx-zOe" secondAttribute="bottom" constant="15" id="fQx-tc-TqI"/>
-                <constraint firstItem="PPO-Xc-say" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="fUc-gt-SaZ"/>
                 <constraint firstItem="mK4-z4-hZ7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="hji-id-3kC"/>
                 <constraint firstItem="kiW-wc-Bfo" firstAttribute="leading" secondItem="fAf-x4-mf8" secondAttribute="trailing" id="hsa-J9-PGL"/>
-                <constraint firstAttribute="centerX" secondItem="PPO-Xc-say" secondAttribute="centerX" constant="-0.5" id="jxi-em-Tbh"/>
+                <constraint firstItem="xRR-vx-r0J" firstAttribute="top" secondItem="B5x-wJ-GfG" secondAttribute="bottom" constant="30" id="kUe-t6-ExL"/>
+                <constraint firstAttribute="trailing" secondItem="B5x-wJ-GfG" secondAttribute="trailing" id="mPx-Tw-lzs"/>
                 <constraint firstAttribute="bottom" secondItem="mK4-z4-hZ7" secondAttribute="bottom" constant="15" id="mxC-TK-xOZ"/>
                 <constraint firstAttribute="trailing" secondItem="Rhf-jq-iXI" secondAttribute="trailing" constant="10" id="nyq-Ed-YP3"/>
                 <constraint firstItem="fAf-x4-mf8" firstAttribute="width" secondItem="kiW-wc-Bfo" secondAttribute="height" multiplier="1:4" id="o3G-ct-cES"/>

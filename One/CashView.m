@@ -24,10 +24,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *leftBottomOne;
 @property (weak, nonatomic) IBOutlet UILabel *rightBottomOne;
 @property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
-@property (nonatomic) CGPoint initialCenter;
 @property (nonatomic) BOOL isRecipientEmpty;
 @property (nonatomic) double rads;
-
+@property (nonatomic) CGPoint initialCenter;
 
 @end
 
@@ -71,14 +70,16 @@
     
     // UI
     self.layer.cornerRadius = self.frame.size.height / 40;
-    self.centralLabel.layer.cornerRadius = (2./6. * frame.size.width)*2;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     for (UIView *view in self.subviews) {
-        view.translatesAutoresizingMaskIntoConstraints = YES;
+        if (![view isKindOfClass:[UITextField class]]) {
+            view.translatesAutoresizingMaskIntoConstraints = YES;
+        }
     }
+    self.centralLabel.layer.cornerRadius = self.centralLabel.frame.size.height / 2;
 }
 
 
@@ -97,8 +98,6 @@
 - (void)setMovingUI {
     [self checkIfRecipient];
     self.messageTextField.hidden = self.messageTextField.text.length == 0;
-//    self.backgroundColor = [ColorUtils veryLightGreen];
-//    self.centralLabel.backgroundColor = [ColorUtils lightGreen];
     [self.delegate adaptUIToCashViewState:YES];
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowRadius = 5;
@@ -108,11 +107,16 @@
     }
 }
 
+- (BOOL)isAtInitialPosition {
+    NSLog(@"%f %f",self.initialCenter.y,self.center.y);
+    return pow(self.initialCenter.x - self.center.x,2) + pow(self.initialCenter.y - self.center.y,2) < 0.01;
+}
+
 // --------------------------------------------
 #pragma mark - Actions
 // --------------------------------------------
 - (IBAction)viewTouchedUp:(id)sender {
-    if (CGPointEqualToPoint(self.initialCenter, self.center)) {
+    if ([self isAtInitialPosition]) {
         [self setStaticUI];
         [self.delegate adaptUIToCashViewState:NO];
     }
@@ -121,7 +125,7 @@
 - (IBAction)viewTouchedDown:(id)sender {
     [self.messageTextField resignFirstResponder];
     [self setMovingUI];
-    if (CGPointEqualToPoint(self.center, self.initialCenter)) {
+    if ([self isAtInitialPosition]) {
         [self.layer pop_removeAllAnimations];
     }
 }
@@ -157,18 +161,8 @@
         self.rads = 0;
         if (self.isRecipientEmpty == false) {
             if (translation.x < 0) {
-                //                if (self.rads >= 30) {
-                //                    self.rads = self.rads + 0.3;
-                //                } else {
-                //                    self.rads = self.rads + 2;
-                //                }
                 self.rads = 30;
             } else {
-                //                if (self.rads <= -30) {
-                //                    self.rads = self.rads - 0.3;
-                //                } else {
-                //                    self.rads = self.rads - 2;
-                //                }
                 self.rads = -30;
             }
             [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -176,10 +170,6 @@
             } completion:^(BOOL finished) {
             }];
         }
-    }
-    
-    if (recognizer.state == UIGestureRecognizerStateChanged) {
-        
     }
 
     if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateFailed) {
@@ -239,7 +229,6 @@
                 [self.delegate adaptUIToCashViewState:NO];
                 [self setStaticUI];
                 [self.delegate resetCashSubiewsStack];
-                [self.delegate checkIfStackIsEmpty];
             }];
         }
     }
@@ -278,7 +267,6 @@
     if (newString.length > kMaxMessagesLength)
         return NO;
     textField.text = newString;
-    [textField layoutSubviews];
     return NO;
 }
 

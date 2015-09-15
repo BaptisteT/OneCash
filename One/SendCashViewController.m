@@ -261,7 +261,7 @@
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
         [paymentRequest setRequiredBillingAddressFields:PKAddressFieldPostalAddress];
         NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:transaction.transactionAmount];
-        paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:@"OneCash tips" amount:amount]];
+        paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:[NSString stringWithFormat:NSLocalizedString(@"apple_pay_item", nil),transaction.receiver.caseUsername] amount:amount]];
 #if DEBUG
         STPTestPaymentAuthorizationViewController *auth = [[STPTestPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
 #else
@@ -321,10 +321,12 @@
      // Receiver = current
      } else if (self.receiver == [User currentUser]) {
          [self removeCashSubview:cashView];
+         [self resetCashSubiewsStack];
 
      // Create transaction
      } else {
          [self removeCashSubview:cashView];
+         [self resetCashSubiewsStack];
          
          if (self.transactionToSend) {
              [self.associationTimer invalidate];
@@ -365,8 +367,8 @@
 }
 
 //Check if the user already tried to pick a recipient
--(BOOL)isRecipientEmpty {
-    if ([self.selectedUserLabel.text  isEqual: @"Pick a recipient"]) {
+- (BOOL)isRecipientEmpty {
+    if ([self.selectedUserLabel.text  isEqualToString: NSLocalizedString(@"recipient_title", nil)]) {
         return true;
     }
     return false;
@@ -394,8 +396,7 @@
         newFrame2.origin.y -= height;
         cashView.frame = newFrame2;
         cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
-    } completion:^(BOOL finished) {
-    }];
+    } completion:nil];
 }
 
 - (void)removeCashSubview:(CashView *)view {
@@ -406,17 +407,17 @@
 - (void)resetCashSubiewsStack {
     if (self.presentedCashViews.count >= 2) {
         NSArray *views =[self.presentedCashViews subarrayWithRange:NSMakeRange(1, self.presentedCashViews.count-1)];
-        [self.presentedCashViews removeObjectsInRange:NSMakeRange(1, self.presentedCashViews.count-1)];
-        for(UIView *view in views) {
-            [view removeFromSuperview];
+        for(CashView *cashView in views) {
+            if ([cashView isAtInitialPosition]) {
+                [cashView removeFromSuperview];
+                [self.presentedCashViews removeObject:cashView];
+            }
         }
-    }
-}
--(void)checkIfStackIsEmpty {
-    if (self.presentedCashViews.count < 1) {
+    } else if (self.presentedCashViews.count < 1) {
         [self addNewCashSubview];
     }
 }
+
 
 
 // --------------------------------------------
