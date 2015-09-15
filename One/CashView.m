@@ -155,25 +155,31 @@
         [self setMovingUI];
         [self.delegate addNewCashSubview];
         self.rads = 0;
+        if (self.isRecipientEmpty == false) {
+            if (translation.x < 0) {
+                //                if (self.rads >= 30) {
+                //                    self.rads = self.rads + 0.3;
+                //                } else {
+                //                    self.rads = self.rads + 2;
+                //                }
+                self.rads = 30;
+            } else {
+                //                if (self.rads <= -30) {
+                //                    self.rads = self.rads - 0.3;
+                //                } else {
+                //                    self.rads = self.rads - 2;
+                //                }
+                self.rads = -30;
+            }
+            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+                self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, DEGREES_TO_RADIANS(self.rads));
+            } completion:^(BOOL finished) {
+            }];
+        }
     }
     
     if (recognizer.state == UIGestureRecognizerStateChanged) {
-        if (self.isRecipientEmpty == false) {
-            if (translation.x < 0) {
-                if (self.rads >= 30) {
-                    self.rads = self.rads + 0.3;
-                } else {
-                    self.rads = self.rads + 3;
-                }
-            } else {
-                if (self.rads <= -30) {
-                    self.rads = self.rads - 0.3;
-                } else {
-                    self.rads = self.rads - 3;
-                }
-            }
-            self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, DEGREES_TO_RADIANS(self.rads));
-        }
+        
     }
 
     if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateFailed) {
