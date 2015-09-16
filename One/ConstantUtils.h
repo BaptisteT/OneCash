@@ -45,7 +45,7 @@ static NSInteger const kInternalNotifHeight = 60;
 static float const kNotifAnimationDuration = 0.5;
 
 // Image
-static NSInteger const kDisplayedPictureSize = 128;
+static NSInteger const kDisplayedPictureSize = 512;
 
 // Parse Pin Names
 static NSString * const kParseTransactionsName = @"Transactions";

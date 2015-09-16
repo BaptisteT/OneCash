@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *leftBottomOne;
 @property (weak, nonatomic) IBOutlet UILabel *rightBottomOne;
 @property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *userPictureImageView;
 @property (nonatomic) BOOL isRecipientEmpty;
 @property (nonatomic) double rads;
 @property (nonatomic) CGPoint initialCenter;
@@ -43,26 +44,29 @@
     self.centralLabel.textColor = [ColorUtils darkGreen];
     self.centralLabel.adjustsFontSizeToFitWidth = YES;
     self.centralLabel.clipsToBounds = YES;
+    self.userPictureImageView.clipsToBounds = YES;
+    self.userPictureImageView.layer.borderColor = [ColorUtils darkGreen].CGColor;
+    self.userPictureImageView.layer.borderWidth = 10.f;
     self.leftUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-90));
-    self.leftUpOne.textColor = [ColorUtils mainGreen];
+    self.leftUpOne.textColor = [ColorUtils darkGreen];
     self.rightUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
-    self.rightUpOne.textColor = [ColorUtils mainGreen];
+    self.rightUpOne.textColor = [ColorUtils darkGreen];
     self.leftBottomOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-90));
-    self.leftBottomOne.textColor = [ColorUtils mainGreen];
+    self.leftBottomOne.textColor = [ColorUtils darkGreen];
     self.rightBottomOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
-    self.rightBottomOne.textColor = [ColorUtils mainGreen];
-    self.messageTextField.backgroundColor = [ColorUtils mainGreen];
+    self.rightBottomOne.textColor = [ColorUtils darkGreen];
+    self.messageTextField.backgroundColor = [ColorUtils darkGreen];
     self.messageTextField.placeholder = NSLocalizedString(@"message_placeholder", nil);
     self.pickRecipientAlertLabel.text = NSLocalizedString(@"recipient_alert", nil);
     self.messageTextField.clipsToBounds = YES;
     self.messageTextField.delegate = self;
     self.messageTextField.layer.cornerRadius = self.messageTextField.frame.size.height / 2;
     self.messageTextField.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    
     // Pan Gesture
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                                  action:@selector(handlePan:)];
     [self addGestureRecognizer:recognizer];
+    [self updateUserPicture];
 }
 
 - (void)setFrame:(CGRect)frame {
@@ -80,6 +84,11 @@
         }
     }
     self.centralLabel.layer.cornerRadius = self.centralLabel.frame.size.height / 2;
+    self.userPictureImageView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2;
+}
+
+-(void)updateUserPicture {
+    self.userPictureImageView.image = [self.delegate recipientPictureImage];
 }
 
 
@@ -88,8 +97,8 @@
 // --------------------------------------------
 - (void)setStaticUI {
     self.messageTextField.hidden = NO;
-    self.backgroundColor = [ColorUtils darkGreen];
-    self.centralLabel.backgroundColor = [ColorUtils mainGreen];
+    self.backgroundColor = [ColorUtils mainGreen];
+    self.centralLabel.backgroundColor = [ColorUtils darkGreen];
     //hide recipient alert
     self.pickRecipientAlertLabel.hidden = YES;
     self.layer.shadowOpacity = 0;
@@ -101,9 +110,11 @@
     [self.delegate adaptUIToCashViewState:YES];
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowRadius = 5;
-    self.layer.shadowOpacity = 0.1;
+    self.layer.shadowOpacity = 0.2;
     if (self.isRecipientEmpty == true) {
         self.pickRecipientAlertLabel.hidden = NO;
+    } else {
+        [self updateUserPicture];
     }
 }
 

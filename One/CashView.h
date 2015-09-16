@@ -22,6 +22,7 @@
 - (void)initWithFrame:(CGRect)frame andDelegate:(id<CashViewDelegateProtocol>)delegate ;
 - (void)moveViewToCenterAndExecute:(void(^)(POPAnimation *anim,BOOL completed))completionBlock;
 - (BOOL)isAtInitialPosition;
+- (void)updateUserPicture;
 
 @end
 
@@ -32,5 +33,6 @@
 - (BOOL)isRecipientEmpty;
 - (void)addNewCashSubview;
 - (void)resetCashSubiewsStack;
+- (UIImage*)recipientPictureImage;
 
 @end

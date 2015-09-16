@@ -36,12 +36,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *removeRecipientButton;
 @property (strong, nonatomic) IBOutlet UIButton *pickRecipientButton;
 @property (weak, nonatomic) IBOutlet UILabel *balanceBadge;
+@property (strong, nonatomic) IBOutlet UIImageView *arrowImageView;
 
 @property (strong, nonatomic) User *receiver;
 @property (weak, nonatomic) IBOutlet UILabel *toLabel;
 @property (weak, nonatomic) IBOutlet UILabel *selectedUserLabel;
-@property (weak, nonatomic) IBOutlet UILabel *swipeTutoLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *tutoArrow;
 @property (strong, nonatomic) Reachability *internetReachableFoo;
 
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
@@ -70,12 +69,12 @@
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
     self.toLabel.text = NSLocalizedString(@"to", nil);
     [self setSelectedUser:nil];
-    self.swipeTutoLabel.text = NSLocalizedString(@"swipe_to_send", nil);
 
     // UI
+    self.arrowImageView.layer.zPosition = -9999;
     self.toLabel.textColor = [ColorUtils mainGreen];
-    self.view.backgroundColor = [ColorUtils mainGreen];
-    [DesignUtils addTopBorder:self.pickRecipientButton borderSize:0.5 color:[UIColor lightGrayColor]];
+    self.view.backgroundColor = [UIColor whiteColor];
+// [DesignUtils addTopBorder:self.pickRecipientButton borderSize:3 color:[ColorUtils lightBlack]];
     self.balanceBadge.backgroundColor = [ColorUtils red];
     self.balanceBadge.layer.cornerRadius = self.balanceBadge.frame.size.height / 2;
     self.balanceBadge.clipsToBounds = YES;
@@ -124,6 +123,7 @@
         self.navigateDirectlyToBalance = NO;
         [self performSelector:@selector(navigateToBalance) withObject:nil afterDelay:0.1];
     }
+    [self updateUserPictureWith:[self.presentedCashViews lastObject]];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -140,7 +140,7 @@
     } else if ([segueName isEqualToString:@"Balance From Send"]) {
         [self setBadgeValue:0];
         ((BalanceViewController *) [segue destinationViewController]).delegate = self;
-    } 
+    }
 }
 
 - (void)willBecomeActiveCallback {
@@ -181,6 +181,7 @@
 
 - (IBAction)removeRecipientButtonClicked:(id)sender {
     [self setSelectedUser:nil];
+    [self updateUserPictureWith:[self.presentedCashViews lastObject]];
 }
 
 - (void)logoutUser {
@@ -298,8 +299,6 @@
 }
 
 
-
-
 // --------------------------------------------
 #pragma mark - Cash view
 // --------------------------------------------
@@ -362,12 +361,14 @@
      }
 }
 
+- (void)updateUserPictureWith:(CashView *)cashView {
+    [cashView updateUserPicture];
+}
+
 - (void)adaptUIToCashViewState:(BOOL)isMoving {
     self.balanceBadge.hidden = isMoving || [self.balanceBadge.text isEqualToString:@"0"];
     self.balanceButton.hidden = isMoving;
     self.titleLabel.hidden = isMoving;
-    self.swipeTutoLabel.hidden = isMoving;
-    self.tutoArrow.hidden = isMoving;
 }
 
 //Check if the user already tried to pick a recipient
@@ -386,7 +387,7 @@
 - (void)addNewCashSubview {
     CGFloat width = self.view.frame.size.width * 0.85;
     CGFloat height = self.view.frame.size.height * 0.90;
-    CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height), width, height);
+    CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height) * 2, width, height);
     CashView *cashView = [[[NSBundle mainBundle] loadNibNamed:@"CashView" owner:self options:nil] objectAtIndex:0];
     [cashView initWithFrame:frame andDelegate:self];
     cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
@@ -486,6 +487,12 @@
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+// Get current recipient user picture
+-(UIImage*)recipientPictureImage {
+    UIImage *userPicture = self.receiver.avatar;
+    return userPicture;
 }
 
 // ----------------------------------------------------------

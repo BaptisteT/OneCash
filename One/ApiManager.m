@@ -120,6 +120,7 @@
             OneLog(ONEAPIMANAGERLOG, @"Success - twitter info - %@",result);
             // Profile picture
             NSString * profileImageURL = [result objectForKey:@"profile_image_url_https"];
+            
             if (profileImageURL.length > 0 && ![user.pictureURL isEqualToString:profileImageURL]) {
                 user.pictureURL = profileImageURL;
             }
