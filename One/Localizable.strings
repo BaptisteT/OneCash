@@ -66,10 +66,14 @@
 "cashout_button" = "Cashout";
 "cashout_string" = "Cashout";
 "history_label" = "Transactions history";
-"cashout_no_money_title" = "You have no money to cash out!";
 "cashout_no_money_message" = "You need to have a positive balance on your One account to cash out";
+"cashout_no_email_message" = "You need to verify your email to cashout.";
+"verify_button" = "Verify";
+
+//
 "cashout_error_title" = "Sorry, the cash out failed.";
 "cashout_error_message" = "Please retry or contact us.";
+
 
 // Recipients
 "to" = "to";
@@ -91,7 +95,8 @@
 "yes_button_title" = "Yes";
 "pin_section_details" = "Secure the access to the app with a 4 digit code";
 "email_section" = "Email: %@";
-"email_verification" = "Resend email verification";
+"email_verification" = "Resend verification email.";
+"verification_email_sent" = "A verification email has just been sent";
 
 // Managed account
 "managed_account_title" = "We need to verify your identity to send you money";
@@ -100,4 +105,14 @@
 "business_name_placeholder" = "Company name";
 "first_name_placeholder" = "First name";
 "last_name_placeholder" = "Last name";
+"stripe_terms_label" = "By registering your account, you agree to the %@.";
+"stripe_connected_account" = "Stripe Connected Account Agreement";
+"no_first_name_message" = "First name is missing";
+"no_last_name_message" = "Last name is missing";
+"no_company_name_message" = "Company name is missing";
+"invalid_date" = "Date is invalid";
+"register_for_cashout" = "Register for cashout";
+
+// Account card
+"acount_card_title" = "Select a card.\nYou will receive the money on the corresponding account.";
 

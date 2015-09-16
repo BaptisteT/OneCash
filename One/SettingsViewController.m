@@ -13,6 +13,8 @@
 
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
+#import "DesignUtils.h"
+#import "GeneralUtils.h"
 #import "TrackingUtils.h"
 
 typedef NS_ENUM(NSInteger,SectionTypes) {
@@ -26,6 +28,8 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     kSectionTypesCount = 7
 };
 
+// todo BT possibility to cahnge email
+// todo BT add current method
 // todo BT add current card 4 digits or APPle pay to card section
 
 @interface SettingsViewController ()
@@ -60,8 +64,26 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     if ([self.settingsTableView respondsToSelector:@selector(setLayoutMargins:)]) {
         [self.settingsTableView setLayoutMargins:UIEdgeInsetsZero];
     }
+    
+    // Callback
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(willBecomeActiveCallback)
+                                                 name: UIApplicationWillEnterForegroundNotification
+                                               object: nil];
 }
 
+
+- (void)willBecomeActiveCallback {
+    // Fetch and reload
+    [ApiManager fetchCurrentUserAndExecuteSuccess:^{
+        [self.settingsTableView reloadData];
+    } failure:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 // --------------------------------------------
 #pragma mark - Actions
@@ -73,7 +95,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
 - (void)slideSwitched:(BOOL)state ofSection:(NSInteger)section {
     if (section == kAutoTweetSection) {
-        
+        // todo BT
     }
 }
 
@@ -162,9 +184,14 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
             // todo BT
             // change email
         } else {
-            // todo BT
-            // alert to explain email 
-            [ApiManager resendEmailVerification];
+            [DesignUtils showProgressHUDAddedTo:self.view];
+            [ApiManager resendEmailVerificationAndExecuteSuccess:^{
+                [DesignUtils hideProgressHUDForView:self.view];
+                [GeneralUtils showAlertWithTitle:nil andMessage:NSLocalizedString(@"verification_email_sent", nil)];
+            } failure:^(NSError *error) {
+                // todo BT
+                [DesignUtils hideProgressHUDForView:self.view];
+            }];
         }
     } else if (indexPath.section == kSupportSection) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kOneWebsiteSupportLink]];

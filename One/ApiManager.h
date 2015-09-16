@@ -45,7 +45,8 @@
 + (void)fetchCurrentUserAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
 
-+ (void)resendEmailVerification;
++ (void)resendEmailVerificationAndExecuteSuccess:(void(^)())successBlock
+                                         failure:(void(^)(NSError *error))failureBlock;
 
 // --------------------------------------------
 #pragma mark - Transactions
@@ -75,6 +76,9 @@
 // --------------------------------------------
 + (void)createManageAccountWithParameters:(NSDictionary *)parameters
                                   success:(void(^)())successBlock
+                                  failure:(void(^)(NSError *error))failureBlock;
+
++ (void)getManageAccountAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
 
 @end

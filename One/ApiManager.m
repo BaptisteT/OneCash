@@ -192,14 +192,28 @@
     }
 }
 
-+ (void)resendEmailVerification {
++ (void)resendEmailVerificationAndExecuteSuccess:(void(^)())successBlock
+                                         failure:(void(^)(NSError *error))failureBlock
+{
     User *user = [User currentUser];
     NSString *email = [User currentUser].email;
     user.email = @"";
     [ApiManager saveCurrentUserAndExecuteSuccess:^{
         user.email = email;
-        [ApiManager saveCurrentUserAndExecuteSuccess:nil failure:nil];
-    } failure:nil];
+        [ApiManager saveCurrentUserAndExecuteSuccess:^{
+            if (successBlock) {
+                successBlock();
+            }
+        } failure:^(NSError *error) {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }];
+    } failure:^(NSError *error) {
+        if (failureBlock) {
+            failureBlock(error);
+        }
+    }];
 }
 
 + (void)createStripeCustomerWithToken:(NSString *)token
@@ -431,6 +445,26 @@
 {
     [PFCloud callFunctionInBackground:@"createManagedAccount"
                        withParameters:parameters
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createManagedAccount - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
+
+// Get managed account
++ (void)getManageAccountAndExecuteSuccess:(void(^)())successBlock
+                                  failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"getManagedAccount"
+                       withParameters:nil
                                 block:^(id object, NSError *error) {
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - createManagedAccount - %@",error.description);

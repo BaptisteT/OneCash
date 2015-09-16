@@ -17,6 +17,7 @@
 		3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */; };
 		3C43B6421BA95231006679DE /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; settings = {ASSET_TAGS = (); }; };
 		3C43B6451BA96567006679DE /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3C43B6481BA9B239006679DE /* AccountCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6471BA9B239006679DE /* AccountCardViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3C86E0EF1B8DAF0B005AD52B /* ConstantUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0EE1B8DAF0B005AD52B /* ConstantUtils.m */; };
 		3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F11B8DB07C005AD52B /* TrackingUtils.m */; };
 		3C86E0F51B8DB2BF005AD52B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F41B8DB2BF005AD52B /* User.m */; };
@@ -78,6 +79,8 @@
 		3C43B6411BA95231006679DE /* IPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPUtils.m; sourceTree = "<group>"; };
 		3C43B6431BA96567006679DE /* ManagedAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedAccountViewController.h; sourceTree = "<group>"; };
 		3C43B6441BA96567006679DE /* ManagedAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedAccountViewController.m; sourceTree = "<group>"; };
+		3C43B6461BA9B239006679DE /* AccountCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCardViewController.h; sourceTree = "<group>"; };
+		3C43B6471BA9B239006679DE /* AccountCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCardViewController.m; sourceTree = "<group>"; };
 		3C86E0ED1B8DAF0B005AD52B /* ConstantUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantUtils.h; sourceTree = "<group>"; };
 		3C86E0EE1B8DAF0B005AD52B /* ConstantUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantUtils.m; sourceTree = "<group>"; };
 		3C86E0F01B8DB07C005AD52B /* TrackingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingUtils.h; sourceTree = "<group>"; };
@@ -340,6 +343,8 @@
 				3CC5FDCB1B98A72800514A43 /* SettingsViewController.m */,
 				3C43B6431BA96567006679DE /* ManagedAccountViewController.h */,
 				3C43B6441BA96567006679DE /* ManagedAccountViewController.m */,
+				3C43B6461BA9B239006679DE /* AccountCardViewController.h */,
+				3C43B6471BA9B239006679DE /* AccountCardViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -533,6 +538,7 @@
 				3C2E036A1B8DA18B00D22D48 /* main.m in Sources */,
 				3C86E0FE1B8DB577005AD52B /* ApiManager.m in Sources */,
 				3C13EE4B1B9F32D500930AC7 /* Reachability.m in Sources */,
+				3C43B6481BA9B239006679DE /* AccountCardViewController.m in Sources */,
 				3CC5FDBD1B98A14F00514A43 /* DesignUtils.m in Sources */,
 				3C43B6451BA96567006679DE /* ManagedAccountViewController.m in Sources */,
 				3C86E1091B8DE501005AD52B /* WelcomeViewController.m in Sources */,

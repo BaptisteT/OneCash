@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ManagedAccountVCProtocol;
+
 @interface ManagedAccountViewController : UIViewController <UITextFieldDelegate>
+
+@property (weak, nonatomic) id<ManagedAccountVCProtocol> delegate;
+
+@end
+
+@protocol ManagedAccountVCProtocol <NSObject>
+
+- (void)returnToBalanceController;
 
 @end
