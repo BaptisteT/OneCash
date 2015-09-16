@@ -26,6 +26,8 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     kSectionTypesCount = 7
 };
 
+// todo BT add current card 4 digits or APPle pay to card section
+
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

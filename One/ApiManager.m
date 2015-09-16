@@ -141,8 +141,8 @@
                 }
             }
             // Certified
-            if ([result objectForKey:@"verified"] && user.verified != [[result objectForKey:@"verified"] boolValue]) {
-                user.verified = [[result objectForKey:@"verified"] boolValue];
+            if ([result objectForKey:@"verified"] && user.twitterVerified != [[result objectForKey:@"verified"] boolValue]) {
+                user.twitterVerified = [[result objectForKey:@"verified"] boolValue];
             }
             if (successBlock) {
                 successBlock();
@@ -233,7 +233,7 @@
                        withParameters:nil
                                 block:^(id object, NSError *error) {
                                     if (error != nil) {
-                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createStripeCustomer - %@",error.description);
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - retrieveCards - %@",error.description);
                                         if (failureBlock) {
                                             failureBlock(error);
                                         }
@@ -421,5 +421,28 @@
     }
 }
 
+// --------------------------------------------
+#pragma mark - ManageAccount
+// --------------------------------------------
+// Create managed account
++ (void)createManageAccountWithParameters:(NSDictionary *)parameters
+                                  success:(void(^)())successBlock
+                                  failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"createManagedAccount"
+                       withParameters:parameters
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createManagedAccount - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
 
 @end

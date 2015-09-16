@@ -22,7 +22,9 @@
 @dynamic balance;
 @dynamic autoTweet;
 @dynamic tweetWording;
-@dynamic verified;
+@dynamic twitterVerified;
+@dynamic managedAccountId;
+@dynamic birthDate;
 
 @synthesize avatar;
 

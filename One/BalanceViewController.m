@@ -210,29 +210,35 @@
 - (IBAction)cashoutButtonClicked:(id)sender {
     if ([User currentUser].balance <= 0) {
         [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_no_money_title", nil) andMessage:NSLocalizedString(@"cashout_no_money_message", nil)];
-    } else if ([User currentUser].paymentMethod == kPaymentMethodNone) {
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"no_card_title", nil)
-                                    message:NSLocalizedString(@"no_card_message", nil)
-                                   delegate:self
-                          cancelButtonTitle:NSLocalizedString(@"later_", nil)
-                          otherButtonTitles:NSLocalizedString(@"add_button", nil), nil] show];
+    } else if (![User currentUser].managedAccountId) {
+        if ([[User currentUser] isEmailVerified]) {
+            [self performSegueWithIdentifier:@"Managed From Balance" sender:nil];
+        } else {
+            // todo BT
+            // alert & send back to settings
+//            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"no_card_title", nil)
+//                                        message:NSLocalizedString(@"no_card_message", nil)
+//                                       delegate:self
+//                              cancelButtonTitle:NSLocalizedString(@"later_", nil)
+//                              otherButtonTitles:NSLocalizedString(@"add_button", nil), nil] show];
+        }
     } else {
         // todo BT
-        // cash out function
-        [DesignUtils showProgressHUDAddedTo:self.view];
-        [ApiManager createCashoutAndExecuteSuccess:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [DesignUtils hideProgressHUDForView:self.view];
-                [self loadLatestTransactionsLocally];
-            });
-        } failure:^(NSError *error) {
-            // todo BT
-            // analyse different error
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [DesignUtils hideProgressHUDForView:self.view];
-                [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
-            });
-        }];
+        // go directly to card choice
+//        [DesignUtils showProgressHUDAddedTo:self.view];
+//        [ApiManager createCashoutAndExecuteSuccess:^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [DesignUtils hideProgressHUDForView:self.view];
+//                [self loadLatestTransactionsLocally];
+//            });
+//        } failure:^(NSError *error) {
+//            // todo BT
+//            // analyse different error
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [DesignUtils hideProgressHUDForView:self.view];
+//                [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
+//            });
+//        }];
     }
 }
 
@@ -244,11 +250,8 @@
 #pragma mark - Alert View delegate
 // --------------------------------------------
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([alertView.title isEqualToString:NSLocalizedString(@"no_card_title", nil)]) {
-        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"add_button", nil)]) {
-            [self.delegate navigateToCardController];
-        }
-    }
+    // todo bt
+    // verify email
 }
 
 @end

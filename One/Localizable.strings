@@ -93,5 +93,11 @@
 "email_section" = "Email: %@";
 "email_verification" = "Resend email verification";
 
-
+// Managed account
+"managed_account_title" = "We need to verify your identity to send you money";
+"individual_segment" = "Individual";
+"company_segment" = "Company";
+"business_name_placeholder" = "Company name";
+"first_name_placeholder" = "First name";
+"last_name_placeholder" = "Last name";
 

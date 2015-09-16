@@ -15,6 +15,8 @@
 		3C2E03761B8DA18B00D22D48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03741B8DA18B00D22D48 /* Main.storyboard */; };
 		3C2E03781B8DA18B00D22D48 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03771B8DA18B00D22D48 /* Images.xcassets */; };
 		3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */; };
+		3C43B6421BA95231006679DE /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; settings = {ASSET_TAGS = (); }; };
+		3C43B6451BA96567006679DE /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3C86E0EF1B8DAF0B005AD52B /* ConstantUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0EE1B8DAF0B005AD52B /* ConstantUtils.m */; };
 		3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F11B8DB07C005AD52B /* TrackingUtils.m */; };
 		3C86E0F51B8DB2BF005AD52B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F41B8DB2BF005AD52B /* User.m */; };
@@ -72,6 +74,10 @@
 		3C2E03751B8DA18B00D22D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3C2E03771B8DA18B00D22D48 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3C2E037A1B8DA18B00D22D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		3C43B6401BA95231006679DE /* IPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPUtils.h; sourceTree = "<group>"; };
+		3C43B6411BA95231006679DE /* IPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPUtils.m; sourceTree = "<group>"; };
+		3C43B6431BA96567006679DE /* ManagedAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedAccountViewController.h; sourceTree = "<group>"; };
+		3C43B6441BA96567006679DE /* ManagedAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedAccountViewController.m; sourceTree = "<group>"; };
 		3C86E0ED1B8DAF0B005AD52B /* ConstantUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantUtils.h; sourceTree = "<group>"; };
 		3C86E0EE1B8DAF0B005AD52B /* ConstantUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantUtils.m; sourceTree = "<group>"; };
 		3C86E0F01B8DB07C005AD52B /* TrackingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackingUtils.h; sourceTree = "<group>"; };
@@ -282,6 +288,8 @@
 				3CC5FDDB1B9B5A6000514A43 /* BackEndUtils.m */,
 				3CC5FDDD1B9C391600514A43 /* KeyboardUtils.h */,
 				3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */,
+				3C43B6401BA95231006679DE /* IPUtils.h */,
+				3C43B6411BA95231006679DE /* IPUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -330,6 +338,8 @@
 				3CC5FDC81B98A6EA00514A43 /* BalanceViewController.m */,
 				3CC5FDCA1B98A72800514A43 /* SettingsViewController.h */,
 				3CC5FDCB1B98A72800514A43 /* SettingsViewController.m */,
+				3C43B6431BA96567006679DE /* ManagedAccountViewController.h */,
+				3C43B6441BA96567006679DE /* ManagedAccountViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -503,6 +513,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C43B6421BA95231006679DE /* IPUtils.m in Sources */,
 				3CC5FDD61B9B524A00514A43 /* UserTableViewCell.m in Sources */,
 				3CC5FDAF1B98836D00514A43 /* SHEmailValidator.m in Sources */,
 				3CC5FD9B1B976F4400514A43 /* EmailViewController.m in Sources */,
@@ -523,6 +534,7 @@
 				3C86E0FE1B8DB577005AD52B /* ApiManager.m in Sources */,
 				3C13EE4B1B9F32D500930AC7 /* Reachability.m in Sources */,
 				3CC5FDBD1B98A14F00514A43 /* DesignUtils.m in Sources */,
+				3C43B6451BA96567006679DE /* ManagedAccountViewController.m in Sources */,
 				3C86E1091B8DE501005AD52B /* WelcomeViewController.m in Sources */,
 				3CC5FDC61B98A6E100514A43 /* RecipientViewController.m in Sources */,
 				3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */,

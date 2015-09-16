@@ -70,4 +70,11 @@
 
 + (void)updateBadge:(NSInteger)count;
 
+// --------------------------------------------
+#pragma mark - ManageAccount
+// --------------------------------------------
++ (void)createManageAccountWithParameters:(NSDictionary *)parameters
+                                  success:(void(^)())successBlock
+                                  failure:(void(^)(NSError *error))failureBlock;
+
 @end
