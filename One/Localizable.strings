@@ -89,8 +89,8 @@
 "no_button_title" = "No";
 "yes_button_title" = "Yes";
 "pin_section_details" = "Secure the access to the app with a 4 digit code";
-"email_section" = "Email: %@";
-"email_verification" = "Resend verification email.";
+"verify_email" = "Resend verification email.";
+"modify_email" = "Modify email";
 "verification_email_sent" = "A verification email has just been sent";
 
 // Managed account

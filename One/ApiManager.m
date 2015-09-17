@@ -238,14 +238,13 @@
                                 }];
 }
 
-// todo BT
-// use to get 4 digits (save in datastore. Get from datastore).
-+ (void)getCustomerCardsAndExecuteSuccess:(void(^)())successBlock
+// Get customer cards
++ (void)getCustomerCardsAndExecuteSuccess:(void(^)(NSArray *cards))successBlock
                                   failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"retrieveCards"
                        withParameters:nil
-                                block:^(id object, NSError *error) {
+                                block:^(NSArray *cards, NSError *error) {
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - retrieveCards - %@",error.description);
                                         if (failureBlock) {
@@ -253,7 +252,7 @@
                                         }
                                     } else {
                                         if (successBlock) {
-                                            successBlock();
+                                            successBlock(cards);
                                         }
                                     }
                                 }];

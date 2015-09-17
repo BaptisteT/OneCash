@@ -14,6 +14,7 @@
 #define EVENT_TWITTER_CONNECT @"twitter_connect" // property : success
 #define EVENT_HOW_TO @"how_to.clicked"
 #define EVENT_EMAIL_INPUT @"email.input"
+#define EVENT_EMAIL_CHANGED @"email.changed"
 #define EVENT_CARD_LATER_CLICKED @"card_later.clicked"
 #define EVENT_APPLE_PAY_CLICKED @"apple_pay.clicked" // property : enabled
 #define EVENT_STRIPE_CLICKED @"stripe.clicked"

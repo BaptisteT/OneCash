@@ -5,6 +5,9 @@
 //  Created by Baptiste Truchot on 9/3/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import "NSString+EmailAddresses.h"
+#import "SHEmailValidator.h"
+
 #import "ApiManager.h"
 #import "User.h"
 
@@ -28,14 +31,11 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     kSectionTypesCount = 7
 };
 
-// todo BT possibility to cahnge email
-// todo BT add current method
-// todo BT add current card 4 digits or APPle pay to card section
-
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *settingsTableView;
+@property (strong, nonatomic) NSArray *customerCards;
 
 @end
 
@@ -70,6 +70,12 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
                                              selector: @selector(willBecomeActiveCallback)
                                                  name: UIApplicationWillEnterForegroundNotification
                                                object: nil];
+    
+    // Get card
+    [ApiManager getCustomerCardsAndExecuteSuccess:^(NSArray *cards){
+        self.customerCards = cards;
+        [self.settingsTableView reloadData];
+    } failure:nil];
 }
 
 
@@ -108,12 +114,14 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     User *user = [User currentUser];
-    if (section == kAutoTweetSection) {
+    if (section == kCardSection) {
+        return 1 + ([User currentUser].paymentMethod > 0 ? 1 : 0);
+    } else if (section == kAutoTweetSection) {
         return 1;
     } else if (section == kPinSection) {
         return 2;
     } else if (section == kEmailSection) {
-        return 1 + ([user isEmailVerified] ? 0 : 1);
+        return [user isEmailVerified] ? 1 : 2;
     } else {
         return 1;
     }
@@ -126,10 +134,21 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     User *user = [User currentUser];
     if (indexPath.section == kCardSection) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CardCell"];
-        cell.textLabel.text = user.paymentMethod == kPaymentMethodNone ? NSLocalizedString(@"no_card_section", nil) : NSLocalizedString(@"card_section", nil);
-        cell.backgroundColor = [ColorUtils mainGreen];
-        return cell;
+        if (indexPath.row == 0) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CardCell"];
+            cell.textLabel.text = user.paymentMethod == kPaymentMethodNone ? NSLocalizedString(@"no_card_section", nil) : NSLocalizedString(@"card_section", nil);
+            cell.backgroundColor = [ColorUtils mainGreen];
+            return cell;
+        } else {
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            cell.textLabel.textColor = [UIColor lightGrayColor];
+            if ([User currentUser].paymentMethod == kPaymentMethodApplePay) {
+                cell.textLabel.text = @"Apple Pay";
+            } else if (self.customerCards && self.customerCards.count > 0) {
+                cell.textLabel.text = [NSString stringWithFormat:@"XXX XXXX XXXX %@",self.customerCards[0][@"last4"]];
+            }
+            return cell;
+        }
     } else if (indexPath.section == kAutoTweetSection) {
         SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
         [cell setTitle:NSLocalizedString(@"auto_tweet_section", nil) delegate:self section:kAutoTweetSection andSwitchState:user.autoTweet];
@@ -149,9 +168,10 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     } else if (indexPath.section == kEmailSection) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         if (indexPath.row == 0) {
-            cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"email_section", nil),user.email];
-        } else {
-            cell.textLabel.text = NSLocalizedString(@"email_verification", nil);
+            cell.textLabel.text = user.email;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } else if (indexPath.row == 1) {
+            cell.textLabel.text = NSLocalizedString(@"verify_email", nil);
             cell.textLabel.textColor = [ColorUtils red];
         }
         return cell;
@@ -178,12 +198,47 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == kCardSection) {
-        [self.delegate navigateToCardController];
+        if (indexPath.row == 0)
+            [self.delegate navigateToCardController];
     } else if (indexPath.section == kEmailSection) {
         if (indexPath.row == 0) {
-            // todo BT
             // change email
-        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"modify_email", nil)
+                                                                           message:nil
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                textField.keyboardType = UIKeyboardTypeEmailAddress;
+            }];
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok_button", nil)
+                                                                    style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      UITextField *textfield = alert.textFields.firstObject;
+                                                                      NSError *error = nil;
+                                                                      NSString *email = [textfield.text stringByCorrectingEmailTypos];
+                                                                      [[SHEmailValidator validator] validateSyntaxOfEmailAddress:email withError:&error];
+                                                                      if (error) {
+                                                                          [GeneralUtils showAlertWithTitle:NSLocalizedString(@"invalid_email_title", nil) andMessage:NSLocalizedString(@"invalid_email_message", nil)];
+                                                                          return;
+                                                                      }
+                                                                      [DesignUtils showProgressHUDAddedTo:self.view];
+                                                                      [User currentUser].email = email;
+                                                                      [ApiManager saveCurrentUserAndExecuteSuccess:^{
+                                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                                              [DesignUtils hideProgressHUDForView:self.view];
+                                                                              [TrackingUtils trackEvent:EVENT_EMAIL_CHANGED properties:nil];
+                                                                              [self.settingsTableView reloadData];
+                                                                          });
+                                                                      } failure:^(NSError *error) {
+                                                                          [DesignUtils hideProgressHUDForView:self.view];
+                                                                          [GeneralUtils showAlertWithTitle:NSLocalizedString(@"save_email_error_title", nil) andMessage:NSLocalizedString(@"save_email_error_message", nil)];
+                                                                      }];
+                                                                  }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil) style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else if (indexPath.row == 1) {
+            // Verify
             [DesignUtils showProgressHUDAddedTo:self.view];
             [ApiManager resendEmailVerificationAndExecuteSuccess:^{
                 [DesignUtils hideProgressHUDForView:self.view];

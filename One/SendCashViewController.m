@@ -171,7 +171,7 @@
 }
 
 - (void)navigateToCardController {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
     [self performSegueWithIdentifier:@"Card From Send" sender:nil];
 }
 
