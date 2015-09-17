@@ -78,7 +78,15 @@
                                   success:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
 
-+ (void)getManageAccountAndExecuteSuccess:(void(^)())successBlock
++ (void)getManageAccountAndExecuteSuccess:(void(^)(NSDictionary *managedAccount))successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
+
++ (void)addCardToManadedAccount:(NSString *)token
+                        success:(void(^)())successBlock
+                        failure:(void(^)(NSError *error))failureBlock;
+
++ (void)setCardAsDefaultInManagedAccount:(NSString *)cardId
+                                 success:(void(^)())successBlock
+                                 failure:(void(^)(NSError *error))failureBlock;
 
 @end

@@ -229,20 +229,6 @@
     } else {
         // go directly to card choice
         [self performSegueWithIdentifier:@"AccountCard From Balance" sender:nil];
-//        [DesignUtils showProgressHUDAddedTo:self.view];
-//        [ApiManager createCashoutAndExecuteSuccess:^{
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [DesignUtils hideProgressHUDForView:self.view];
-//                [self loadLatestTransactionsLocally];
-//            });
-//        } failure:^(NSError *error) {
-//            // todo BT
-//            // analyse different error
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [DesignUtils hideProgressHUDForView:self.view];
-//                [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
-//            });
-//        }];
     }
 }
 
@@ -251,7 +237,6 @@
 }
 
 - (void)returnToBalanceController {
-    [self loadLatestTransactionsLocally];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

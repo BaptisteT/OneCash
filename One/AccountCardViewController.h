@@ -10,7 +10,7 @@
 
 @protocol AccountCardVCProtocol;
 
-@interface AccountCardViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface AccountCardViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) id<AccountCardVCProtocol> delegate;
 

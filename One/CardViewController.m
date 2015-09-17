@@ -19,8 +19,7 @@
 #import "GeneralUtils.h"
 #import "TrackingUtils.h"
 
-@interface CardViewController ()
-
+@interface CardViewController () 
 @property (weak, nonatomic) IBOutlet UIButton *skipButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *topBar;

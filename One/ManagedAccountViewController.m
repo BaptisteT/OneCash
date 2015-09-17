@@ -211,4 +211,13 @@
     return NO;
 }
 
+// --------------------------------------------
+#pragma mark - UI
+// --------------------------------------------
+// Set status bar color to white
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 @end

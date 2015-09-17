@@ -406,7 +406,7 @@
 {
     [PFCloud callFunctionInBackground:@"createCashoutTransaction"
                        withParameters:nil
-                                block:^(Transaction *object, NSError *error) {
+                                block:^(NSArray *objects, NSError *error) {
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - createCashoutTransaction - %@",error.description);
                                         if (failureBlock) {
@@ -414,7 +414,7 @@
                                         }
                                     } else {
                                         // pin transaction
-                                        [object pinInBackgroundWithName:kParseTransactionsName];
+                                        [(Transaction *)(objects[0]) pinInBackgroundWithName:kParseTransactionsName];
                                         if (successBlock) {
                                             successBlock();
                                         }
@@ -460,14 +460,56 @@
 }
 
 // Get managed account
-+ (void)getManageAccountAndExecuteSuccess:(void(^)())successBlock
++ (void)getManageAccountAndExecuteSuccess:(void(^)(NSDictionary *stripeAccount))successBlock
                                   failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"getManagedAccount"
                        withParameters:nil
                                 block:^(id object, NSError *error) {
                                     if (error != nil) {
-                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createManagedAccount - %@",error.description);
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - getManagedAccount - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock(object);
+                                        }
+                                    }
+                                }];
+}
+
+// Add card managed account
++ (void)addCardToManadedAccount:(NSString *)token
+                        success:(void(^)())successBlock
+                        failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"addCardToManagedAccount"
+                       withParameters:@{@"stripeToken":token}
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - addCardToManadedAccount - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
+
+// Set card as default to account
++ (void)setCardAsDefaultInManagedAccount:(NSString *)cardId
+                                 success:(void(^)())successBlock
+                                 failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"setCardAsDefaultInManagedAccount"
+                       withParameters:@{@"cardId":cardId}
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - setCardAsDefaultInManagedAccount - %@",error.description);
                                         if (failureBlock) {
                                             failureBlock(error);
                                         }
