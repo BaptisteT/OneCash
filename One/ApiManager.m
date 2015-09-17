@@ -408,13 +408,17 @@
                        withParameters:nil
                                 block:^(NSArray *objects, NSError *error) {
                                     if (error != nil) {
+                                        [TrackingUtils trackEvent:EVENT_CREATE_CASHOUT_FAIL properties:nil];
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - createCashoutTransaction - %@",error.description);
                                         if (failureBlock) {
                                             failureBlock(error);
                                         }
                                     } else {
+                                        Transaction *transaction = (Transaction *)(objects[0]);
+                                        [TrackingUtils trackEvent:EVENT_CREATE_CASHOUT properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount]}];
+                                        [TrackingUtils incrementPeopleProperty:PEOPLE_CASHOUT_TOTAL byValue:(int)transaction.transactionAmount];
                                         // pin transaction
-                                        [(Transaction *)(objects[0]) pinInBackgroundWithName:kParseTransactionsName];
+                                        [transaction pinInBackgroundWithName:kParseTransactionsName];
                                         if (successBlock) {
                                             successBlock();
                                         }
@@ -487,6 +491,7 @@
     [PFCloud callFunctionInBackground:@"addCardToManagedAccount"
                        withParameters:@{@"stripeToken":token}
                                 block:^(id object, NSError *error) {
+                                    [TrackingUtils trackEvent:EVENT_MANAGED_ACCOUNT_ADD_CARD properties:@{@"success" : [NSNumber numberWithBool:(error == nil)]}];
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - addCardToManadedAccount - %@",error.description);
                                         if (failureBlock) {

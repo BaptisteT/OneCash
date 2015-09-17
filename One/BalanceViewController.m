@@ -215,6 +215,7 @@
 }
 
 - (IBAction)cashoutButtonClicked:(id)sender {
+    [TrackingUtils trackEvent:EVENT_CASHOUT_CLICKED properties:nil];
     if ([User currentUser].balance <= 0) {
         [GeneralUtils showAlertWithTitle:nil andMessage:NSLocalizedString(@"cashout_no_money_message", nil)];
     } else if (![[User currentUser] isEmailVerified]) {

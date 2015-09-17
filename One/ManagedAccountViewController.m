@@ -16,6 +16,7 @@
 #import "GeneralUtils.h"
 #import "IPUtils.h"
 #import "OneLogger.h"
+#import "TrackingUtils.h"
 
 @interface ManagedAccountViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -103,9 +104,8 @@
     self.isIndividual = self.entityTypeSegmentedControl.selectedSegmentIndex == 0;
 }
 
-- (IBAction)registerButtonClicked:(id)sender {
-    
-    // todo BT
+- (IBAction)registerButtonClicked:(id)sender
+{
     NSMutableDictionary *parameters = [NSMutableDictionary new];
     parameters[@"isIndividual"] = [NSNumber numberWithBool:self.isIndividual];
     if (self.isIndividual) {
@@ -150,15 +150,17 @@
     // Add ip
     parameters[@"iP"] = [IPUtils getIPAddress:YES];
     
-    // todo BT
+    // Create account
     [DesignUtils showProgressHUDAddedTo:self.view];
     [ApiManager createManageAccountWithParameters:parameters
                                           success:^{
                                               [DesignUtils hideProgressHUDForView:self.view];
+                                              [TrackingUtils trackEvent:EVENT_CREATE_CASHOUT properties:parameters];
                                               [self performSegueWithIdentifier:@"AccountCard From Managed" sender:nil];
                                           } failure:^(NSError *error) {
+                                              [TrackingUtils trackEvent:EVENT_CREATE_CASHOUT_FAIL properties:nil];
                                               [DesignUtils hideProgressHUDForView:self.view];
-                                              // todo BT
+                                              [GeneralUtils showAlertWithTitle:NSLocalizedString(@"unexpected_error_title", nil) andMessage:NSLocalizedString(@"unexpected_error_message", nil)];
                                           }];
 }
 

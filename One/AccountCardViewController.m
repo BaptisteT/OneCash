@@ -60,6 +60,7 @@
     self.paymentTextField.delegate = self;
     
     // Get accounts
+    // todo BT loading before that
     [self getManagedAccountAndExecuteSuccess:nil];
 }
 
@@ -161,7 +162,7 @@
     [[STPAPIClient sharedClient] createTokenWithCard:card
                                           completion:^(STPToken *token, NSError *error) {
                                               dispatch_async(dispatch_get_main_queue(), ^{
-//                                                  [TrackingUtils trackEvent:EVENT_STRIPE_CREATE_TOKEN_WITH_CARD properties:@{@"success" : [NSNumber numberWithBool:(error == nil)]}];
+                                                  [TrackingUtils trackEvent:EVENT_STRIPE_CREATE_TOKEN_WITH_CARD properties:@{@"success" : [NSNumber numberWithBool:(error == nil)]}];
                                                   if (error) {
                                                       [DesignUtils hideProgressHUDForView:self.view];
                                                       [GeneralUtils showAlertWithTitle:NSLocalizedString(@"create_token_with_card_error_title", nil) andMessage:error.localizedDescription];
