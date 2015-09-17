@@ -89,4 +89,11 @@
                                  success:(void(^)())successBlock
                                  failure:(void(^)(NSError *error))failureBlock;
 
+// --------------------------------------------
+#pragma mark - Misc
+// --------------------------------------------
++ (void)alertByEmailWithParams:(NSDictionary *)params
+                       success:(void(^)())successBlock
+                       failure:(void(^)(NSError *error))failureBlock;
+
 @end

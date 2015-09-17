@@ -526,4 +526,27 @@
                                 }];
 }
 
+// --------------------------------------------
+#pragma mark - Misc
+// --------------------------------------------
+// Email Alert
++ (void)alertByEmailWithParams:(NSDictionary *)params
+                       success:(void(^)())successBlock
+                       failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"alertFromApp"
+                       withParameters:params
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - alertFromApp - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
 @end

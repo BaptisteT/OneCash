@@ -70,11 +70,6 @@
 "cashout_no_email_message" = "You need to verify your email to cashout.";
 "verify_button" = "Verify";
 
-//
-"cashout_error_title" = "Sorry, the cash out failed.";
-"cashout_error_message" = "Please retry or contact us.";
-
-
 // Recipients
 "to" = "to";
 "recipient_title" = "Pick a recipient";
@@ -117,7 +112,11 @@
 "acount_card_title" = "Select a card.\nYou will receive the money on the corresponding account.";
 "add_a_card" = "New card";
 "cancel_button" = "Cancel";
+"ok_button" = "Ok";
 "confirm_cashout_title" = "Cashout all your balance ?";
 "confirm_cashout_message" = "You will receive a transfer of $%lu on your account.";
 "confirm_cashout_button" = "Confirm";
-
+"cashout_error_title" = "Sorry, the cash out failed.";
+"cashout_error_message" = "Please retry or contact us.";
+"transfers_disabled_title" = "Identity verification is needed";
+"transfers_disabled_message" = "To transfer your balance on your account, we need more proof of your identity. Please check your emails for more information.";

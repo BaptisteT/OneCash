@@ -209,7 +209,12 @@
 
 - (void)checkVerificationAndShowConfirmationAlert {
     if (![self.managedAccountDictionnary[@"transfers_enabled"] boolValue]) {
-        // todo BT
+        [ApiManager alertByEmailWithParams:@{@"type":@"transfers disabled", @"userId":[User currentUser].objectId} success:nil failure:nil];
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"transfers_disabled_title", nil)
+                                    message:[NSString stringWithFormat:NSLocalizedString(@"transfers_disabled_message", nil),[User currentUser].balance]
+                                   delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"ok_button", nil)
+                          otherButtonTitles:nil] show];
     } else {
         // Confirmation alert
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"confirm_cashout_title", nil)
@@ -250,6 +255,8 @@
                 [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
             });
         }];
+    } else if ([alertView.title isEqualToString:NSLocalizedString(@"transfers_disabled_title", nil)]) {
+        [self.delegate returnToBalanceController];
     }
 }
 
