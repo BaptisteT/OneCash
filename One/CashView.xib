@@ -108,7 +108,7 @@
                         <constraint firstAttribute="width" secondItem="Ifu-te-Mtz" secondAttribute="height" multiplier="1:1" id="ORl-KK-PBX"/>
                     </constraints>
                 </imageView>
-                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caw-zl-TVz">
+                <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caw-zl-TVz">
                     <rect key="frame" x="110" y="110" width="380" height="380"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -125,7 +125,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                     <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
-                    <size key="shadowOffset" width="0.0" height="2"/>
+                    <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unO-AI-qNM">
                     <rect key="frame" x="221" y="250" width="158" height="79"/>
@@ -137,7 +137,7 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
-                    <size key="shadowOffset" width="0.0" height="2"/>
+                    <size key="shadowOffset" width="0.0" height="1"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5x-wJ-GfG">
                     <rect key="frame" x="0.0" y="538" width="600" height="30"/>
@@ -176,7 +176,7 @@
                         <constraint firstAttribute="height" constant="380" id="efY-gY-VWO"/>
                         <constraint firstAttribute="width" constant="380" id="mL6-hn-u7p"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="150"/>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="150"/>
                     <inset key="contentEdgeInsets" minX="1" minY="-23" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="+"/>
                     <variation key="default">

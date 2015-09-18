@@ -31,5 +31,7 @@
 
 + (UIColor *)pink;
 
++ (UIColor *)veryDarkGreen;
+
 
 @end

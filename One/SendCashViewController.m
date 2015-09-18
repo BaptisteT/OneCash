@@ -9,6 +9,7 @@
 #import "Reachability.h"
 #import <ApplePayStubs/ApplePayStubs.h>
 #import <Stripe.h>
+#import <QuartzCore/QuartzCore.h>
 
 #import "ApiManager.h"
 #import "DatastoreManager.h"
@@ -70,7 +71,27 @@
     self.balanceBadge.clipsToBounds = YES;
     self.balanceButton.layer.cornerRadius = self.balanceButton.frame.size.height / 2;
     self.balanceButton.clipsToBounds = YES;
+    self.balanceButton.layer.borderWidth = 0.5f;
+    self.balanceButton.layer.borderColor = [ColorUtils lightBlack].CGColor;
+    self.balanceButton.layer.zPosition = -9999;
     [[User currentUser] setAvatarInButton:self.balanceButton];
+    self.balanceBadge.layer.borderWidth = 2.f;
+    self.balanceBadge.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.balanceBadge.layer.zPosition = -999;
+    self.titleLabel.layer.cornerRadius = self.titleLabel.frame.size.height / 2;
+    self.titleLabel.clipsToBounds = YES;
+    self.titleLabel.hidden = YES;
+    self.titleLabel.layer.borderColor = [ColorUtils darkGreen].CGColor;
+    self.titleLabel.layer.borderWidth = 1.f;
+    
+    //shadow to fix
+    self.titleLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    self.titleLabel.layer.shadowRadius = 5;
+    self.titleLabel.layer.shadowOpacity = 0.2;
+
+    // Animation
+    [self doArrowAnimation];
+    [self sendingAnimation];
 
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
@@ -237,7 +258,7 @@
                                                                                                         object:nil
                                                                                                       userInfo:nil];
                                                     if (self.ongoingTransactionsCount == 0) {
-                                                        [self sentAnimation];
+                                                        self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
                                                     }
                                                 } failure:^(NSError *error) {
                                                     if ([error.description containsString:@"card_error"]) {
@@ -368,9 +389,7 @@
 }
 
 - (void)adaptUIToCashViewState:(BOOL)isMoving {
-    self.balanceBadge.hidden = isMoving || [self.balanceBadge.text isEqualToString:@"0"];
-    self.balanceButton.hidden = isMoving;
-    self.titleLabel.hidden = isMoving;
+    self.balanceBadge.hidden = [self.balanceBadge.text isEqualToString:@"0"];
 }
 
 - (BOOL)userExpectedBalanceIsPositive {
@@ -424,10 +443,28 @@
 
 -(void)doArrowAnimation {
     [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        
+        CGRect frame = self.arrowImageView.frame;
+        frame.origin.y -= 50;
+        self.arrowImageView.frame = frame;
+        self.arrowImageView.layer.opacity = 0;
     } completion:^(BOOL finished) {
-        
+        CGRect frame = self.arrowImageView.frame;
+        frame.origin.y += 50;
+        self.arrowImageView.frame = frame;
+        self.arrowImageView.layer.opacity = 0.1;
+        [self doArrowAnimation];
     }];
+}
+
+-(void)sendingAnimation {
+    CABasicAnimation *theAnimation;
+    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+    theAnimation.duration=1.0;
+    theAnimation.repeatCount=HUGE_VALF;
+    theAnimation.autoreverses=YES;
+    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+    theAnimation.toValue=[NSNumber numberWithFloat:0.0];
+    [self.titleLabel.layer addAnimation:theAnimation forKey:@"animateOpacity"];
 }
 
 
@@ -524,27 +561,29 @@
 
 - (void)setTitleLabelWording {
     if (_ongoingTransactionsCount > 0) {
+        self.arrowImageView.hidden = YES;
+        self.titleLabel.layer.borderColor = [ColorUtils veryDarkGreen].CGColor;
+        self.titleLabel.backgroundColor = [ColorUtils darkGreen];
+        self.titleLabel.font = [UIFont systemFontOfSize:30];
         self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sending_label", nil),_ongoingTransactionsCount];
+        self.titleLabel.hidden = NO;
     } else {
-        self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
+        self.titleLabel.layer.borderColor = [ColorUtils darkGreen].CGColor;
+        self.titleLabel.backgroundColor = [ColorUtils mainGreen];
+        self.titleLabel.font = [UIFont systemFontOfSize:20];
+        self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
+        [NSTimer scheduledTimerWithTimeInterval:2.0
+                                         target:self
+                                       selector:@selector(resetUI)
+                                       userInfo:nil
+                                        repeats:NO];
+        
     }
 }
 
-- (void)sentAnimation {
-    self.titleLabel.alpha = 0;
-    self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
-    [UIView animateWithDuration:1 animations:^{
-        self.titleLabel.alpha = 1;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
-            self.titleLabel.alpha = 0;
-        } completion:^(BOOL finished) {
-            [self setTitleLabelWording];
-            [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
-                self.titleLabel.alpha = 1;
-            } completion:nil];
-        }];
-    }];
+-(void)resetUI {
+    self.titleLabel.hidden = YES;
+    self.arrowImageView.hidden = NO;
 }
 
 - (void)failedAnimation:(NSInteger)failedCount {

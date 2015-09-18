@@ -51,7 +51,7 @@
 "no_card_title" = "Your 1$ tip hasn’t been sent";
 "no_card_message" = "You need to add a valid debit card!";
 "add_button" = "Add";
-"sending_label" = "Processing (%lu)...";
+"sending_label" = "$%lu";
 "sent_label" = "Sent!";
 "failed_label" = "Fail (%lu) ! Transaction cancelled";
 
