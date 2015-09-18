@@ -15,10 +15,21 @@
 
 + (UIColor *)lightGreen;
 
++ (UIColor *)lightBlack;
+
 + (UIColor *)mainGreen;
 
 + (UIColor *)darkGreen;
 
 + (UIColor *)red;
+
++ (UIColor *)orange;
+
++ (UIColor *)blue;
+
++ (UIColor *)yellow;
+
++ (UIColor *)pink;
+
 
 @end

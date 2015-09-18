@@ -24,6 +24,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *leftBottomOne;
 @property (weak, nonatomic) IBOutlet UILabel *rightBottomOne;
 @property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
+@property (strong, nonatomic) IBOutlet UILabel *dollarLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *userPictureImageView;
+@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (strong, nonatomic) IBOutlet UIView *overlayView;
+@property (strong, nonatomic) IBOutlet UIButton *addRecipientButton;
+@property (strong, nonatomic) IBOutlet UIButton *removeRecipientButton;
 @property (nonatomic) BOOL isRecipientEmpty;
 @property (nonatomic) double rads;
 @property (nonatomic) CGPoint initialCenter;
@@ -43,6 +49,15 @@
     self.centralLabel.textColor = [ColorUtils darkGreen];
     self.centralLabel.adjustsFontSizeToFitWidth = YES;
     self.centralLabel.clipsToBounds = YES;
+    self.userPictureImageView.clipsToBounds = YES;
+    self.userPictureImageView.layer.borderColor = [ColorUtils darkGreen].CGColor;
+    self.userPictureImageView.layer.borderWidth = 10.f;
+    self.overlayView.hidden = YES;
+    self.usernameLabel.hidden = YES;
+    self.dollarLabel.hidden = YES;
+    self.removeRecipientButton.backgroundColor = [ColorUtils darkGreen];
+    [self.removeRecipientButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    [self.addRecipientButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.leftUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-90));
     self.leftUpOne.textColor = [ColorUtils mainGreen];
     self.rightUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
@@ -51,14 +66,16 @@
     self.leftBottomOne.textColor = [ColorUtils mainGreen];
     self.rightBottomOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
     self.rightBottomOne.textColor = [ColorUtils mainGreen];
-    self.messageTextField.backgroundColor = [ColorUtils mainGreen];
+    self.messageTextField.backgroundColor = [ColorUtils darkGreen];
     self.messageTextField.placeholder = NSLocalizedString(@"message_placeholder", nil);
     self.pickRecipientAlertLabel.text = NSLocalizedString(@"recipient_alert", nil);
     self.messageTextField.clipsToBounds = YES;
     self.messageTextField.delegate = self;
     self.messageTextField.layer.cornerRadius = self.messageTextField.frame.size.height / 2;
     self.messageTextField.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    
+    [self.messageTextField setValue:[ColorUtils mainGreen]
+                    forKeyPath:@"_placeholderLabel.textColor"];
+    [self updateRecipient];
     // Pan Gesture
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                                  action:@selector(handlePan:)];
@@ -80,19 +97,27 @@
         }
     }
     self.centralLabel.layer.cornerRadius = self.centralLabel.frame.size.height / 2;
+    self.userPictureImageView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2;
+    self.overlayView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2.2;
+    self.removeRecipientButton.layer.cornerRadius = self.removeRecipientButton.frame.size.height / 2;
 }
 
+-(void)checkIfRecipient {
+    self.isRecipientEmpty = [self.delegate isRecipientEmpty];
+}
 
 // --------------------------------------------
 #pragma mark - UI
 // --------------------------------------------
 - (void)setStaticUI {
     self.messageTextField.hidden = NO;
-    self.backgroundColor = [ColorUtils darkGreen];
-    self.centralLabel.backgroundColor = [ColorUtils mainGreen];
+    self.backgroundColor = [ColorUtils mainGreen];
+    self.centralLabel.backgroundColor = [ColorUtils darkGreen];
     //hide recipient alert
     self.pickRecipientAlertLabel.hidden = YES;
-    self.layer.shadowOpacity = 0;
+    self.layer.shadowOffset = CGSizeMake(0, 0);
+    self.layer.shadowRadius = 5;
+    self.layer.shadowOpacity = 0.2;
 }
 
 - (void)setMovingUI {
@@ -101,15 +126,40 @@
     [self.delegate adaptUIToCashViewState:YES];
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowRadius = 5;
-    self.layer.shadowOpacity = 0.1;
-    if (self.isRecipientEmpty == true) {
+    self.layer.shadowOpacity = 0.2;
+    if ([self.delegate isRecipientEmpty] == true) {
         self.pickRecipientAlertLabel.hidden = NO;
+    } else {
+        [self updateRecipient];
     }
 }
 
 - (BOOL)isAtInitialPosition {
     return pow(self.initialCenter.x - self.center.x,2) + pow(self.initialCenter.y - self.center.y,2) < 0.01;
 }
+
+-(void)updateRecipient {
+    if ([self.delegate isRecipientEmpty] == true) {
+        self.dollarLabel.hidden = YES;
+        self.usernameLabel.hidden = YES;
+        self.overlayView.hidden = YES;
+        self.userPictureImageView.hidden = YES;
+        self.usernameLabel.hidden = YES;
+        [self.addRecipientButton setTitle:@"+" forState:UIControlStateNormal];
+        self.removeRecipientButton.hidden = YES;
+    } else {
+        self.userPictureImageView.image = [[self.delegate currentRecipientInfos] objectForKey:@"avatar"];
+        self.usernameLabel.text = [[self.delegate currentRecipientInfos] objectForKey:@"username"];
+        self.dollarLabel.hidden = NO;
+        self.usernameLabel.hidden = NO;
+        self.overlayView.hidden = NO;
+        self.userPictureImageView.hidden = NO;
+        [self.addRecipientButton setTitle:@"" forState:UIControlStateNormal];
+        self.removeRecipientButton.hidden = NO;
+
+    }
+}
+
 
 // --------------------------------------------
 #pragma mark - Actions
@@ -129,15 +179,6 @@
     }
 }
 
--(void)checkIfRecipient {
-    if ([self.delegate isRecipientEmpty] == true) {
-        self.isRecipientEmpty = true;
-    } else {
-        self.isRecipientEmpty = false;
-    }
-}
-
-
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint translation = [recognizer translationInView:self.superview];
@@ -145,7 +186,7 @@
     //slow down translation if recipient is empty or translation.y is positive
     if (translation.y > 0 && self.frame.origin.y > 0) {
         translation.y = translation.y / 10;
-    } else if (self.isRecipientEmpty == true) {
+    } else if ([self.delegate isRecipientEmpty] == true) {
         translation.y = translation.y / 10 ;
     }
         
@@ -158,7 +199,7 @@
         [self setMovingUI];
         [self.delegate addNewCashSubview];
         self.rads = 0;
-        if (self.isRecipientEmpty == false) {
+        if ([self.delegate isRecipientEmpty] == false) {
             if (translation.x < 0) {
                 self.rads = 30;
             } else {
@@ -184,6 +225,14 @@
         } completion:^(BOOL finished) {
         }];
     }
+}
+
+-(IBAction)recipientPressed:(id)sender {
+    [self.delegate pickRecipientButtonClicked:sender];
+}
+
+-(IBAction)removeRecipientPressed:(id)sender {
+    [self.delegate removeRecipientButtonClicked];
 }
 
 
