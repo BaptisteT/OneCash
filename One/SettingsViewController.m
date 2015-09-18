@@ -23,13 +23,13 @@
 
 typedef NS_ENUM(NSInteger,SectionTypes) {
     kCardSection = 0,
-    kAutoTweetSection = 1,
-    kPinSection = 2,
-    kEmailSection = 3,
-    kSupportSection = 4,
-    kShareSection = 5,
-    kLogoutSection = 6,
-    kSectionTypesCount = 7
+    kAutoTweetSection = kCardSection + 1,
+    kPinSection = 1000,
+    kEmailSection = kAutoTweetSection + 1,
+    kSupportSection = kEmailSection + 1,
+    kShareSection = kSupportSection + 1,
+    kLogoutSection = kShareSection + 1,
+    kSectionTypesCount = kLogoutSection + 1
 };
 
 @interface SettingsViewController ()
@@ -277,7 +277,6 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
                 [DesignUtils hideProgressHUDForView:self.view];
                 [GeneralUtils showAlertWithTitle:nil andMessage:NSLocalizedString(@"verification_email_sent", nil)];
             } failure:^(NSError *error) {
-                // todo BT
                 [DesignUtils hideProgressHUDForView:self.view];
             }];
         }

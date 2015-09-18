@@ -68,9 +68,6 @@
 
 - (BOOL)isEmailVerified {
     if ([self objectForKey:@"emailVerified"]) {
-//        if (![[self objectForKey:@"emailVerified"] boolValue]) {
-//            [self fetch];
-//        }
         return [[self objectForKey:@"emailVerified"] boolValue];
     } else {
         return NO;
