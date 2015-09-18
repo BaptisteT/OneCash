@@ -70,7 +70,22 @@
     self.balanceBadge.clipsToBounds = YES;
     self.balanceButton.layer.cornerRadius = self.balanceButton.frame.size.height / 2;
     self.balanceButton.clipsToBounds = YES;
+    self.balanceButton.layer.borderWidth = 0.5f;
+    self.balanceButton.layer.borderColor = [ColorUtils lightBlack].CGColor;
     [[User currentUser] setAvatarInButton:self.balanceButton];
+    self.balanceBadge.layer.borderWidth = 2.f;
+    self.balanceBadge.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.titleLabel.layer.cornerRadius = self.titleLabel.frame.size.height / 2;
+    self.titleLabel.clipsToBounds = YES;
+    self.titleLabel.layer.borderColor = [ColorUtils darkGreen].CGColor;
+    self.titleLabel.layer.borderWidth = 1.f;
+    self.titleLabel.layer.shadowOffset = CGSizeMake(0, 0);
+    self.titleLabel.layer.shadowRadius = 5;
+    self.titleLabel.layer.shadowOpacity = 0.2;
+
+    // Animation
+    [self doArrowAnimation];
+    
 
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
@@ -430,9 +445,16 @@
 
 -(void)doArrowAnimation {
     [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        
+        CGRect frame = self.arrowImageView.frame;
+        frame.origin.y -= 50;
+        self.arrowImageView.frame = frame;
+        self.arrowImageView.layer.opacity = 0;
     } completion:^(BOOL finished) {
-        
+        CGRect frame = self.arrowImageView.frame;
+        frame.origin.y += 50;
+        self.arrowImageView.frame = frame;
+        self.arrowImageView.layer.opacity = 0.1;
+        [self doArrowAnimation];
     }];
 }
 
@@ -532,7 +554,7 @@
     if (_ongoingTransactionsCount > 0) {
         self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sending_label", nil),_ongoingTransactionsCount];
     } else {
-        self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
+//        self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
     }
 }
 
