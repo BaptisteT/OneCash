@@ -191,7 +191,7 @@
     if (translation.y > 0 && self.frame.origin.y > 0) {
         translation.y = translation.y / 10;
     } else if ([self.delegate receiver] == nil) {
-        translation.y = translation.y / 10 ;
+        translation.y = MAX(translation.y / 5, - 5) ;
     }
         
     recognizer.view.center = CGPointMake(recognizer.view.center.x,
@@ -260,7 +260,7 @@
 - (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished {
     OneLog(LOCALLOGENABLED,@"anim did stop");
     if ([anim isKindOfClass:[POPDecayAnimation class]]) {
-        if (self.center.y < 0) {
+        if (self.center.y < 0 && [self.delegate receiver] != nil) {
             CGFloat xDirection = self.center.x + (self.center.x - self.initialCenter.x) / (self.center.y - self.initialCenter.y) * (-self.frame.size.height- self.center.y);
             if (self.frame.origin.x + self.frame.size.height > 0) {
                 //Vibration
