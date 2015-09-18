@@ -46,9 +46,8 @@
 #define PEOPLE_BALANCE @"balance"
 #define PEOPLE_SENDING_TOTAL @"payment_sent.total"
 #define PEOPLE_CASHOUT_TOTAL @"cashout.total"
-
+#define PEOPLE_AUTO_TWEET @"auto_tweet"
 // todo BT
-//• Auto tweet tips (on/off)
 //• Pin code security (on/off)
 
 @interface TrackingUtils : NSObject
