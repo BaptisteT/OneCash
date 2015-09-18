@@ -1,3 +1,4 @@
+
 //
 //  SendCashViewController.m
 //  One
@@ -37,6 +38,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *arrowImageView;
 
 @property (strong, nonatomic) User *receiver;
+@property (strong, nonatomic) User *sender;
 @property (strong, nonatomic) Reachability *internetReachableFoo;
 
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
@@ -59,9 +61,10 @@
     // Init
     self.ongoingTransactionsCount = 0;
     [self setBadgeValue:0];
+    self.sender = [User currentUser];
+    
     
     // Wording
-    [self.balanceButton setTitle:NSLocalizedString(@"balance_button", nil) forState:UIControlStateNormal];
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
     [self setSelectedUser:nil];
 
@@ -71,6 +74,15 @@
     self.balanceBadge.backgroundColor = [ColorUtils red];
     self.balanceBadge.layer.cornerRadius = self.balanceBadge.frame.size.height / 2;
     self.balanceBadge.clipsToBounds = YES;
+    self.balanceButton.layer.cornerRadius = self.balanceButton.frame.size.height / 2;
+    
+    UIImageView *view = [UIImageView new];
+    [self.sender setAvatarInImageView:view];
+    [self.balanceButton setBackgroundImage:view.image forState:UIControlStateNormal];
+    
+    NSLog(@"img : %@", view.image);
+    
+    self.balanceButton.clipsToBounds = YES;
     
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
