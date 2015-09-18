@@ -428,6 +428,14 @@
     }
 }
 
+-(void)doArrowAnimation {
+    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
 
 
 // --------------------------------------------
