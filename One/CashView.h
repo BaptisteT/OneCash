@@ -20,6 +20,7 @@
 @property (weak, nonatomic) id<CashViewDelegateProtocol> delegate;
 @property (weak, nonatomic) IBOutlet PaddingTextField *messageTextField;
 @property (nonatomic) BOOL isEditingMessage;
+@property (nonatomic) CGPoint initialCenter;
 
 - (void)initWithFrame:(CGRect)frame andDelegate:(id<CashViewDelegateProtocol>)delegate ;
 - (void)moveViewToCenterAndExecute:(void(^)(POPAnimation *anim,BOOL completed))completionBlock;

@@ -34,7 +34,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *removeRecipientButton;
 @property (strong, nonatomic) IBOutlet UILabel *onboardingLabel;
 @property (nonatomic) double rads;
-@property (nonatomic) CGPoint initialCenter;
 
 @end
 
@@ -118,9 +117,7 @@
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowRadius = 5;
     self.layer.shadowOpacity = 0.2;
-    if ([self.delegate receiver] == nil) {
-        self.removeRecipientButton.hidden = NO;
-    }
+    self.removeRecipientButton.hidden = ([self.delegate receiver] == nil);
     self.onboardingLabel.hidden = NO;
 
 }
