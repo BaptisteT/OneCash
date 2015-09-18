@@ -33,7 +33,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *addRecipientButton;
 @property (strong, nonatomic) IBOutlet UIButton *removeRecipientButton;
 @property (strong, nonatomic) IBOutlet UILabel *onboardingLabel;
-@property (nonatomic) BOOL isRecipientEmpty;
 @property (nonatomic) double rads;
 @property (nonatomic) CGPoint initialCenter;
 
@@ -90,7 +89,6 @@
     [super setFrame:frame];
     
     // UI
-//    self.layer.cornerRadius = self.frame.size.height / 40;
     self.layer.borderColor = [ColorUtils darkGreen].CGColor;
     self.layer.borderWidth = 1.f;
 }
@@ -108,9 +106,6 @@
     self.removeRecipientButton.layer.cornerRadius = self.removeRecipientButton.frame.size.height / 2;
 }
 
--(void)checkIfRecipient {
-    self.isRecipientEmpty = [self.delegate isRecipientEmpty];
-}
 
 // --------------------------------------------
 #pragma mark - UI
@@ -123,7 +118,7 @@
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowRadius = 5;
     self.layer.shadowOpacity = 0.2;
-    if ([self.delegate isRecipientEmpty] == false) {
+    if ([self.delegate receiver] == nil) {
         self.removeRecipientButton.hidden = NO;
     }
     self.onboardingLabel.hidden = NO;
@@ -131,13 +126,12 @@
 }
 
 - (void)setMovingUI {
-    [self checkIfRecipient];
     self.messageTextField.hidden = self.messageTextField.text.length == 0;
     [self.delegate adaptUIToCashViewState:YES];
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowRadius = 5;
     self.layer.shadowOpacity = 0.2;
-    if ([self.delegate isRecipientEmpty] == true) {
+    if ([self.delegate receiver] == nil) {
         self.pickRecipientAlertLabel.hidden = NO;
     } else {
         [self updateRecipient];
@@ -151,7 +145,7 @@
 }
 
 -(void)updateRecipient {
-    if ([self.delegate isRecipientEmpty] == true) {
+    if ([self.delegate receiver] == nil) {
         self.dollarLabel.hidden = YES;
         self.usernameLabel.hidden = YES;
         self.overlayView.hidden = YES;
@@ -199,7 +193,7 @@
     //slow down translation if recipient is empty or translation.y is positive
     if (translation.y > 0 && self.frame.origin.y > 0) {
         translation.y = translation.y / 10;
-    } else if ([self.delegate isRecipientEmpty] == true) {
+    } else if ([self.delegate receiver] == nil) {
         translation.y = translation.y / 10 ;
     }
         
@@ -212,7 +206,7 @@
         [self setMovingUI];
         [self.delegate addNewCashSubview];
         self.rads = 0;
-        if ([self.delegate isRecipientEmpty] == false) {
+        if ([self.delegate receiver] != nil) {
             if (translation.x < 0) {
                 self.rads = 30;
             } else {

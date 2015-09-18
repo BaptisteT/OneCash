@@ -166,7 +166,7 @@
 }
 
 - (void)setBalance {
-    NSString *string = [NSString stringWithFormat:@"$%lu",(long)[User currentUser].balance];
+    NSString *string = [NSString stringWithFormat:@"$%ld",(long)[User currentUser].balance];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
     UIFont *font = self.balanceLabel.font;
     font = [font fontWithSize:14];

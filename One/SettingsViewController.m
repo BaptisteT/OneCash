@@ -111,7 +111,9 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
         [ApiManager saveCurrentUserAndExecuteSuccess:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [DesignUtils hideProgressHUDForView:self.view];
-                [TrackingUtils trackEvent:EVENT_AUTO_TWEET_CHANGED properties:@{@"state": [NSNumber numberWithBool:state]}];
+                NSNumber *isOn = [NSNumber numberWithBool:state];
+                [TrackingUtils trackEvent:EVENT_AUTO_TWEET_CHANGED properties:@{@"state": isOn}];
+                [TrackingUtils setPeopleProperties:@{PEOPLE_AUTO_TWEET: isOn}];
                 [self.settingsTableView reloadData];
             });
         } failure:^(NSError *error) {

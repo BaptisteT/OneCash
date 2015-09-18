@@ -384,15 +384,6 @@
     self.titleLabel.hidden = isMoving;
 }
 
-//Check if the user already tried to pick a recipient
-- (BOOL)isRecipientEmpty {
-    if (!self.receiver) {
-        return true;
-    }
-    return false;
-}
-
-
 - (BOOL)userExpectedBalanceIsPositive {
     return [User currentUser].balance - self.ongoingTransactionsCount > 0;
 }
