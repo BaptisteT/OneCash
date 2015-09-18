@@ -119,7 +119,7 @@
             NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             OneLog(ONEAPIMANAGERLOG, @"Success - twitter info - %@",result);
             // Profile picture
-            NSString * profileImageURL = [result objectForKey:@"profile_image_url_https"];
+            NSString * profileImageURL = [[result objectForKey:@"profile_image_url_https"] stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
             
             if (profileImageURL.length > 0 && ![user.pictureURL isEqualToString:profileImageURL]) {
                 user.pictureURL = profileImageURL;
