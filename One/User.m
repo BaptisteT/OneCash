@@ -11,6 +11,10 @@
 
 #import "ConstantUtils.h"
 
+@interface User()
+@property (nonatomic, strong) UIImage *userPicture;
+@end
+
 @implementation User
 
 @dynamic pictureURL;
@@ -26,7 +30,7 @@
 @dynamic managedAccountId;
 @dynamic birthDate;
 
-@synthesize avatar;
+@synthesize userPicture;
 
 + (void)load {
     [self registerSubclass];
@@ -40,8 +44,8 @@
 - (void)setAvatarInImageView:(UIImageView *)imageView {
     imageView.image = nil; // clean
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    if (self.avatar) {
-        [imageView setImage:self.avatar];
+    if (self.userPicture) {
+        [imageView setImage:self.userPicture];
     } else {
         CGSize rescaleSize = {kDisplayedPictureSize, kDisplayedPictureSize};
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
@@ -49,12 +53,33 @@
                                               mode:UIViewContentModeScaleAspectFill
                                     availableBlock:^(UIImage *image) {
                                         if (image) {
-                                            self.avatar = image;
-                                            [imageView setImage:self.avatar];
+                                            self.userPicture = image;
+                                            [imageView setImage:image];
                                         }
                                     }];
     }
 }
+
+// Set avatar in button
+- (void)setAvatarInButton:(UIButton *)button {
+    button.contentMode = UIViewContentModeScaleAspectFill;
+    if (self.userPicture) {
+        [button setImage:self.userPicture forState:UIControlStateNormal];
+    } else {
+        CGSize rescaleSize = {kDisplayedPictureSize, kDisplayedPictureSize};
+        [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
+                                          size:rescaleSize
+                                          mode:UIViewContentModeScaleAspectFill
+                                availableBlock:^(UIImage *image) {
+                                    if (image) {
+                                        self.userPicture = image;
+                                        [button setImage:self.userPicture forState:UIControlStateNormal];
+                                    }
+                                }];
+    }
+}
+
+
 
 // Delete image
 - (void)deleteCachedImage {
@@ -68,9 +93,6 @@
 
 - (BOOL)isEmailVerified {
     if ([self objectForKey:@"emailVerified"]) {
-//        if (![[self objectForKey:@"emailVerified"] boolValue]) {
-//            [self fetch];
-//        }
         return [[self objectForKey:@"emailVerified"] boolValue];
     } else {
         return NO;

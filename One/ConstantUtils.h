@@ -14,7 +14,7 @@
 @end
 
 //Mixpanel token
-static NSString * const kMixpanelProdToken = @"506506437bc51d99f01653de9a7712b5"; // todo BT
+static NSString * const kMixpanelProdToken = @"506506437bc51d99f01653de9a7712b5"; // @"20f7740219db7fca8ccd845ba95c0c0c"; todo BT
 static NSString * const kMixpanelDevToken =  @"506506437bc51d99f01653de9a7712b5";
 
 // Parse
@@ -46,7 +46,7 @@ static NSInteger const kInternalNotifHeight = 60;
 static float const kNotifAnimationDuration = 0.5;
 
 // Image
-static NSInteger const kDisplayedPictureSize = 512;
+static NSInteger const kDisplayedPictureSize = 1024;
 
 // Parse Pin Names
 static NSString * const kParseTransactionsName = @"Transactions";
@@ -62,4 +62,4 @@ static NSInteger const kAssociationTransactionsLimit = 10;
 // Settings
 static float const kSettingsHeaderHeight = 25.;
 static float const kSettingsCellHeight = 50.;
-static float const kMaxTweetLength = 160.;
+static float const kMaxTweetLength = 120.;

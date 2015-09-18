@@ -5,6 +5,8 @@
 //  Created by Baptiste Truchot on 9/6/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import "User.h"
+
 #import "CashView.h"
 #import <Foundation/Foundation.h>
 
@@ -159,8 +161,8 @@
         self.removeRecipientButton.hidden = YES;
         self.onboardingLabel.text = NSLocalizedString(@"recipient_alert", nil);
     } else {
-        self.userPictureImageView.image = [[self.delegate currentRecipientInfos] objectForKey:@"avatar"];
-        self.usernameLabel.text = [[self.delegate currentRecipientInfos] objectForKey:@"username"];
+        [[self.delegate receiver] setAvatarInImageView:self.userPictureImageView];
+        self.usernameLabel.text = [self.delegate receiver].caseUsername;
         self.dollarLabel.hidden = NO;
         self.usernameLabel.hidden = NO;
         self.overlayView.hidden = NO;
@@ -239,7 +241,7 @@
 }
 
 -(IBAction)recipientPressed:(id)sender {
-    [self.delegate pickRecipientButtonClicked:sender];
+    [self.delegate recipientButtonClicked];
 }
 
 -(IBAction)removeRecipientPressed:(id)sender {

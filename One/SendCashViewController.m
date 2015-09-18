@@ -36,11 +36,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *balanceBadge;
 @property (strong, nonatomic) IBOutlet UIImageView *arrowImageView;
-
-@property (strong, nonatomic) User *receiver;
-@property (strong, nonatomic) User *sender;
 @property (strong, nonatomic) Reachability *internetReachableFoo;
-
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
 @property (strong, nonatomic) NSTimer *associationTimer;
 @property (strong, nonatomic) Transaction *transactionToSend;
@@ -61,8 +57,6 @@
     // Init
     self.ongoingTransactionsCount = 0;
     [self setBadgeValue:0];
-    self.sender = [User currentUser];
-    
     
     // Wording
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
@@ -75,15 +69,9 @@
     self.balanceBadge.layer.cornerRadius = self.balanceBadge.frame.size.height / 2;
     self.balanceBadge.clipsToBounds = YES;
     self.balanceButton.layer.cornerRadius = self.balanceButton.frame.size.height / 2;
-    
-    UIImageView *view = [UIImageView new];
-    [self.sender setAvatarInImageView:view];
-    [self.balanceButton setBackgroundImage:view.image forState:UIControlStateNormal];
-    
-    NSLog(@"img : %@", view.image);
-    
     self.balanceButton.clipsToBounds = YES;
-    
+    [[User currentUser] setAvatarInButton:self.balanceButton];
+
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
     for (int i=0;i<1;i++) [self addNewCashSubview];
@@ -131,9 +119,6 @@
     [self updateRecipientInfosWith:[self.presentedCashViews firstObject]];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSString * segueName = segue.identifier;
@@ -167,7 +152,7 @@
     [self navigateToBalance];
 }
 
-- (IBAction)pickRecipientButtonClicked:(id)sender {
+- (void)recipientButtonClicked {
     [TrackingUtils trackEvent:EVENT_RECIPIENT_CLICKED properties:nil];
     [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
     // Remove selected user
@@ -460,15 +445,6 @@
     self.receiver = user;
 }
 
-// Get current recipient user picture
--(NSDictionary*)currentRecipientInfos {
-    UIImage *avatar = self.receiver.avatar;
-    NSString *username = self.receiver.username;
-    NSDictionary *userInfos = [NSDictionary dictionaryWithObjectsAndKeys:
-                               username, @"username",
-                               avatar, @"avatar", nil ];
-    return userInfos;
-}
 
 // --------------------------------------------
 #pragma mark - Alert View delegate

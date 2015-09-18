@@ -31,10 +31,8 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 @property (nonatomic) NSString *managedAccountId;
 @property (nonatomic) NSDate *birthDate;
 
-// Local
-@property (nonatomic, strong) UIImage *avatar;
-
 - (void)setAvatarInImageView:(UIImageView *)imageView;
+- (void)setAvatarInButton:(UIButton *)button;
 - (BOOL)isEmailVerified;
 
 @end
