@@ -40,6 +40,8 @@
 "create_stripe_customer_error_title" = "Your card was declined by Stripe";
 "create_token_with_card_error_title" = "Sorry, we could not process your card.";
 "create_token_with_card_error_message" = "Please, try again or contact us.";
+"swipe_label" = "Swipe up to send $1";
+
 
 // Send
 "balance_button" = "Balance";

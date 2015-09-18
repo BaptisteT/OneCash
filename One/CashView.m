@@ -30,6 +30,7 @@
 @property (strong, nonatomic) IBOutlet UIView *overlayView;
 @property (strong, nonatomic) IBOutlet UIButton *addRecipientButton;
 @property (strong, nonatomic) IBOutlet UIButton *removeRecipientButton;
+@property (strong, nonatomic) IBOutlet UILabel *onboardingLabel;
 @property (nonatomic) BOOL isRecipientEmpty;
 @property (nonatomic) double rads;
 @property (nonatomic) CGPoint initialCenter;
@@ -58,6 +59,7 @@
     self.removeRecipientButton.backgroundColor = [ColorUtils darkGreen];
     [self.removeRecipientButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     [self.addRecipientButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    self.onboardingLabel.textColor = [UIColor whiteColor];
     self.leftUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-90));
     self.leftUpOne.textColor = [ColorUtils mainGreen];
     self.rightUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
@@ -86,7 +88,9 @@
     [super setFrame:frame];
     
     // UI
-    self.layer.cornerRadius = self.frame.size.height / 40;
+//    self.layer.cornerRadius = self.frame.size.height / 40;
+    self.layer.borderColor = [ColorUtils darkGreen].CGColor;
+    self.layer.borderWidth = 1.f;
 }
 
 - (void)layoutSubviews {
@@ -113,11 +117,15 @@
     self.messageTextField.hidden = NO;
     self.backgroundColor = [ColorUtils mainGreen];
     self.centralLabel.backgroundColor = [ColorUtils darkGreen];
-    //hide recipient alert
     self.pickRecipientAlertLabel.hidden = YES;
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowRadius = 5;
     self.layer.shadowOpacity = 0.2;
+    if ([self.delegate isRecipientEmpty] == false) {
+        self.removeRecipientButton.hidden = NO;
+    }
+    self.onboardingLabel.hidden = NO;
+
 }
 
 - (void)setMovingUI {
@@ -132,6 +140,8 @@
     } else {
         [self updateRecipient];
     }
+    self.removeRecipientButton.hidden = YES;
+    self.onboardingLabel.hidden = YES;
 }
 
 - (BOOL)isAtInitialPosition {
@@ -147,6 +157,7 @@
         self.usernameLabel.hidden = YES;
         [self.addRecipientButton setTitle:@"+" forState:UIControlStateNormal];
         self.removeRecipientButton.hidden = YES;
+        self.onboardingLabel.text = NSLocalizedString(@"recipient_alert", nil);
     } else {
         self.userPictureImageView.image = [[self.delegate currentRecipientInfos] objectForKey:@"avatar"];
         self.usernameLabel.text = [[self.delegate currentRecipientInfos] objectForKey:@"username"];
@@ -156,7 +167,7 @@
         self.userPictureImageView.hidden = NO;
         [self.addRecipientButton setTitle:@"" forState:UIControlStateNormal];
         self.removeRecipientButton.hidden = NO;
-
+        self.onboardingLabel.text = NSLocalizedString(@"swipe_label", nil);
     }
 }
 

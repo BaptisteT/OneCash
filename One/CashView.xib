@@ -205,6 +205,22 @@
                         <action selector="removeRecipientPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="aAw-iW-c9N"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OnboardingLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYs-XC-1QF">
+                    <rect key="frame" x="124" y="55" width="352" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="QJW-yu-aJ3"/>
+                        <constraint firstAttribute="width" constant="352" id="oNq-LI-7x3"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="zdv-iP-LEg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.050980392159999999" green="0.94117647059999998" blue="0.36470588240000001" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="QJW-yu-aJ3"/>
+                        </mask>
+                    </variation>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.12549020349979401" green="0.5372549295425415" blue="0.14901961386203766" alpha="1" colorSpace="deviceRGB"/>
             <constraints>
@@ -235,10 +251,12 @@
                 <constraint firstItem="1kG-KT-NtS" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Sl6-yJ-XFA"/>
                 <constraint firstItem="unO-AI-qNM" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-10.5" id="Slt-Ju-B3j"/>
                 <constraint firstItem="fAf-x4-mf8" firstAttribute="centerY" secondItem="kiW-wc-Bfo" secondAttribute="centerY" id="T9Y-pc-Fic"/>
+                <constraint firstItem="rYs-XC-1QF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="V8y-PL-FTY"/>
                 <constraint firstItem="Rhf-jq-iXI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="VPY-uR-tad"/>
                 <constraint firstAttribute="trailing" secondItem="Bsi-kk-ONP" secondAttribute="trailing" id="W7L-Iq-F3h"/>
                 <constraint firstItem="caw-zl-TVz" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cNj-jG-SNy"/>
                 <constraint firstAttribute="trailing" secondItem="GiO-jA-KHS" secondAttribute="trailing" id="dOC-WG-YnD"/>
+                <constraint firstItem="rYs-XC-1QF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="55" id="ee3-Kz-I78"/>
                 <constraint firstAttribute="bottom" secondItem="WuC-xx-zOe" secondAttribute="bottom" constant="30.5" id="fQx-tc-TqI"/>
                 <constraint firstItem="GiO-jA-KHS" firstAttribute="leading" secondItem="caw-zl-TVz" secondAttribute="trailing" constant="10" id="gWA-1x-Phg"/>
                 <constraint firstItem="unO-AI-qNM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="gyP-5w-TDe"/>
@@ -271,6 +289,7 @@
                 <outlet property="leftBottomOne" destination="mK4-z4-hZ7" id="jkc-b0-tf1"/>
                 <outlet property="leftUpOne" destination="kH0-sa-Rrn" id="grl-ck-eys"/>
                 <outlet property="messageTextField" destination="PPO-Xc-say" id="cya-eh-AF3"/>
+                <outlet property="onboardingLabel" destination="rYs-XC-1QF" id="C7y-zh-kxt"/>
                 <outlet property="overlayView" destination="caw-zl-TVz" id="j51-b8-dMM"/>
                 <outlet property="pickRecipientAlertLabel" destination="xRR-vx-r0J" id="tsp-GO-dLH"/>
                 <outlet property="removeRecipientButton" destination="bNi-9O-9ix" id="p3O-aI-v2z"/>
