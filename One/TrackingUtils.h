@@ -34,6 +34,7 @@
 #define EVENT_BALANCE_CLICKED @"balance.clicked"
 #define EVENT_RECIPIENT_CLICKED @"recipient.clicked"
 #define EVENT_RECIPIENT_SET @"recipient.set" // property : preselected
+#define EVENT_AUTO_TWEET_CHANGED @"auto_tweet.changed" // property : state
 
 #define PEOPLE_SIGNUP_DATE @"signup.date"
 #define PEOPLE_ALLOW_NOTIF @"notif"

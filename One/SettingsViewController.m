@@ -13,6 +13,7 @@
 
 #import "SettingsViewController.h"
 #import "SwitchTableViewCell.h"
+#import "TweetTableViewCell.h"
 
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
@@ -36,6 +37,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *settingsTableView;
 @property (strong, nonatomic) NSArray *customerCards;
+@property (nonatomic) NSInteger tweetCellHeight;
 
 @end
 
@@ -47,6 +49,9 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Init
+    self.tweetCellHeight = kSettingsCellHeight;
     
     // UI
     [self.backButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
@@ -101,6 +106,22 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
 - (void)slideSwitched:(BOOL)state ofSection:(NSInteger)section {
     if (section == kAutoTweetSection) {
+        [DesignUtils showProgressHUDAddedTo:self.view];
+        [User currentUser].autoTweet = state;
+        [ApiManager saveCurrentUserAndExecuteSuccess:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [DesignUtils hideProgressHUDForView:self.view];
+                [TrackingUtils trackEvent:EVENT_AUTO_TWEET_CHANGED properties:@{@"state": [NSNumber numberWithBool:state]}];
+                [self.settingsTableView reloadData];
+            });
+        } failure:^(NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [DesignUtils hideProgressHUDForView:self.view];
+                [self.settingsTableView reloadData];
+            });
+
+        }];
+    } else if (section == kPinSection) {
         // todo BT
     }
 }
@@ -115,9 +136,9 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     User *user = [User currentUser];
     if (section == kCardSection) {
-        return 1 + ([User currentUser].paymentMethod > 0 ? 1 : 0);
+        return [User currentUser].paymentMethod > 0 ? 2 : 1;
     } else if (section == kAutoTweetSection) {
-        return 1;
+        return [User currentUser].autoTweet ? 2 : 1;
     } else if (section == kPinSection) {
         return 2;
     } else if (section == kEmailSection) {
@@ -128,6 +149,9 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == kAutoTweetSection && indexPath.row == 1) {
+        return self.tweetCellHeight;
+    }
     return kSettingsCellHeight;
 }
 
@@ -150,9 +174,16 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
             return cell;
         }
     } else if (indexPath.section == kAutoTweetSection) {
-        SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
-        [cell setTitle:NSLocalizedString(@"auto_tweet_section", nil) delegate:self section:kAutoTweetSection andSwitchState:user.autoTweet];
-        return cell;
+        if (indexPath.row == 0) {
+            SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
+            [cell setTitle:NSLocalizedString(@"auto_tweet_section", nil) delegate:self section:kAutoTweetSection andSwitchState:user.autoTweet];
+            return cell;
+        } else {
+            TweetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+            [cell initWithTweet:user.tweetWording];
+            cell.delegate = self;
+            return cell;
+        }
     } else if (indexPath.section == kPinSection) {
         if (indexPath.row == 0) {
             SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
@@ -208,6 +239,8 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
                 textField.keyboardType = UIKeyboardTypeEmailAddress;
+                textField.textAlignment = NSTextAlignmentCenter;
+                textField.text = [User currentUser].email;
             }];
             UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok_button", nil)
                                                                     style:UIAlertActionStyleDefault
@@ -280,6 +313,22 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
         return kSettingsHeaderHeight;
     }
 }
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
+
+// --------------------------------------------
+#pragma mark - TweetTVC protocol
+// --------------------------------------------
+- (void)adjustHeightOfTweetCell:(NSInteger)height {
+    if (height != self.tweetCellHeight) {
+        self.tweetCellHeight = height;
+        [self.settingsTableView beginUpdates];
+        [self.settingsTableView endUpdates];
+    }
+}
+
 // --------------------------------------------
 #pragma mark - Sharing
 // --------------------------------------------
