@@ -116,7 +116,7 @@
         self.navigateDirectlyToBalance = NO;
         [self performSelector:@selector(navigateToBalance) withObject:nil afterDelay:0.1];
     }
-    [self updateRecipientInfosWith:[self.presentedCashViews firstObject]];
+    [self updateCashViewsReceipientInfos];
 }
 
 
@@ -135,6 +135,8 @@
 - (void)willBecomeActiveCallback {
     // load new transactions
     [self loadLatestTransactions];
+    // Avoid no cashview issue
+    [self resetCashSubiewsStack];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -170,7 +172,7 @@
 
 - (void)removeRecipientButtonClicked {
     [self setSelectedUser:nil];
-    [self updateRecipientInfosWith:[self.presentedCashViews firstObject]];
+    [self updateCashViewsReceipientInfos];
 }
 
 - (void)logoutUser {
@@ -262,7 +264,8 @@
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
 
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
-        NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:transaction.transactionAmount];
+        NSInteger valueToWithdraw = self.ongoingTransactionsCount - [User currentUser].balance;
+        NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:valueToWithdraw];
         paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:[NSString stringWithFormat:NSLocalizedString(@"apple_pay_item", nil),transaction.receiver.caseUsername] amount:amount]];
 #if DEBUG
         STPTestPaymentAuthorizationViewController *auth = [[STPTestPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
@@ -359,8 +362,9 @@
      }
 }
 
-- (void)updateRecipientInfosWith:(CashView *)cashView {
-    [cashView updateRecipient];
+- (void)updateCashViewsReceipientInfos {
+    for (CashView *cashView in self.presentedCashViews)
+        [cashView updateRecipient];
 }
 
 - (void)adaptUIToCashViewState:(BOOL)isMoving {
@@ -404,13 +408,12 @@
         for(CashView *cashView in views) {
             if ([cashView isAtInitialPosition]) {
                 cashView.userInteractionEnabled = NO;
-                [self.presentedCashViews removeObject:cashView];
                 [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
                     CGRect newFrame2 = cashView.frame;
                     newFrame2.origin.y = self.view.frame.size.height;
                     cashView.frame = newFrame2;
                 } completion:^(BOOL finished) {
-                    [cashView removeFromSuperview];
+                    [self removeCashSubview:cashView];
                 }];
             }
         }
@@ -505,7 +508,7 @@
         }
     }
     if (editingView) {
-        [KeyboardUtils moveView:editingView toCenter:self.view.center withKeyboardNotif:notification];
+        [KeyboardUtils moveView:editingView toCenter:editingView.initialCenter withKeyboardNotif:notification];
         editingView.isEditingMessage = NO;
     }
 }

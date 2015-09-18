@@ -205,7 +205,7 @@
                         <action selector="removeRecipientPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="aAw-iW-c9N"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OnboardingLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYs-XC-1QF">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OnboardingLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYs-XC-1QF">
                     <rect key="frame" x="124" y="55" width="352" height="56"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="QJW-yu-aJ3"/>
