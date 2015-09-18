@@ -1306,7 +1306,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ArrowBig" translatesAutoresizingMaskIntoConstraints="NO" id="Duu-Oq-ilY">
-                                <rect key="frame" x="264" y="82" width="72" height="20"/>
+                                <rect key="frame" x="264" y="72" width="72" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="81Z-5z-PfX"/>
                                     <constraint firstAttribute="width" constant="72" id="qcQ-C4-7Yi"/>
@@ -1358,7 +1358,7 @@
                             <constraint firstAttribute="centerX" secondItem="nji-5G-axu" secondAttribute="centerX" id="Rih-cb-yRM"/>
                             <constraint firstItem="71X-ED-w10" firstAttribute="leading" secondItem="lUg-ge-fn2" secondAttribute="leading" constant="25" id="Sz0-JG-6Hk"/>
                             <constraint firstAttribute="centerX" secondItem="Duu-Oq-ilY" secondAttribute="centerX" id="Tii-KA-D2L"/>
-                            <constraint firstItem="Duu-Oq-ilY" firstAttribute="top" secondItem="nji-5G-axu" secondAttribute="bottom" constant="-59" id="Xx4-Uc-3hY"/>
+                            <constraint firstItem="Duu-Oq-ilY" firstAttribute="top" secondItem="nji-5G-axu" secondAttribute="bottom" constant="-69" id="Xx4-Uc-3hY"/>
                             <constraint firstItem="nji-5G-axu" firstAttribute="centerY" secondItem="71X-ED-w10" secondAttribute="centerY" constant="64.75" id="i0i-9n-F8D"/>
                             <constraint firstItem="mjc-cJ-8kp" firstAttribute="leading" secondItem="lUg-ge-fn2" secondAttribute="leadingMargin" constant="-20" id="iTZ-fy-fhQ"/>
                             <constraint firstItem="pdP-2U-JLO" firstAttribute="leading" secondItem="71X-ED-w10" secondAttribute="trailing" constant="-12" id="p65-D5-iBG"/>
@@ -1568,7 +1568,8 @@
         <image name="stripe_icon" width="119" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0bD-CV-jtZ"/>
         <segue reference="WX6-Iv-dA8"/>
+        <segue reference="0bD-CV-jtZ"/>
+        <segue reference="ep0-aD-elO"/>
     </inferredMetricsTieBreakers>
 </document>
