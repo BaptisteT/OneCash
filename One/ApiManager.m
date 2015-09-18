@@ -332,6 +332,8 @@
                                         if (successBlock) {
                                             successBlock();
                                         }
+                                        
+                                        // TRACKING
                                         [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method}];
                                         [TrackingUtils incrementPeopleProperty:PEOPLE_SENDING_TOTAL byValue:(int)transaction.transactionAmount];
                                     }
@@ -547,5 +549,33 @@
                                         }
                                     }
                                 }];
+}
+
+// Post on twitter
++ (void)postStatus:(NSString *)status {
+    // Construct the parameters string. The value of "status" is percent-escaped.
+    NSString *bodyString = [NSString stringWithFormat:@"status=%@", [status stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    bodyString = [bodyString stringByReplacingOccurrencesOfString:@"!" withString:@"%21"];
+    
+    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"];
+    NSMutableURLRequest *tweetRequest = [NSMutableURLRequest requestWithURL:url];
+    tweetRequest.HTTPMethod = @"POST";
+    tweetRequest.HTTPBody = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+
+    [PFTwitterUtils linkUser:[User currentUser] block:^(BOOL succeeded, NSError * _Nullable error) {
+        if (!error) {
+            [[PFTwitterUtils twitter] signRequest:tweetRequest];
+            NSOperationQueue * queue = [[NSOperationQueue alloc] init];
+            [NSURLConnection sendAsynchronousRequest:tweetRequest
+                                               queue:queue
+                                   completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                       if (!connectionError) {
+                                           NSLog(@"Response: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                                       } else {
+                                           NSLog(@"Error: %@", connectionError);
+                                       }
+                                   }];
+        }
+    }];
 }
 @end
