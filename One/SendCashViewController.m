@@ -33,14 +33,10 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *balanceButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *removeRecipientButton;
-@property (strong, nonatomic) IBOutlet UIButton *pickRecipientButton;
 @property (weak, nonatomic) IBOutlet UILabel *balanceBadge;
 @property (strong, nonatomic) IBOutlet UIImageView *arrowImageView;
 
 @property (strong, nonatomic) User *receiver;
-@property (weak, nonatomic) IBOutlet UILabel *toLabel;
-@property (weak, nonatomic) IBOutlet UILabel *selectedUserLabel;
 @property (strong, nonatomic) Reachability *internetReachableFoo;
 
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
@@ -67,14 +63,11 @@
     // Wording
     [self.balanceButton setTitle:NSLocalizedString(@"balance_button", nil) forState:UIControlStateNormal];
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
-    self.toLabel.text = NSLocalizedString(@"to", nil);
     [self setSelectedUser:nil];
 
     // UI
     self.arrowImageView.layer.zPosition = -9999;
-    self.toLabel.textColor = [ColorUtils mainGreen];
     self.view.backgroundColor = [UIColor whiteColor];
-// [DesignUtils addTopBorder:self.pickRecipientButton borderSize:3 color:[ColorUtils lightBlack]];
     self.balanceBadge.backgroundColor = [ColorUtils red];
     self.balanceBadge.layer.cornerRadius = self.balanceBadge.frame.size.height / 2;
     self.balanceBadge.clipsToBounds = YES;
@@ -123,12 +116,11 @@
         self.navigateDirectlyToBalance = NO;
         [self performSelector:@selector(navigateToBalance) withObject:nil afterDelay:0.1];
     }
-    [self updateUserPictureWith:[self.presentedCashViews lastObject]];
+    [self updateRecipientInfosWith:[self.presentedCashViews firstObject]];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [DesignUtils addBottomBorder:self.selectedUserLabel borderSize:0.2 color:[UIColor lightGrayColor]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -179,9 +171,9 @@
     [self performSegueWithIdentifier:@"Balance From Send" sender:nil];
 }
 
-- (IBAction)removeRecipientButtonClicked:(id)sender {
+- (void)removeRecipientButtonClicked {
     [self setSelectedUser:nil];
-    [self updateUserPictureWith:[self.presentedCashViews lastObject]];
+    [self updateRecipientInfosWith:[self.presentedCashViews firstObject]];
 }
 
 - (void)logoutUser {
@@ -361,8 +353,8 @@
      }
 }
 
-- (void)updateUserPictureWith:(CashView *)cashView {
-    [cashView updateUserPicture];
+- (void)updateRecipientInfosWith:(CashView *)cashView {
+    [cashView updateRecipient];
 }
 
 - (void)adaptUIToCashViewState:(BOOL)isMoving {
@@ -373,7 +365,7 @@
 
 //Check if the user already tried to pick a recipient
 - (BOOL)isRecipientEmpty {
-    if ([self.selectedUserLabel.text  isEqualToString: NSLocalizedString(@"recipient_title", nil)]) {
+    if (!self.receiver) {
         return true;
     }
     return false;
@@ -437,15 +429,16 @@
 // --------------------------------------------
 - (void)setSelectedUser:(User *)user {
     self.receiver = user;
-    if (user) {
-        self.removeRecipientButton.hidden = NO;
-        self.selectedUserLabel.text = user.caseUsername;
-        self.selectedUserLabel.textColor = [ColorUtils mainGreen];
-    } else {
-        self.removeRecipientButton.hidden = YES;
-        self.selectedUserLabel.text = NSLocalizedString(@"recipient_title", nil);
-        self.selectedUserLabel.textColor = [UIColor lightGrayColor];
-    }
+}
+
+// Get current recipient user picture
+-(NSDictionary*)currentRecipientInfos {
+    UIImage *avatar = self.receiver.avatar;
+    NSString *username = self.receiver.username;
+    NSDictionary *userInfos = [NSDictionary dictionaryWithObjectsAndKeys:
+                               username, @"username",
+                               avatar, @"avatar", nil ];
+    return userInfos;
 }
 
 // --------------------------------------------
@@ -486,13 +479,7 @@
 // Set status bar color to white
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
-    return UIStatusBarStyleLightContent;
-}
-
-// Get current recipient user picture
--(UIImage*)recipientPictureImage {
-    UIImage *userPicture = self.receiver.avatar;
-    return userPicture;
+    return UIStatusBarStyleDefault;
 }
 
 // ----------------------------------------------------------

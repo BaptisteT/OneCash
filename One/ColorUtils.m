@@ -11,7 +11,7 @@
 @implementation ColorUtils
 
 + (UIColor *)veryLightGreen {
-    return [UIColor colorWithRed:239./255. green:255./255. blue:243./255 alpha:1];
+    return [UIColor colorWithRed:184./255. green:255./255. blue:207./255 alpha:1];
 }
 
 + (UIColor *)lightGreen {
