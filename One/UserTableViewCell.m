@@ -28,7 +28,7 @@
     self.userPicture.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.userPicture.layer.borderWidth = 0.5;
     
-    self.certifiedImageView.hidden = ! user.verified;
+    self.certifiedImageView.hidden = ! user.twitterVerified;
 }
 
 @end

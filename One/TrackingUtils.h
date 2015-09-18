@@ -14,6 +14,7 @@
 #define EVENT_TWITTER_CONNECT @"twitter_connect" // property : success
 #define EVENT_HOW_TO @"how_to.clicked"
 #define EVENT_EMAIL_INPUT @"email.input"
+#define EVENT_EMAIL_CHANGED @"email.changed"
 #define EVENT_CARD_LATER_CLICKED @"card_later.clicked"
 #define EVENT_APPLE_PAY_CLICKED @"apple_pay.clicked" // property : enabled
 #define EVENT_STRIPE_CLICKED @"stripe.clicked"
@@ -22,15 +23,18 @@
 #define EVENT_CASH_SWIPED @"cash.swiped"
 #define EVENT_CREATE_PAYMENT @"payment.create" // property : amount, message, method
 #define EVENT_CREATE_PAYMENT_FAIL @"payment.fail" // property : amount, message, method, error
-// todo BT
-#define EVENT_CREATE_CASHOUT @"cashout.create"
+#define EVENT_CASHOUT_CLICKED @"cashout.clicked"
+#define EVENT_MANAGED_ACCOUNT_CREATE @"managed_account.create" // property : all params of managed account
+#define EVENT_MANAGED_ACCOUNT_ADD_CARD @"managed_account.card.add" // property : success
+#define EVENT_MANAGED_ACCOUNT_FAIL @"managed_account.fail"
+#define EVENT_CREATE_CASHOUT @"cashout.create" // property : amount
 #define EVENT_CREATE_CASHOUT_FAIL @"cashout.fail"
-//
 #define EVENT_INVITE_SENT @"invite.sent" // property : sharing_type
 #define EVENT_SETTINGS_CLICKED @"settings.clicked"
 #define EVENT_BALANCE_CLICKED @"balance.clicked"
 #define EVENT_RECIPIENT_CLICKED @"recipient.clicked"
 #define EVENT_RECIPIENT_SET @"recipient.set" // property : preselected
+#define EVENT_AUTO_TWEET_CHANGED @"auto_tweet.changed" // property : state
 
 #define PEOPLE_SIGNUP_DATE @"signup.date"
 #define PEOPLE_ALLOW_NOTIF @"notif"
@@ -41,7 +45,6 @@
 #define PEOPLE_LAST_NAME @"last_name"
 #define PEOPLE_BALANCE @"balance"
 #define PEOPLE_SENDING_TOTAL @"payment_sent.total"
-// todo bt
 #define PEOPLE_CASHOUT_TOTAL @"cashout.total"
 
 // todo BT

@@ -119,7 +119,7 @@
             NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             OneLog(ONEAPIMANAGERLOG, @"Success - twitter info - %@",result);
             // Profile picture
-            NSString * profileImageURL = [result objectForKey:@"profile_image_url_https"];
+            NSString * profileImageURL = [[result objectForKey:@"profile_image_url_https"] stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
             
             if (profileImageURL.length > 0 && ![user.pictureURL isEqualToString:profileImageURL]) {
                 user.pictureURL = profileImageURL;
@@ -142,8 +142,8 @@
                 }
             }
             // Certified
-            if ([result objectForKey:@"verified"] && user.verified != [[result objectForKey:@"verified"] boolValue]) {
-                user.verified = [[result objectForKey:@"verified"] boolValue];
+            if ([result objectForKey:@"verified"] && user.twitterVerified != [[result objectForKey:@"verified"] boolValue]) {
+                user.twitterVerified = [[result objectForKey:@"verified"] boolValue];
             }
             if (successBlock) {
                 successBlock();
@@ -193,14 +193,28 @@
     }
 }
 
-+ (void)resendEmailVerification {
++ (void)resendEmailVerificationAndExecuteSuccess:(void(^)())successBlock
+                                         failure:(void(^)(NSError *error))failureBlock
+{
     User *user = [User currentUser];
     NSString *email = [User currentUser].email;
     user.email = @"";
     [ApiManager saveCurrentUserAndExecuteSuccess:^{
         user.email = email;
-        [ApiManager saveCurrentUserAndExecuteSuccess:nil failure:nil];
-    } failure:nil];
+        [ApiManager saveCurrentUserAndExecuteSuccess:^{
+            if (successBlock) {
+                successBlock();
+            }
+        } failure:^(NSError *error) {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }];
+    } failure:^(NSError *error) {
+        if (failureBlock) {
+            failureBlock(error);
+        }
+    }];
 }
 
 + (void)createStripeCustomerWithToken:(NSString *)token
@@ -220,6 +234,26 @@
                                     } else {
                                         if (successBlock) {
                                             successBlock();
+                                        }
+                                    }
+                                }];
+}
+
+// Get customer cards
++ (void)getCustomerCardsAndExecuteSuccess:(void(^)(NSArray *cards))successBlock
+                                  failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"retrieveCards"
+                       withParameters:nil
+                                block:^(NSArray *cards, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - retrieveCards - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock(cards);
                                         }
                                     }
                                 }];
@@ -299,6 +333,8 @@
                                         if (successBlock) {
                                             successBlock();
                                         }
+                                        
+                                        // TRACKING
                                         [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method}];
                                         [TrackingUtils incrementPeopleProperty:PEOPLE_SENDING_TOTAL byValue:(int)transaction.transactionAmount];
                                     }
@@ -372,15 +408,19 @@
 {
     [PFCloud callFunctionInBackground:@"createCashoutTransaction"
                        withParameters:nil
-                                block:^(Transaction *object, NSError *error) {
+                                block:^(NSArray *objects, NSError *error) {
                                     if (error != nil) {
+                                        [TrackingUtils trackEvent:EVENT_CREATE_CASHOUT_FAIL properties:nil];
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - createCashoutTransaction - %@",error.description);
                                         if (failureBlock) {
                                             failureBlock(error);
                                         }
                                     } else {
+                                        Transaction *transaction = (Transaction *)(objects[0]);
+                                        [TrackingUtils trackEvent:EVENT_CREATE_CASHOUT properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount]}];
+                                        [TrackingUtils incrementPeopleProperty:PEOPLE_CASHOUT_TOTAL byValue:(int)transaction.transactionAmount];
                                         // pin transaction
-                                        [object pinInBackgroundWithName:kParseTransactionsName];
+                                        [transaction pinInBackgroundWithName:kParseTransactionsName];
                                         if (successBlock) {
                                             successBlock();
                                         }
@@ -401,5 +441,142 @@
     }
 }
 
+// --------------------------------------------
+#pragma mark - ManageAccount
+// --------------------------------------------
+// Create managed account
++ (void)createManageAccountWithParameters:(NSDictionary *)parameters
+                                  success:(void(^)())successBlock
+                                  failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"createManagedAccount"
+                       withParameters:parameters
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createManagedAccount - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
 
+// Get managed account
++ (void)getManageAccountAndExecuteSuccess:(void(^)(NSDictionary *stripeAccount))successBlock
+                                  failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"getManagedAccount"
+                       withParameters:nil
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - getManagedAccount - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock(object);
+                                        }
+                                    }
+                                }];
+}
+
+// Add card managed account
++ (void)addCardToManadedAccount:(NSString *)token
+                        success:(void(^)())successBlock
+                        failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"addCardToManagedAccount"
+                       withParameters:@{@"stripeToken":token}
+                                block:^(id object, NSError *error) {
+                                    [TrackingUtils trackEvent:EVENT_MANAGED_ACCOUNT_ADD_CARD properties:@{@"success" : [NSNumber numberWithBool:(error == nil)]}];
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - addCardToManadedAccount - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
+
+// Set card as default to account
++ (void)setCardAsDefaultInManagedAccount:(NSString *)cardId
+                                 success:(void(^)())successBlock
+                                 failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"setCardAsDefaultInManagedAccount"
+                       withParameters:@{@"cardId":cardId}
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - setCardAsDefaultInManagedAccount - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
+
+// --------------------------------------------
+#pragma mark - Misc
+// --------------------------------------------
+// Email Alert
++ (void)alertByEmailWithParams:(NSDictionary *)params
+                       success:(void(^)())successBlock
+                       failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"alertFromApp"
+                       withParameters:params
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - alertFromApp - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
+
+// Post on twitter
++ (void)postStatus:(NSString *)status {
+    // Construct the parameters string. The value of "status" is percent-escaped.
+    NSString *bodyString = [NSString stringWithFormat:@"status=%@", [status stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    bodyString = [bodyString stringByReplacingOccurrencesOfString:@"!" withString:@"%21"];
+    
+    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"];
+    NSMutableURLRequest *tweetRequest = [NSMutableURLRequest requestWithURL:url];
+    tweetRequest.HTTPMethod = @"POST";
+    tweetRequest.HTTPBody = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+
+    [PFTwitterUtils linkUser:[User currentUser] block:^(BOOL succeeded, NSError * _Nullable error) {
+        if (!error) {
+            [[PFTwitterUtils twitter] signRequest:tweetRequest];
+            NSOperationQueue * queue = [[NSOperationQueue alloc] init];
+            [NSURLConnection sendAsynchronousRequest:tweetRequest
+                                               queue:queue
+                                   completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                       if (!connectionError) {
+                                           NSLog(@"Response: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                                       } else {
+                                           NSLog(@"Error: %@", connectionError);
+                                       }
+                                   }];
+        }
+    }];
+}
 @end

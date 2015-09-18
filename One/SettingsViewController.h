@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 #import "SwitchTableViewCell.h"
+#import "TweetTableViewCell.h"
 
 @protocol SettingsVCProtocol;
 
-@interface SettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, SwitchTVCProtocol>
+@interface SettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, SwitchTVCProtocol, TweetTVCProtocol>
 
 @property (weak, nonatomic) id<SettingsVCProtocol> delegate;
 

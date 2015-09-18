@@ -96,9 +96,6 @@
     // Update badge
     [ApiManager updateBadge:0];
     
-    // Load transactions
-    [self loadLatestTransactionsLocally];
-    
     // Notification observer
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadLatestTransactionsLocally)
@@ -109,6 +106,12 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.balanceLabel.layer.cornerRadius = self.balanceLabel.frame.size.height / 2;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // Load transactions
+    [self loadLatestTransactionsLocally];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -123,6 +126,10 @@
     NSString * segueName = segue.identifier;
     if ([segueName isEqualToString:@"Settings From Balance"]) {
         ((SettingsViewController *) [segue destinationViewController]).delegate = (id<SettingsVCProtocol>)self.delegate;
+    } else if ([segueName isEqualToString:@"Managed From Balance"]) {
+        ((ManagedAccountViewController *) [segue destinationViewController]).delegate = self;
+    } else if ([segueName isEqualToString:@"AccountCard From Balance"]) {
+        ((AccountCardViewController *) [segue destinationViewController]).delegate = self;
     }
 }
 
@@ -208,31 +215,21 @@
 }
 
 - (IBAction)cashoutButtonClicked:(id)sender {
+    [TrackingUtils trackEvent:EVENT_CASHOUT_CLICKED properties:nil];
     if ([User currentUser].balance <= 0) {
-        [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_no_money_title", nil) andMessage:NSLocalizedString(@"cashout_no_money_message", nil)];
-    } else if ([User currentUser].paymentMethod == kPaymentMethodNone) {
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"no_card_title", nil)
-                                    message:NSLocalizedString(@"no_card_message", nil)
+        [GeneralUtils showAlertWithTitle:nil andMessage:NSLocalizedString(@"cashout_no_money_message", nil)];
+    } else if (![[User currentUser] isEmailVerified]) {
+        // alert & send back to settings
+        [[[UIAlertView alloc] initWithTitle:nil
+                                    message:NSLocalizedString(@"cashout_no_email_message", nil)
                                    delegate:self
                           cancelButtonTitle:NSLocalizedString(@"later_", nil)
-                          otherButtonTitles:NSLocalizedString(@"add_button", nil), nil] show];
+                          otherButtonTitles:NSLocalizedString(@"verify_button", nil), nil] show];
+    } else if (![User currentUser].managedAccountId) {
+        [self performSegueWithIdentifier:@"Managed From Balance" sender:nil];
     } else {
-        // todo BT
-        // cash out function
-        [DesignUtils showProgressHUDAddedTo:self.view];
-        [ApiManager createCashoutAndExecuteSuccess:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [DesignUtils hideProgressHUDForView:self.view];
-                [self loadLatestTransactionsLocally];
-            });
-        } failure:^(NSError *error) {
-            // todo BT
-            // analyse different error
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [DesignUtils hideProgressHUDForView:self.view];
-                [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
-            });
-        }];
+        // go directly to card choice
+        [self performSegueWithIdentifier:@"AccountCard From Balance" sender:nil];
     }
 }
 
@@ -240,14 +237,16 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)returnToBalanceController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 // --------------------------------------------
 #pragma mark - Alert View delegate
 // --------------------------------------------
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if ([alertView.title isEqualToString:NSLocalizedString(@"no_card_title", nil)]) {
-        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"add_button", nil)]) {
-            [self.delegate navigateToCardController];
-        }
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"verify_button", nil)]) {
+        [self performSegueWithIdentifier:@"Settings From Balance" sender:nil];
     }
 }
 

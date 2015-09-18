@@ -175,7 +175,7 @@
 }
 
 - (void)navigateToCardController {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
     [self performSegueWithIdentifier:@"Card From Send" sender:nil];
 }
 
@@ -225,11 +225,16 @@
 - (void)generateTokenAndSendTransaction {
     if (self.transactionToSend) {
         if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
-            [self beginApplePay:self.transactionToSend];
+            if (!self.applePaySendingTransaction) {
+                [self beginApplePay:self.transactionToSend];
+                 self.transactionToSend = nil;
+            } else {
+                [self startAssociationTimer];
+            }
         } else {
             [self createPaymentWithTransaction:self.transactionToSend token:nil];
+             self.transactionToSend = nil;
         }
-        self.transactionToSend = nil;
     }
 }
 
@@ -250,6 +255,7 @@
                                                 } failure:^(NSError *error) {
                                                     if ([error.description containsString:@"card_error"]) {
                                                         // todo BT
+                                                        // go to check card ?
                                                     }
                                                     [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
                                                     self.ongoingTransactionsCount -= transaction.transactionAmount;
@@ -263,11 +269,14 @@
 // --------------------------------------------
 
 - (void)beginApplePay:(Transaction *)transaction {
+    if (self.applePaySendingTransaction) {
+        return;
+    }
     self.applePaySucceeded = NO;
     self.applePaySendingTransaction = transaction;
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
+
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
-        [paymentRequest setRequiredBillingAddressFields:PKAddressFieldPostalAddress];
         NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:transaction.transactionAmount];
         paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:[NSString stringWithFormat:NSLocalizedString(@"apple_pay_item", nil),transaction.receiver.caseUsername] amount:amount]];
 #if DEBUG

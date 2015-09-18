@@ -38,6 +38,9 @@
                               success:(void(^)())successBlock
                               failure:(void(^)(NSError *error))failureBlock;
 
++ (void)getCustomerCardsAndExecuteSuccess:(void(^)(NSArray *cards))successBlock
+                                  failure:(void(^)(NSError *error))failureBlock;
+
 + (void)findUsersMatchingStartString:(NSString *)startString
                             success:(void(^)(NSString *string, NSArray *users))successBlock
                             failure:(void(^)(NSError *error))failureBlock;
@@ -45,7 +48,8 @@
 + (void)fetchCurrentUserAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
 
-+ (void)resendEmailVerification;
++ (void)resendEmailVerificationAndExecuteSuccess:(void(^)())successBlock
+                                         failure:(void(^)(NSError *error))failureBlock;
 
 // --------------------------------------------
 #pragma mark - Transactions
@@ -69,5 +73,30 @@
 // --------------------------------------------
 
 + (void)updateBadge:(NSInteger)count;
+
+// --------------------------------------------
+#pragma mark - ManageAccount
+// --------------------------------------------
++ (void)createManageAccountWithParameters:(NSDictionary *)parameters
+                                  success:(void(^)())successBlock
+                                  failure:(void(^)(NSError *error))failureBlock;
+
++ (void)getManageAccountAndExecuteSuccess:(void(^)(NSDictionary *managedAccount))successBlock
+                                  failure:(void(^)(NSError *error))failureBlock;
+
++ (void)addCardToManadedAccount:(NSString *)token
+                        success:(void(^)())successBlock
+                        failure:(void(^)(NSError *error))failureBlock;
+
++ (void)setCardAsDefaultInManagedAccount:(NSString *)cardId
+                                 success:(void(^)())successBlock
+                                 failure:(void(^)(NSError *error))failureBlock;
+
+// --------------------------------------------
+#pragma mark - Misc
+// --------------------------------------------
++ (void)alertByEmailWithParams:(NSDictionary *)params
+                       success:(void(^)())successBlock
+                       failure:(void(^)(NSError *error))failureBlock;
 
 @end

@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "ManagedAccountViewController.h"
+#import "AccountCardViewController.h"
+
 @protocol BalanceViewControllerProtocol;
 
-@interface BalanceViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface BalanceViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ManagedAccountVCProtocol, AccountCardVCProtocol>
 
 @property (weak, nonatomic) id<BalanceViewControllerProtocol> delegate;
 
