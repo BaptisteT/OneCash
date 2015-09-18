@@ -13,6 +13,8 @@
 
 @protocol CashViewDelegateProtocol;
 
+@class User;
+
 @interface CashView : UIView <UITextFieldDelegate>
 
 @property (weak, nonatomic) id<CashViewDelegateProtocol> delegate;
@@ -33,8 +35,8 @@
 - (BOOL)isRecipientEmpty;
 - (void)addNewCashSubview;
 - (void)resetCashSubiewsStack;
-- (NSDictionary*)currentRecipientInfos;
-- (IBAction)pickRecipientButtonClicked:(id)sender;
+- (User *)receiver;
+- (void)recipientButtonClicked;
 - (void)removeRecipientButtonClicked;
 
 @end
