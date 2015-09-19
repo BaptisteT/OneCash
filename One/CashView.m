@@ -25,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *rightUpOne;
 @property (weak, nonatomic) IBOutlet UILabel *leftBottomOne;
 @property (weak, nonatomic) IBOutlet UILabel *rightBottomOne;
-@property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dollarLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *userPictureImageView;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -46,7 +45,6 @@
     
     // UI
     [self setStaticUI];
-    self.pickRecipientAlertLabel.hidden = YES;
     self.centralLabel.textColor = [ColorUtils darkGreen];
     self.centralLabel.adjustsFontSizeToFitWidth = YES;
     self.centralLabel.clipsToBounds = YES;
@@ -70,7 +68,6 @@
     self.rightBottomOne.textColor = [ColorUtils mainGreen];
     self.messageTextField.backgroundColor = [ColorUtils darkGreen];
     self.messageTextField.placeholder = NSLocalizedString(@"message_placeholder", nil);
-    self.pickRecipientAlertLabel.text = NSLocalizedString(@"recipient_alert", nil);
     self.messageTextField.clipsToBounds = YES;
     self.messageTextField.delegate = self;
     self.messageTextField.layer.cornerRadius = self.messageTextField.frame.size.height / 2;
@@ -88,6 +85,7 @@
     [super setFrame:frame];
     
     // UI
+    self.layer.cornerRadius = self.frame.size.height / 60;
     self.layer.borderColor = [ColorUtils darkGreen].CGColor;
     self.layer.borderWidth = 1.f;
 }
@@ -113,7 +111,6 @@
     self.messageTextField.hidden = NO;
     self.backgroundColor = [ColorUtils mainGreen];
     self.centralLabel.backgroundColor = [ColorUtils darkGreen];
-    self.pickRecipientAlertLabel.hidden = YES;
     self.layer.shadowOffset = CGSizeMake(0, 0);
     self.layer.shadowRadius = 5;
     self.layer.shadowOpacity = 0.2;
@@ -129,7 +126,6 @@
     self.layer.shadowRadius = 5;
     self.layer.shadowOpacity = 0.2;
     if ([self.delegate receiver] == nil) {
-        self.pickRecipientAlertLabel.hidden = NO;
     } else {
         [self updateRecipient];
     }
@@ -191,15 +187,22 @@
     if (translation.y > 0 && self.frame.origin.y > 0) {
         translation.y = translation.y / 10;
     } else if ([self.delegate receiver] == nil) {
-        translation.y = translation.y / 10 ;
+        translation.y = translation.y / 10;
+        recognizer.view.center = CGPointMake(recognizer.view.center.x, MAX(recognizer.view.center.y + translation.y, ([[UIScreen mainScreen] bounds].size.height - 20)/2));
+    } else {
+        recognizer.view.center = CGPointMake(recognizer.view.center.x,
+                                             recognizer.view.center.y + translation.y * 1.6);
     }
         
-    recognizer.view.center = CGPointMake(recognizer.view.center.x,
-                                         recognizer.view.center.y + translation.y * 1.3);
+    
     
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.superview];
-    
+        
     if (recognizer.state == UIGestureRecognizerStateBegan) {
+        if ([self.delegate receiver] == nil) {
+            [self.delegate showPickRecipientAlert];
+        }
+        
         [self setMovingUI];
         [self.delegate addNewCashSubview];
         self.rads = 0;

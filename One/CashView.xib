@@ -30,16 +30,6 @@
                         <action selector="viewTouchedUp:" destination="iN0-l3-epB" eventType="touchUpInside" id="cTd-uQ-VdI"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recipient!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRR-vx-r0J">
-                    <rect key="frame" x="0.0" y="538" width="600" height="62"/>
-                    <color key="backgroundColor" red="0.96470588239999999" green="0.0" blue="0.090196078430000007" alpha="1" colorSpace="deviceRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="62" id="dZn-De-G5s"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiW-wc-Bfo">
                     <rect key="frame" x="100" y="100" width="400" height="400"/>
                     <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
@@ -143,17 +133,17 @@
                     <rect key="frame" x="0.0" y="538" width="600" height="30"/>
                     <subviews>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="add_message" textAlignment="center" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="PPO-Xc-say" customClass="PaddingTextField">
-                            <rect key="frame" x="240" y="0.0" width="120" height="30"/>
+                            <rect key="frame" x="240" y="0.0" width="120" height="37"/>
                             <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="J2u-xT-aq8"/>
-                                <constraint firstAttribute="height" constant="30" id="Rq4-Ic-iOn"/>
+                                <constraint firstAttribute="height" constant="37" id="Rq4-Ic-iOn"/>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Y3I-zC-wZM"/>
                             </constraints>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="light" returnKeyType="done"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="Y3I-zC-wZM"/>
@@ -239,13 +229,10 @@
                 <constraint firstItem="Bsi-kk-ONP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8bO-AA-r2p"/>
                 <constraint firstItem="GiO-jA-KHS" firstAttribute="width" secondItem="fAf-x4-mf8" secondAttribute="width" id="9sn-l4-ygy"/>
                 <constraint firstAttribute="centerX" secondItem="kiW-wc-Bfo" secondAttribute="centerX" id="CVv-g6-Zes"/>
-                <constraint firstAttribute="trailing" secondItem="xRR-vx-r0J" secondAttribute="trailing" id="Fl3-zO-f5Y"/>
                 <constraint firstItem="B5x-wJ-GfG" firstAttribute="top" secondItem="Ifu-te-Mtz" secondAttribute="bottom" constant="38" id="HjZ-ZU-IPP"/>
                 <constraint firstItem="B5x-wJ-GfG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Jfd-Zg-6fy"/>
                 <constraint firstAttribute="bottom" secondItem="Bsi-kk-ONP" secondAttribute="bottom" id="LCm-R7-lha"/>
-                <constraint firstAttribute="bottom" secondItem="xRR-vx-r0J" secondAttribute="bottom" id="LLh-KE-q4e"/>
                 <constraint firstItem="Ifu-te-Mtz" firstAttribute="leading" secondItem="fAf-x4-mf8" secondAttribute="trailing" id="NFU-MM-nmw"/>
-                <constraint firstItem="xRR-vx-r0J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Nkt-aI-vmw"/>
                 <constraint firstItem="Bsi-kk-ONP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="QTb-MM-M7d"/>
                 <constraint firstItem="bNi-9O-9ix" firstAttribute="leading" secondItem="kiW-wc-Bfo" secondAttribute="trailing" constant="-20" id="ShE-tQ-3hQ"/>
                 <constraint firstItem="1kG-KT-NtS" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Sl6-yJ-XFA"/>
@@ -263,7 +250,6 @@
                 <constraint firstItem="mK4-z4-hZ7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="hji-id-3kC"/>
                 <constraint firstItem="kiW-wc-Bfo" firstAttribute="leading" secondItem="fAf-x4-mf8" secondAttribute="trailing" id="hsa-J9-PGL"/>
                 <constraint firstItem="bNi-9O-9ix" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="iID-wt-uee"/>
-                <constraint firstItem="xRR-vx-r0J" firstAttribute="top" secondItem="B5x-wJ-GfG" secondAttribute="bottom" constant="30" id="kUe-t6-ExL"/>
                 <constraint firstAttribute="trailing" secondItem="B5x-wJ-GfG" secondAttribute="trailing" id="mPx-Tw-lzs"/>
                 <constraint firstAttribute="bottom" secondItem="mK4-z4-hZ7" secondAttribute="bottom" constant="30.5" id="mxC-TK-xOZ"/>
                 <constraint firstAttribute="trailing" secondItem="Rhf-jq-iXI" secondAttribute="trailing" constant="10" id="nyq-Ed-YP3"/>
@@ -277,11 +263,6 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="kUe-t6-ExL"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="addRecipientButton" destination="1kG-KT-NtS" id="jOI-O0-yJg"/>
                 <outlet property="centralLabel" destination="kiW-wc-Bfo" id="m9j-vx-9Le"/>
@@ -291,7 +272,6 @@
                 <outlet property="messageTextField" destination="PPO-Xc-say" id="cya-eh-AF3"/>
                 <outlet property="onboardingLabel" destination="rYs-XC-1QF" id="C7y-zh-kxt"/>
                 <outlet property="overlayView" destination="caw-zl-TVz" id="j51-b8-dMM"/>
-                <outlet property="pickRecipientAlertLabel" destination="xRR-vx-r0J" id="tsp-GO-dLH"/>
                 <outlet property="removeRecipientButton" destination="bNi-9O-9ix" id="p3O-aI-v2z"/>
                 <outlet property="rightBottomOne" destination="WuC-xx-zOe" id="sQR-RB-qlV"/>
                 <outlet property="rightUpOne" destination="Rhf-jq-iXI" id="vlr-8Z-Rrp"/>
