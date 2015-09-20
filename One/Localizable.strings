@@ -110,7 +110,7 @@
 "register_for_cashout" = "Register for cashout";
 
 // Account card
-"acount_card_title" = "Select a card.\nYou will receive the money on the corresponding account.";
+"acount_card_title" = "You will receive the money on the corresponding account.";
 "add_a_card" = "New card";
 "cancel_button" = "Cancel";
 "ok_button" = "Ok";

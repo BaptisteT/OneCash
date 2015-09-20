@@ -19,7 +19,7 @@
 }
 
 + (UIColor *)lightBlack {
-    return [UIColor colorWithRed:0./255. green:0./255. blue:0./255 alpha:0.1];
+    return [UIColor colorWithRed:0./255. green:0./255. blue:0./255 alpha:0.15];
 }
 
 + (UIColor *)mainGreen {
