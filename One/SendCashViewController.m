@@ -10,6 +10,7 @@
 #import <ApplePayStubs/ApplePayStubs.h>
 #import <Stripe.h>
 #import <QuartzCore/QuartzCore.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 #import "ApiManager.h"
 #import "DatastoreManager.h"
@@ -68,7 +69,6 @@
     [self setSelectedUser:nil];
 
     // UI
-    self.view.layer.cornerRadius = 5.f;
     self.arrowImageView.layer.zPosition = -9999;
     self.view.backgroundColor = [UIColor whiteColor];
     self.balanceBadge.backgroundColor = [ColorUtils red];
@@ -99,7 +99,6 @@
     // Animation
     self.currentCount = 0;
     [self doArrowAnimation];
-//    [self sendingAnimation];
 
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
@@ -594,6 +593,7 @@
     if (_ongoingTransactionsCount > 0) {
         if (_ongoingTransactionsCount > self.currentCount) {
             [self startSendingAnimation];
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
         }
         self.currentCount = _ongoingTransactionsCount;
         self.arrowImageView.hidden = YES;

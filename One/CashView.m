@@ -85,9 +85,9 @@
     [super setFrame:frame];
     
     // UI
-    self.layer.cornerRadius = self.frame.size.height / 60;
-    self.layer.borderColor = [ColorUtils darkGreen].CGColor;
-    self.layer.borderWidth = 1.f;
+////    self.layer.cornerRadius = self.frame.size.height / 60;
+//    self.layer.borderColor = [ColorUtils darkGreen].CGColor;
+//    self.layer.borderWidth = 1.f;
 }
 
 - (void)layoutSubviews {
@@ -266,8 +266,6 @@
         if (self.center.y < 0) {
             CGFloat xDirection = self.center.x + (self.center.x - self.initialCenter.x) / (self.center.y - self.initialCenter.y) * (-self.frame.size.height- self.center.y);
             if (self.frame.origin.x + self.frame.size.height > 0) {
-                //Vibration
-                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
                 [self moveViewToPoint:CGPointMake(xDirection, -self.frame.size.height)
                              velocity:CGPointMake(100, 100)
                            completion:^void(POPAnimation *anim,BOOL completed) {
