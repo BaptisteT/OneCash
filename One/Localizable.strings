@@ -24,12 +24,13 @@
 "invalid_email_title" = "Ooops";
 "invalid_email_message" = "Your email seems invalid.";
 "save_email_error_title" = "Sorry, we could not save your email";
+"top_bar_email"= "Welcome @%@";
 
 // Card
 "later_" = "Not now";
 "card_title" = "Add your card to send and receive money on OneCash";
 "card_choice_explanation" = "One is free of charge.\nYou only pay the amount of the tips you send.";
-"stripe_card_title" = "Enter your debit card information";
+"stripe_card_title" = "Please enter your debit card information.";
 "apple_pay_button_title" = "Add my debit card with ";
 "manual_pay_button_title" = "Add my debit card manually";
 "message_placeholder" = "Add a message";
@@ -40,6 +41,9 @@
 "create_token_with_card_error_title" = "Sorry, we could not process your card.";
 "create_token_with_card_error_message" = "Please, try again or contact us.";
 "swipe_label" = "Swipe up to send $1";
+"top_bar_payment" = "Payment method";
+"top_bar_card" = "Add a card";
+"explanation_card" = "No credit card information is stored on our server! We use Stripe.com, one of the most secure and reputable payment processors available.";
 
 
 // Send
@@ -74,6 +78,8 @@
 // Recipients
 "to" = "to";
 "recipient_title" = "Pick a recipient";
+"recent_header" = "Recent";
+"search_header"= "Search results";
 
 // Settings
 "settings_title" = "Settings";

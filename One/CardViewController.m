@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *applePayButton;
 @property (weak, nonatomic) IBOutlet UIButton *manualPayButton;
 @property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
+@property (strong, nonatomic) IBOutlet UILabel *topLabel;
 
 @end
 
@@ -41,19 +42,23 @@
     [self.skipButton setTitle:NSLocalizedString(@"later_", nil) forState:UIControlStateNormal];
     self.titleLabel.text = NSLocalizedString(@"card_title", nil);
     [self.applePayButton setTitle:NSLocalizedString(@"apple_pay_button_title", nil) forState:UIControlStateNormal];
+    [self.applePayButton setTitleColor:[ColorUtils lightBlack] forState:UIControlStateNormal];
     [self.manualPayButton setTitle:NSLocalizedString(@"manual_pay_button_title", nil) forState:UIControlStateNormal];
+    [self.manualPayButton setTitleColor:[ColorUtils lightBlack] forState:UIControlStateNormal];
     self.explanationLabel.text = NSLocalizedString(@"card_choice_explanation", nil);
+    self.topLabel.text = NSLocalizedString(@"top_bar_payment", nil);
     
     // UI
     self.titleLabel.numberOfLines = 0;
     self.topBar.backgroundColor = [ColorUtils mainGreen];
     self.explanationLabel.numberOfLines = 0;
+    self.explanationLabel.textColor = [ColorUtils lightBlack];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [DesignUtils addBottomBorder:self.applePayButton borderSize:0.5 color:[UIColor lightGrayColor]];
-    [DesignUtils addBottomBorder:self.manualPayButton borderSize:0.5 color:[UIColor lightGrayColor]];
+    [DesignUtils addBottomBorder:self.applePayButton borderSize:0.5 color:[ColorUtils lightBlack]];
+    [DesignUtils addBottomBorder:self.manualPayButton borderSize:0.5 color:[ColorUtils lightBlack]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

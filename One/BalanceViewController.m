@@ -57,7 +57,7 @@
     [self.closeButton setTitle:NSLocalizedString(@"close_button", nil) forState:UIControlStateNormal];
     [self.settingsButton setTitle:NSLocalizedString(@"settings_button", nil) forState:UIControlStateNormal];
     [self.cashoutButton setTitle:NSLocalizedString(@"cashout_button", nil) forState:UIControlStateNormal];
-    self.titleLabel.text = [User currentUser].username;
+    self.titleLabel.text = [User currentUser].caseUsername;
     self.historyLabel.text = NSLocalizedString(@"history_label", nil);
 
     // UI

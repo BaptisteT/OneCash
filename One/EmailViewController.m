@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UIView *topView;
+@property (strong, nonatomic) IBOutlet UILabel *topLabel;
 
 @end
 
@@ -48,6 +49,8 @@
     NSString *terms = NSLocalizedString(@"terms_of_services", nil);
     NSString *privacy = NSLocalizedString(@"privacy_policy", nil);
     NSString *completeString = [NSString stringWithFormat:NSLocalizedString(@"terms_label", nil),terms,privacy];
+    NSString *username = [User currentUser].caseUsername;
+    self.topLabel.text = [NSString stringWithFormat:NSLocalizedString(@"top_bar_email", nil), username];
     
     // UI
     self.titleLabel.numberOfLines = 0;
@@ -61,7 +64,9 @@
     self.validateButton.backgroundColor = [ColorUtils mainGreen];
     self.validateButton.layer.cornerRadius = self.validateButton.frame.size.height / 2;
     self.topView.backgroundColor = [ColorUtils mainGreen];
-    [DesignUtils addBottomBorder:self.emailTextField borderSize:0.5 color:[UIColor lightGrayColor]];
+    [DesignUtils addBottomBorder:self.emailTextField borderSize:0.5 color:[ColorUtils lightBlack]];
+    [self.emailTextField setValue:[ColorUtils lightBlack]
+                       forKeyPath:@"_placeholderLabel.textColor"];
     
     // Gesture
     UITapGestureRecognizer *termsTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnTerms)];

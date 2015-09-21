@@ -24,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *recipientsTableView;
 @property (weak, nonatomic) IBOutlet UIView *textfieldContainer;
 @property (weak, nonatomic) IBOutlet UITextField *recipientTextfield;
-@property (weak, nonatomic) IBOutlet UILabel *toLabel;
 @property (weak, nonatomic) IBOutlet UIView *loadingContainer;
 // Users
 @property (strong, nonatomic) NSString *lastStringSearched;
@@ -49,11 +48,9 @@
     // wording
     [self.closeButton setTitle:NSLocalizedString(@"close_button", nil) forState:UIControlStateNormal];
     self.titleLabel.text = NSLocalizedString(@"recipient_title", nil);
-    self.toLabel.text = NSLocalizedString(@"to", nil);
     
     // UI
     self.topBar.backgroundColor = [ColorUtils mainGreen];
-    self.toLabel.textColor = [ColorUtils mainGreen];
     [DesignUtils addBottomBorder:self.recipientTextfield borderSize:0.2 color:[UIColor lightGrayColor]];
     [DesignUtils addTopBorder:self.textfieldContainer borderSize:0.5 color:[UIColor lightGrayColor]];
     self.recipientTextfield.textColor = [ColorUtils mainGreen];
@@ -137,6 +134,33 @@
     return 60;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(self.recipientTextfield.isFirstResponder) {
+       return NSLocalizedString(@"search_header", nil);
+    }
+    return NSLocalizedString(@"recent_header", nil);
+
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *tempView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width,22)];
+    tempView.backgroundColor=[UIColor whiteColor];
+    
+    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,0,tempView.frame.size.width,tempView.frame.size.height)];
+    tempLabel.backgroundColor=[UIColor clearColor];
+    tempLabel.textColor = [ColorUtils mainGreen]; //here you can change the text color of header.
+    tempLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:15];
+    tempLabel.text=[self tableView:tableView titleForHeaderInSection:section];
+    UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, tempView.frame.size.height - 0.5, tempView.frame.size.width, 0.5)];
+    separator.backgroundColor = [ColorUtils mainGreen];
+    
+    [tempView addSubview:tempLabel];
+    [tempView addSubview:separator];
+    
+    return tempView;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [TrackingUtils trackEvent:EVENT_RECIPIENT_SET properties:@{@"preselected": [NSNumber numberWithBool:self.recipientTextfield.text.length == 0]}];
     UserTableViewCell *cell = (UserTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -201,6 +225,13 @@
 // Move down create comment view on keyboard will hide
 - (void)keyboardWillHide:(NSNotification *)notification {
     [KeyboardUtils pushDownTopView:self.textfieldContainer whenKeyboardWillhideNotification:notification];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
 }
 
 // --------------------------------------------

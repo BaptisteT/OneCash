@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet UILabel *topLabel;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (strong, nonatomic) IBOutlet UILabel *topBarLabel;
+@property (strong, nonatomic) IBOutlet UILabel *explanationLabel;
 
 @end
 
@@ -43,6 +45,9 @@
     [self.backButton setTitle:NSLocalizedString(@"back_button", nil) forState:UIControlStateNormal];
     [self.doneButton setTitle:NSLocalizedString(@"done_button", nil) forState:UIControlStateNormal];
     self.topLabel.text = NSLocalizedString(@"stripe_card_title", nil);
+    self.topBarLabel.text = NSLocalizedString(@"top_bar_card", nil);
+    self.explanationLabel.text = NSLocalizedString(@"explanation_card", nil);
+
     
     // UI
     self.topLabel.numberOfLines = 0;
@@ -50,6 +55,7 @@
     self.doneButton.backgroundColor = [ColorUtils mainGreen];
     self.doneButton.layer.cornerRadius = self.doneButton.frame.size.height / 2;
     self.doneButton.enabled = NO;
+    self.explanationLabel.textColor = [ColorUtils lightBlack];
     
     // Payment Textfield
     self.paymentTextField = [[STPPaymentCardTextField alloc] initWithFrame:CGRectMake(15, self.doneButton.frame.origin.y - 44 - 30, CGRectGetWidth(self.view.frame) - 30, 44)];
