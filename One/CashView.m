@@ -60,14 +60,10 @@
     [self.removeRecipientButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     [self.addRecipientButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.onboardingLabel.textColor = [UIColor whiteColor];
-    self.leftUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-90));
-    self.leftUpOne.textColor = [ColorUtils mainGreen];
-    self.rightUpOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
-    self.rightUpOne.textColor = [ColorUtils mainGreen];
-    self.leftBottomOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-90));
-    self.leftBottomOne.textColor = [ColorUtils mainGreen];
-    self.rightBottomOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(+90));
-    self.rightBottomOne.textColor = [ColorUtils mainGreen];
+    self.leftUpOne.textColor = [ColorUtils darkGreen];
+    self.rightUpOne.textColor = [ColorUtils darkGreen];
+    self.leftBottomOne.textColor = [ColorUtils darkGreen];
+    self.rightBottomOne.textColor = [ColorUtils darkGreen];
     self.messageTextField.backgroundColor = [ColorUtils darkGreen];
     self.messageTextField.placeholder = NSLocalizedString(@"message_placeholder", nil);
     self.messageTextField.clipsToBounds = YES;
@@ -140,7 +136,7 @@
         self.removeRecipientButton.hidden = YES;
         self.onboardingLabel.text = NSLocalizedString(@"recipient_alert", nil);
     } else {
-        [[self.delegate receiver] setAvatarInImageView:self.userPictureImageView];
+        [[self.delegate receiver] setAvatarInImageView:self.userPictureImageView bigSize:YES];
         self.usernameLabel.text = [self.delegate receiver].caseUsername;
         self.dollarLabel.hidden = NO;
         self.usernameLabel.hidden = NO;

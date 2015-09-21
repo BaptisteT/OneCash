@@ -43,13 +43,14 @@
 }
 
 // Set avatar in imageview (download it first if necessary)
-- (void)setAvatarInImageView:(UIImageView *)imageView {
+- (void)setAvatarInImageView:(UIImageView *)imageView bigSize:(BOOL)flag {
     imageView.image = nil; // clean
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     if (self.userPicture) {
         [imageView setImage:self.userPicture];
     } else {
-        CGSize rescaleSize = {kDisplayedPictureSize, kDisplayedPictureSize};
+        CGFloat size = flag ? kDisplayedPictureBigSize : kDisplayedPictureSmallSize;
+        CGSize rescaleSize = {size, size};
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
                                           size:rescaleSize
                                           mode:UIViewContentModeScaleAspectFill
@@ -63,13 +64,14 @@
 }
 
 // Set avatar in button
-- (void)setAvatarInButton:(UIButton *)button {
+- (void)setAvatarInButton:(UIButton *)button bigSize:(BOOL)flag {
     [button setImage:nil forState:UIControlStateNormal];
     button.contentMode = UIViewContentModeScaleAspectFill;
     if (self.userPicture) {
         [button setImage:self.userPicture forState:UIControlStateNormal];
     } else {
-        CGSize rescaleSize = {kDisplayedPictureSize, kDisplayedPictureSize};
+        CGFloat size = flag ? kDisplayedPictureBigSize : kDisplayedPictureSmallSize;
+        CGSize rescaleSize = {size, size};
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
                                           size:rescaleSize
                                           mode:UIViewContentModeScaleAspectFill
@@ -86,8 +88,9 @@
 
 // Delete image
 - (void)deleteCachedImage {
-    CGSize rescaleSize = {kDisplayedPictureSize, kDisplayedPictureSize};
+    CGSize rescaleSize = {kDisplayedPictureSmallSize, kDisplayedPictureSmallSize};
     [[ImageCache defaultCache] deleteCashedImageForURL:[NSURL URLWithString:self.pictureURL] size:rescaleSize];
+    
 }
 
 + (void)logOut {
