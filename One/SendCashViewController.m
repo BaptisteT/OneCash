@@ -47,7 +47,7 @@
 @property (strong, nonatomic) Transaction *applePaySendingTransaction;
 @property (nonatomic) BOOL applePaySucceeded;
 @property (nonatomic) NSInteger ongoingTransactionsCount;
-@property (nonatomic) NSInteger currentCount;
+@property (nonatomic) NSInteger sentTransactionsCount;
 
 
 @end
@@ -61,6 +61,7 @@
     [super viewDidLoad];
     
     // Init
+    self.sentTransactionsCount = 0;
     self.ongoingTransactionsCount = 0;
     [self setBadgeValue:0];
     
@@ -98,12 +99,11 @@
     self.titleLabel.layer.shadowOpacity = 0.2;
 
     // Animation
-    self.currentCount = 0;
     [self doArrowAnimation];
 
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
-    for (int i=0;i<1;i++) [self addNewCashSubview];
+    [self addNewCashSubview];
     
     // Load server data
     [self loadLatestTransactions];
@@ -164,8 +164,6 @@
 - (void)willBecomeActiveCallback {
     // load new transactions
     [self loadLatestTransactions];
-    // Avoid no cashview issue
-    [self resetCashSubiewsStack];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -272,7 +270,7 @@
     [ApiManager createPaymentTransactionWithTransaction:transaction
                                           applePaytoken:token
                                                 success:^{
-                                                    self.ongoingTransactionsCount -= transaction.transactionAmount;
+                                                    self.sentTransactionsCount += transaction.transactionAmount;
                                                     // send notif to balance controller for refresh
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_transactions_table"
                                                                                                         object:nil
@@ -286,6 +284,7 @@
                                                         // go to check card ?
                                                     }
                                                     [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
+                                                    
                                                     self.ongoingTransactionsCount -= transaction.transactionAmount;
                                                     [self failedAnimation:transaction.transactionAmount];
                                                 }];
@@ -313,8 +312,14 @@
 #else
         PKPaymentAuthorizationViewController *auth = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
 #endif
-        auth.delegate = self;
-        [self presentViewController:auth animated:YES completion:nil];
+        if (auth) {
+            auth.delegate = self;
+            [self presentViewController:auth animated:YES completion:nil];
+        } else {
+            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_runtime_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_runtime_error_message", nil)];
+        }
+    } else {
+        [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_runtime_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_runtime_error_message", nil)];
     }
 }
 
@@ -439,6 +444,9 @@
 - (void)removeCashSubview:(CashView *)view {
     [self.presentedCashViews removeObject:view];
     [view removeFromSuperview];
+    if (self.presentedCashViews.count == 0) {
+        [self resetCashSubiewsStack];
+    }
 }
 
 - (void)resetCashSubiewsStack {
@@ -456,7 +464,7 @@
                 }];
             }
         }
-    } else if (self.presentedCashViews.count < 1) {
+    } else if (self.presentedCashViews.count == 0) {
         [self addNewCashSubview];
     }
 }
@@ -481,9 +489,8 @@
         self.titleLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.2 animations:^{
-            self.titleLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
-        } completion:^(BOOL finished) {
-        }];
+            self.titleLabel.transform = CGAffineTransformIdentity;
+        } completion:nil];
     }];
 }
 
@@ -584,19 +591,26 @@
 // --------------------------------------------
 #pragma mark - Helpers
 // --------------------------------------------
-
 - (void)setOngoingTransactionsCount:(NSInteger)ongoingTransactionsCount {
+    if (ongoingTransactionsCount > _ongoingTransactionsCount) {
+        [self startSendingAnimation];
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    }
     _ongoingTransactionsCount = ongoingTransactionsCount;
     [self setTitleLabelWording];
 }
 
+- (void)setSentTransactionsCount:(NSInteger)sentTransactionsCount {
+    _sentTransactionsCount = sentTransactionsCount;
+    if (_ongoingTransactionsCount == sentTransactionsCount && sentTransactionsCount != 0) {
+        // everything sent
+        self.ongoingTransactionsCount = 0;
+        _sentTransactionsCount = 0;
+    }
+}
+
 - (void)setTitleLabelWording {
     if (_ongoingTransactionsCount > 0) {
-        if (_ongoingTransactionsCount > self.currentCount) {
-            [self startSendingAnimation];
-            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-        }
-        self.currentCount = _ongoingTransactionsCount;
         self.arrowImageView.hidden = YES;
         self.titleLabel.layer.borderColor = [ColorUtils veryDarkGreen].CGColor;
         self.titleLabel.backgroundColor = [ColorUtils darkGreen];
@@ -606,7 +620,6 @@
         self.spinImageView.hidden = NO;
         [self sendingAnimation];
     } else {
-        self.currentCount = 0;
         self.spinImageView.hidden = YES;
         [self.spinImageView.layer removeAllAnimations];
         self.titleLabel.layer.borderColor = [ColorUtils darkGreen].CGColor;
@@ -624,26 +637,27 @@
 
 -(void)resetUI {
     if (_ongoingTransactionsCount == 0) {
-    self.titleLabel.hidden = YES;
-    self.arrowImageView.hidden = NO;
+        self.titleLabel.hidden = YES;
+        self.arrowImageView.hidden = NO;
+    } else {
+        [self setTitleLabelWording];
     }
 }
 
 - (void)failedAnimation:(NSInteger)failedCount {
     self.titleLabel.alpha = 0;
-    self.titleLabel.textColor = [ColorUtils red];
+    self.titleLabel.backgroundColor = [ColorUtils red];
     self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"failed_label", nil),failedCount];
-    [UIView animateWithDuration:1 animations:^{
+    self.titleLabel.layer.borderColor = [ColorUtils red].CGColor;
+    [UIView animateWithDuration:0.25 animations:^{
         self.titleLabel.alpha = 1;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.25 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
             self.titleLabel.alpha = 0;
             self.titleLabel.textColor = [UIColor whiteColor];
         } completion:^(BOOL finished) {
-            [self setTitleLabelWording];
-            [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
-                self.titleLabel.alpha = 1;
-            } completion:nil];
+            [self resetUI];
+            self.titleLabel.alpha = 1;
         }];
     }];
 }

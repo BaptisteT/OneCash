@@ -18,7 +18,8 @@
 
 @interface AccountCardViewController ()<STPPaymentCardTextFieldDelegate>
 
-@property(nonatomic) STPPaymentCardTextField *paymentTextField;
+@property(strong, nonatomic) STPPaymentCardTextField *paymentTextField;
+@property (strong, nonatomic) UIButton *addCardButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -56,8 +57,12 @@
     self.cardTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     // Payment Textfield
-    self.paymentTextField = [[STPPaymentCardTextField alloc] initWithFrame:CGRectMake(15, 10, CGRectGetWidth(self.view.frame) - 30, 40)];
+    self.paymentTextField = [[STPPaymentCardTextField alloc] initWithFrame:CGRectMake(15, 10, CGRectGetWidth(self.view.frame) - 60, 40)];
     self.paymentTextField.delegate = self;
+    self.addCardButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 40, 10, 30, 30)];
+    self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.addCardButton setImage:[UIImage imageNamed:@"verified_user"] forState:UIControlStateNormal];
+    [self.addCardButton addTarget:self action:@selector(generateTokenAndCreateCard) forControlEvents:UIControlEventTouchUpInside];
     
     // Get accounts
     // todo BT loading before that
@@ -71,6 +76,11 @@
 // --------------------------------------------
 - (IBAction)backButtonClicked:(id)sender {
     [self.delegate returnToBalanceController];
+}
+
+- (void)paymentCardTextFieldDidChange:(STPPaymentCardTextField *)textField
+{
+    self.addCardButton.hidden = !textField.isValid;
 }
 
 // --------------------------------------------
@@ -95,6 +105,8 @@
             cell.textLabel.text = NSLocalizedString(@"add_a_card", nil);
         } else {
             [cell addSubview:self.paymentTextField];
+            [cell addSubview:self.addCardButton];
+            self.addCardButton.hidden = !self.paymentTextField.isValid;
         }
     }
     return cell;
@@ -135,8 +147,6 @@
                 _showCardTextField = YES;
                 [self.cardTableView reloadData];
                 [self.paymentTextField becomeFirstResponder];
-            } else {
-                [self generateTokenAndCreateCard];
             }
         }
     }
