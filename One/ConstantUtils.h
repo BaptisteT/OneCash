@@ -35,9 +35,9 @@ static NSString * const kTwitterConsumerSecret = @"silyysZvTNaNLJxLk1IlJblEh0NhC
 static NSString * const kApplePayMerchantId = @"merchant.cash.one";
 
 // Web
-static NSString * const kOneWebsiteTermsLink = @"http://flashtape.co/#terms"; // todo BT
-static NSString * const kOneWebsiteSupportLink = @"http://flashtape.co/#terms";// todo BT
-static NSString * const kOneWebsiteLink = @"http://one.cash";// todo BT
+static NSString * const kOneWebsiteTermsLink = @"http://one.cash/#terms";
+static NSString * const kOneWebsiteSupportLink = @"http://one.cash/#support";
+static NSString * const kOneWebsiteLink = @"http://one.cash";
 static NSString * const kStripeWebsiteTermsLink = @"https://stripe.com/connect/account-terms";
 
 // Notif
