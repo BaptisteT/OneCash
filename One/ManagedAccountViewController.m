@@ -62,13 +62,39 @@
     // UI
     self.titleLabel.numberOfLines = 0;
     self.topBar.backgroundColor = [ColorUtils mainGreen];
-    self.entityTypeSegmentedControl.tintColor = [ColorUtils mainGreen];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:completeString];
     NSDictionary *attribute = @{NSForegroundColorAttributeName : [ColorUtils mainGreen]};
     [attrString addAttributes:attribute range:[completeString rangeOfString:terms]];
-    self.termsLabel.textColor = [UIColor lightGrayColor];
+    self.termsLabel.textColor = [ColorUtils lightBlack];
     self.termsLabel.attributedText = attrString;
     self.termsLabel.numberOfLines = 0;
+    UIFont *font = [UIFont fontWithName:@"ProximaNova-Regular" size:15];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
+    [self.entityTypeSegmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    self.entityTypeSegmentedControl.layer.cornerRadius = self.entityTypeSegmentedControl.frame.size.height / 2;
+    self.entityTypeSegmentedControl.clipsToBounds = YES;
+    self.entityTypeSegmentedControl.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.entityTypeSegmentedControl.layer.borderWidth = 1.0f;
+    [DesignUtils addBottomBorder:self.firstNameTextField borderSize:0.5f color:[ColorUtils lightBlack]];
+    [self.firstNameTextField setValue:[ColorUtils lightBlack]
+                          forKeyPath:@"_placeholderLabel.textColor"];
+    [DesignUtils addBottomBorder:self.lastNameTextField borderSize:0.5f color:[ColorUtils lightBlack]];
+    [self.lastNameTextField setValue:[ColorUtils lightBlack]
+                          forKeyPath:@"_placeholderLabel.textColor"];
+    [DesignUtils addBottomBorder:self.ddTextfield borderSize:0.5f color:[ColorUtils lightBlack]];
+    [self.ddTextfield setValue:[ColorUtils lightBlack]
+                           forKeyPath:@"_placeholderLabel.textColor"];
+    [DesignUtils addBottomBorder:self.monthTextField borderSize:0.5f color:[ColorUtils lightBlack]];
+    [self.monthTextField setValue:[ColorUtils lightBlack]
+                           forKeyPath:@"_placeholderLabel.textColor"];
+    [DesignUtils addBottomBorder:self.yearTextField borderSize:0.5f color:[ColorUtils lightBlack]];
+    [self.yearTextField setValue:[ColorUtils lightBlack]
+                           forKeyPath:@"_placeholderLabel.textColor"];
+    [DesignUtils addBottomBorder:self.businessNameTextField borderSize:0.5f color:[ColorUtils lightBlack]];
+    [self.businessNameTextField setValue:[ColorUtils lightBlack]
+                      forKeyPath:@"_placeholderLabel.textColor"];
+    self.registerButton.layer.cornerRadius = self.registerButton.frame.size.height / 2;
+    self.registerButton.backgroundColor = [ColorUtils mainGreen];
 
     // Delegate
     self.firstNameTextField.delegate = self;
@@ -193,6 +219,8 @@
 // --------------------------------------------
 #pragma mark - Textfield delegate
 // --------------------------------------------
+
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([string isEqualToString:@"\n"]) {
         if (self.firstNameTextField.isFirstResponder) {

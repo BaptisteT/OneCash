@@ -10,6 +10,7 @@
 #import <ApplePayStubs/ApplePayStubs.h>
 #import <Stripe.h>
 #import <QuartzCore/QuartzCore.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 #import "ApiManager.h"
 #import "DatastoreManager.h"
@@ -37,13 +38,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *balanceBadge;
 @property (strong, nonatomic) IBOutlet UIImageView *arrowImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *spinImageView;
 @property (strong, nonatomic) Reachability *internetReachableFoo;
+@property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
 @property (strong, nonatomic) NSTimer *associationTimer;
 @property (strong, nonatomic) Transaction *transactionToSend;
 @property (strong, nonatomic) Transaction *applePaySendingTransaction;
 @property (nonatomic) BOOL applePaySucceeded;
 @property (nonatomic) NSInteger ongoingTransactionsCount;
+@property (nonatomic) NSInteger currentCount;
+
 
 @end
 
@@ -61,6 +66,7 @@
     
     // Wording
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
+    self.pickRecipientAlertLabel.text = NSLocalizedString(@"no_receiver_red_bar", nil);
     [self setSelectedUser:nil];
 
     // UI
@@ -83,6 +89,8 @@
     self.titleLabel.hidden = YES;
     self.titleLabel.layer.borderColor = [ColorUtils darkGreen].CGColor;
     self.titleLabel.layer.borderWidth = 1.f;
+    self.pickRecipientAlertLabel.layer.opacity = 0;
+    self.spinImageView.hidden = YES;
     
     //shadow to fix
     self.titleLabel.layer.shadowOffset = CGSizeMake(0, 0);
@@ -90,8 +98,8 @@
     self.titleLabel.layer.shadowOpacity = 0.2;
 
     // Animation
+    self.currentCount = 0;
     [self doArrowAnimation];
-    [self sendingAnimation];
 
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
@@ -200,6 +208,18 @@
     [User logOut];
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(void)showPickRecipientAlert {
+    [self.pickRecipientAlertLabel.layer removeAllAnimations];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.pickRecipientAlertLabel.layer.opacity = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:3 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            self.pickRecipientAlertLabel.layer.opacity = 0;
+        } completion:^(BOOL finished) {
+        }];
+    }];
 }
 
 // --------------------------------------------
@@ -456,15 +476,26 @@
     }];
 }
 
+-(void)startSendingAnimation {
+    [UIView animateWithDuration:0.2 animations:^{
+        self.titleLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.titleLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1);
+        } completion:^(BOOL finished) {
+        }];
+    }];
+}
+
 -(void)sendingAnimation {
-    CABasicAnimation *theAnimation;
-    theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-    theAnimation.duration=1.0;
-    theAnimation.repeatCount=HUGE_VALF;
-    theAnimation.autoreverses=YES;
-    theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-    theAnimation.toValue=[NSNumber numberWithFloat:0.0];
-    [self.titleLabel.layer addAnimation:theAnimation forKey:@"animateOpacity"];
+    [self.spinImageView.layer removeAllAnimations];
+    [UIView animateWithDuration:0.8 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [self.spinImageView setTransform:CGAffineTransformRotate(self.spinImageView.transform, M_PI_2)];
+    } completion:^(BOOL finished) {
+        if (finished && !CGAffineTransformEqualToTransform(self.spinImageView.transform, CGAffineTransformIdentity)) {
+            [self sendingAnimation];
+        }
+    }];
 }
 
 
@@ -561,13 +592,23 @@
 
 - (void)setTitleLabelWording {
     if (_ongoingTransactionsCount > 0) {
+        if (_ongoingTransactionsCount > self.currentCount) {
+            [self startSendingAnimation];
+            AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+        }
+        self.currentCount = _ongoingTransactionsCount;
         self.arrowImageView.hidden = YES;
         self.titleLabel.layer.borderColor = [ColorUtils veryDarkGreen].CGColor;
         self.titleLabel.backgroundColor = [ColorUtils darkGreen];
         self.titleLabel.font = [UIFont systemFontOfSize:30];
         self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sending_label", nil),_ongoingTransactionsCount];
         self.titleLabel.hidden = NO;
+        self.spinImageView.hidden = NO;
+        [self sendingAnimation];
     } else {
+        self.currentCount = 0;
+        self.spinImageView.hidden = YES;
+        [self.spinImageView.layer removeAllAnimations];
         self.titleLabel.layer.borderColor = [ColorUtils darkGreen].CGColor;
         self.titleLabel.backgroundColor = [ColorUtils mainGreen];
         self.titleLabel.font = [UIFont systemFontOfSize:20];
@@ -582,8 +623,10 @@
 }
 
 -(void)resetUI {
+    if (_ongoingTransactionsCount == 0) {
     self.titleLabel.hidden = YES;
     self.arrowImageView.hidden = NO;
+    }
 }
 
 - (void)failedAnimation:(NSInteger)failedCount {

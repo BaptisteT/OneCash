@@ -59,6 +59,11 @@
 		3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */; };
 		A470C0111BAA059200FA005F /* Maax Rounded Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */; };
 		A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */; };
+		A4A2B5091BADDBEF00CDAF07 /* ProximaNova-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5031BADDB9E00CDAF07 /* ProximaNova-Black.otf */; };
+		A4A2B50A1BADDBEF00CDAF07 /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5041BADDB9E00CDAF07 /* ProximaNova-Bold.otf */; };
+		A4A2B50B1BADDBEF00CDAF07 /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5051BADDB9E00CDAF07 /* ProximaNova-Light.otf */; };
+		A4A2B50C1BADDBEF00CDAF07 /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5061BADDB9E00CDAF07 /* ProximaNova-Regular.otf */; };
+		A4A2B50D1BADDBEF00CDAF07 /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5071BADDB9E00CDAF07 /* ProximaNova-Semibold.otf */; };
 		BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
 /* End PBXBuildFile section */
 
@@ -161,6 +166,11 @@
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Maax Rounded Medium.otf"; sourceTree = "<group>"; };
 		A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		A4A2B5031BADDB9E00CDAF07 /* ProximaNova-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Black.otf"; sourceTree = "<group>"; };
+		A4A2B5041BADDB9E00CDAF07 /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.otf"; sourceTree = "<group>"; };
+		A4A2B5051BADDB9E00CDAF07 /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
+		A4A2B5061BADDB9E00CDAF07 /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
+		A4A2B5071BADDB9E00CDAF07 /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
 		F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One.release.xcconfig"; path = "Pods/Target Support Files/Pods-One/Pods-One.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -248,7 +258,7 @@
 		3C2E03901B8DA1BF00D22D48 /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
-				A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */,
+				A4A2B5081BADDBA300CDAF07 /* Fonts */,
 				3C2E03741B8DA18B00D22D48 /* Main.storyboard */,
 				3C2E03771B8DA18B00D22D48 /* Images.xcassets */,
 				3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */,
@@ -398,6 +408,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A4A2B5081BADDBA300CDAF07 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A4A2B5031BADDB9E00CDAF07 /* ProximaNova-Black.otf */,
+				A4A2B5041BADDB9E00CDAF07 /* ProximaNova-Bold.otf */,
+				A4A2B5051BADDB9E00CDAF07 /* ProximaNova-Light.otf */,
+				A4A2B5061BADDB9E00CDAF07 /* ProximaNova-Regular.otf */,
+				A4A2B5071BADDB9E00CDAF07 /* ProximaNova-Semibold.otf */,
+				A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -464,6 +487,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4A2B5091BADDBEF00CDAF07 /* ProximaNova-Black.otf in Resources */,
+				A4A2B50A1BADDBEF00CDAF07 /* ProximaNova-Bold.otf in Resources */,
+				A4A2B50B1BADDBEF00CDAF07 /* ProximaNova-Light.otf in Resources */,
+				A4A2B50C1BADDBEF00CDAF07 /* ProximaNova-Regular.otf in Resources */,
+				A4A2B50D1BADDBEF00CDAF07 /* ProximaNova-Semibold.otf in Resources */,
 				A470C0111BAA059200FA005F /* Maax Rounded Medium.otf in Resources */,
 				3CC5FDB51B98886700514A43 /* Localizable.strings in Resources */,
 				3C2E03761B8DA18B00D22D48 /* Main.storyboard in Resources */,

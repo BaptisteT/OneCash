@@ -81,6 +81,11 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaaxRounded-Medium</string>
+		<string>ProximaNova-Light</string>
+		<string>ProximaNova-Regular</string>
+		<string>ProximaNova-Semibold</string>
+		<string>ProximaNova-Bold</string>
+		<string>ProximaNova-Black</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

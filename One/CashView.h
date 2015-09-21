@@ -38,5 +38,6 @@
 - (User *)receiver;
 - (void)recipientButtonClicked;
 - (void)removeRecipientButtonClicked;
+-(void)showPickRecipientAlert;
 
 @end

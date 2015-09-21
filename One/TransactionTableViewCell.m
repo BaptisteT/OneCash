@@ -41,12 +41,12 @@
         self.messageLabel.backgroundColor = [ColorUtils darkGreen];
         if (transaction.message && transaction.message.length > 0) {
             self.messageLabel.hidden = NO;
-            self.messageLabel.text = [NSString stringWithFormat:@" %@  ",transaction.message];
+            self.messageLabel.text = [NSString stringWithFormat:@"%@     ",transaction.message];
         } else {
             self.messageLabel.hidden = YES;
         }
         [transaction.sender setAvatarInImageView:self.userPicture];
-        name = [NSString stringWithFormat:@"$%@, ",transaction.sender.caseUsername];
+        name = [NSString stringWithFormat:@"from $%@, ",transaction.sender.caseUsername];
         
     // cash out
     } else if (transaction.transactionType == kTransactionCashout) {
@@ -54,7 +54,7 @@
         self.messageLabel.textColor = [ColorUtils red];
         
         self.messageLabel.hidden = NO;
-        self.messageLabel.text = [NSString stringWithFormat:@" %@  ",NSLocalizedString(@"cashout_string", nil)];
+        self.messageLabel.text = [NSString stringWithFormat:@" %@     ",NSLocalizedString(@"cashout_string", nil)];
         
         [transaction.sender setAvatarInImageView:self.userPicture];
         name = @"";
@@ -66,7 +66,7 @@
         
         if (transaction.message && transaction.message.length > 0) {
             self.messageLabel.hidden = NO;
-            self.messageLabel.text = [NSString stringWithFormat:@" %@  ",transaction.message];
+            self.messageLabel.text = [NSString stringWithFormat:@" %@     ",transaction.message];
         }else {
             self.messageLabel.hidden = YES;
         }
@@ -83,6 +83,8 @@
     self.messageLabel.clipsToBounds = YES;
     self.userPicture.clipsToBounds = YES;
     self.userPicture.layer.cornerRadius = self.userPicture.frame.size.height / 2;
+    self.userPicture.layer.borderColor = [ColorUtils lightBlack].CGColor;
+    self.userPicture.layer.borderWidth = 0.5f;
 }
 
 - (void)layoutSubviews

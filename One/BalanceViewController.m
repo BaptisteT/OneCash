@@ -31,10 +31,6 @@
 
 @property (weak, nonatomic) IBOutlet UIView *balanceContainer;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *leftDownOne;
-@property (weak, nonatomic) IBOutlet UILabel *leftUpOne;
-@property (weak, nonatomic) IBOutlet UILabel *rightUpOne;
-@property (weak, nonatomic) IBOutlet UILabel *rightDownOne;
 
 @property (strong, nonatomic) NSMutableArray *transactions;
 
@@ -60,27 +56,20 @@
     [self.closeButton setTitle:NSLocalizedString(@"close_button", nil) forState:UIControlStateNormal];
     [self.settingsButton setTitle:NSLocalizedString(@"settings_button", nil) forState:UIControlStateNormal];
     [self.cashoutButton setTitle:NSLocalizedString(@"cashout_button", nil) forState:UIControlStateNormal];
-    self.titleLabel.text = NSLocalizedString(@"balance_title", nil);
+    self.titleLabel.text = [User currentUser].username;
     self.historyLabel.text = NSLocalizedString(@"history_label", nil);
 
     // UI
     self.cashoutButton.backgroundColor = [ColorUtils red];
     self.cashoutButton.layer.cornerRadius = self.cashoutButton.frame.size.height / 2;
-    [self.closeButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
-    [self.settingsButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
-    self.titleLabel.textColor = [ColorUtils mainGreen];
     self.balanceContainer.backgroundColor = [ColorUtils mainGreen];
-    self.balanceContainer.layer.cornerRadius = self.balanceContainer.frame.size.height / 20;
-    self.leftDownOne.textColor = [ColorUtils darkGreen];
-    self.leftUpOne.textColor = [ColorUtils darkGreen];
-    self.rightUpOne.textColor = [ColorUtils darkGreen];
-    self.rightDownOne.textColor = [ColorUtils darkGreen];
-    self.rightDownOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
-    self.leftDownOne.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180));
     self.balanceLabel.backgroundColor = [ColorUtils darkGreen];
     self.balanceLabel.clipsToBounds = YES;
     self.balanceLabel.adjustsFontSizeToFitWidth = YES;
     self.balanceLabel.minimumScaleFactor = 0.1;
+    self.transactionsTableView.bounces = YES;
+    [self.transactionsTableView setContentInset:UIEdgeInsetsMake(20,0,0,0)];
+    [self.transactionsTableView setScrollIndicatorInsets:[self.transactionsTableView contentInset]];
     
     // Balance
     [self setBalance];
@@ -169,9 +158,10 @@
     NSString *string = [NSString stringWithFormat:@"$%ld",(long)[User currentUser].balance];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
     UIFont *font = self.balanceLabel.font;
-    font = [font fontWithSize:14];
-    [attr addAttributes:@{NSFontAttributeName: font, NSBaselineOffsetAttributeName: @10.} range:NSMakeRange(0,1)];
+    UIColor *color = [ColorUtils mainGreen];
+    [attr addAttributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: color} range:NSMakeRange(0,1)];
     self.balanceLabel.attributedText = attr;
+//    self.balanceLabel.text = string;
 }
 
 
@@ -248,6 +238,15 @@
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"verify_button", nil)]) {
         [self performSegueWithIdentifier:@"Settings From Balance" sender:nil];
     }
+}
+
+// --------------------------------------------
+#pragma mark - UI
+// --------------------------------------------
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 @end
