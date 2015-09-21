@@ -838,6 +838,7 @@
                     </view>
                     <connections>
                         <outlet property="backButton" destination="fHk-iU-afP" id="SK1-8s-HSV"/>
+                        <outlet property="birthdateLabel" destination="sWL-Rt-kre" id="oV8-FQ-Le3"/>
                         <outlet property="businessNameTextField" destination="cXn-8X-OHe" id="01W-cr-63z"/>
                         <outlet property="ddTextfield" destination="VS0-Gd-gJU" id="7lf-zq-NXC"/>
                         <outlet property="entityTypeSegmentedControl" destination="9UU-69-2Gg" id="cCe-lf-dsw"/>
@@ -1735,6 +1736,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="WX6-Iv-dA8"/>
         <segue reference="0bD-CV-jtZ"/>
-        <segue reference="ep0-aD-elO"/>
+        <segue reference="8Kh-LZ-lT7"/>
     </inferredMetricsTieBreakers>
 </document>

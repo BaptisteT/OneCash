@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *yearTextField;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
 @property (weak, nonatomic) IBOutlet UILabel *termsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *birthdateLabel;
 
 @end
 
@@ -210,8 +211,10 @@
     self.businessNameTextField.hidden = isIndividual;
     
     if (isIndividual) {
+        self.birthdateLabel.text = NSLocalizedString(@"birth_date", nil);
         [self.firstNameTextField becomeFirstResponder];
     } else {
+        self.birthdateLabel.text = NSLocalizedString(@"inception_date", nil);
         [self.businessNameTextField becomeFirstResponder];
     }
 }
