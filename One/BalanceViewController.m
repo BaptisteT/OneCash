@@ -161,7 +161,6 @@
     UIColor *color = [ColorUtils mainGreen];
     [attr addAttributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: color} range:NSMakeRange(0,1)];
     self.balanceLabel.attributedText = attr;
-//    self.balanceLabel.text = string;
 }
 
 

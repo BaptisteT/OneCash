@@ -50,13 +50,14 @@
 }
 
 + (void)getNumberOfTransactionsSinceDate:(NSDate *)date
-                                      success:(void(^)(NSInteger count))successBlock
-                                      failure:(void(^)(NSError *error))failureBlock
+                                 success:(void(^)(NSInteger count))successBlock
+                                 failure:(void(^)(NSError *error))failureBlock
 {
     PFQuery *query = [PFQuery queryWithClassName:[Transaction parseClassName]];
     [query fromLocalDatastore];
     [query fromPinWithName:kParseTransactionsName];
     [query whereKey:@"createdAt" greaterThan:date];
+    [query whereKey:@"sender" notEqualTo:[User currentUser]];
     [query setLimit:1000];
     [query findObjectsInBackgroundWithBlock:^(NSArray *transactions, NSError *error) {
         if (!error) {

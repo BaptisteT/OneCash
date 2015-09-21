@@ -17,7 +17,7 @@
 #import <AudioToolbox/AudioServices.h>
 
 
-#define LOCALLOGENABLED YES && GLOBALLOGENABLED
+#define LOCALLOGENABLED NO && GLOBALLOGENABLED
 
 @interface CashView()
 @property (weak, nonatomic) IBOutlet UILabel *centralLabel;
@@ -36,7 +36,9 @@
 
 @end
 
-@implementation CashView
+@implementation CashView {
+    BOOL _decayAnimEnded;
+}
 
 - (void)initWithFrame:(CGRect)frame andDelegate:(id<CashViewDelegateProtocol>)delegate {
     [self setFrame:frame];
@@ -81,15 +83,6 @@
     [self addGestureRecognizer:recognizer];
 }
 
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    
-    // UI
-////    self.layer.cornerRadius = self.frame.size.height / 60;
-//    self.layer.borderColor = [ColorUtils darkGreen].CGColor;
-//    self.layer.borderWidth = 1.f;
-}
-
 - (void)layoutSubviews {
     [super layoutSubviews];
     for (UIView *view in self.subviews) {
@@ -116,7 +109,6 @@
     self.layer.shadowOpacity = 0.2;
     self.removeRecipientButton.hidden = ([self.delegate receiver] == nil);
     self.onboardingLabel.hidden = NO;
-
 }
 
 - (void)setMovingUI {
@@ -187,50 +179,49 @@
     if (translation.y > 0 && self.frame.origin.y > 0) {
         translation.y = translation.y / 10;
     } else if ([self.delegate receiver] == nil) {
-        translation.y = translation.y / 10;
+        translation.y = -MAX(translation.y / 5,5);
         recognizer.view.center = CGPointMake(recognizer.view.center.x, MAX(recognizer.view.center.y + translation.y, ([[UIScreen mainScreen] bounds].size.height - 20)/2));
     } else {
         recognizer.view.center = CGPointMake(recognizer.view.center.x,
                                              recognizer.view.center.y + translation.y * 1.6);
     }
-        
-    
     
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.superview];
         
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        if ([self.delegate receiver] == nil) {
-            [self.delegate showPickRecipientAlert];
-        }
-        
         [self setMovingUI];
         [self.delegate addNewCashSubview];
         self.rads = 0;
-        if ([self.delegate receiver] != nil) {
+        if ([self.delegate receiver] == nil) {
+            [self.delegate showPickRecipientAlert];
+        } else {
+            NSLog(@"%f",translation.y);
+            CGFloat factor = MIN(1,fabs(translation.y)/10);
             if (translation.x < 0) {
-                self.rads = 30;
+                self.rads = 30 * factor;
             } else {
-                self.rads = -30;
+                self.rads = -30 * factor;
             }
             [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
                 self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, DEGREES_TO_RADIANS(self.rads));
-            } completion:^(BOOL finished) {
-            }];
+            } completion:nil];
         }
     }
 
     if(recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateFailed) {
         CGPoint velocity = [recognizer velocityInView:self.superview];
+        velocity.x = 0;
+        velocity.y = (velocity.y > 0 ? 1 : -1) * MAX(5,fabs(velocity.y)) ;
         POPDecayAnimation *positionAnimation = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerPosition];
         positionAnimation.delegate = self;
         positionAnimation.deceleration = 0.992;
         positionAnimation.velocity = [NSValue valueWithCGPoint:velocity];
+        _decayAnimEnded = NO;
         [recognizer.view.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
         recognizer.enabled = YES;
         [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0);
-        } completion:^(BOOL finished) {
-        }];
+            self.transform = CGAffineTransformIdentity;
+        } completion:nil];
     }
 }
 
@@ -251,18 +242,19 @@
 {
     CGPoint currentVelocity = [anim.velocity CGPointValue];
     BOOL flag = self.frame.origin.y + self.frame.size.height <= 0
-                || fabs(currentVelocity.y) < 200;
-    if (flag) {
+                || fabs(currentVelocity.y) < 100;
+    if (flag && !_decayAnimEnded) {
         [self.layer pop_removeAllAnimations];
     }
 }
 
 - (void)pop_animationDidStop:(POPAnimation *)anim finished:(BOOL)finished {
+    _decayAnimEnded = YES;
     OneLog(LOCALLOGENABLED,@"anim did stop");
     if ([anim isKindOfClass:[POPDecayAnimation class]]) {
         if (self.center.y < 0 && [self.delegate receiver] != nil) {
             CGFloat xDirection = self.center.x + (self.center.x - self.initialCenter.x) / (self.center.y - self.initialCenter.y) * (-self.frame.size.height- self.center.y);
-            if (self.frame.origin.x + self.frame.size.height > 0) {
+            if (self.frame.origin.y + self.frame.size.height > 0) {
                 [self moveViewToPoint:CGPointMake(xDirection, -self.frame.size.height)
                              velocity:CGPointMake(100, 100)
                            completion:^void(POPAnimation *anim,BOOL completed) {
