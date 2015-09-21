@@ -58,7 +58,7 @@ static NSInteger const kMaxMessagesLength = 30;
 
 // Sending
 static float const kAssociationTimerDuration = 2.;
-static NSInteger const kAssociationTransactionsLimit = 10;
+static NSInteger const kAssociationTransactionsLimit = 50;
 
 // Settings
 static float const kSettingsHeaderHeight = 25.;

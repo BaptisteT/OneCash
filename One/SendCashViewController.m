@@ -103,7 +103,7 @@
 
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
-    for (int i=0;i<1;i++) [self addNewCashSubview];
+    [self addNewCashSubview];
     
     // Load server data
     [self loadLatestTransactions];
@@ -164,8 +164,6 @@
 - (void)willBecomeActiveCallback {
     // load new transactions
     [self loadLatestTransactions];
-    // Avoid no cashview issue
-    [self resetCashSubiewsStack];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -446,6 +444,9 @@
 - (void)removeCashSubview:(CashView *)view {
     [self.presentedCashViews removeObject:view];
     [view removeFromSuperview];
+    if (self.presentedCashViews.count == 0) {
+        [self resetCashSubiewsStack];
+    }
 }
 
 - (void)resetCashSubiewsStack {
@@ -463,7 +464,7 @@
                 }];
             }
         }
-    } else if (self.presentedCashViews.count < 1) {
+    } else if (self.presentedCashViews.count == 0) {
         [self addNewCashSubview];
     }
 }
