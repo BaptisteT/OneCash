@@ -14,14 +14,14 @@
 @end
 
 //Mixpanel token
-static NSString * const kMixpanelProdToken = @"506506437bc51d99f01653de9a7712b5"; // @"20f7740219db7fca8ccd845ba95c0c0c"; todo BT
+static NSString * const kMixpanelProdToken = @"3fc319f91161a33dab30397701b16f42";
 static NSString * const kMixpanelDevToken =  @"506506437bc51d99f01653de9a7712b5";
 
 // Parse
 static NSString * const kParseDevApplicationId = @"K2INUP4OggQhZYPbONUhuXj20gaPXmg8HLlQQGjx";
 static NSString * const kParseDevClientKey = @"JAmgr9Bu4Oua4bE8fToQshpeNVWDVIrF4cJVMAyz";
-static NSString * const kParseProdApplicationId = @"K2INUP4OggQhZYPbONUhuXj20gaPXmg8HLlQQGjx"; // todo BT
-static NSString * const kParseProdClientKey = @"JAmgr9Bu4Oua4bE8fToQshpeNVWDVIrF4cJVMAyz"; // todo BT
+static NSString * const kParseProdApplicationId = @"kUoVVYKOU1IwRkRJoKoL1xkxWhqHo5tcqYydwhQm";
+static NSString * const kParseProdClientKey = @"jk58nlgw2N8gBVtdOWB05KjPys45Cg4KjMueBmIr";
 
 // Stripe
 static NSString * const kStripeTestPublishableKey = @"pk_test_vJ757snlktvqXQsaVU7XHD4i";

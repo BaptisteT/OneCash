@@ -81,7 +81,7 @@
     BOOL enabled = [self applePayEnabled];
     [TrackingUtils trackEvent:EVENT_APPLE_PAY_CLICKED properties:@{@"enabled": [NSNumber numberWithBool:enabled]}];
     if (!enabled) {
-        [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_unavailable_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_unavailable_error_title", nil)];
+        [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_unavailable_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_unavailable_error_message", nil)];
         return;
     } else {
         [User currentUser].paymentMethod = kPaymentMethodApplePay;

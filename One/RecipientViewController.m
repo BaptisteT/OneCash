@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView *loadingContainer;
 // Users
 @property (strong, nonatomic) NSString *lastStringSearched;
+@property (strong, nonatomic) NSArray *historicUsers;
 @property (strong, nonatomic) NSArray *usersArray;
 
 @end
@@ -77,6 +78,7 @@
     // Show recent users
     [DatastoreManager getRecentUsersAndExecuteSuccess:^(NSArray *users) {
         if (self.recipientTextfield.text.length == 0) {
+            self.historicUsers = users;
             self.usersArray = users;
             [self.recipientsTableView reloadData];
         }
@@ -135,11 +137,10 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(self.recipientTextfield.isFirstResponder) {
+    if(self.recipientTextfield.text.length > 0) {
        return NSLocalizedString(@"search_header", nil);
     }
     return NSLocalizedString(@"recent_header", nil);
-
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -207,7 +208,7 @@
                                              });
                                          } failure:nil];
     } else {
-        self.usersArray = nil;
+        self.usersArray = self.historicUsers;
         [self.recipientsTableView reloadData];
     }
     
