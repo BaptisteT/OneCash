@@ -250,10 +250,7 @@
 - (void)pop_animationDidApply:(POPDecayAnimation *)anim
 {
     CGPoint currentVelocity = [anim.velocity CGPointValue];
-    BOOL flag = self.frame.origin.x <= -50
-                || self.frame.origin.x + self.frame.size.width >= self.superview.frame.size.width + 50
-                || self.frame.origin.y + self.frame.size.height >= self.superview.frame.size.height + 20
-                || self.frame.origin.x + self.frame.size.height <= 0
+    BOOL flag = self.frame.origin.y + self.frame.size.height <= 0
                 || fabs(currentVelocity.y) < 200;
     if (flag) {
         [self.layer pop_removeAllAnimations];

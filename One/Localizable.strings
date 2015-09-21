@@ -46,6 +46,7 @@
 // Send
 "balance_button" = "Balance";
 "send_controller_title" = "Swipe up to tip $1";
+"no_receiver_red_bar" = "Pick a recipient first by tapping the + icon";
 "no_receiver_title" = "We can't send this dollar";
 "no_receiver_message" = "Please pick a recipient!";
 "no_card_title" = "Your 1$ tip hasn’t been sent";

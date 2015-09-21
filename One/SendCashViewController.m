@@ -66,6 +66,7 @@
     
     // Wording
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
+    self.pickRecipientAlertLabel.text = NSLocalizedString(@"no_receiver_red_bar", nil);
     [self setSelectedUser:nil];
 
     // UI
