@@ -24,7 +24,6 @@
 "invalid_email_title" = "Ooops";
 "invalid_email_message" = "Your email seems invalid.";
 "save_email_error_title" = "Sorry, we could not save your email";
-"save_email_error_message" = "Please, try again.";
 
 // Card
 "later_" = "Not now";
