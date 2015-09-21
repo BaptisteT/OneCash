@@ -19,11 +19,11 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIs-2T-fh6">
                     <rect key="frame" x="15" y="3" width="570" height="54"/>
                     <fontDescription key="fontDescription" name="NHaasGroteskDSPro-65Md" family="Neue Haas Grotesk Display Pro" pointSize="17"/>
-                    <color key="textColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.32030925497777896" green="1" blue="0.16362500900912269" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="LIs-2T-fh6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="4PX-do-MMX"/>
                 <constraint firstAttribute="bottom" secondItem="LIs-2T-fh6" secondAttribute="bottom" constant="3" id="K4N-PN-Dez"/>

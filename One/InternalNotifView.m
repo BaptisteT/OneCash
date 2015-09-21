@@ -39,8 +39,8 @@
     [self addGestureRecognizer:swipeGesture];
     
     // IO
-    self.notifLabel.textColor = [ColorUtils mainGreen];
-    [DesignUtils addBottomBorder:self borderSize:1 color:[ColorUtils mainGreen]];
+    self.backgroundColor = [ColorUtils mainGreen];
+    [DesignUtils addBottomBorder:self borderSize:1 color:[ColorUtils darkGreen]];
 }
 
 // Navigate to chat

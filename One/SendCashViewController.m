@@ -80,7 +80,7 @@
     self.balanceButton.layer.borderWidth = 0.5f;
     self.balanceButton.layer.borderColor = [ColorUtils lightBlack].CGColor;
     self.balanceButton.layer.zPosition = -9999;
-    [[User currentUser] setAvatarInButton:self.balanceButton];
+    [[User currentUser] setAvatarInButton:self.balanceButton bigSize:NO];
     self.balanceBadge.layer.borderWidth = 2.f;
     self.balanceBadge.layer.borderColor = [UIColor whiteColor].CGColor;
     self.balanceBadge.layer.zPosition = -999;

@@ -51,6 +51,7 @@
     // init
     _layoutFlag = YES;
     self.transactions = [NSMutableArray new];
+    [DatastoreManager setLastBalanceOpeningDate:[NSDate date]];
     
     // Wording
     [self.closeButton setTitle:NSLocalizedString(@"close_button", nil) forState:UIControlStateNormal];
@@ -101,6 +102,11 @@
     [super viewWillAppear:animated];
     // Load transactions
     [self loadLatestTransactionsLocally];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.transactionsTableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -161,7 +167,6 @@
     UIColor *color = [ColorUtils mainGreen];
     [attr addAttributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: color} range:NSMakeRange(0,1)];
     self.balanceLabel.attributedText = attr;
-//    self.balanceLabel.text = string;
 }
 
 

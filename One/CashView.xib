@@ -192,7 +192,7 @@
                         <constraint firstAttribute="width" constant="42" id="gwt-re-9Sj"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="ProximaNova-Black" family="Proxima Nova" pointSize="30"/>
-                    <color key="textColor" red="0.11551640220000001" green="0.82181889959999999" blue="0.2544996732" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tp8-8B-loE">
@@ -281,10 +281,14 @@
                 <outlet property="addRecipientButton" destination="1kG-KT-NtS" id="jOI-O0-yJg"/>
                 <outlet property="centralLabel" destination="kiW-wc-Bfo" id="m9j-vx-9Le"/>
                 <outlet property="dollarLabel" destination="unO-AI-qNM" id="jgf-T8-prh"/>
+                <outlet property="leftBottomOne" destination="kd1-W6-B96" id="2kp-gy-Qbq"/>
+                <outlet property="leftUpOne" destination="VE5-cK-4jk" id="Bxg-mP-hFB"/>
                 <outlet property="messageTextField" destination="PPO-Xc-say" id="cya-eh-AF3"/>
                 <outlet property="onboardingLabel" destination="rYs-XC-1QF" id="C7y-zh-kxt"/>
                 <outlet property="overlayView" destination="caw-zl-TVz" id="j51-b8-dMM"/>
                 <outlet property="removeRecipientButton" destination="bNi-9O-9ix" id="p3O-aI-v2z"/>
+                <outlet property="rightBottomOne" destination="bCr-hq-JjO" id="nH1-h9-sEC"/>
+                <outlet property="rightUpOne" destination="Tp8-8B-loE" id="a06-f9-Lox"/>
                 <outlet property="userPictureImageView" destination="Ifu-te-Mtz" id="OED-9M-eYi"/>
                 <outlet property="usernameLabel" destination="gXJ-Ny-gIe" id="DA1-2j-kuH"/>
             </connections>

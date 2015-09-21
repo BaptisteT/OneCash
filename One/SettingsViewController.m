@@ -265,7 +265,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
                                                                           });
                                                                       } failure:^(NSError *error) {
                                                                           [DesignUtils hideProgressHUDForView:self.view];
-                                                                          [GeneralUtils showAlertWithTitle:NSLocalizedString(@"save_email_error_title", nil) andMessage:NSLocalizedString(@"save_email_error_message", nil)];
+                                                                          [GeneralUtils showAlertWithTitle:NSLocalizedString(@"save_email_error_title", nil) andMessage:[error.userInfo valueForKey:@"error"]];
                                                                       }];
                                                                   }];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil) style:UIAlertActionStyleCancel handler:nil];
