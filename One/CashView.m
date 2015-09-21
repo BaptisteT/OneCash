@@ -189,6 +189,7 @@
     [recognizer setTranslation:CGPointMake(0, 0) inView:self.superview];
         
     if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [self.messageTextField resignFirstResponder];
         [self setMovingUI];
         [self.delegate addNewCashSubview];
         self.rads = 0;

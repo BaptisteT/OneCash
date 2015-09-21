@@ -120,5 +120,12 @@
     }];
 }
 
-
+// --------------------------------------------
+#pragma mark - Clean local data
+// --------------------------------------------
++ (void)cleanLocalData {
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    [PFObject unpinAllObjectsInBackgroundWithName:kParseTransactionsName];
+}
 @end

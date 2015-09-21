@@ -27,4 +27,7 @@
 + (NSDate *)getLastBalanceOpening;
 
 + (void)setLastBalanceOpeningDate:(NSDate *)date;
+
++ (void)cleanLocalData;
+
 @end

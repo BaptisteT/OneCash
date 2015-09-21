@@ -6,10 +6,12 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 
-#import "ImageCache.h"
+
+#import "DatastoreManager.h"
 #import "User.h"
 
 #import "ConstantUtils.h"
+#import "ImageCache.h"
 
 @interface User()
 @property (nonatomic, strong) UIImage *userPicture;
@@ -49,19 +51,20 @@
     } else {
         CGSize rescaleSize = {kDisplayedPictureSize, kDisplayedPictureSize};
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
-                                              size:rescaleSize
-                                              mode:UIViewContentModeScaleAspectFill
-                                    availableBlock:^(UIImage *image) {
+                                          size:rescaleSize
+                                          mode:UIViewContentModeScaleAspectFill
+                                availableBlock:^(UIImage *image) {
                                         if (image) {
                                             self.userPicture = image;
                                             [imageView setImage:image];
                                         }
-                                    }];
+                                }];
     }
 }
 
 // Set avatar in button
 - (void)setAvatarInButton:(UIButton *)button {
+    [button setImage:nil forState:UIControlStateNormal];
     button.contentMode = UIViewContentModeScaleAspectFill;
     if (self.userPicture) {
         [button setImage:self.userPicture forState:UIControlStateNormal];
@@ -88,6 +91,7 @@
 }
 
 + (void)logOut {
+    [DatastoreManager cleanLocalData];
     [super logOut];
 }
 
