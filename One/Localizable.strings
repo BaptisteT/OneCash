@@ -53,12 +53,14 @@
 "add_button" = "Add";
 "sending_label" = "$%lu";
 "sent_label" = "Sent!";
-"failed_label" = "Fail (%lu) ! Transaction cancelled";
+"failed_label" = "Fail (%lu)";
 
 // APple pay
 "apple_pay_item" = "OneCash @%@";
 "apple_pay_unavailable_error_title" = "Apple pay is not available on your device.";
 "apple_pay_unavailable_error_message" = "Please, enter your card information manually.";
+"apple_pay_runtime_error_title" = "PassKit Payment Error";
+"apple_pay_runtime_error_message" = "The device cannot make payment at this time. Please check Passbook has Valid Credit Card or add a credit card manually in your settings.";
 
 // Balance
 "close_button" = "Close";

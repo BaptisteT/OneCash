@@ -57,7 +57,7 @@ static NSString * const kParseUsersName = @"OneUsers";
 static NSInteger const kMaxMessagesLength = 30;
 
 // Sending
-static float const kAssociationTimerDuration = 1.;
+static float const kAssociationTimerDuration = 2.;
 static NSInteger const kAssociationTransactionsLimit = 10;
 
 // Settings
