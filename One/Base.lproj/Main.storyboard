@@ -1156,15 +1156,15 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UgK-Uj-hZ5">
-                                        <rect key="frame" x="285.5" y="30" width="29" height="17"/>
-                                        <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
+                                        <rect key="frame" x="283" y="28" width="34" height="20"/>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="UgK-Uj-hZ5" firstAttribute="top" secondItem="51c-2q-6W9" secondAttribute="top" constant="30" id="9PE-21-P63"/>
+                                    <constraint firstItem="UgK-Uj-hZ5" firstAttribute="top" secondItem="51c-2q-6W9" secondAttribute="top" constant="28" id="9PE-21-P63"/>
                                     <constraint firstAttribute="centerY" secondItem="bQt-cW-QaX" secondAttribute="centerY" constant="-23" id="b5d-dL-SEh"/>
                                     <constraint firstItem="UgK-Uj-hZ5" firstAttribute="centerX" secondItem="51c-2q-6W9" secondAttribute="centerX" id="d3x-Lt-Zzy"/>
                                     <constraint firstAttribute="centerX" secondItem="bQt-cW-QaX" secondAttribute="centerX" id="nmU-n4-M6E"/>
@@ -1741,7 +1741,7 @@
         <image name="stripe_icon" width="119" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Kh-LZ-lT7"/>
+        <segue reference="ep0-aD-elO"/>
         <segue reference="WX6-Iv-dA8"/>
         <segue reference="0bD-CV-jtZ"/>
     </inferredMetricsTieBreakers>
