@@ -101,6 +101,8 @@
 "business_name_placeholder" = "Company name";
 "first_name_placeholder" = "First name";
 "last_name_placeholder" = "Last name";
+"birth_date" = "Birthdate";
+"inception_date" = "Creation Date";
 "stripe_terms_label" = "By registering your account, you agree to the %@.";
 "stripe_connected_account" = "Stripe Connected Account Agreement";
 "no_first_name_message" = "First name is missing, we need this information to proceed.";
