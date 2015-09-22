@@ -40,7 +40,6 @@
     
     // IO
     self.backgroundColor = [ColorUtils mainGreen];
-    [DesignUtils addBottomBorder:self borderSize:1 color:[ColorUtils darkGreen]];
 }
 
 // Navigate to chat

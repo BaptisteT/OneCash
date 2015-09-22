@@ -34,6 +34,9 @@
     self.backButton.backgroundColor = [ColorUtils mainGreen];
     self.backButton.layer.cornerRadius = self.backButton.frame.size.height / 2;
     self.titleLabel.textColor = [ColorUtils mainGreen];
+    self.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:self.titleLabel.font.pointSize];
+    self.howToTextView.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
+
 }
 
 

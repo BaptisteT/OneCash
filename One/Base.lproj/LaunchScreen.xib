@@ -11,29 +11,25 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeBills" translatesAutoresizingMaskIntoConstraints="NO" id="DVW-3A-mfq">
-                    <rect key="frame" x="20" y="80" width="559" height="357"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="1Kx-IA-UhC">
+                    <rect key="frame" x="227" y="227" width="146" height="146"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="146" id="1Di-AY-PYd"/>
+                        <constraint firstAttribute="width" constant="146" id="NtG-Wq-5YE"/>
+                    </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.21568627450980393" green="0.89803921568627454" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.050980392156862744" green="0.94117647058823528" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="DVW-3A-mfq" secondAttribute="centerX" id="1tM-ka-Tpf"/>
-                <constraint firstItem="DVW-3A-mfq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="80" id="PFl-fx-jSV"/>
-                <constraint firstItem="DVW-3A-mfq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="hgQ-Un-npc"/>
-                <constraint firstAttribute="bottom" secondItem="DVW-3A-mfq" secondAttribute="bottom" constant="163" id="hw3-PP-5zI"/>
-                <constraint firstItem="DVW-3A-mfq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="zGL-jM-t2c"/>
+                <constraint firstItem="1Kx-IA-UhC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0Dj-dH-tZf"/>
+                <constraint firstItem="1Kx-IA-UhC" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gth-Wf-qMJ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="hgQ-Un-npc"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
     <resources>
-        <image name="HomeBills" width="273" height="450"/>
+        <image name="logo" width="300" height="300"/>
     </resources>
 </document>

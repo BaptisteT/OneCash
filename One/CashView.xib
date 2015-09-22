@@ -6,11 +6,11 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="ProximaNova-Black.otf">
-            <string>ProximaNova-Black</string>
-            <string>ProximaNova-Black</string>
-            <string>ProximaNova-Black</string>
-            <string>ProximaNova-Black</string>
+        <mutableArray key="ProximaNova-Bold.otf">
+            <string>ProximaNova-Bold</string>
+            <string>ProximaNova-Bold</string>
+            <string>ProximaNova-Bold</string>
+            <string>ProximaNova-Bold</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Light.otf">
             <string>ProximaNova-Light</string>
@@ -191,7 +191,7 @@
                         <constraint firstAttribute="height" constant="42" id="NnT-AJ-Tpc"/>
                         <constraint firstAttribute="width" constant="42" id="gwt-re-9Sj"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="ProximaNova-Black" family="Proxima Nova" pointSize="30"/>
+                    <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="30"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -201,7 +201,7 @@
                         <constraint firstAttribute="width" constant="42" id="ILu-BT-U8z"/>
                         <constraint firstAttribute="height" constant="42" id="N6h-Ze-Glo"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="ProximaNova-Black" family="Proxima Nova" pointSize="30"/>
+                    <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="30"/>
                     <color key="textColor" red="0.11551640215566489" green="0.8218188996010638" blue="0.25449967323059453" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -211,7 +211,7 @@
                         <constraint firstAttribute="height" constant="42" id="dSb-XQ-jfT"/>
                         <constraint firstAttribute="width" constant="42" id="sAK-vy-UEu"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="ProximaNova-Black" family="Proxima Nova" pointSize="30"/>
+                    <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="30"/>
                     <color key="textColor" red="0.11551640220000001" green="0.82181889959999999" blue="0.2544996732" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -221,7 +221,7 @@
                         <constraint firstAttribute="width" constant="42" id="Ohu-pB-lc9"/>
                         <constraint firstAttribute="height" constant="42" id="etL-X9-lMr"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="ProximaNova-Black" family="Proxima Nova" pointSize="30"/>
+                    <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="30"/>
                     <color key="textColor" red="0.11551640220000001" green="0.82181889959999999" blue="0.2544996732" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>

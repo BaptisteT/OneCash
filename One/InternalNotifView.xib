@@ -5,8 +5,8 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="NHaasGroteskDSPro-65Md.ttf">
-            <string>NHaasGroteskDSPro-65Md</string>
+        <mutableArray key="ProximaNova-Regular.otf">
+            <string>ProximaNova-Regular</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -17,15 +17,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIs-2T-fh6">
-                    <rect key="frame" x="15" y="3" width="570" height="54"/>
-                    <fontDescription key="fontDescription" name="NHaasGroteskDSPro-65Md" family="Neue Haas Grotesk Display Pro" pointSize="17"/>
+                    <rect key="frame" x="15" y="14" width="570" height="43"/>
+                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="0.32030925497777896" green="1" blue="0.16362500900912269" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="LIs-2T-fh6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="4PX-do-MMX"/>
+                <constraint firstItem="LIs-2T-fh6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="4PX-do-MMX"/>
                 <constraint firstAttribute="bottom" secondItem="LIs-2T-fh6" secondAttribute="bottom" constant="3" id="K4N-PN-Dez"/>
                 <constraint firstItem="LIs-2T-fh6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="LNK-qB-dVq"/>
                 <constraint firstAttribute="centerX" secondItem="LIs-2T-fh6" secondAttribute="centerX" id="ZAt-s9-JaJ"/>
@@ -34,6 +34,7 @@
             <connections>
                 <outlet property="notifLabel" destination="LIs-2T-fh6" id="vVX-aZ-JXY"/>
             </connections>
+            <point key="canvasLocation" x="348" y="302"/>
         </view>
     </objects>
 </document>
