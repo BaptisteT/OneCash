@@ -614,7 +614,7 @@
         self.arrowImageView.hidden = YES;
         self.titleLabel.layer.borderColor = [ColorUtils veryDarkGreen].CGColor;
         self.titleLabel.backgroundColor = [ColorUtils darkGreen];
-        self.titleLabel.font = [UIFont systemFontOfSize:30];
+        self.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:30];
         self.titleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"sending_label", nil),_ongoingTransactionsCount];
         self.titleLabel.hidden = NO;
         self.spinImageView.hidden = NO;
@@ -624,7 +624,7 @@
         [self.spinImageView.layer removeAllAnimations];
         self.titleLabel.layer.borderColor = [ColorUtils darkGreen].CGColor;
         self.titleLabel.backgroundColor = [ColorUtils mainGreen];
-        self.titleLabel.font = [UIFont systemFontOfSize:20];
+        self.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
         self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
         [NSTimer scheduledTimerWithTimeInterval:2.0
                                          target:self

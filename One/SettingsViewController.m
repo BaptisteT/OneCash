@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 @property (weak, nonatomic) IBOutlet UITableView *settingsTableView;
 @property (strong, nonatomic) NSArray *customerCards;
 @property (nonatomic) NSInteger tweetCellHeight;
+@property (strong, nonatomic) IBOutlet UIView *topBarView;
 
 @end
 
@@ -54,8 +55,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     self.tweetCellHeight = kSettingsCellHeight;
     
     // UI
-    [self.backButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
-    self.titleLabel.textColor = [ColorUtils mainGreen];
+    self.topBarView.backgroundColor = [ColorUtils mainGreen];
     
     // Wording
     [self.backButton setTitle:NSLocalizedString(@"back_button", nil) forState:UIControlStateNormal];
@@ -164,14 +164,18 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CardCell"];
             cell.textLabel.text = user.paymentMethod == kPaymentMethodNone ? NSLocalizedString(@"no_card_section", nil) : NSLocalizedString(@"card_section", nil);
             cell.backgroundColor = [ColorUtils mainGreen];
+            cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
+            cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
             return cell;
         } else {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
             cell.textLabel.textColor = [UIColor lightGrayColor];
             if ([User currentUser].paymentMethod == kPaymentMethodApplePay) {
                 cell.textLabel.text = @"Apple Pay";
+                cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
             } else if (self.customerCards && self.customerCards.count > 0) {
                 cell.textLabel.text = [NSString stringWithFormat:@"XXX XXXX XXXX %@",self.customerCards[0][@"last4"]];
+                cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
             }
             return cell;
         }
@@ -194,7 +198,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
         } else {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
             cell.textLabel.textColor = [UIColor lightGrayColor];
-            cell.textLabel.font = [UIFont systemFontOfSize:12];
+            cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:15];
             cell.textLabel.text = NSLocalizedString(@"pin_section_details", nil);
             return cell;
         }
@@ -203,23 +207,29 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
         if (indexPath.row == 0) {
             cell.textLabel.text = user.email;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
         } else if (indexPath.row == 1) {
             cell.textLabel.text = NSLocalizedString(@"verify_email", nil);
             cell.textLabel.textColor = [ColorUtils red];
+            cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
+
         }
         return cell;
     } else if (indexPath.section == kSupportSection) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = NSLocalizedString(@"support_section", nil);
+        cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
         return cell;
     } else if (indexPath.section == kShareSection) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = NSLocalizedString(@"share_section", nil);
+        cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
         return cell;
     } else if (indexPath.section == kLogoutSection) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = NSLocalizedString(@"logout_section", nil);
         cell.textLabel.textColor = [ColorUtils red];
+        cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
         // Remove seperator inset
         if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
             [cell setSeparatorInset:UIEdgeInsetsZero];
@@ -319,6 +329,8 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     [self.view endEditing:YES];
 }
 
+
+
 // --------------------------------------------
 #pragma mark - TweetTVC protocol
 // --------------------------------------------
@@ -360,6 +372,15 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
         && [[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"yes_button_title", nil)]) {
         [self.delegate logoutUser];
     }
+}
+
+// --------------------------------------------
+#pragma mark - Misc
+// --------------------------------------------
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 @end
