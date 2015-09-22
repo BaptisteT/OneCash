@@ -748,7 +748,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="dd" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VS0-Gd-gJU">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="mm" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VS0-Gd-gJU">
                                 <rect key="frame" x="246" y="294" width="51" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="LJV-qo-Edr"/>
@@ -766,7 +766,7 @@
                                 <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="mm" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w00-vc-DN9">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="dd" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w00-vc-DN9">
                                 <rect key="frame" x="314" y="294" width="51" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="51" id="DuU-XM-66o"/>
@@ -927,11 +927,11 @@
                         <outlet property="backButton" destination="fHk-iU-afP" id="SK1-8s-HSV"/>
                         <outlet property="birthdateLabel" destination="sWL-Rt-kre" id="oV8-FQ-Le3"/>
                         <outlet property="businessNameTextField" destination="cXn-8X-OHe" id="01W-cr-63z"/>
-                        <outlet property="ddTextfield" destination="VS0-Gd-gJU" id="7lf-zq-NXC"/>
+                        <outlet property="dayTextField" destination="w00-vc-DN9" id="xWI-cm-FFV"/>
                         <outlet property="entityTypeSegmentedControl" destination="9UU-69-2Gg" id="cCe-lf-dsw"/>
                         <outlet property="firstNameTextField" destination="OoB-DZ-qZQ" id="vf3-5w-vMh"/>
                         <outlet property="lastNameTextField" destination="fBT-Jn-aHL" id="mTy-KX-1w0"/>
-                        <outlet property="monthTextField" destination="w00-vc-DN9" id="PC3-X5-46y"/>
+                        <outlet property="monthTextfield" destination="VS0-Gd-gJU" id="a6z-Hq-TIF"/>
                         <outlet property="registerButton" destination="lzO-ux-Wct" id="SZK-Z1-uBO"/>
                         <outlet property="termsLabel" destination="tMF-wh-TUU" id="cRo-pi-XsK"/>
                         <outlet property="titleLabel" destination="Gaw-ph-Xpz" id="gHv-BI-y26"/>
@@ -1033,7 +1033,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Znt-64-xfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5694" y="-448"/>
+            <point key="canvasLocation" x="5794" y="-438"/>
         </scene>
         <!--Balance View Controller-->
         <scene sceneID="AuI-ZF-ZQB">
@@ -1828,8 +1828,8 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0bD-CV-jtZ"/>
         <segue reference="CWh-84-eC0"/>
-        <segue reference="ep0-aD-elO"/>
+        <segue reference="0bD-CV-jtZ"/>
+        <segue reference="8Kh-LZ-lT7"/>
     </inferredMetricsTieBreakers>
 </document>

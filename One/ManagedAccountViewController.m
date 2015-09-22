@@ -27,8 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *businessNameTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *entityTypeSegmentedControl;
-@property (weak, nonatomic) IBOutlet UITextField *ddTextfield;
-@property (weak, nonatomic) IBOutlet UITextField *monthTextField;
+@property (weak, nonatomic) IBOutlet UITextField *dayTextField;
+@property (weak, nonatomic) IBOutlet UITextField *monthTextfield;
 @property (weak, nonatomic) IBOutlet UITextField *yearTextField;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
 @property (weak, nonatomic) IBOutlet UILabel *termsLabel;
@@ -77,23 +77,17 @@
     self.entityTypeSegmentedControl.layer.borderColor = [UIColor whiteColor].CGColor;
     self.entityTypeSegmentedControl.layer.borderWidth = 1.0f;
     [DesignUtils addBottomBorder:self.firstNameTextField borderSize:0.5f color:[ColorUtils lightBlack]];
-    [self.firstNameTextField setValue:[ColorUtils lightBlack]
-                          forKeyPath:@"_placeholderLabel.textColor"];
+    [self.firstNameTextField setValue:[ColorUtils lightBlack] forKeyPath:@"_placeholderLabel.textColor"];
     [DesignUtils addBottomBorder:self.lastNameTextField borderSize:0.5f color:[ColorUtils lightBlack]];
-    [self.lastNameTextField setValue:[ColorUtils lightBlack]
-                          forKeyPath:@"_placeholderLabel.textColor"];
-    [DesignUtils addBottomBorder:self.ddTextfield borderSize:0.5f color:[ColorUtils lightBlack]];
-    [self.ddTextfield setValue:[ColorUtils lightBlack]
-                           forKeyPath:@"_placeholderLabel.textColor"];
-    [DesignUtils addBottomBorder:self.monthTextField borderSize:0.5f color:[ColorUtils lightBlack]];
-    [self.monthTextField setValue:[ColorUtils lightBlack]
-                           forKeyPath:@"_placeholderLabel.textColor"];
+    [self.lastNameTextField setValue:[ColorUtils lightBlack] forKeyPath:@"_placeholderLabel.textColor"];
+    [DesignUtils addBottomBorder:self.dayTextField borderSize:0.5f color:[ColorUtils lightBlack]];
+    [self.dayTextField setValue:[ColorUtils lightBlack] forKeyPath:@"_placeholderLabel.textColor"];
+    [DesignUtils addBottomBorder:self.monthTextfield borderSize:0.5f color:[ColorUtils lightBlack]];
+    [self.monthTextfield setValue:[ColorUtils lightBlack] forKeyPath:@"_placeholderLabel.textColor"];
     [DesignUtils addBottomBorder:self.yearTextField borderSize:0.5f color:[ColorUtils lightBlack]];
-    [self.yearTextField setValue:[ColorUtils lightBlack]
-                           forKeyPath:@"_placeholderLabel.textColor"];
+    [self.yearTextField setValue:[ColorUtils lightBlack] forKeyPath:@"_placeholderLabel.textColor"];
     [DesignUtils addBottomBorder:self.businessNameTextField borderSize:0.5f color:[ColorUtils lightBlack]];
-    [self.businessNameTextField setValue:[ColorUtils lightBlack]
-                      forKeyPath:@"_placeholderLabel.textColor"];
+    [self.businessNameTextField setValue:[ColorUtils lightBlack] forKeyPath:@"_placeholderLabel.textColor"];
     self.registerButton.layer.cornerRadius = self.registerButton.frame.size.height / 2;
     self.registerButton.backgroundColor = [ColorUtils mainGreen];
 
@@ -101,8 +95,8 @@
     self.firstNameTextField.delegate = self;
     self.lastNameTextField.delegate = self;
     self.businessNameTextField.delegate = self;
-    self.ddTextfield.delegate = self;
-    self.monthTextField.delegate = self;
+    self.dayTextField.delegate = self;
+    self.monthTextfield.delegate = self;
     self.yearTextField.delegate = self;
     
     // Tap gesture
@@ -158,20 +152,20 @@
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];
     [components setYear:[self.yearTextField.text integerValue]];
-    [components setMonth:[self.monthTextField.text integerValue]];
-    [components setDay:[self.ddTextfield.text integerValue]];
+    [components setMonth:[self.monthTextfield.text integerValue]];
+    [components setDay:[self.dayTextField.text integerValue]];
     NSDate *date = [gregorianCalendar dateFromComponents:components];
-    if (!date || [date compare:[NSDate date]] == NSOrderedDescending || self.yearTextField.text.length != 4 || self.monthTextField.text.length > 2 || self.ddTextfield.text.length > 2) {
+    if (!date || [date compare:[NSDate date]] == NSOrderedDescending || self.yearTextField.text.length != 4 || self.monthTextfield.text.length > 2 || self.dayTextField.text.length > 2) {
         [GeneralUtils showAlertWithTitle:nil andMessage:NSLocalizedString(@"invalid_date", nil)];
-        [self.ddTextfield becomeFirstResponder];
-        self.ddTextfield.text = @"";
-        self.monthTextField.text = @"";
+        [self.monthTextfield becomeFirstResponder];
+        self.dayTextField.text = @"";
+        self.monthTextfield.text = @"";
         self.yearTextField.text = @"";
         return;
     }
     
-    parameters[@"birthDay"] = self.ddTextfield.text;
-    parameters[@"birthMonth"] = self.monthTextField.text;
+    parameters[@"birthDay"] = self.dayTextField.text;
+    parameters[@"birthMonth"] = self.monthTextfield.text;
     parameters[@"birthYear"] = self.yearTextField.text;
 
     // Add ip
@@ -229,19 +223,19 @@
         if (self.firstNameTextField.isFirstResponder) {
             [self.lastNameTextField becomeFirstResponder];
         } else if (self.lastNameTextField.isFirstResponder || self.businessNameTextField.isFirstResponder) {
-            [self.ddTextfield becomeFirstResponder];
-        } else if (self.ddTextfield.isFirstResponder && self.ddTextfield.text.length == 2) {
-            [self.monthTextField becomeFirstResponder];
-        } else if (self.monthTextField.isFirstResponder && self.monthTextField.text.length == 2) {
+            [self.monthTextfield becomeFirstResponder];
+        } else if (self.monthTextfield.isFirstResponder && self.monthTextfield.text.length == 2) {
+            [self.dayTextField becomeFirstResponder];
+        } else if (self.dayTextField.isFirstResponder && self.dayTextField.text.length == 2) {
             [self.yearTextField becomeFirstResponder];
         } else if (self.yearTextField.isFirstResponder && self.yearTextField.text.length == 4) {
             [self.yearTextField resignFirstResponder];
         }
     } else {
         textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        if (self.ddTextfield.isFirstResponder && self.ddTextfield.text.length == 2) {
-            [self.monthTextField becomeFirstResponder];
-        } else if (self.monthTextField.isFirstResponder && self.monthTextField.text.length == 2) {
+        if (self.monthTextfield.isFirstResponder && self.monthTextfield.text.length == 2) {
+            [self.dayTextField becomeFirstResponder];
+        } else if (self.dayTextField.isFirstResponder && self.dayTextField.text.length == 2) {
             [self.yearTextField becomeFirstResponder];
         } else if (self.yearTextField.isFirstResponder && self.yearTextField.text.length == 4) {
             [self.yearTextField resignFirstResponder];
