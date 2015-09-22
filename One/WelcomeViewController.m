@@ -45,6 +45,9 @@
     [self.loginButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.howToButton.layer.cornerRadius = self.howToButton.frame.size.height / 2;
     [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    
+    // todo BT
+    self.howToButton.hidden = YES;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

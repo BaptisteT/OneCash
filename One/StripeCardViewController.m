@@ -88,6 +88,7 @@
     card.expMonth = self.paymentTextField.expirationMonth;
     card.expYear = self.paymentTextField.expirationYear;
     card.cvc = self.paymentTextField.cvc;
+    card.currency = @"usd";
     [[STPAPIClient sharedClient] createTokenWithCard:card
                                           completion:^(STPToken *token, NSError *error) {
                                               dispatch_async(dispatch_get_main_queue(), ^{

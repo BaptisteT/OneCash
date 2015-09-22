@@ -217,7 +217,6 @@
 #pragma mark - Textfield delegate
 // --------------------------------------------
 
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([string isEqualToString:@"\n"]) {
         if (self.firstNameTextField.isFirstResponder) {
@@ -229,6 +228,7 @@
         } else if (self.dayTextField.isFirstResponder && self.dayTextField.text.length == 2) {
             [self.yearTextField becomeFirstResponder];
         } else if (self.yearTextField.isFirstResponder && self.yearTextField.text.length == 4) {
+            [self iphone4MoveViewDown];
             [self.yearTextField resignFirstResponder];
         }
     } else {
@@ -238,10 +238,31 @@
         } else if (self.dayTextField.isFirstResponder && self.dayTextField.text.length == 2) {
             [self.yearTextField becomeFirstResponder];
         } else if (self.yearTextField.isFirstResponder && self.yearTextField.text.length == 4) {
+            [self iphone4MoveViewDown];
             [self.yearTextField resignFirstResponder];
         }
     }
     return NO;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (textField == self.monthTextfield || textField == self.dayTextField|| textField == self.yearTextField) {
+        [self iphone4MoveViewUp];
+    } else {
+        [self iphone4MoveViewDown];
+    }
+}
+
+- (void)iphone4MoveViewUp {
+    if (IS_IPHONE_4_OR_LESS) {
+        self.view.frame = CGRectMake(self.view.frame.origin.x, -80, self.view.frame.size.width, self.view.frame.size.height);
+    }
+}
+
+- (void)iphone4MoveViewDown {
+    if (IS_IPHONE_4_OR_LESS) {
+        self.view.frame = CGRectMake(self.view.frame.origin.x,0, self.view.frame.size.width, self.view.frame.size.height);
+    }
 }
 
 // --------------------------------------------

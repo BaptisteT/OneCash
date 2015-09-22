@@ -59,9 +59,9 @@
     // Payment Textfield
     self.paymentTextField = [[STPPaymentCardTextField alloc] initWithFrame:CGRectMake(15, 10, CGRectGetWidth(self.view.frame) - 60, 40)];
     self.paymentTextField.delegate = self;
-    self.addCardButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 40, 10, 30, 30)];
+    self.addCardButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame) - 40, 15, 30, 30)];
     self.addCardButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.addCardButton setImage:[UIImage imageNamed:@"verified_user"] forState:UIControlStateNormal];
+    [self.addCardButton setImage:[UIImage imageNamed:@"right_arrow"] forState:UIControlStateNormal];
     [self.addCardButton addTarget:self action:@selector(generateTokenAndCreateCard) forControlEvents:UIControlEventTouchUpInside];
     
     // Get accounts

@@ -37,7 +37,8 @@
     CGRect afterKeyboardRect = [afterValue CGRectValue];
     
     CGRect newTextViewFrame = topView.frame;
-    newTextViewFrame.origin.y = afterKeyboardRect.origin.y - newTextViewFrame.size.height + (newTextViewFrame.size.height / 6);
+    // very bad coding
+    newTextViewFrame.origin.y = afterKeyboardRect.origin.y - newTextViewFrame.size.height + (newTextViewFrame.size.height / 8);
     
     // Get the duration of the animation.
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];

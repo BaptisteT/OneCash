@@ -75,6 +75,11 @@
     // First responder
     self.emailTextField.delegate = self;
     [self.emailTextField becomeFirstResponder];
+    
+    // Iphone 4
+    if (IS_IPHONE_4_OR_LESS) {
+        self.termsLabel.hidden = YES;
+    }
 }
 
 

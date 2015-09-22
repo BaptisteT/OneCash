@@ -64,3 +64,4 @@ static NSInteger const kAssociationTransactionsLimit = 50;
 static float const kSettingsHeaderHeight = 25.;
 static float const kSettingsCellHeight = 50.;
 static float const kMaxTweetLength = 120.;
+
