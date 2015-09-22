@@ -250,7 +250,7 @@
 
 - (void)generateTokenAndSendTransaction {
     if (self.transactionToSend) {
-        if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
+        if ([User currentUser].balance - self.ongoingTransactionsCount < 0 && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
             if (!self.applePaySendingTransaction) {
                 [self beginApplePay:self.transactionToSend];
                  self.transactionToSend = nil;
@@ -296,17 +296,14 @@
 // --------------------------------------------
 
 - (void)beginApplePay:(Transaction *)transaction {
-    if (self.applePaySendingTransaction) {
-        return;
-    }
     self.applePaySucceeded = NO;
     self.applePaySendingTransaction = transaction;
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
-
+    NSInteger valueToWithdraw = self.ongoingTransactionsCount - [User currentUser].balance;
+    NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:valueToWithdraw];
+    paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:[NSString stringWithFormat:NSLocalizedString(@"apple_pay_item", nil),transaction.receiver.caseUsername] amount:amount]];
+    
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
-        NSInteger valueToWithdraw = self.ongoingTransactionsCount - [User currentUser].balance;
-        NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:valueToWithdraw];
-        paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:[NSString stringWithFormat:NSLocalizedString(@"apple_pay_item", nil),transaction.receiver.caseUsername] amount:amount]];
 #if DEBUG
         STPTestPaymentAuthorizationViewController *auth = [[STPTestPaymentAuthorizationViewController alloc] initWithPaymentRequest:paymentRequest];
 #else
@@ -400,9 +397,9 @@
                  [self startAssociationTimer];
              }
          } else {
-             self.ongoingTransactionsCount ++;
+             self.ongoingTransactionsCount += 1;
              self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
-                                                         transactionAmount:1
+                                                         transactionAmount:1 // todo BT
                                                                       type:kTransactionPayment
                                                                    message:cashView.messageTextField.text];
              [self startAssociationTimer];
@@ -411,8 +408,9 @@
 }
 
 - (void)updateCashViewsReceipientInfos {
-    for (CashView *cashView in self.presentedCashViews)
+    for (CashView *cashView in self.presentedCashViews) {
         [cashView updateRecipient];
+    }
 }
 
 - (void)adaptUIToCashViewState:(BOOL)isMoving {

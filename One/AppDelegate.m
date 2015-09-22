@@ -79,7 +79,6 @@
     // Obsolete API
     [ApiManager checkAppVersionAndExecuteSucess:^(NSDictionary * resultDictionnary) {
         if (resultDictionnary && [resultDictionnary valueForKey:@"title"]) {
-            // todo BT
             // custom screen ??
             self.alertTitle = [resultDictionnary valueForKey:@"title"];
             self.alertMessage = [resultDictionnary valueForKey:@"message"];
