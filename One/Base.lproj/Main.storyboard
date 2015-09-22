@@ -59,9 +59,9 @@
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
-            <string>ProximaNova-Regular</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
+            <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
@@ -146,12 +146,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFf-0X-g5g">
-                                <rect key="frame" x="172" y="185" width="256" height="230"/>
+                                <rect key="frame" x="162" y="185" width="256" height="230"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="KSe-aW-qES"/>
                                     <constraint firstAttribute="width" constant="256" id="sPy-pX-PgC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="200"/>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="200"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -164,7 +164,7 @@
                             <constraint firstAttribute="centerX" secondItem="s2j-Nh-PAq" secondAttribute="centerX" id="Iny-04-38s"/>
                             <constraint firstItem="MrP-XW-ciz" firstAttribute="top" secondItem="9wp-hL-NXQ" secondAttribute="top" constant="20" id="LdK-hT-ZuN"/>
                             <constraint firstItem="vEJ-Tv-APs" firstAttribute="top" secondItem="s2j-Nh-PAq" secondAttribute="bottom" constant="30" id="W8R-tg-C1S"/>
-                            <constraint firstItem="lFf-0X-g5g" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="WDK-Rz-sbT"/>
+                            <constraint firstItem="lFf-0X-g5g" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" constant="-10" id="WDK-Rz-sbT"/>
                             <constraint firstAttribute="trailing" secondItem="MrP-XW-ciz" secondAttribute="trailing" constant="20" id="hpZ-9K-x24"/>
                             <constraint firstAttribute="centerX" secondItem="vEJ-Tv-APs" secondAttribute="centerX" id="lJQ-hk-Hgy"/>
                         </constraints>
