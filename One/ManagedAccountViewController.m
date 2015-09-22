@@ -230,6 +230,12 @@
             [self.lastNameTextField becomeFirstResponder];
         } else if (self.lastNameTextField.isFirstResponder || self.businessNameTextField.isFirstResponder) {
             [self.ddTextfield becomeFirstResponder];
+        } else if (self.ddTextfield.isFirstResponder && self.ddTextfield.text.length == 2) {
+            [self.monthTextField becomeFirstResponder];
+        } else if (self.monthTextField.isFirstResponder && self.monthTextField.text.length == 2) {
+            [self.yearTextField becomeFirstResponder];
+        } else if (self.yearTextField.isFirstResponder && self.yearTextField.text.length == 4) {
+            [self.yearTextField resignFirstResponder];
         }
     } else {
         textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];

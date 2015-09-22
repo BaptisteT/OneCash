@@ -49,7 +49,7 @@
 #else
     BOOL debug = false;
 #endif
-
+    
     // Parse
     [Parse enableLocalDatastore];
     [Parse setApplicationId:debug ? kParseDevApplicationId : kParseProdApplicationId
@@ -70,7 +70,7 @@
         [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
         
         // Stripe
-        [Stripe setDefaultPublishableKey:kStripeTestPublishableKey];
+        [Stripe setDefaultPublishableKey:kStripeLivePublishableKey];
     } else {
         [Mixpanel sharedInstanceWithToken:kMixpanelDevToken launchOptions:launchOptions];
         [Stripe setDefaultPublishableKey:kStripeTestPublishableKey];
