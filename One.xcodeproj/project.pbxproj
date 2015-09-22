@@ -13,7 +13,6 @@
 		3C2E036A1B8DA18B00D22D48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E03691B8DA18B00D22D48 /* main.m */; };
 		3C2E036D1B8DA18B00D22D48 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E036C1B8DA18B00D22D48 /* AppDelegate.m */; };
 		3C2E03761B8DA18B00D22D48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03741B8DA18B00D22D48 /* Main.storyboard */; };
-		3C2E03781B8DA18B00D22D48 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03771B8DA18B00D22D48 /* Images.xcassets */; };
 		3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */; };
 		3C43B6421BA95231006679DE /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; settings = {ASSET_TAGS = (); }; };
 		3C43B6451BA96567006679DE /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -57,6 +56,7 @@
 		3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE11B9C47F800514A43 /* CashView.m */; };
 		3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
 		3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */; };
+		A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		A470C0111BAA059200FA005F /* Maax Rounded Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */; };
 		A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */; };
 		A4A2B5091BADDBEF00CDAF07 /* ProximaNova-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5031BADDB9E00CDAF07 /* ProximaNova-Black.otf */; };
@@ -80,7 +80,6 @@
 		3C2E036B1B8DA18B00D22D48 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3C2E036C1B8DA18B00D22D48 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3C2E03751B8DA18B00D22D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3C2E03771B8DA18B00D22D48 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3C2E037A1B8DA18B00D22D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3C43B6401BA95231006679DE /* IPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPUtils.h; sourceTree = "<group>"; };
 		3C43B6411BA95231006679DE /* IPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPUtils.m; sourceTree = "<group>"; };
@@ -164,6 +163,7 @@
 		3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewCell.h; sourceTree = "<group>"; };
 		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Maax Rounded Medium.otf"; sourceTree = "<group>"; };
 		A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A4A2B5031BADDB9E00CDAF07 /* ProximaNova-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Black.otf"; sourceTree = "<group>"; };
@@ -260,10 +260,10 @@
 			children = (
 				A4A2B5081BADDBA300CDAF07 /* Fonts */,
 				3C2E03741B8DA18B00D22D48 /* Main.storyboard */,
-				3C2E03771B8DA18B00D22D48 /* Images.xcassets */,
 				3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */,
 				3CC5FDD11B99D73100514A43 /* PushNoAnimationSegue.h */,
 				3CC5FDD21B99D73100514A43 /* PushNoAnimationSegue.m */,
+				A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */,
 				3C2E03671B8DA18B00D22D48 /* Supporting Files */,
 			);
 			name = Ressources;
@@ -496,8 +496,8 @@
 				3CC5FDB51B98886700514A43 /* Localizable.strings in Resources */,
 				3C2E03761B8DA18B00D22D48 /* Main.storyboard in Resources */,
 				3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */,
+				A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */,
 				3C86E1031B8DBA5E005AD52B /* InternalNotifView.xib in Resources */,
-				3C2E03781B8DA18B00D22D48 /* Images.xcassets in Resources */,
 				3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -708,7 +708,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1F0138CD4900B04DB2B1B667 /* Pods-One.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
@@ -726,7 +726,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";

@@ -8,7 +8,7 @@
 
 // How to
 "how_to_title" = "How to";
-"how_to_wording" = "1/ Choose someone to tip.\nType the twitter username of the receiver on the lower bar or select it from the list. You can only tip people who signed up on One.\n2/ Send 1$ tip.\nSwipe the 1$ bill from bottom to top, that’s it!\n3/ Check your balance and cash out!\nType on the top left of the main screen to check your balance. You have access to your transaction history and also cash out your money directly to your account. A social security number is needed to cashout. The cash out process can take up to a few days.";
+"how_to_wording" = "Send 1$ tip to people on twitter, support the world !\n\nChoose someone to tip! Add a twitter username as receiver.\n\nSend 1$ tip. Swipe the 1$ bill from bottom to top, that’s it!\n\nCheck your balance and cashout! You have access to your transaction’s history and cash out. A valid credit card is required to cash out.\n\nNo credit card information is stored on our server! We use Stripe.com and Apple Pay, the most secure and reputable payments processors available.";
 
 // Log in
 "tagline_label" = "Send 1$ tips on Twitter";
