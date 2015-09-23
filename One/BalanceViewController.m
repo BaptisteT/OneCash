@@ -17,6 +17,7 @@
 #import "TransactionTableViewCell.h"
 
 #import "ColorUtils.h"
+#import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
 #import "TrackingUtils.h"
@@ -89,7 +90,7 @@
     // Notification observer
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadLatestTransactionsLocally)
-                                                 name:@"refresh_transactions_table"
+                                                 name:kNotificationRefreshTransactions
                                                object:nil];
 }
 

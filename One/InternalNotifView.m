@@ -45,7 +45,7 @@
 // Navigate to chat
 - (void)notifClicked {
     // notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"new_transaction_clicked"
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushClicked
                                                         object:nil
                                                       userInfo:nil];
     [self removeFromSuperview];

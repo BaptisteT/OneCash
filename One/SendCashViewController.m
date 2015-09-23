@@ -121,11 +121,11 @@
                                                object: nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadLatestTransactions)
-                                                 name:@"new_transaction"
+                                                 name:kNotificationPushReceived
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(navigateToBalance)
-                                                 name:@"new_transaction_clicked"
+                                                 name:kNotificationPushClicked
                                                object:nil];
 }
 
@@ -228,7 +228,7 @@
                                   isStart:YES
                                   success:^(NSArray *transactions) {
                                       // send notif to balance controller for refresh
-                                      [[NSNotificationCenter defaultCenter] postNotificationName: @"refresh_transactions_table"
+                                      [[NSNotificationCenter defaultCenter] postNotificationName: kNotificationRefreshTransactions
                                                                                           object:nil
                                                                                         userInfo:nil];
                                       [self setBadgeValueToNewTransactionsCount];
@@ -272,7 +272,7 @@
                                                 success:^{
                                                     self.sentTransactionsCount += transaction.transactionAmount;
                                                     // send notif to balance controller for refresh
-                                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh_transactions_table"
+                                                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshTransactions
                                                                                                         object:nil
                                                                                                       userInfo:nil];
                                                     if (self.ongoingTransactionsCount == 0) {

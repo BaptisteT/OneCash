@@ -156,14 +156,14 @@
             [self displayInternalNotif:userInfo];
             
             // load latest transactions
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"new_transaction"
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushReceived
                                                                 object:nil
                                                               userInfo:nil];
             
             // Vibrate
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         } else {
-            [[NSNotificationCenter defaultCenter] postNotificationName: @"new_transaction_clicked"
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushClicked
                                                                 object:nil
                                                               userInfo:nil];
         }
