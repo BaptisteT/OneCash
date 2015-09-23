@@ -487,6 +487,12 @@
 }
 
 -(void)startSendingAnimation {
+    int rndValue = 4 + arc4random() % (10 - 4);
+    
+    for (int i = 1; i <= rndValue; i++)
+    {
+        [self addDollarLabel];
+    }
     [UIView animateWithDuration:0.2 animations:^{
         self.titleLabel.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.1, 1.1);
     } completion:^(BOOL finished) {
@@ -505,6 +511,69 @@
             [self sendingAnimation];
         }
     }];
+}
+
+- (void)addDollarLabel {
+    int rndX = 30 + arc4random() % ((int)(self.view.frame.size.width - 30) - 30);
+
+    UILabel *dollarLabel = [[UILabel alloc] initWithFrame:CGRectMake(rndX, 0, 40, 40)];
+    
+    //UI
+    dollarLabel.text = @"$";
+    dollarLabel.textAlignment = NSTextAlignmentCenter;
+    dollarLabel.backgroundColor = [ColorUtils darkGreen];
+    dollarLabel.textColor = [UIColor whiteColor];
+    dollarLabel.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:20];
+    dollarLabel.transform = CGAffineTransformMakeScale(0, 0);
+    
+    [self.view addSubview:dollarLabel];
+    dollarLabel.clipsToBounds = YES;
+    dollarLabel.layer.cornerRadius = 20;
+    
+    CGFloat duration = 5 + (arc4random() % 5 - 2);
+    [UIView animateWithDuration:0.3 animations:^{
+        dollarLabel.transform = CGAffineTransformMakeScale(1, 1);
+        dollarLabel.transform = CGAffineTransformMakeRotation(-0.01 * (arc4random() % 20));
+    }];
+    [UIView animateWithDuration:duration animations:^{
+        dollarLabel.alpha = 0;
+    }];
+    CAKeyframeAnimation *animation = [self createAnimation:dollarLabel.frame];
+    animation.duration = duration;
+    [dollarLabel.layer addAnimation:animation forKey:@"position"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((duration + 0.5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [dollarLabel removeFromSuperview];
+    });
+}
+
+- (CAKeyframeAnimation *)createAnimation:(CGRect)frame {
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    CGMutablePathRef path = CGPathCreateMutable();
+    
+    int height = 200 + arc4random() % 40 - 20;
+    int xOffset = frame.origin.x;
+    int yOffset = frame.origin.y;
+    int waveWidth = 50;
+    CGPoint p1 = CGPointMake(xOffset, height * 0 + yOffset);
+    CGPoint p2 = CGPointMake(xOffset, height * 1 + yOffset);
+    CGPoint p3 = CGPointMake(xOffset, height * 2 + yOffset);
+    CGPoint p4 = CGPointMake(xOffset, height * 2 + yOffset);
+    
+    CGPathMoveToPoint(path, NULL, p1.x,p1.y);
+    
+    if (arc4random() % 2) {
+        CGPathAddQuadCurveToPoint(path, NULL, p1.x - arc4random() % waveWidth, p1.y + height / 2.0, p2.x, p2.y);
+        CGPathAddQuadCurveToPoint(path, NULL, p2.x + arc4random() % waveWidth, p2.y + height / 2.0, p3.x, p3.y);
+        CGPathAddQuadCurveToPoint(path, NULL, p3.x - arc4random() % waveWidth, p3.y + height / 2.0, p4.x, p4.y);
+    } else {
+        CGPathAddQuadCurveToPoint(path, NULL, p1.x + arc4random() % waveWidth, p1.y + height / 2.0, p2.x, p2.y);
+        CGPathAddQuadCurveToPoint(path, NULL, p2.x - arc4random() % waveWidth, p2.y + height / 2.0, p3.x, p3.y);
+        CGPathAddQuadCurveToPoint(path, NULL, p3.x + arc4random() % waveWidth, p3.y + height / 2.0, p4.x, p4.y);
+    }
+    animation.path = path;
+    animation.calculationMode = kCAAnimationCubicPaced;
+    CGPathRelease(path);
+    return animation;
 }
 
 
