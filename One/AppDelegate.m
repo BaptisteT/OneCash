@@ -101,7 +101,7 @@
     if (currentUser) {
         // Identify user
         [TrackingUtils identifyUser:[User currentUser]];
-        [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
+        [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
         
         // Check if we come from a new message notif
         NSNumber *notifOpening = [NSNumber numberWithBool:NO];
@@ -172,6 +172,11 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    if([[url host] isEqualToString:@"user"]){
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserURLScheme
+                                                            object:nil
+                                                          userInfo:@{@"userId": [[url path] stringByReplacingOccurrencesOfString:@"/" withString:@""]}];
+    }
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication

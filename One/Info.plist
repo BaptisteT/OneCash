@@ -24,11 +24,12 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb130690560611575</string>
+				<string>OneCash</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>13</string>
+	<string>15</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

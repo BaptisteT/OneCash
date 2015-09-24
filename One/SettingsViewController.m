@@ -86,7 +86,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
 - (void)willBecomeActiveCallback {
     // Fetch and reload
-    [ApiManager fetchCurrentUserAndExecuteSuccess:^{
+    [ApiManager fetchUser:[User currentUser] success:^{
         [self.settingsTableView reloadData];
     } failure:nil];
 }
@@ -356,11 +356,16 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
     
     activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     activityViewController.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAddToReadingList, UIActivityTypeAirDrop];
-    activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
+    [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
         if (completed) {
             [TrackingUtils trackEvent:EVENT_INVITE_SENT properties:@{@"sharing_type" : activityType}];
         }
-    };
+    }];
+//    activityViewController.completionHandler = ^(NSString *activityType, BOOL completed) {
+//        if (completed) {
+//            [TrackingUtils trackEvent:EVENT_INVITE_SENT properties:@{@"sharing_type" : activityType}];
+//        }
+//    };
     [self presentViewController:activityViewController animated:YES completion:nil];
 }
 

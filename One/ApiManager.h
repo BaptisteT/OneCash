@@ -45,8 +45,9 @@
                             success:(void(^)(NSString *string, NSArray *users))successBlock
                             failure:(void(^)(NSError *error))failureBlock;
 
-+ (void)fetchCurrentUserAndExecuteSuccess:(void(^)())successBlock
-                                  failure:(void(^)(NSError *error))failureBlock;
++ (void)fetchUser:(User *)user
+          success:(void(^)())successBlock
+          failure:(void(^)(NSError *error))failureBlock;
 
 + (void)resendEmailVerificationAndExecuteSuccess:(void(^)())successBlock
                                          failure:(void(^)(NSError *error))failureBlock;

@@ -10,6 +10,7 @@
 
 @implementation NotifUtils
 
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 // Resgister user notification settings (request permission to user on 1st call)
 // On iOS 7, acceptance  a token
 + (void)registerForRemoteNotif

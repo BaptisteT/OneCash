@@ -149,12 +149,12 @@
         }
         parameters[@"businessName"] = self.businessNameTextField.text;
     }
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];
     [components setYear:[self.yearTextField.text integerValue]];
     [components setMonth:[self.monthTextfield.text integerValue]];
     [components setDay:[self.dayTextField.text integerValue]];
-    NSDate *date = [gregorianCalendar dateFromComponents:components];
+    NSDate *date = [calendar dateFromComponents:components];
     if (!date || [date compare:[NSDate date]] == NSOrderedDescending || self.yearTextField.text.length != 4 || self.monthTextfield.text.length > 2 || self.dayTextField.text.length > 2) {
         [GeneralUtils showAlertWithTitle:nil andMessage:NSLocalizedString(@"invalid_date", nil)];
         [self.monthTextfield becomeFirstResponder];

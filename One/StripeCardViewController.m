@@ -110,7 +110,7 @@
                                 paymentMethod:kPaymentMethodStripe
                                       success:^{
                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                              [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
+                                              [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
                                               [DesignUtils hideProgressHUDForView:self.view];
                                               [self navigateToSend];
                                           });

@@ -281,10 +281,11 @@
     }];
 }
 
-+ (void)fetchCurrentUserAndExecuteSuccess:(void(^)())successBlock
-                                  failure:(void(^)(NSError *error))failureBlock
++ (void)fetchUser:(User *)user
+          success:(void(^)())successBlock
+          failure:(void(^)(NSError *error))failureBlock
 {
-    [[User currentUser] fetchInBackgroundWithBlock:^(PFObject *user, NSError *error) {
+    [user fetchInBackgroundWithBlock:^(PFObject *user, NSError *error) {
         if (!error) {
             OneLog(ONEAPIMANAGERLOG,@"Success - Fetch User");
             if (successBlock) {
@@ -298,6 +299,8 @@
         }
     }];
 }
+
+
 
 // --------------------------------------------
 #pragma mark - Transactions

@@ -127,6 +127,10 @@
                                              selector:@selector(navigateToBalance)
                                                  name:kNotificationPushClicked
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadUserAndSetSelected:)
+                                                 name:kNotificationUserURLScheme
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -145,7 +149,6 @@
         self.navigateDirectlyToBalance = NO;
         [self performSelector:@selector(navigateToBalance) withObject:nil afterDelay:0.1];
     }
-    [self updateCashViewsReceipientInfos];
 }
 
 
@@ -208,16 +211,31 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
--(void)showPickRecipientAlert {
-    [self.pickRecipientAlertLabel.layer removeAllAnimations];
-    [UIView animateWithDuration:0.5 animations:^{
-        self.pickRecipientAlertLabel.layer.opacity = 1;
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.5 delay:3 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.pickRecipientAlertLabel.layer.opacity = 0;
-        } completion:^(BOOL finished) {
-        }];
-    }];
+
+// --------------------------------------------
+#pragma mark - User
+// --------------------------------------------
+// Recipients VC protocol
+- (void)setSelectedUser:(User *)user {
+    self.receiver = user;
+    [self updateCashViewsReceipientInfos];
+}
+
+- (void)loadUserAndSetSelected:(NSNotification *)notification {
+    if ([notification.name isEqualToString:kNotificationUserURLScheme])
+    {
+        NSDictionary* userInfo = notification.userInfo;
+        NSString *userId = [userInfo objectForKey:@"userId"];
+        if (userId && userId.length > 0) {
+            [self setSelectedUser:nil];
+            User *user = [User objectWithoutDataWithObjectId:userId];
+            [ApiManager fetchUser:user success:^{
+                if (!self.receiver) {
+                    [self setSelectedUser:user];
+                }
+            } failure:nil];
+        }
+    }
 }
 
 // --------------------------------------------
@@ -283,7 +301,7 @@
                                                         // todo BT
                                                         // go to check card ?
                                                     }
-                                                    [ApiManager fetchCurrentUserAndExecuteSuccess:nil failure:nil];
+                                                     [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
                                                     
                                                     self.ongoingTransactionsCount -= transaction.transactionAmount;
                                                     [self failedAnimation:transaction.transactionAmount];
@@ -505,12 +523,16 @@
 }
 
 
-
-// --------------------------------------------
-#pragma mark - Recipients delegate
-// --------------------------------------------
-- (void)setSelectedUser:(User *)user {
-    self.receiver = user;
+- (void)showPickRecipientAlert {
+    [self.pickRecipientAlertLabel.layer removeAllAnimations];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.pickRecipientAlertLabel.layer.opacity = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:3 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+            self.pickRecipientAlertLabel.layer.opacity = 0;
+        } completion:^(BOOL finished) {
+        }];
+    }];
 }
 
 

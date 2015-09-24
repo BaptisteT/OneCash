@@ -70,4 +70,5 @@ static float const kMaxTweetLength = 120.;
 static NSString * const kNotificationPushReceived = @"Push received";
 static NSString * const kNotificationPushClicked = @"Push Clicked";
 static NSString * const kNotificationRefreshTransactions = @"Refresh Transactions";
+static NSString * const kNotificationUserURLScheme = @"User URL Scheme";
 
