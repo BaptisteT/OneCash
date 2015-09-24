@@ -23,7 +23,11 @@ typedef void (^WMOMImageCacheImageAvailableBlock)(UIImage *image);
 
 
 /* Single access, result is always through the block that may come instantaneously or not if a download is needed */
-- (void) imageForURL:(NSURL *)url size:(CGSize)imageSize mode:(UIViewContentMode)mode availableBlock:(WMOMImageCacheImageAvailableBlock)availableBlock;
+- (void)imageForURL:(NSURL *)url
+               size:(CGSize)desiredImageSize
+               mode:(UIViewContentMode)mode
+     availableBlock:(WMOMImageCacheImageAvailableBlock)availableBlock
+        saveLocally:(BOOL)saveFlag;
 
 // Delete content of file
 - (void)deleteCashedImageForURL:(NSURL *)url size:(CGSize)desiredImageSize;

@@ -22,7 +22,7 @@
 - (void)setUser:(User *)user {
     _user = user;
     self.usernameLabel.text = user.caseUsername;
-    [user setAvatarInImageView:self.userPicture bigSize:NO];
+    [user setAvatarInImageView:self.userPicture bigSize:NO saveLocally:NO];
     self.userPicture.layer.cornerRadius = self.userPicture.frame.size.height / 2;
     self.userPicture.clipsToBounds = YES;
     self.userPicture.layer.borderColor = [UIColor lightGrayColor].CGColor;

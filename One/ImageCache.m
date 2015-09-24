@@ -89,7 +89,11 @@
 
 #pragma mark == DATA ACCESS ==
 /* Single access, result is always through the block that may come instantaneously or not if a download is needed */
-- (void)imageForURL:(NSURL *)url size:(CGSize)desiredImageSize  mode:(UIViewContentMode)mode availableBlock:(WMOMImageCacheImageAvailableBlock)availableBlock
+- (void)imageForURL:(NSURL *)url
+               size:(CGSize)desiredImageSize
+               mode:(UIViewContentMode)mode
+     availableBlock:(WMOMImageCacheImageAvailableBlock)availableBlock
+        saveLocally:(BOOL)saveFlag
 {
     OneLog(LOCALLOGENABLED, @"[IMAGECACHE] Asking for image for %@", [url absoluteString]);
     NSString *tmpKey = [self _keyForIdentifier:[url absoluteString]];
@@ -121,8 +125,13 @@
                 dispatch_async(dispatch_get_main_queue(),^{
                     availableBlock(nil);
                 });
+            } else if (!saveFlag) {
+                // avoid saving
+                dispatch_async(dispatch_get_main_queue(),^{
+                    availableBlock([UIImage imageWithData:data]);
+                });
+                return;
             } else {
-                //write the original : TODO move this to asynchronous
                 [self _writelocalData:data forKey:tmpKey withSize:CGSizeZero];
             }
             

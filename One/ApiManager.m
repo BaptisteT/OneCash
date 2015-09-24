@@ -300,6 +300,27 @@
     }];
 }
 
++ (void)findUserWithUsername:(NSString *)username
+                     success:(void(^)(User *user))successBlock
+                     failure:(void(^)(NSError *error))failureBlock
+{
+    PFQuery *query = [User query];
+    [query whereKey:@"username" equalTo:username];
+    [query setLimit:1];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (error != nil) {
+            OneLog(ONEAPIMANAGERLOG,@"Failure - findUserWithUsername - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        } else {
+            if (successBlock) {
+                successBlock(users.firstObject);
+            }
+        }
+    }];
+}
+
 
 
 // --------------------------------------------

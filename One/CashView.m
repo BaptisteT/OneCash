@@ -136,7 +136,7 @@
         self.removeRecipientButton.hidden = YES;
         self.onboardingLabel.text = NSLocalizedString(@"recipient_alert", nil);
     } else {
-        [[self.delegate receiver] setAvatarInImageView:self.userPictureImageView bigSize:YES];
+        [[self.delegate receiver] setAvatarInImageView:self.userPictureImageView bigSize:YES saveLocally:YES];
         self.usernameLabel.text = [self.delegate receiver].caseUsername;
         self.dollarLabel.hidden = NO;
         self.usernameLabel.hidden = NO;

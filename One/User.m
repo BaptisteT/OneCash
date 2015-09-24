@@ -43,13 +43,13 @@
 }
 
 // Set avatar in imageview (download it first if necessary)
-- (void)setAvatarInImageView:(UIImageView *)imageView bigSize:(BOOL)flag {
+- (void)setAvatarInImageView:(UIImageView *)imageView bigSize:(BOOL)sizeFlag saveLocally:(BOOL)savingFlag {
     imageView.image = nil; // clean
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     if (self.userPicture) {
         [imageView setImage:self.userPicture];
     } else {
-        CGFloat size = flag ? kDisplayedPictureBigSize : kDisplayedPictureSmallSize;
+        CGFloat size = sizeFlag ? kDisplayedPictureBigSize : kDisplayedPictureSmallSize;
         CGSize rescaleSize = {size, size};
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
                                           size:rescaleSize
@@ -59,7 +59,7 @@
                                             self.userPicture = image;
                                             [imageView setImage:image];
                                         }
-                                }];
+                                }   saveLocally:savingFlag];
     }
 }
 
@@ -80,7 +80,7 @@
                                         self.userPicture = image;
                                         [button setImage:self.userPicture forState:UIControlStateNormal];
                                     }
-                                }];
+                                }   saveLocally:YES];
     }
 }
 

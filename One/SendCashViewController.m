@@ -225,15 +225,14 @@
     if ([notification.name isEqualToString:kNotificationUserURLScheme])
     {
         NSDictionary* userInfo = notification.userInfo;
-        NSString *userId = [userInfo objectForKey:@"userId"];
-        if (userId && userId.length > 0) {
+        NSString *username = [userInfo objectForKey:@"username"];
+        if (username && username.length > 0) {
             [self setSelectedUser:nil];
-            User *user = [User objectWithoutDataWithObjectId:userId];
-            [ApiManager fetchUser:user success:^{
+            [ApiManager findUserWithUsername:username success:^(User *user){
                 if (!self.receiver) {
                     [self setSelectedUser:user];
                 }
-            } failure:nil];
+            }  failure:nil];
         }
     }
 }
@@ -404,9 +403,9 @@
              if (!sameReceiver || !noMessageConflict || !belowLimit) {
                  [self generateTokenAndSendTransaction];
              } else {
-                 self.ongoingTransactionsCount ++;
+                 self.ongoingTransactionsCount += kUnitTransactionAmount;
                  // update transaction
-                 self.transactionToSend.transactionAmount ++;
+                 self.transactionToSend.transactionAmount += kUnitTransactionAmount;
                  if (cashView.messageTextField.text.length > 0) {
                      self.transactionToSend.message = cashView.messageTextField.text;
                  }
@@ -414,9 +413,9 @@
                  [self startAssociationTimer];
              }
          } else {
-             self.ongoingTransactionsCount += 1;
+             self.ongoingTransactionsCount += kUnitTransactionAmount;
              self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
-                                                         transactionAmount:1 // todo BT
+                                                         transactionAmount:kUnitTransactionAmount // todo BT
                                                                       type:kTransactionPayment
                                                                    message:cashView.messageTextField.text];
              [self startAssociationTimer];

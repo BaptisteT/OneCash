@@ -45,7 +45,7 @@
         } else {
             self.messageLabel.hidden = YES;
         }
-        [transaction.sender setAvatarInImageView:self.userPicture bigSize:NO];
+        [transaction.sender setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
         name = [NSString stringWithFormat:@"from $%@, ",transaction.sender.caseUsername];
         
     // cash out
@@ -56,7 +56,7 @@
         self.messageLabel.hidden = NO;
         self.messageLabel.text = [NSString stringWithFormat:@" %@     ",NSLocalizedString(@"cashout_string", nil)];
         
-        [transaction.sender setAvatarInImageView:self.userPicture bigSize:NO];
+        [transaction.sender setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
         name = @"";
         
     // payment sent
@@ -71,7 +71,7 @@
             self.messageLabel.hidden = YES;
         }
         
-        [transaction.receiver setAvatarInImageView:self.userPicture bigSize:NO];
+        [transaction.receiver setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
         name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
     }
     NSString *time = transaction.createdAt.shortTimeAgoSinceNow;

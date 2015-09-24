@@ -49,7 +49,7 @@
 #else
     BOOL debug = false;
 #endif
-    
+    debug = false; // todo BT
     // Parse
     [Parse enableLocalDatastore];
     [Parse setApplicationId:debug ? kParseDevApplicationId : kParseProdApplicationId
@@ -175,7 +175,7 @@
     if([[url host] isEqualToString:@"user"]){
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserURLScheme
                                                             object:nil
-                                                          userInfo:@{@"userId": [[url path] stringByReplacingOccurrencesOfString:@"/" withString:@""]}];
+                                                          userInfo:@{@"username": [[url path] stringByReplacingOccurrencesOfString:@"/" withString:@""]}];
     }
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url

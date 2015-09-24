@@ -71,7 +71,6 @@
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
-            <string>ProximaNova-Semibold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -145,26 +144,23 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFf-0X-g5g">
-                                <rect key="frame" x="162" y="185" width="256" height="230"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="UBp-FQ-Ccw">
+                                <rect key="frame" x="227" y="227" width="146" height="146"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="230" id="KSe-aW-qES"/>
-                                    <constraint firstAttribute="width" constant="256" id="sPy-pX-PgC"/>
+                                    <constraint firstAttribute="height" constant="146" id="DLX-Wh-47q"/>
+                                    <constraint firstAttribute="width" constant="146" id="fOu-xZ-D4h"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="200"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="53" id="33i-k5-8dP"/>
                             <constraint firstItem="s2j-Nh-PAq" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="30" id="69O-pM-698"/>
-                            <constraint firstItem="lFf-0X-g5g" firstAttribute="centerY" secondItem="p0p-5G-JR1" secondAttribute="centerY" id="Btj-dg-tTi"/>
+                            <constraint firstItem="UBp-FQ-Ccw" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="8zA-J9-ggN"/>
                             <constraint firstAttribute="centerX" secondItem="s2j-Nh-PAq" secondAttribute="centerX" id="Iny-04-38s"/>
                             <constraint firstItem="MrP-XW-ciz" firstAttribute="top" secondItem="9wp-hL-NXQ" secondAttribute="top" constant="20" id="LdK-hT-ZuN"/>
                             <constraint firstItem="vEJ-Tv-APs" firstAttribute="top" secondItem="s2j-Nh-PAq" secondAttribute="bottom" constant="30" id="W8R-tg-C1S"/>
-                            <constraint firstItem="lFf-0X-g5g" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" constant="-10" id="WDK-Rz-sbT"/>
+                            <constraint firstItem="UBp-FQ-Ccw" firstAttribute="centerY" secondItem="p0p-5G-JR1" secondAttribute="centerY" id="eL5-un-J4Y"/>
                             <constraint firstAttribute="trailing" secondItem="MrP-XW-ciz" secondAttribute="trailing" constant="20" id="hpZ-9K-x24"/>
                             <constraint firstAttribute="centerX" secondItem="vEJ-Tv-APs" secondAttribute="centerX" id="lJQ-hk-Hgy"/>
                         </constraints>
@@ -1831,13 +1827,14 @@
         <image name="TwitterIcon" width="15" height="13"/>
         <image name="apple_pay" width="56" height="36"/>
         <image name="close_button" width="32" height="32"/>
+        <image name="logo" width="300" height="300"/>
         <image name="shadow" width="1" height="10"/>
         <image name="spin" width="65" height="65"/>
         <image name="stripe_icon" width="119" height="26"/>
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WX6-Iv-dA8"/>
+        <segue reference="CWh-84-eC0"/>
         <segue reference="B6u-pp-6tI"/>
         <segue reference="8Kh-LZ-lT7"/>
     </inferredMetricsTieBreakers>

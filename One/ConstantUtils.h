@@ -57,6 +57,7 @@ static NSString * const kParseUsersName = @"OneUsers";
 static NSInteger const kMaxMessagesLength = 30;
 
 // Sending
+static NSInteger const kUnitTransactionAmount = 1;
 static float const kAssociationTimerDuration = 2.;
 static NSInteger const kAssociationTransactionsLimit = 50;
 
@@ -64,7 +65,6 @@ static NSInteger const kAssociationTransactionsLimit = 50;
 static float const kSettingsHeaderHeight = 25.;
 static float const kSettingsCellHeight = 50.;
 static float const kMaxTweetLength = 120.;
-
 
 // Notifications
 static NSString * const kNotificationPushReceived = @"Push received";
