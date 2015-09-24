@@ -46,11 +46,11 @@
                             failure:(void(^)(NSError *error))failureBlock;
 
 + (void)fetchUser:(User *)user
-          success:(void(^)(User *user))successBlock
+          success:(void(^)())successBlock
           failure:(void(^)(NSError *error))failureBlock;
 
 + (void)findUserWithUsername:(NSString *)username
-                     success:(void(^)())successBlock
+                     success:(void(^)(User *user))successBlock
                      failure:(void(^)(NSError *error))failureBlock;
 
 + (void)resendEmailVerificationAndExecuteSuccess:(void(^)())successBlock
