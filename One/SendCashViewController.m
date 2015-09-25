@@ -368,6 +368,7 @@
     if (!self.applePaySucceeded) {
         [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:self.applePaySendingTransaction.transactionAmount], @"message": [NSNumber numberWithBool:(self.applePaySendingTransaction.message !=nil)], @"method": @"Apple Pay", @"error":@"apple_pay_auth_fail"}];
         self.ongoingTransactionsCount -= self.applePaySendingTransaction.transactionAmount;
+        [self failedAnimation:self.applePaySendingTransaction.transactionAmount];
         self.applePaySendingTransaction = nil;
     }
     [self dismissViewControllerAnimated:YES completion:nil];
