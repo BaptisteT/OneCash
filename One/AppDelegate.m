@@ -172,16 +172,37 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    if([[url host] isEqualToString:@"user"]){
-        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserURLScheme
-                                                            object:nil
-                                                          userInfo:@{@"username": [[url path] stringByReplacingOccurrencesOfString:@"/" withString:@""]}];
-    }
+    // deeplink
+    [self handleDeepLink:url];
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
                                                        annotation:annotation];
 }
+
+// Handle hyperlink
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
+{
+    if (userActivity.activityType == NSUserActivityTypeBrowsingWeb) {
+        NSURL *url = userActivity.webpageURL;
+        [self handleDeepLink:url];
+    }
+    return true;
+}
+
+- (void)handleDeepLink:(NSURL *)url
+{
+    NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:true];
+    if ([components.host containsString:@"one.cash"]) {
+        if([[url path] containsString:@"user/"]){
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserURLScheme
+                                                                object:nil
+                                                              userInfo:@{@"username": [[url path] stringByReplacingOccurrencesOfString:@"/user/" withString:@""]}];
+        }
+    }
+}
+
+
 
 // --------------------------------------------
 #pragma mark - Internal notif

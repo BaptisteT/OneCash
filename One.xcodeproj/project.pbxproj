@@ -460,6 +460,9 @@
 							com.apple.OMC = {
 								enabled = 1;
 							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
 						};
 					};
 				};

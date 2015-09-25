@@ -225,7 +225,7 @@
     if ([notification.name isEqualToString:kNotificationUserURLScheme])
     {
         NSDictionary* userInfo = notification.userInfo;
-        NSString *username = [userInfo objectForKey:@"username"];
+        NSString *username = [[userInfo objectForKey:@"username"] lowercaseString];
         if (username && username.length > 0) {
             [self setSelectedUser:nil];
             [ApiManager findUserWithUsername:username success:^(User *user){
