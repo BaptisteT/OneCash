@@ -5,6 +5,7 @@
 //  Created by Baptiste Truchot on 9/3/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import <LocalAuthentication/LocalAuthentication.h>
 #import "NSString+EmailAddresses.h"
 #import "SHEmailValidator.h"
 
@@ -21,16 +22,16 @@
 #import "GeneralUtils.h"
 #import "TrackingUtils.h"
 
-typedef NS_ENUM(NSInteger,SectionTypes) {
-    kCardSection = 0,
-    kAutoTweetSection = kCardSection + 1,
-    kPinSection = 1000,
-    kEmailSection = kAutoTweetSection + 1,
-    kSupportSection = kEmailSection + 1,
-    kShareSection = kSupportSection + 1,
-    kLogoutSection = kShareSection + 1,
-    kSectionTypesCount = kLogoutSection + 1
-};
+struct {
+    NSInteger card;
+    NSInteger tweet;
+    NSInteger pin;
+    NSInteger email;
+    NSInteger support;
+    NSInteger share;
+    NSInteger logout;
+    NSInteger typesCount;
+} SectionTypes;
 
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
@@ -46,13 +47,30 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 #pragma mark - Life Cycle
 // --------------------------------------------
 
-@implementation SettingsViewController
+@implementation SettingsViewController {
+    BOOL _displayTouchIdSection;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Init
     self.tweetCellHeight = kSettingsCellHeight;
+    
+    // Touch id
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error = nil;
+    _displayTouchIdSection = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error];
+    
+    // Init section types
+    SectionTypes.card = 0;
+    SectionTypes.tweet = SectionTypes.card + 1;
+    SectionTypes.pin = _displayTouchIdSection ? SectionTypes.tweet + 1 : -1;
+    SectionTypes.email = _displayTouchIdSection ? SectionTypes.pin + 1 : SectionTypes.tweet + 1;
+    SectionTypes.support = SectionTypes.email + 1;
+    SectionTypes.share = SectionTypes.support + 1;
+    SectionTypes.logout = SectionTypes.share + 1;
+    SectionTypes.typesCount = SectionTypes.logout + 1;
     
     // UI
     self.topBarView.backgroundColor = [ColorUtils mainGreen];
@@ -105,45 +123,50 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
 
 - (void)slideSwitched:(BOOL)state ofSection:(NSInteger)section {
-    if (section == kAutoTweetSection) {
-        [DesignUtils showProgressHUDAddedTo:self.view];
+    [DesignUtils showProgressHUDAddedTo:self.view];
+    NSString *event, *property;
+    if (section == SectionTypes.tweet) {
         [User currentUser].autoTweet = state;
-        [ApiManager saveCurrentUserAndExecuteSuccess:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [DesignUtils hideProgressHUDForView:self.view];
-                NSNumber *isOn = [NSNumber numberWithBool:state];
-                [TrackingUtils trackEvent:EVENT_AUTO_TWEET_CHANGED properties:@{@"state": isOn}];
-                [TrackingUtils setPeopleProperties:@{PEOPLE_AUTO_TWEET: isOn}];
-                [self.settingsTableView reloadData];
-            });
-        } failure:^(NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [DesignUtils hideProgressHUDForView:self.view];
-                [self.settingsTableView reloadData];
-            });
-
-        }];
-    } else if (section == kPinSection) {
-        // todo BT
+        event = EVENT_AUTO_TWEET_CHANGED;
+        property = PEOPLE_AUTO_TWEET;
+    } else if (section == SectionTypes.pin) {
+        [User currentUser].touchId = state;
+        event = EVENT_TOUCH_ID_CHANGED;
+        property = PEOPLE_TOUCH_ID;
     }
+    [ApiManager saveCurrentUserAndExecuteSuccess:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DesignUtils hideProgressHUDForView:self.view];
+            NSNumber *isOn = [NSNumber numberWithBool:state];
+            [TrackingUtils trackEvent:event properties:@{@"state": isOn}];
+            [TrackingUtils setPeopleProperties:@{property: isOn}];
+            [self.settingsTableView reloadData];
+        });
+    } failure:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DesignUtils hideProgressHUDForView:self.view];
+            [self.settingsTableView reloadData];
+        });
+        
+    }];
 }
 
 // --------------------------------------------
 #pragma mark - Tableview
 // --------------------------------------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return kSectionTypesCount;
+    return SectionTypes.typesCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     User *user = [User currentUser];
-    if (section == kCardSection) {
+    if (section == SectionTypes.card) {
         return [User currentUser].paymentMethod > 0 ? 2 : 1;
-    } else if (section == kAutoTweetSection) {
+    } else if (section == SectionTypes.tweet) {
         return [User currentUser].autoTweet ? 2 : 1;
-    } else if (section == kPinSection) {
+    } else if (section == SectionTypes.pin) {
         return 2;
-    } else if (section == kEmailSection) {
+    } else if (section == SectionTypes.email) {
         return [user isEmailVerified] ? 1 : 2;
     } else {
         return 1;
@@ -151,7 +174,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == kAutoTweetSection && indexPath.row == 1) {
+    if (indexPath.section == SectionTypes.tweet && indexPath.row == 1) {
         return self.tweetCellHeight;
     }
     return kSettingsCellHeight;
@@ -159,7 +182,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     User *user = [User currentUser];
-    if (indexPath.section == kCardSection) {
+    if (indexPath.section == SectionTypes.card) {
         if (indexPath.row == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CardCell"];
             cell.textLabel.text = user.paymentMethod == kPaymentMethodNone ? NSLocalizedString(@"no_card_section", nil) : NSLocalizedString(@"card_section", nil);
@@ -177,32 +200,38 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
                 cell.textLabel.text = [NSString stringWithFormat:@"XXX XXXX XXXX %@",self.customerCards[0][@"last4"]];
                 cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
             }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
-    } else if (indexPath.section == kAutoTweetSection) {
+    } else if (indexPath.section == SectionTypes.tweet) {
         if (indexPath.row == 0) {
             SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
-            [cell setTitle:NSLocalizedString(@"auto_tweet_section", nil) delegate:self section:kAutoTweetSection andSwitchState:user.autoTweet];
+            [cell setTitle:NSLocalizedString(@"auto_tweet_section", nil) delegate:self section:SectionTypes.tweet andSwitchState:user.autoTweet];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         } else {
             TweetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
             [cell initWithTweet:user.tweetWording];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
             return cell;
         }
-    } else if (indexPath.section == kPinSection) {
+    } else if (indexPath.section == SectionTypes.pin) {
         if (indexPath.row == 0) {
             SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
-            [cell setTitle:NSLocalizedString(@"pin_section", nil) delegate:self section:kPinSection andSwitchState:NO]; // todo BT
+            [cell setTitle:NSLocalizedString(@"pin_section", nil) delegate:self section:SectionTypes.pin andSwitchState:user.touchId];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         } else {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
             cell.textLabel.textColor = [UIColor lightGrayColor];
             cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:15];
             cell.textLabel.text = NSLocalizedString(@"pin_section_details", nil);
+            cell.textLabel.numberOfLines = 0;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
-    } else if (indexPath.section == kEmailSection) {
+    } else if (indexPath.section == SectionTypes.email) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         if (indexPath.row == 0) {
             cell.textLabel.text = user.email;
@@ -215,17 +244,17 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
         }
         return cell;
-    } else if (indexPath.section == kSupportSection) {
+    } else if (indexPath.section == SectionTypes.support) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = NSLocalizedString(@"support_section", nil);
         cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
         return cell;
-    } else if (indexPath.section == kShareSection) {
+    } else if (indexPath.section == SectionTypes.share) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = NSLocalizedString(@"share_section", nil);
         cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
         return cell;
-    } else if (indexPath.section == kLogoutSection) {
+    } else if (indexPath.section == SectionTypes.logout) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.textLabel.text = NSLocalizedString(@"logout_section", nil);
         cell.textLabel.textColor = [ColorUtils red];
@@ -240,10 +269,10 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == kCardSection) {
+    if (indexPath.section == SectionTypes.card) {
         if (indexPath.row == 0)
             [self.delegate navigateToCardController];
-    } else if (indexPath.section == kEmailSection) {
+    } else if (indexPath.section == SectionTypes.email) {
         if (indexPath.row == 0) {
             // change email
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"modify_email", nil)
@@ -292,11 +321,11 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
                 [DesignUtils hideProgressHUDForView:self.view];
             }];
         }
-    } else if (indexPath.section == kSupportSection) {
+    } else if (indexPath.section == SectionTypes.support) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kOneWebsiteSupportLink]];
-    } else if (indexPath.section == kShareSection) {
+    } else if (indexPath.section == SectionTypes.share) {
         [self displayShareOptions];
-    } else if (indexPath.section == kLogoutSection) {
+    } else if (indexPath.section == SectionTypes.logout) {
         [[[UIAlertView alloc] initWithTitle:nil
                                     message:NSLocalizedString(@"logout_confirmation_message", nil)
                                    delegate:self
@@ -308,7 +337,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,kSettingsHeaderHeight)];
-    if (section != kCardSection) {
+    if (section != SectionTypes.card) {
         CGFloat separatorHeight = 0.3;
         UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, kSettingsHeaderHeight - separatorHeight, self.view.frame.size.width,separatorHeight)];
         separator.backgroundColor = [self.settingsTableView separatorColor];
@@ -318,7 +347,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == kShareSection || section == kLogoutSection) {
+    if (section == SectionTypes.share || section == SectionTypes.logout) {
         return 0;
     } else {
         return kSettingsHeaderHeight;
@@ -387,5 +416,7 @@ typedef NS_ENUM(NSInteger,SectionTypes) {
 {
     return UIStatusBarStyleLightContent;
 }
+
+
 
 @end

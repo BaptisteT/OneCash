@@ -8,6 +8,7 @@
 //
 #import "Reachability.h"
 #import <ApplePayStubs/ApplePayStubs.h>
+#import <LocalAuthentication/LocalAuthentication.h>
 #import <Stripe.h>
 #import <QuartzCore/QuartzCore.h>
 #import <AudioToolbox/AudioToolbox.h>
@@ -266,8 +267,9 @@
 // --------------------------------------------
 
 - (void)generateTokenAndSendTransaction {
+    User *user = [User currentUser];
     if (self.transactionToSend) {
-        if ([User currentUser].balance - self.ongoingTransactionsCount < 0 && [User currentUser].paymentMethod == kPaymentMethodApplePay) {
+        if (user.balance - self.ongoingTransactionsCount < 0 && user.paymentMethod == kPaymentMethodApplePay) {
             if (!self.applePaySendingTransaction) {
                 [self beginApplePay:self.transactionToSend];
                  self.transactionToSend = nil;
@@ -275,8 +277,19 @@
                 [self startAssociationTimer];
             }
         } else {
-            [self createPaymentWithTransaction:self.transactionToSend token:nil];
-             self.transactionToSend = nil;
+            if (user.touchId) {
+                [self performTouchIdVerificationAndExecuteSuccess:^{
+                    [self createPaymentWithTransaction:self.transactionToSend token:nil];
+                    self.transactionToSend = nil;
+                } failure:^{
+                    self.ongoingTransactionsCount -= self.transactionToSend.transactionAmount;
+                    [self failedAnimation:self.transactionToSend.transactionAmount];
+                    self.transactionToSend = nil;
+                }];
+            } else {
+                [self createPaymentWithTransaction:self.transactionToSend token:nil];
+                self.transactionToSend = nil;
+            }
         }
     }
 }
@@ -762,6 +775,30 @@
 - (void)setBadgeValue:(NSInteger)count {
     self.balanceBadge.text = [NSString stringWithFormat:@"%lu",(long)count];
     self.balanceBadge.hidden = (count == 0);
+}
+
+
+// --------------------------------------------
+#pragma mark - Touch Id
+// --------------------------------------------
+- (void)performTouchIdVerificationAndExecuteSuccess:(void(^)())successBlock
+                                            failure:(void(^)())failureBlock
+{
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error = nil;
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                localizedReason:NSLocalizedString(@"touch_id_title", nil)
+                          reply:^(BOOL success, NSError *error) {
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  if (success && successBlock) {
+                                      successBlock();
+                                  } else {
+                                      failureBlock();
+                                  }
+                              });
+                          }];
+    }
 }
 
 @end

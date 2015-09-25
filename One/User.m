@@ -31,6 +31,8 @@
 @dynamic twitterVerified;
 @dynamic managedAccountId;
 @dynamic birthDate;
+@dynamic touchId;
+@dynamic userStatus;
 
 @synthesize userPicture;
 

@@ -35,6 +35,7 @@
 #define EVENT_RECIPIENT_CLICKED @"recipient.clicked"
 #define EVENT_RECIPIENT_SET @"recipient.set" // property : preselected
 #define EVENT_AUTO_TWEET_CHANGED @"auto_tweet.changed" // property : state
+#define EVENT_TOUCH_ID_CHANGED @"touchId.changed" // property : state
 
 #define PEOPLE_SIGNUP_DATE @"signup.date"
 #define PEOPLE_ALLOW_NOTIF @"notif"
@@ -47,8 +48,7 @@
 #define PEOPLE_SENDING_TOTAL @"payment_sent.total"
 #define PEOPLE_CASHOUT_TOTAL @"cashout.total"
 #define PEOPLE_AUTO_TWEET @"auto_tweet"
-// todo BT
-//• Pin code security (on/off)
+#define PEOPLE_TOUCH_ID @"touchId"
 
 @interface TrackingUtils : NSObject
 

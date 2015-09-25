@@ -9,6 +9,7 @@
 #import <Fabric/Fabric.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Crashlytics/Crashlytics.h>
+#import <LocalAuthentication/LocalAuthentication.h>
 #import <Mixpanel.h>
 #import <Parse/Parse.h>
 #import <ParseTwitterUtils/ParseTwitterUtils.h>
@@ -40,7 +41,6 @@
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -194,6 +194,7 @@
 {
     NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:true];
     if ([components.host containsString:@"one.cash"]) {
+        // todo BT
         if([[url path] containsString:@"user/"]){
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserURLScheme
                                                                 object:nil
@@ -242,5 +243,7 @@
         }
     }
 }
+
+
 
 @end

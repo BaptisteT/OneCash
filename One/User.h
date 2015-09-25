@@ -26,10 +26,12 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 @property (nonatomic) PaymentMethod paymentMethod;
 @property (nonatomic) NSInteger balance;
 @property (nonatomic) BOOL autoTweet;
+@property (nonatomic) BOOL touchId;
 @property (retain) NSString *tweetWording;
 @property (nonatomic) BOOL twitterVerified;
 @property (nonatomic) NSString *managedAccountId;
 @property (nonatomic) NSDate *birthDate;
+@property (nonatomic) NSString *userStatus;
 
 - (void)setAvatarInImageView:(UIImageView *)imageView bigSize:(BOOL)sizeFlag saveLocally:(BOOL)savingFlag;
 - (void)setAvatarInButton:(UIButton *)button bigSize:(BOOL)flag;

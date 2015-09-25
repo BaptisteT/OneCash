@@ -5,6 +5,8 @@
 //  Created by Baptiste Truchot on 9/3/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import <LocalAuthentication/LocalAuthentication.h>
+
 #import <UIScrollView+SVInfiniteScrolling.h>
 
 #import "ApiManager.h"
@@ -207,7 +209,13 @@
 
 - (IBAction)settingsButtonClicked:(id)sender {
     [TrackingUtils trackEvent:EVENT_SETTINGS_CLICKED properties:nil];
-    [self performSegueWithIdentifier:@"Settings From Balance" sender:nil];
+    if ([User currentUser].touchId) {
+        [self performTouchIdVerificationAndExecuteSuccess:^{
+            [self performSegueWithIdentifier:@"Settings From Balance" sender:nil];
+        }];
+    } else {
+        [self performSegueWithIdentifier:@"Settings From Balance" sender:nil];
+    }
 }
 
 - (IBAction)cashoutButtonClicked:(id)sender {
@@ -222,10 +230,22 @@
                           cancelButtonTitle:NSLocalizedString(@"later_", nil)
                           otherButtonTitles:NSLocalizedString(@"verify_button", nil), nil] show];
     } else if (![User currentUser].managedAccountId) {
-        [self performSegueWithIdentifier:@"Managed From Balance" sender:nil];
+        if ([User currentUser].touchId) {
+            [self performTouchIdVerificationAndExecuteSuccess:^{
+                [self performSegueWithIdentifier:@"Managed From Balance" sender:nil];
+            }];
+        } else {
+            [self performSegueWithIdentifier:@"Managed From Balance" sender:nil];
+        }
     } else {
         // go directly to card choice
-        [self performSegueWithIdentifier:@"AccountCard From Balance" sender:nil];
+        if ([User currentUser].touchId) {
+            [self performTouchIdVerificationAndExecuteSuccess:^{
+                [self performSegueWithIdentifier:@"AccountCard From Balance" sender:nil];
+            }];
+        } else {
+            [self performSegueWithIdentifier:@"AccountCard From Balance" sender:nil];
+        }
     }
 }
 
@@ -253,6 +273,25 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+// --------------------------------------------
+#pragma mark - Touch Id
+// --------------------------------------------
+- (void)performTouchIdVerificationAndExecuteSuccess:(void(^)())successBlock {
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error = nil;
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                localizedReason:NSLocalizedString(@"touch_id_title", nil)
+                          reply:^(BOOL success, NSError *error) {
+                              dispatch_async(dispatch_get_main_queue(), ^{
+                                  if (success && successBlock) {
+                                      successBlock();
+                                  }
+                              });
+                          }];
+    }
 }
 
 @end
