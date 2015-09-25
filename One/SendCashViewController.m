@@ -181,15 +181,19 @@
 // --------------------------------------------
 
 - (IBAction)balanceButtonClicked:(id)sender {
-    [TrackingUtils trackEvent:EVENT_BALANCE_CLICKED properties:nil];
-    [self navigateToBalance];
+    if (self.ongoingTransactionsCount == 0) {
+        [TrackingUtils trackEvent:EVENT_BALANCE_CLICKED properties:nil];
+        [self navigateToBalance];
+    }
 }
 
 - (void)recipientButtonClicked {
-    [TrackingUtils trackEvent:EVENT_RECIPIENT_CLICKED properties:nil];
-    [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
-    // Remove selected user
-    [self setSelectedUser:nil];
+    if (self.ongoingTransactionsCount == 0) {
+        [TrackingUtils trackEvent:EVENT_RECIPIENT_CLICKED properties:nil];
+        [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
+        // Remove selected user
+        [self setSelectedUser:nil];
+    }
 }
 
 - (void)navigateToCardController {
@@ -799,6 +803,8 @@
                                   }
                               });
                           }];
+    } else {
+        successBlock();
     }
 }
 
