@@ -159,8 +159,7 @@
         return;
     }
     Transaction *oldest = self.transactions.lastObject;
-    [ApiManager getTransactionsAroundDate:oldest.createdAt
-                                  isStart:NO
+    [ApiManager getTransactionsBeforeDate:oldest.createdAt
                                   success:^(NSArray *transactions) {
                                       [self.transactionsTableView.infiniteScrollingView stopAnimating];
                                       [self.transactions addObjectsFromArray:transactions];

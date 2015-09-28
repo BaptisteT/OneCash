@@ -13,8 +13,8 @@
 #import "ConstantUtils.h"
 #import "OneLogger.h"
 
-#define LAST_TRANSACTIONS_RETRIEVAL @"Latest transactions last retrieval date"
 #define LAST_BALANCE_OPENING @"Last Balance opening"
+#define RECENT_USERS_ARRAY @"Recent Users Array"
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
 @implementation DatastoreManager
@@ -72,19 +72,6 @@
     }];
 }
 
-// todo BT
-// issue if wrong date ? issue if one load fail, how to get it ?
-+ (NSDate *)getLatestTransactionsRetrievalDate {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    return [prefs objectForKey:LAST_TRANSACTIONS_RETRIEVAL] ? [prefs objectForKey:LAST_TRANSACTIONS_RETRIEVAL] : [NSDate dateWithTimeIntervalSince1970:0];
-}
-
-+ (void)saveLatestTransactionsRetrievalDate:(NSDate *)date {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:date forKey:LAST_TRANSACTIONS_RETRIEVAL];
-    [prefs synchronize];
-}
-
 + (NSDate *)getLastBalanceOpening {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     return [prefs objectForKey:LAST_BALANCE_OPENING] ? [prefs objectForKey:LAST_BALANCE_OPENING] : [NSDate date];
@@ -97,30 +84,89 @@
 }
 
 // --------------------------------------------
-#pragma mark - load recent users
+#pragma mark - Recent & leader users
 // --------------------------------------------
 + (void)getRecentUsersAndExecuteSuccess:(void(^)(NSArray *users))successBlock
                                 failure:(void(^)(NSError *error))failureBlock
 {
-    PFQuery *query = [User query];
+    PFQuery *query = [PFQuery queryWithClassName:[Transaction parseClassName]];
     [query fromLocalDatastore];
-    [query setLimit:3];
-    [query whereKey:@"objectId" notEqualTo:[User currentUser].objectId];
+    [query includeKey:@"sender"];
+    [query includeKey:@"receiver"];
+    [query orderByDescending:@"createdAt"];
+    [query setLimit:20];
     [query findObjectsInBackgroundWithBlock:^(NSArray *transactions, NSError *error) {
-        if (!error) {
-            OneLog(LOCALLOGENABLED,@"Datastore => %lu users  found",transactions.count);
-            if (successBlock) {
-                successBlock(transactions);
-            }
-        } else {
-            // Log details of the failure
-            OneLog(LOCALLOGENABLED,@"Error in users from local datastore: %@ %@", error, [error userInfo]);
+        if (error != nil) {
+            OneLog(LOCALLOGENABLED,@"Failure - getRecentUsersAndExecuteSuccess - %@",error.description);
             if (failureBlock) {
                 failureBlock(error);
+            }
+        } else {
+            OneLog(LOCALLOGENABLED,@"Success - getRecentUsersAndExecuteSuccess - %lu found",transactions.count);
+            NSMutableOrderedSet *recentUsers = [NSMutableOrderedSet new];
+            for (Transaction *transaction in transactions) {
+                if (recentUsers.count >= kRecentUserCount) {
+                    break;
+                }
+                if (transaction.sender != [User currentUser]) {
+                    [recentUsers addObject:transaction.sender];
+                }
+                if (transaction.receiver) {
+                    if (transaction.receiver != [User currentUser]) {
+                        [recentUsers addObject:transaction.receiver];
+                    }
+                }
+            }
+            if (successBlock) {
+                successBlock([recentUsers array]);
             }
         }
     }];
 }
+
++ (void)getSuggestedUsersAndExecuteSuccess:(void(^)(NSArray *users))successBlock
+                                failure:(void(^)(NSError *error))failureBlock
+{
+    PFQuery *query = [User query];
+    [query fromLocalDatastore];
+    [query fromPinWithName:kParseSuggestedUsersName];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (error != nil) {
+            OneLog(LOCALLOGENABLED,@"Failure - getSuggestedUsers - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        } else {
+            OneLog(LOCALLOGENABLED,@"Success - getSuggestedUsers - %lu found",users.count);
+            if (successBlock) {
+                successBlock(users);
+            }
+        }
+    }];
+}
+
++ (void)getLeadersAndExecuteSuccess:(void(^)(NSArray *users))successBlock
+                            failure:(void(^)(NSError *error))failureBlock
+{
+    PFQuery *query = [User query];
+    [query fromLocalDatastore];
+    [query fromPinWithName:kParseLeaderUsersName];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
+        if (error != nil) {
+            OneLog(LOCALLOGENABLED,@"Failure - getLeaders - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        } else {
+            OneLog(LOCALLOGENABLED,@"Success - getLeaders - %lu found",users.count);
+            if (successBlock) {
+                successBlock(users);
+            }
+        }
+    }];
+}
+
+
 
 // --------------------------------------------
 #pragma mark - Clean local data

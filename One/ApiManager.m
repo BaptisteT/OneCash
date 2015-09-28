@@ -370,8 +370,7 @@
 }
 
 // Get transactions (either all after date, or 20)
-+ (void)getTransactionsAroundDate:(NSDate *)date
-                          isStart:(BOOL)isStartDate
++ (void)getTransactionsBeforeDate:(NSDate *)date
                           success:(void(^)(NSArray *transactions))successBlock
                           failure:(void(^)(NSError *error))failureBlock
 {
@@ -384,12 +383,9 @@
     [query includeKey:@"sender"];
     [query includeKey:@"receiver"];
     [query orderByDescending:@"createdAt"];
-    if (isStartDate) {
-        [query whereKey:@"createdAt" greaterThanOrEqualTo:date];
-        [query setLimit:200]; // everything above from
-    } else {
+    [query setLimit:20];
+    if (date) {
         [query whereKey:@"createdAt" lessThan:date];
-        [query setLimit:20];
     }
     [query findObjectsInBackgroundWithBlock:^(NSArray *transactions, NSError *error) {
         if (error != nil) {
@@ -400,23 +396,30 @@
         } else {
             OneLog(ONEAPIMANAGERLOG,@"Success - getTransactionsFromDate - %lu found",transactions.count);
             // pin transactions (lastest ONLY !)
-            if (isStartDate) {
-                [DatastoreManager saveLatestTransactionsRetrievalDate:[NSDate date]];
-                [PFObject pinAllInBackground:transactions withName:kParseTransactionsName block:^(BOOL result, NSError *error) {
-                    if (result) {
-                        if (successBlock) {
-                            successBlock(transactions);
-                        }
+            if (!date) {
+                [PFObject unpinAllObjectsInBackgroundWithName:kParseTransactionsName block:^(BOOL succeeded, NSError * _Nullable error) {
+                    if (!error) {
+                        [PFObject pinAllInBackground:transactions withName:kParseTransactionsName block:^(BOOL result, NSError *error) {
+                            if (result) {
+                                if (successBlock) {
+                                    successBlock(transactions);
+                                }
+                            } else {
+                                OneLog(ONEAPIMANAGERLOG,@"Failure - pin transactions - %@",error.description);
+                                if (failureBlock) {
+                                    failureBlock(error);
+                                }
+                            }
+                            for (Transaction *transaction in transactions) {
+                                [transaction.sender pinInBackgroundWithName:kParseUsersName];
+                                if (transaction.receiver) {
+                                    [transaction.receiver pinInBackgroundWithName:kParseUsersName];
+                                }
+                            }
+                        }];
                     } else {
-                        OneLog(ONEAPIMANAGERLOG,@"Failure - pin transactions - %@",error.description);
                         if (failureBlock) {
                             failureBlock(error);
-                        }
-                    }
-                    for (Transaction *transaction in transactions) {
-                        [transaction.sender pinInBackgroundWithName:kParseUsersName];
-                        if (transaction.receiver) {
-                            [transaction.receiver pinInBackgroundWithName:kParseUsersName];
                         }
                     }
                 }];
@@ -555,6 +558,60 @@
                                     }
                                 }];
 }
+
+// --------------------------------------------
+#pragma mark - Recipients
+// --------------------------------------------
+// Leaders
++ (void)getLeadersAndExecuteSuccess:(void(^)(NSArray *results))successBlock
+                            failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"retrieveLeaders"
+                       withParameters:nil
+                                block:^(NSArray *results, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - retrieveLeaders - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock(results);
+                                        }
+                                        // pin
+                                        [PFObject unpinAllObjectsInBackgroundWithName:kParseLeaderUsersName
+                                                                                block:^(BOOL succeeded, NSError * _Nullable error) {
+                                                                                    [PFObject pinAllInBackground:results];
+                                                                                }];
+                                    }
+                                }];
+}
+
+// Suggested
++ (void)getSuggestedUsersAndExecuteSuccess:(void(^)(NSArray *results))successBlock
+                            failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"retrieveSuggestedUsers"
+                       withParameters:nil
+                                block:^(NSArray *results, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - getSuggestedUsers - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock(results);
+                                        }
+                                        // pin
+                                        [PFObject unpinAllObjectsInBackgroundWithName:kParseSuggestedUsersName
+                                                                                block:^(BOOL succeeded, NSError * _Nullable error) {
+                                                                                    [PFObject pinAllInBackground:results];
+                                                                                }];
+                                    }
+                                }];
+}
+
 
 // --------------------------------------------
 #pragma mark - Misc

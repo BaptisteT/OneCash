@@ -121,6 +121,7 @@
 - (BOOL)applePayEnabled {
     if ([PKPaymentRequest class]) {
         PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
+        paymentRequest.currencyCode = @"USD";
         return [Stripe canSubmitPaymentRequest:paymentRequest];
     }
     return NO;

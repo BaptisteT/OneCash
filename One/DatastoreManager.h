@@ -17,12 +17,14 @@
                                  success:(void(^)(NSInteger count))successBlock
                                  failure:(void(^)(NSError *error))failureBlock;
 
-+ (NSDate *)getLatestTransactionsRetrievalDate;
-
-+ (void)saveLatestTransactionsRetrievalDate:(NSDate *)date;
-
 + (void)getRecentUsersAndExecuteSuccess:(void(^)(NSArray *users))successBlock
                                 failure:(void(^)(NSError *error))failureBlock;
+
++ (void)getSuggestedUsersAndExecuteSuccess:(void(^)(NSArray *users))successBlock
+                                   failure:(void(^)(NSError *error))failureBlock;
+
++ (void)getLeadersAndExecuteSuccess:(void(^)(NSArray *users))successBlock
+                            failure:(void(^)(NSError *error))failureBlock;
 
 + (NSDate *)getLastBalanceOpening;
 

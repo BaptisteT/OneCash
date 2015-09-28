@@ -246,8 +246,7 @@
 #pragma mark - Load Transactions
 // --------------------------------------------
 - (void)loadLatestTransactions {
-    [ApiManager getTransactionsAroundDate:[DatastoreManager getLatestTransactionsRetrievalDate]
-                                  isStart:YES
+    [ApiManager getTransactionsBeforeDate:nil
                                   success:^(NSArray *transactions) {
                                       // send notif to balance controller for refresh
                                       [[NSNotificationCenter defaultCenter] postNotificationName: kNotificationRefreshTransactions
@@ -333,6 +332,7 @@
     self.applePaySucceeded = NO;
     self.applePaySendingTransaction = transaction;
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
+    paymentRequest.currencyCode = @"USD";
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
         NSInteger valueToWithdraw = self.ongoingTransactionsCount - [User currentUser].balance;
         NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:valueToWithdraw];

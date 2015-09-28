@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+#if DEBUG
 #define GLOBALLOGENABLED YES
+#else
+#define GLOBALLOGENABLED NO
+#endif
 
 @interface ConstantUtils : NSObject
 @end
@@ -47,11 +51,13 @@ static float const kNotifAnimationDuration = 0.5;
 
 // Image
 static NSInteger const kDisplayedPictureBigSize = 1024;
-static NSInteger const kDisplayedPictureSmallSize = 128;
+static NSInteger const kDisplayedPictureSmallSize = 64;
 
 // Parse Pin Names
 static NSString * const kParseTransactionsName = @"Transactions";
 static NSString * const kParseUsersName = @"OneUsers";
+static NSString * const kParseSuggestedUsersName = @"SuggestedUsers";
+static NSString * const kParseLeaderUsersName = @"LeaderUsers";
 
 // Messages
 static NSInteger const kMaxMessagesLength = 30;
@@ -61,6 +67,9 @@ static NSInteger const kMaxStatusLength = 60;
 static NSInteger const kUnitTransactionAmount = 1;
 static float const kAssociationTimerDuration = 2.;
 static NSInteger const kAssociationTransactionsLimit = 50;
+
+// Recipient
+static NSInteger const kRecentUserCount = 3;
 
 // Settings
 static float const kSettingsHeaderHeight = 25.;

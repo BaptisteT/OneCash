@@ -14,8 +14,9 @@
 
 #import "ColorUtils.h"
 #import "DesignUtils.h"
-#import "KeyboardUtils.h"
 #import "TrackingUtils.h"
+
+#define HEADER_HEIGHT 42
 
 @interface RecipientViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -28,7 +29,9 @@
 // Users
 @property (strong, nonatomic) NSString *lastStringSearched;
 @property (strong, nonatomic) NSArray *historicUsers;
-@property (strong, nonatomic) NSArray *usersArray;
+@property (strong, nonatomic) NSArray *suggestedUsers;
+@property (strong, nonatomic) NSArray *leadingUsers;
+@property (strong, nonatomic) NSArray *searchedUsersArray;
 
 @end
 
@@ -49,11 +52,11 @@
     // wording
     [self.closeButton setTitle:NSLocalizedString(@"close_button", nil) forState:UIControlStateNormal];
     self.titleLabel.text = NSLocalizedString(@"recipient_title", nil);
+    self.recipientTextfield.placeholder = NSLocalizedString(@"recipients_search_placeholder", nil);
     
     // UI
     self.topBar.backgroundColor = [ColorUtils mainGreen];
-    [DesignUtils addBottomBorder:self.recipientTextfield borderSize:0.2 color:[UIColor lightGrayColor]];
-    [DesignUtils addTopBorder:self.textfieldContainer borderSize:0.5 color:[UIColor lightGrayColor]];
+    [DesignUtils addBottomBorder:self.textfieldContainer borderSize:0.5 color:[UIColor lightGrayColor]];
     self.recipientTextfield.textColor = [ColorUtils mainGreen];
     self.loadingContainer.hidden = YES;
     
@@ -62,24 +65,41 @@
     self.recipientsTableView.dataSource = self;
     self.recipientsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    // Keyboard Observer
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
     // Textfield
     self.recipientTextfield.delegate = self;
     
-    // Show recent users
+    // Leaders
+    [DatastoreManager getLeadersAndExecuteSuccess:^(NSArray *users) {
+        self.leadingUsers = users;
+        if (self.recipientTextfield.text.length == 0) {
+            [self.recipientsTableView reloadData];
+        }
+    } failure:nil];
+    [ApiManager getLeadersAndExecuteSuccess:^(NSArray *users) {
+        self.leadingUsers = users;
+        if (self.recipientTextfield.text.length == 0) {
+            [self.recipientsTableView reloadData];
+        }
+    } failure:nil];
+    
+    // Suggested
+    [DatastoreManager getSuggestedUsersAndExecuteSuccess:^(NSArray *users) {
+        self.suggestedUsers = users;
+        if (self.recipientTextfield.text.length == 0) {
+            [self.recipientsTableView reloadData];
+        }
+    } failure:nil];
+    [ApiManager getSuggestedUsersAndExecuteSuccess:^(NSArray *users) {
+        self.suggestedUsers = users;
+        if (self.recipientTextfield.text.length == 0) {
+            [self.recipientsTableView reloadData];
+        }
+    } failure:nil];
+    
+    // Recent users
     [DatastoreManager getRecentUsersAndExecuteSuccess:^(NSArray *users) {
         self.historicUsers = users;
         if (self.recipientTextfield.text.length == 0) {
-            self.usersArray = users;
             [self.recipientsTableView reloadData];
         }
     } failure:nil];
@@ -122,13 +142,34 @@
 #pragma mark - Table view
 // --------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.usersArray ? self.usersArray.count : 0;
+    if(self.recipientTextfield.text.length > 0) {
+        return self.searchedUsersArray ? self.searchedUsersArray.count : 0;
+    } else {
+        if (section == 0) {
+            return self.historicUsers.count;
+        } else if (section == 1) {
+            return self.suggestedUsers.count;
+        } else {
+            return self.leadingUsers.count;
+        }
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSArray *userArray;
+    if (self.recipientTextfield.text.length > 0) {
+        userArray = self.searchedUsersArray;
+    } else if (indexPath.section == 0) {
+        userArray = self.historicUsers;
+    } else if (indexPath.section == 1) {
+        userArray = self.suggestedUsers;
+    } else {
+        userArray = self.leadingUsers;
+    }
+    
     UserTableViewCell *cell = (UserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"UserCell"];
-    cell.user = (User *)self.usersArray[indexPath.row];
+    [cell initWithUser:(User *)userArray[indexPath.row] showBalance:(indexPath.section == 2)];
     [cell layoutIfNeeded];
     return cell;
 }
@@ -140,18 +181,37 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if(self.recipientTextfield.text.length > 0) {
        return NSLocalizedString(@"search_header", nil);
+    } else {
+        if (section == 0) {
+            return NSLocalizedString(@"recent_header", nil);
+        } else if (section == 1) {
+            return NSLocalizedString(@"suggested_header", nil);
+        } else {
+            return NSLocalizedString(@"leaderboard_header", nil);
+        }
     }
-    return NSLocalizedString(@"recent_header", nil);
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if(self.recipientTextfield.text.length > 0) {
+        return 1;
+    } else {
+        return 3;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return HEADER_HEIGHT;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *tempView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width,22)];
+    UIView *tempView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width,HEADER_HEIGHT)];
     tempView.backgroundColor=[UIColor whiteColor];
     
-    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,0,tempView.frame.size.width,tempView.frame.size.height)];
+    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,20,tempView.frame.size.width,22)];
     tempLabel.backgroundColor=[UIColor clearColor];
-    tempLabel.textColor = [ColorUtils mainGreen]; //here you can change the text color of header.
+    tempLabel.textColor = [ColorUtils mainGreen];
     tempLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:15];
     tempLabel.text=[self tableView:tableView titleForHeaderInSection:section];
     UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, tempView.frame.size.height - 0.5, tempView.frame.size.width, 0.5)];
@@ -202,7 +262,7 @@
                                          success:^(NSString *string, NSArray *users) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  if ([self.lastStringSearched isEqualToString:string]) {
-                                                     self.usersArray = users;
+                                                     self.searchedUsersArray = users;
                                                      [self.recipientsTableView reloadData];
                                                      
                                                      // end search indicator
@@ -214,32 +274,23 @@
                                              });
                                          } failure:nil];
     } else {
-        self.usersArray = self.historicUsers;
+        self.searchedUsersArray = nil;
         [self.recipientsTableView reloadData];
     }
     
     return NO;
 }
 
-// ----------------------------------------------------------
-#pragma mark Keyboard
-// ----------------------------------------------------------
-// Move up create comment view on keyboard will show
-- (void)keyboardWillShow:(NSNotification *)notification {
-    [KeyboardUtils pushUpTopView:self.textfieldContainer whenKeyboardWillShowNotification:notification];
-}
-
-// Move down create comment view on keyboard will hide
-- (void)keyboardWillHide:(NSNotification *)notification {
-    [KeyboardUtils pushDownTopView:self.textfieldContainer whenKeyboardWillhideNotification:notification];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    
-    return YES;
-}
+//// ----------------------------------------------------------
+//#pragma mark Keyboard
+//// ----------------------------------------------------------
+//
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField
+//{
+//    [textField resignFirstResponder];
+//    
+//    return YES;
+//}
 
 // --------------------------------------------
 #pragma mark - UI

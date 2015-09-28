@@ -64,8 +64,7 @@
                                         success:(void(^)())successBlock
                                         failure:(void(^)(NSError *error))failureBlock;
 
-+ (void)getTransactionsAroundDate:(NSDate *)date
-                          isStart:(BOOL)isStartDate
++ (void)getTransactionsBeforeDate:(NSDate *)date
                           success:(void(^)(NSArray *transactions))successBlock
                           failure:(void(^)(NSError *error))failureBlock;
 
@@ -103,5 +102,14 @@
 + (void)alertByEmailWithParams:(NSDictionary *)params
                        success:(void(^)())successBlock
                        failure:(void(^)(NSError *error))failureBlock;
+
+// --------------------------------------------
+#pragma mark - Recipients
+// --------------------------------------------
++ (void)getSuggestedUsersAndExecuteSuccess:(void(^)(NSArray *results))successBlock
+                                   failure:(void(^)(NSError *error))failureBlock;
+
++ (void)getLeadersAndExecuteSuccess:(void(^)(NSArray *results))successBlock
+                            failure:(void(^)(NSError *error))failureBlock;
 
 @end

@@ -40,6 +40,8 @@
 "create_stripe_customer_error_title" = "Your card was declined by Stripe";
 "create_token_with_card_error_title" = "Sorry, we could not process your card.";
 "create_token_with_card_error_message" = "Please, try again or contact us.";
+"non_us_card_error_title" = "Sorry, we are only processing US cards for now.";
+"non_us_card_error_message" = "Please, enter a valid US card.";
 "swipe_label" = "Swipe up to send $1";
 "top_bar_payment" = "Payment method";
 "top_bar_card" = "Add a card";
@@ -83,6 +85,9 @@
 "recipient_title" = "Pick a recipient";
 "recent_header" = "Recent";
 "search_header"= "Search results";
+"recipients_search_placeholder" = "Search by username";
+"suggested_header" = "Suggested";
+"leaderboard_header" = "Leaderboard";
 
 // Settings
 "settings_title" = "Settings";

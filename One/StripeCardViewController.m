@@ -92,18 +92,18 @@
     [[STPAPIClient sharedClient] createTokenWithCard:card
                                           completion:^(STPToken *token, NSError *error) {
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  // todo BT
-                                                  // only US
-                                                  
-                                                  [TrackingUtils trackEvent:EVENT_STRIPE_CREATE_TOKEN_WITH_CARD properties:@{@"success" : [NSNumber numberWithBool:(error == nil)]}];
+                                                  [TrackingUtils trackEvent:EVENT_STRIPE_CREATE_TOKEN_WITH_CARD properties:@{@"success" : [NSNumber numberWithBool:(error == nil)], @"country": card.country ? card.country : @""}];
                                                   if (error) {
                                                       [DesignUtils hideProgressHUDForView:self.view];
                                                       [GeneralUtils showAlertWithTitle:NSLocalizedString(@"create_token_with_card_error_title", nil) andMessage:error.localizedDescription];
                                                       [self.paymentTextField clear];
-                                                      return;
+                                                  } else if (![card.country isEqualToString:@"US"]) {
+                                                      [DesignUtils hideProgressHUDForView:self.view];
+                                                      [GeneralUtils showAlertWithTitle:NSLocalizedString(@"non_us_card_error_title", nil) andMessage:NSLocalizedString(@"non_us_card_error_message", nil)];
+                                                      [self.paymentTextField clear];
+                                                  } else {
+                                                      [self sendTokenToServer:token];
                                                   }
-                                                  
-                                                  [self sendTokenToServer:token];
                                               });
                                           }];
 }
