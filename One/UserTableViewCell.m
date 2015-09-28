@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userPicture;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *certifiedImageView;
+@property (weak, nonatomic) IBOutlet UILabel *userStatus;
 
 @end
 
@@ -21,6 +22,8 @@
 
 - (void)setUser:(User *)user {
     _user = user;
+    self.userStatus.text = user.userStatus;
+    self.userStatus.hidden = !user.userStatus || user.userStatus.length == 0;
     self.usernameLabel.text = user.caseUsername;
     [user setAvatarInImageView:self.userPicture bigSize:NO saveLocally:NO];
     self.userPicture.layer.cornerRadius = self.userPicture.frame.size.height / 2;

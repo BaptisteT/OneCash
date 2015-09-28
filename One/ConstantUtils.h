@@ -55,6 +55,7 @@ static NSString * const kParseUsersName = @"OneUsers";
 
 // Messages
 static NSInteger const kMaxMessagesLength = 30;
+static NSInteger const kMaxStatusLength = 80;
 
 // Sending
 static NSInteger const kUnitTransactionAmount = 1;

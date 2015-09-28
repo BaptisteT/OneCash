@@ -56,6 +56,64 @@
 		3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE11B9C47F800514A43 /* CashView.m */; };
 		3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
 		3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */; };
+		3CD4D6001BB91D75001F2C7A /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; settings = {ASSET_TAGS = (); }; };
+		3CD4D6011BB91D75001F2C7A /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDD51B9B524A00514A43 /* UserTableViewCell.m */; };
+		3CD4D6021BB91D75001F2C7A /* SHEmailValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDA91B98836D00514A43 /* SHEmailValidator.m */; };
+		3CD4D6031BB91D75001F2C7A /* EmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FD9A1B976F4400514A43 /* EmailViewController.m */; };
+		3CD4D6041BB91D75001F2C7A /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDBF1B98A56300514A43 /* CardViewController.m */; };
+		3CD4D6051BB91D75001F2C7A /* GeneralUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDB91B989DCE00514A43 /* GeneralUtils.m */; };
+		3CD4D6061BB91D75001F2C7A /* NSString+EmailAddresses.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FD9F1B98835C00514A43 /* NSString+EmailAddresses.m */; };
+		3CD4D6071BB91D75001F2C7A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F41B8DB2BF005AD52B /* User.m */; };
+		3CD4D6081BB91D75001F2C7A /* NSString+LevenshteinDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDA31B98836D00514A43 /* NSString+LevenshteinDistance.m */; };
+		3CD4D6091BB91D75001F2C7A /* BalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDC81B98A6EA00514A43 /* BalanceViewController.m */; };
+		3CD4D60A1BB91D75001F2C7A /* PaddingTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9BBB1E1BA1E3CB00BCAC26 /* PaddingTextField.m */; };
+		3CD4D60B1BB91D75001F2C7A /* PushNoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDD21B99D73100514A43 /* PushNoAnimationSegue.m */; };
+		3CD4D60C1BB91D75001F2C7A /* OneLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0FA1B8DB4DD005AD52B /* OneLogger.m */; };
+		3CD4D60D1BB91D75001F2C7A /* DatastoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13EE4F1B9F428D00930AC7 /* DatastoreManager.m */; };
+		3CD4D60E1BB91D75001F2C7A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E036C1B8DA18B00D22D48 /* AppDelegate.m */; };
+		3CD4D60F1BB91D75001F2C7A /* SendCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDC21B98A6D400514A43 /* SendCashViewController.m */; };
+		3CD4D6101BB91D75001F2C7A /* InternalNotifView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E1001B8DBA5E005AD52B /* InternalNotifView.m */; };
+		3CD4D6111BB91D75001F2C7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E03691B8DA18B00D22D48 /* main.m */; };
+		3CD4D6121BB91D75001F2C7A /* ApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0FD1B8DB577005AD52B /* ApiManager.m */; };
+		3CD4D6131BB91D75001F2C7A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13EE4A1B9F32D500930AC7 /* Reachability.m */; };
+		3CD4D6141BB91D75001F2C7A /* AccountCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6471BA9B239006679DE /* AccountCardViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3CD4D6151BB91D75001F2C7A /* DesignUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDBC1B98A14F00514A43 /* DesignUtils.m */; };
+		3CD4D6161BB91D75001F2C7A /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3CD4D6171BB91D75001F2C7A /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E1081B8DE501005AD52B /* WelcomeViewController.m */; };
+		3CD4D6181BB91D75001F2C7A /* RecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDC51B98A6E100514A43 /* RecipientViewController.m */; };
+		3CD4D6191BB91D75001F2C7A /* TransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */; };
+		3CD4D61A1BB91D75001F2C7A /* StripeCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDCF1B98C7DE00514A43 /* StripeCardViewController.m */; };
+		3CD4D61B1BB91D75001F2C7A /* HowToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDB21B98861D00514A43 /* HowToViewController.m */; };
+		3CD4D61C1BB91D75001F2C7A /* TrackingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F11B8DB07C005AD52B /* TrackingUtils.m */; };
+		3CD4D61D1BB91D75001F2C7A /* BackEndUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDDB1B9B5A6000514A43 /* BackEndUtils.m */; };
+		3CD4D61E1BB91D75001F2C7A /* ColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E1051B8DBBE6005AD52B /* ColorUtils.m */; };
+		3CD4D61F1BB91D75001F2C7A /* NotifUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F71B8DB3DD005AD52B /* NotifUtils.m */; };
+		3CD4D6201BB91D75001F2C7A /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FD931B97431000514A43 /* Transaction.m */; };
+		3CD4D6211BB91D75001F2C7A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDCB1B98A72800514A43 /* SettingsViewController.m */; };
+		3CD4D6221BB91D75001F2C7A /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9BBB211BA2D1A100BCAC26 /* SwitchTableViewCell.m */; };
+		3CD4D6231BB91D75001F2C7A /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDD81B9B597600514A43 /* ImageCache.m */; };
+		3CD4D6241BB91D75001F2C7A /* ConstantUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0EE1B8DAF0B005AD52B /* ConstantUtils.m */; };
+		3CD4D6251BB91D75001F2C7A /* SHValidationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDAB1B98836D00514A43 /* SHValidationResult.m */; };
+		3CD4D6261BB91D75001F2C7A /* KeyboardUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */; };
+		3CD4D6271BB91D75001F2C7A /* CashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE11B9C47F800514A43 /* CashView.m */; };
+		3CD4D6281BB91D75001F2C7A /* TweetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CBA5D1BABFC0F002D68E1 /* TweetTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		3CD4D62A1BB91D75001F2C7A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */; };
+		3CD4D62B1BB91D75001F2C7A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */; };
+		3CD4D62C1BB91D75001F2C7A /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC5FD971B974A5500514A43 /* Accounts.framework */; };
+		3CD4D62D1BB91D75001F2C7A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC5FD951B974A4F00514A43 /* Social.framework */; };
+		3CD4D62E1BB91D75001F2C7A /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
+		3CD4D6301BB91D75001F2C7A /* ProximaNova-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5031BADDB9E00CDAF07 /* ProximaNova-Black.otf */; };
+		3CD4D6311BB91D75001F2C7A /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5041BADDB9E00CDAF07 /* ProximaNova-Bold.otf */; };
+		3CD4D6321BB91D75001F2C7A /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5051BADDB9E00CDAF07 /* ProximaNova-Light.otf */; };
+		3CD4D6331BB91D75001F2C7A /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5061BADDB9E00CDAF07 /* ProximaNova-Regular.otf */; };
+		3CD4D6341BB91D75001F2C7A /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5071BADDB9E00CDAF07 /* ProximaNova-Semibold.otf */; };
+		3CD4D6351BB91D75001F2C7A /* Maax Rounded Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */; };
+		3CD4D6361BB91D75001F2C7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDB41B98886700514A43 /* Localizable.strings */; };
+		3CD4D6371BB91D75001F2C7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03741B8DA18B00D22D48 /* Main.storyboard */; };
+		3CD4D6381BB91D75001F2C7A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */; };
+		3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */; };
+		3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
 		A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		A470C0111BAA059200FA005F /* Maax Rounded Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */; };
 		A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */; };
@@ -162,6 +220,8 @@
 		3CC5FDE31B9CA08600514A43 /* CashView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CashView.xib; sourceTree = "<group>"; };
 		3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewCell.h; sourceTree = "<group>"; };
 		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
+		3CD4D6411BB91D75001F2C7A /* OneInHouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneInHouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CD4D6421BB91D76001F2C7A /* One copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "One copy-Info.plist"; path = "/Users/baptistetruchot/Documents/Developer/XCode_Projects/One/One copy-Info.plist"; sourceTree = "<absolute>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Maax Rounded Medium.otf"; sourceTree = "<group>"; };
@@ -184,6 +244,18 @@
 				3CC5FD981B974A5500514A43 /* Accounts.framework in Frameworks */,
 				3CC5FD961B974A4F00514A43 /* Social.framework in Frameworks */,
 				BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3CD4D6291BB91D75001F2C7A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CD4D62A1BB91D75001F2C7A /* AudioToolbox.framework in Frameworks */,
+				3CD4D62B1BB91D75001F2C7A /* SystemConfiguration.framework in Frameworks */,
+				3CD4D62C1BB91D75001F2C7A /* Accounts.framework in Frameworks */,
+				3CD4D62D1BB91D75001F2C7A /* Social.framework in Frameworks */,
+				3CD4D62E1BB91D75001F2C7A /* libPods-One.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +292,7 @@
 				6003251E0CB60950663BAB8E /* Pods */,
 				3CC5FD9C1B9880DC00514A43 /* 3rdParty */,
 				03794D7AE0960F429C553BEE /* Frameworks */,
+				3CD4D6421BB91D76001F2C7A /* One copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -227,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				3C2E03641B8DA18B00D22D48 /* One.app */,
+				3CD4D6411BB91D75001F2C7A /* OneInHouse.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -444,6 +518,26 @@
 			productReference = 3C2E03641B8DA18B00D22D48 /* One.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3CD4D5FD1BB91D75001F2C7A /* OneInHouse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3CD4D63E1BB91D75001F2C7A /* Build configuration list for PBXNativeTarget "OneInHouse" */;
+			buildPhases = (
+				3CD4D5FE1BB91D75001F2C7A /* Check Pods Manifest.lock */,
+				3CD4D5FF1BB91D75001F2C7A /* Sources */,
+				3CD4D6291BB91D75001F2C7A /* Frameworks */,
+				3CD4D62F1BB91D75001F2C7A /* Resources */,
+				3CD4D63C1BB91D75001F2C7A /* Copy Pods Resources */,
+				3CD4D63D1BB91D75001F2C7A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OneInHouse;
+			productName = One;
+			productReference = 3CD4D6411BB91D75001F2C7A /* OneInHouse.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -465,6 +559,14 @@
 							};
 						};
 					};
+					3CD4D5FD1BB91D75001F2C7A = {
+						DevelopmentTeam = WGTUBR2K4F;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 0;
+							};
+						};
+					};
 				};
 			};
 			buildConfigurationList = 3C2E035F1B8DA18B00D22D48 /* Build configuration list for PBXProject "One" */;
@@ -481,6 +583,7 @@
 			projectRoot = "";
 			targets = (
 				3C2E03631B8DA18B00D22D48 /* One */,
+				3CD4D5FD1BB91D75001F2C7A /* OneInHouse */,
 			);
 		};
 /* End PBXProject section */
@@ -505,10 +608,72 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3CD4D62F1BB91D75001F2C7A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CD4D6301BB91D75001F2C7A /* ProximaNova-Black.otf in Resources */,
+				3CD4D6311BB91D75001F2C7A /* ProximaNova-Bold.otf in Resources */,
+				3CD4D6321BB91D75001F2C7A /* ProximaNova-Light.otf in Resources */,
+				3CD4D6331BB91D75001F2C7A /* ProximaNova-Regular.otf in Resources */,
+				3CD4D6341BB91D75001F2C7A /* ProximaNova-Semibold.otf in Resources */,
+				3CD4D6351BB91D75001F2C7A /* Maax Rounded Medium.otf in Resources */,
+				3CD4D6361BB91D75001F2C7A /* Localizable.strings in Resources */,
+				3CD4D6371BB91D75001F2C7A /* Main.storyboard in Resources */,
+				3CD4D6381BB91D75001F2C7A /* LaunchScreen.xib in Resources */,
+				3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */,
+				3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */,
+				3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		3C2E03951B8DA7FB00D22D48 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" f9ca597e689ec6ddf7ea7adc3fc05ea4f9ce6fb9 0a81e712325d94f766791e99f62e1bac477d6dfc753e67864ec3521c5ca4b210";
+		};
+		3CD4D5FE1BB91D75001F2C7A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3CD4D63C1BB91D75001F2C7A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-One/Pods-One-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3CD4D63D1BB91D75001F2C7A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -599,6 +764,54 @@
 				3CC5FDDF1B9C391600514A43 /* KeyboardUtils.m in Sources */,
 				3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */,
 				3C7CBA5E1BABFC0F002D68E1 /* TweetTableViewCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3CD4D5FF1BB91D75001F2C7A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CD4D6001BB91D75001F2C7A /* IPUtils.m in Sources */,
+				3CD4D6011BB91D75001F2C7A /* UserTableViewCell.m in Sources */,
+				3CD4D6021BB91D75001F2C7A /* SHEmailValidator.m in Sources */,
+				3CD4D6031BB91D75001F2C7A /* EmailViewController.m in Sources */,
+				3CD4D6041BB91D75001F2C7A /* CardViewController.m in Sources */,
+				3CD4D6051BB91D75001F2C7A /* GeneralUtils.m in Sources */,
+				3CD4D6061BB91D75001F2C7A /* NSString+EmailAddresses.m in Sources */,
+				3CD4D6071BB91D75001F2C7A /* User.m in Sources */,
+				3CD4D6081BB91D75001F2C7A /* NSString+LevenshteinDistance.m in Sources */,
+				3CD4D6091BB91D75001F2C7A /* BalanceViewController.m in Sources */,
+				3CD4D60A1BB91D75001F2C7A /* PaddingTextField.m in Sources */,
+				3CD4D60B1BB91D75001F2C7A /* PushNoAnimationSegue.m in Sources */,
+				3CD4D60C1BB91D75001F2C7A /* OneLogger.m in Sources */,
+				3CD4D60D1BB91D75001F2C7A /* DatastoreManager.m in Sources */,
+				3CD4D60E1BB91D75001F2C7A /* AppDelegate.m in Sources */,
+				3CD4D60F1BB91D75001F2C7A /* SendCashViewController.m in Sources */,
+				3CD4D6101BB91D75001F2C7A /* InternalNotifView.m in Sources */,
+				3CD4D6111BB91D75001F2C7A /* main.m in Sources */,
+				3CD4D6121BB91D75001F2C7A /* ApiManager.m in Sources */,
+				3CD4D6131BB91D75001F2C7A /* Reachability.m in Sources */,
+				3CD4D6141BB91D75001F2C7A /* AccountCardViewController.m in Sources */,
+				3CD4D6151BB91D75001F2C7A /* DesignUtils.m in Sources */,
+				3CD4D6161BB91D75001F2C7A /* ManagedAccountViewController.m in Sources */,
+				3CD4D6171BB91D75001F2C7A /* WelcomeViewController.m in Sources */,
+				3CD4D6181BB91D75001F2C7A /* RecipientViewController.m in Sources */,
+				3CD4D6191BB91D75001F2C7A /* TransactionTableViewCell.m in Sources */,
+				3CD4D61A1BB91D75001F2C7A /* StripeCardViewController.m in Sources */,
+				3CD4D61B1BB91D75001F2C7A /* HowToViewController.m in Sources */,
+				3CD4D61C1BB91D75001F2C7A /* TrackingUtils.m in Sources */,
+				3CD4D61D1BB91D75001F2C7A /* BackEndUtils.m in Sources */,
+				3CD4D61E1BB91D75001F2C7A /* ColorUtils.m in Sources */,
+				3CD4D61F1BB91D75001F2C7A /* NotifUtils.m in Sources */,
+				3CD4D6201BB91D75001F2C7A /* Transaction.m in Sources */,
+				3CD4D6211BB91D75001F2C7A /* SettingsViewController.m in Sources */,
+				3CD4D6221BB91D75001F2C7A /* SwitchTableViewCell.m in Sources */,
+				3CD4D6231BB91D75001F2C7A /* ImageCache.m in Sources */,
+				3CD4D6241BB91D75001F2C7A /* ConstantUtils.m in Sources */,
+				3CD4D6251BB91D75001F2C7A /* SHValidationResult.m in Sources */,
+				3CD4D6261BB91D75001F2C7A /* KeyboardUtils.m in Sources */,
+				3CD4D6271BB91D75001F2C7A /* CashView.m in Sources */,
+				3CD4D6281BB91D75001F2C7A /* TweetTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +960,46 @@
 			};
 			name = Release;
 		};
+		3CD4D63F1BB91D75001F2C7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F0138CD4900B04DB2B1B667 /* Pods-One.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
+				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ever";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ever";
+				INFOPLIST_FILE = "One copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "916ca0d7-8a25-4efc-aa61-829c552523ce";
+			};
+			name = Debug;
+		};
+		3CD4D6401BB91D75001F2C7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
+				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ever";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ever";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
+				INFOPLIST_FILE = "One copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "916ca0d7-8a25-4efc-aa61-829c552523ce";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -764,6 +1017,15 @@
 			buildConfigurations = (
 				3C2E038B1B8DA18B00D22D48 /* Debug */,
 				3C2E038C1B8DA18B00D22D48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3CD4D63E1BB91D75001F2C7A /* Build configuration list for PBXNativeTarget "OneInHouse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3CD4D63F1BB91D75001F2C7A /* Debug */,
+				3CD4D6401BB91D75001F2C7A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

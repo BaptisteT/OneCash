@@ -129,6 +129,7 @@
 {
     UserTableViewCell *cell = (UserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"UserCell"];
     cell.user = (User *)self.usersArray[indexPath.row];
+    [cell layoutIfNeeded];
     return cell;
 }
 

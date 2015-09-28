@@ -76,6 +76,7 @@
 "cashout_no_money_message" = "You need to have a positive balance on your One account to cash out";
 "cashout_no_email_message" = "You need to verify your email to cashout.";
 "verify_button" = "Verify";
+"status_placeholder" = "Add a status";
 
 // Recipients
 "to" = "to";

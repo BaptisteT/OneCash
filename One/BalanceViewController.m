@@ -34,6 +34,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *balanceContainer;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
+@property (weak, nonatomic) IBOutlet UITextField *statusTextField;
 
 @property (strong, nonatomic) NSMutableArray *transactions;
 
@@ -55,6 +56,7 @@
     _layoutFlag = YES;
     self.transactions = [NSMutableArray new];
     [DatastoreManager setLastBalanceOpeningDate:[NSDate date]];
+    self.statusTextField.delegate = self;
     
     // Wording
     [self.closeButton setTitle:NSLocalizedString(@"close_button", nil) forState:UIControlStateNormal];
@@ -62,6 +64,7 @@
     [self.cashoutButton setTitle:NSLocalizedString(@"cashout_button", nil) forState:UIControlStateNormal];
     self.titleLabel.text = [User currentUser].caseUsername;
     self.historyLabel.text = NSLocalizedString(@"history_label", nil);
+    self.statusTextField.placeholder = NSLocalizedString(@"status_placeholder", nil);
 
     // UI
     self.cashoutButton.backgroundColor = [ColorUtils red];
@@ -76,7 +79,7 @@
     [self.transactionsTableView setScrollIndicatorInsets:[self.transactionsTableView contentInset]];
     
     // Balance
-    [self setBalance];
+    [self setBalanceAndStatus];
     
     // Table view
     self.transactionsTableView.delegate = self;
@@ -85,6 +88,10 @@
     [self.transactionsTableView addInfiniteScrollingWithActionHandler:^() {
         [self loadOlderTransactionsRemotely];
     }];
+    
+    // Gesture
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignStatusFirstResponder)];
+    [self.view addGestureRecognizer:tapGesture];
     
     // Update badge
     [ApiManager updateBadge:0];
@@ -142,7 +149,7 @@
         [self.transactionsTableView reloadData];
         
         // reset balance
-        [self setBalance];
+        [self setBalanceAndStatus];
     } failure:nil];
 }
 
@@ -163,13 +170,14 @@
                                   }];
 }
 
-- (void)setBalance {
+- (void)setBalanceAndStatus {
     NSString *string = [NSString stringWithFormat:@"$%ld",(long)[User currentUser].balance];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
     UIFont *font = self.balanceLabel.font;
     UIColor *color = [ColorUtils mainGreen];
     [attr addAttributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: color} range:NSMakeRange(0,1)];
     self.balanceLabel.attributedText = attr;
+    self.statusTextField.text = [User currentUser].userStatus;
 }
 
 
@@ -293,6 +301,37 @@
                           }];
     } else {
         successBlock();
+    }
+}
+
+// --------------------------------------------
+#pragma mark - UITextField delegate
+// --------------------------------------------
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@"\n"]) {
+        [self.statusTextField resignFirstResponder];
+        // Save new status
+        [User currentUser].userStatus = self.statusTextField.text;
+        [ApiManager saveCurrentUserAndExecuteSuccess:^{
+            [self setBalanceAndStatus];
+        } failure:^(NSError *error) {
+            [self setBalanceAndStatus];
+        }];
+        return NO;
+    }
+    if (textField.text.length == 0 && [string isEqualToString:@" "]) {
+        return NO;
+    }
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (newString.length > kMaxStatusLength)
+        return NO;
+    textField.text = newString;
+    return NO;
+}
+
+- (void)resignStatusFirstResponder {
+    if (self.statusTextField.isFirstResponder){
+        [self.statusTextField resignFirstResponder];
     }
 }
 

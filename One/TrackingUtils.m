@@ -22,10 +22,10 @@
         [mixpanel identify:mixpanel.distinctId];
         [TrackingUtils trackEvent:EVENT_USER_SIGNUP properties:nil];
         [TrackingUtils setPeopleProperties:@{PEOPLE_SIGNUP_DATE: [NSDate date], PEOPLE_SENDING_TOTAL: @0, PEOPLE_CASHOUT_TOTAL: @0}];
-        [mixpanel flush];
     } else {
         [mixpanel identify:user.objectId];
     }
+    [mixpanel flush];
 }
 
 + (void)trackEvent:(NSString *)eventName properties:(NSDictionary *)properties
