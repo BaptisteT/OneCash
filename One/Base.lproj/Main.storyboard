@@ -1816,7 +1816,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="certifiedImageView" destination="y3L-g4-XZo" id="7la-JP-2fP"/>
-                                            <outlet property="statusHeightLayoutConstraint" destination="oVF-R9-00e" id="Vlx-Wh-zFw"/>
                                             <outlet property="userPicture" destination="0xG-qv-OR8" id="WPw-EY-IJG"/>
                                             <outlet property="userStatus" destination="oS2-Rh-1Se" id="cIu-Wh-IfO"/>
                                             <outlet property="usernameLabel" destination="awI-uy-jb8" id="2Bp-e3-SJP"/>
