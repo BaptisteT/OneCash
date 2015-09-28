@@ -332,7 +332,7 @@
     self.applePaySucceeded = NO;
     self.applePaySendingTransaction = transaction;
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
-    paymentRequest.currencyCode = @"USD";
+    paymentRequest.currencyCode = @"usd";
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
         NSInteger valueToWithdraw = self.ongoingTransactionsCount - [User currentUser].balance;
         NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:valueToWithdraw];
@@ -346,13 +346,13 @@
             auth.delegate = self;
             [self presentViewController:auth animated:YES completion:nil];
         } else {
-            self.ongoingTransactionsCount -= self.applePaySendingTransaction.transactionAmount;
-            [self failedAnimation:self.applePaySendingTransaction.transactionAmount];
+            self.ongoingTransactionsCount -= transaction.transactionAmount;
+            [self failedAnimation:transaction.transactionAmount];
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_runtime_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_runtime_error_message", nil)];
         }
     } else {
-        self.ongoingTransactionsCount -= self.applePaySendingTransaction.transactionAmount;
-        [self failedAnimation:self.applePaySendingTransaction.transactionAmount];
+        self.ongoingTransactionsCount -= transaction.transactionAmount;
+        [self failedAnimation:transaction.transactionAmount];
         [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_runtime_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_runtime_error_message", nil)];
     }
 }
@@ -435,7 +435,7 @@
          } else {
              self.ongoingTransactionsCount += kUnitTransactionAmount;
              self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
-                                                         transactionAmount:kUnitTransactionAmount // todo BT
+                                                         transactionAmount:kUnitTransactionAmount
                                                                       type:kTransactionPayment
                                                                    message:cashView.messageTextField.text];
              [self startAssociationTimer];

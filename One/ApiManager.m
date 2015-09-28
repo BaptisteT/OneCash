@@ -107,7 +107,7 @@
         user.caseUsername = twitterScreenName;
         [user setUsername:[user.caseUsername lowercaseString]];
     }
-    NSURL *verify = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"];
+    NSURL *verify = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json?skip_status=true&include_email=true"];
 
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
     [[PFTwitterUtils twitter] signRequest:request];
@@ -130,6 +130,13 @@
                 user.caseUsername = [result objectForKey:@"screen_name"];
                 [user setUsername:[user.caseUsername lowercaseString]];
             }
+            
+            // Email
+            NSString * email = [result objectForKey:@"email"];
+            if (email.length > 0 && ![user.email isEqualToString:email]) {
+                user.email = [result objectForKey:@"email"];
+            }
+            
             // Names
             NSString * names = [result objectForKey:@"name"];
             if (names.length > 0 && !user.lastName) {

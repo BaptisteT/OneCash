@@ -70,9 +70,11 @@
     
     // Leaders
     [DatastoreManager getLeadersAndExecuteSuccess:^(NSArray *users) {
-        self.leadingUsers = users;
-        if (self.recipientTextfield.text.length == 0) {
-            [self.recipientsTableView reloadData];
+        if (!self.leadingUsers) {
+            self.leadingUsers = users;
+            if (self.recipientTextfield.text.length == 0) {
+                [self.recipientsTableView reloadData];
+            }
         }
     } failure:nil];
     [ApiManager getLeadersAndExecuteSuccess:^(NSArray *users) {
@@ -84,9 +86,11 @@
     
     // Suggested
     [DatastoreManager getSuggestedUsersAndExecuteSuccess:^(NSArray *users) {
-        self.suggestedUsers = users;
-        if (self.recipientTextfield.text.length == 0) {
-            [self.recipientsTableView reloadData];
+        if (!self.suggestedUsers) {
+            self.suggestedUsers = users;
+            if (self.recipientTextfield.text.length == 0) {
+                [self.recipientsTableView reloadData];
+            }
         }
     } failure:nil];
     [ApiManager getSuggestedUsersAndExecuteSuccess:^(NSArray *users) {
