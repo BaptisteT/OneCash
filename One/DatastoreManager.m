@@ -72,6 +72,8 @@
     }];
 }
 
+// todo BT
+// issue if wrong date ? issue if one load fail, how to get it ?
 + (NSDate *)getLatestTransactionsRetrievalDate {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     return [prefs objectForKey:LAST_TRANSACTIONS_RETRIEVAL] ? [prefs objectForKey:LAST_TRANSACTIONS_RETRIEVAL] : [NSDate dateWithTimeIntervalSince1970:0];
@@ -102,7 +104,7 @@
 {
     PFQuery *query = [User query];
     [query fromLocalDatastore];
-    [query setLimit:10];
+    [query setLimit:3];
     [query whereKey:@"objectId" notEqualTo:[User currentUser].objectId];
     [query findObjectsInBackgroundWithBlock:^(NSArray *transactions, NSError *error) {
         if (!error) {

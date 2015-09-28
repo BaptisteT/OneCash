@@ -145,6 +145,7 @@
 		3C43B6441BA96567006679DE /* ManagedAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagedAccountViewController.m; sourceTree = "<group>"; };
 		3C43B6461BA9B239006679DE /* AccountCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCardViewController.h; sourceTree = "<group>"; };
 		3C43B6471BA9B239006679DE /* AccountCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCardViewController.m; sourceTree = "<group>"; };
+		3C5737711BB9469700882D48 /* OneInHouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OneInHouse.entitlements; sourceTree = SOURCE_ROOT; };
 		3C7CBA5C1BABFC0F002D68E1 /* TweetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetTableViewCell.h; sourceTree = "<group>"; };
 		3C7CBA5D1BABFC0F002D68E1 /* TweetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetTableViewCell.m; sourceTree = "<group>"; };
 		3C86E0ED1B8DAF0B005AD52B /* ConstantUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantUtils.h; sourceTree = "<group>"; };
@@ -221,7 +222,7 @@
 		3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewCell.h; sourceTree = "<group>"; };
 		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
 		3CD4D6411BB91D75001F2C7A /* OneInHouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneInHouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3CD4D6421BB91D76001F2C7A /* One copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "One copy-Info.plist"; path = "/Users/baptistetruchot/Documents/Developer/XCode_Projects/One/One copy-Info.plist"; sourceTree = "<absolute>"; };
+		3CD4D6421BB91D76001F2C7A /* OneInHouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OneInHouse-Info.plist"; path = "/Users/baptistetruchot/Documents/Developer/XCode_Projects/One/OneInHouse-Info.plist"; sourceTree = "<absolute>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Maax Rounded Medium.otf"; sourceTree = "<group>"; };
@@ -292,7 +293,6 @@
 				6003251E0CB60950663BAB8E /* Pods */,
 				3CC5FD9C1B9880DC00514A43 /* 3rdParty */,
 				03794D7AE0960F429C553BEE /* Frameworks */,
-				3CD4D6421BB91D76001F2C7A /* One copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -308,7 +308,6 @@
 		3C2E03661B8DA18B00D22D48 /* One */ = {
 			isa = PBXGroup;
 			children = (
-				3CC5FDCD1B98C5B600514A43 /* One.entitlements */,
 				3C2E03901B8DA1BF00D22D48 /* Ressources */,
 				3C2E03911B8DA1D100D22D48 /* Backend */,
 				3CC5FD9D1B98834400514A43 /* Categories */,
@@ -322,7 +321,10 @@
 		3C2E03671B8DA18B00D22D48 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3C5737711BB9469700882D48 /* OneInHouse.entitlements */,
+				3CC5FDCD1B98C5B600514A43 /* One.entitlements */,
 				3C2E03681B8DA18B00D22D48 /* Info.plist */,
+				3CD4D6421BB91D76001F2C7A /* OneInHouse-Info.plist */,
 				3C2E03691B8DA18B00D22D48 /* main.m */,
 				3CC5FDB41B98886700514A43 /* Localizable.strings */,
 			);
@@ -564,6 +566,9 @@
 						SystemCapabilities = {
 							com.apple.OMC = {
 								enabled = 0;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
 							};
 						};
 					};
@@ -966,10 +971,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
+				CODE_SIGN_ENTITLEMENTS = OneInHouse.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ever";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ever";
-				INFOPLIST_FILE = "One copy-Info.plist";
+				INFOPLIST_FILE = "OneInHouse-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;
@@ -984,14 +989,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
+				CODE_SIGN_ENTITLEMENTS = OneInHouse.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ever";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ever";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
 				);
-				INFOPLIST_FILE = "One copy-Info.plist";
+				INFOPLIST_FILE = "OneInHouse-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;

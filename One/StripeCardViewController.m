@@ -88,9 +88,13 @@
     card.expMonth = self.paymentTextField.expirationMonth;
     card.expYear = self.paymentTextField.expirationYear;
     card.cvc = self.paymentTextField.cvc;
+    
     [[STPAPIClient sharedClient] createTokenWithCard:card
                                           completion:^(STPToken *token, NSError *error) {
                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                  // todo BT
+                                                  // only US
+                                                  
                                                   [TrackingUtils trackEvent:EVENT_STRIPE_CREATE_TOKEN_WITH_CARD properties:@{@"success" : [NSNumber numberWithBool:(error == nil)]}];
                                                   if (error) {
                                                       [DesignUtils hideProgressHUDForView:self.view];

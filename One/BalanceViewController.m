@@ -215,7 +215,9 @@
 #pragma mark - Actions
 // --------------------------------------------
 
-- (IBAction)settingsButtonClicked:(id)sender {
+- (IBAction)settingsButtonClicked:(id)sender
+{
+    [self resignStatusFirstResponder];
     [TrackingUtils trackEvent:EVENT_SETTINGS_CLICKED properties:nil];
     if ([User currentUser].touchId) {
         [self performTouchIdVerificationAndExecuteSuccess:^{
@@ -258,6 +260,7 @@
 }
 
 - (IBAction)closeButtonClicked:(id)sender {
+    [self resignStatusFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -277,7 +280,6 @@
 // --------------------------------------------
 #pragma mark - UI
 // --------------------------------------------
-
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
@@ -309,14 +311,7 @@
 // --------------------------------------------
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([string isEqualToString:@"\n"]) {
-        [self.statusTextField resignFirstResponder];
-        // Save new status
-        [User currentUser].userStatus = self.statusTextField.text;
-        [ApiManager saveCurrentUserAndExecuteSuccess:^{
-            [self setBalanceAndStatus];
-        } failure:^(NSError *error) {
-            [self setBalanceAndStatus];
-        }];
+        [self resignStatusFirstResponder];
         return NO;
     }
     if (textField.text.length == 0 && [string isEqualToString:@" "]) {
@@ -332,6 +327,13 @@
 - (void)resignStatusFirstResponder {
     if (self.statusTextField.isFirstResponder){
         [self.statusTextField resignFirstResponder];
+        // Save new status
+        [User currentUser].userStatus = self.statusTextField.text;
+        [ApiManager saveCurrentUserAndExecuteSuccess:^{
+            [self setBalanceAndStatus];
+        } failure:^(NSError *error) {
+            [self setBalanceAndStatus];
+        }];
     }
 }
 

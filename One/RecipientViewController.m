@@ -77,8 +77,8 @@
     
     // Show recent users
     [DatastoreManager getRecentUsersAndExecuteSuccess:^(NSArray *users) {
+        self.historicUsers = users;
         if (self.recipientTextfield.text.length == 0) {
-            self.historicUsers = users;
             self.usersArray = users;
             [self.recipientsTableView reloadData];
         }
@@ -172,6 +172,11 @@
         [self close];
     }
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.recipientTextfield resignFirstResponder];
+}
+
 
 // --------------------------------------------
 #pragma mark - Text field

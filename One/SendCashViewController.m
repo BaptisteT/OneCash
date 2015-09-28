@@ -347,10 +347,12 @@
             [self presentViewController:auth animated:YES completion:nil];
         } else {
             self.ongoingTransactionsCount -= self.applePaySendingTransaction.transactionAmount;
+            [self failedAnimation:self.applePaySendingTransaction.transactionAmount];
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_runtime_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_runtime_error_message", nil)];
         }
     } else {
         self.ongoingTransactionsCount -= self.applePaySendingTransaction.transactionAmount;
+        [self failedAnimation:self.applePaySendingTransaction.transactionAmount];
         [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_runtime_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_runtime_error_message", nil)];
     }
 }
