@@ -7,5 +7,7 @@
 		<string>applinks:www.one.cash</string>
 		<string>applinks:one.cash</string>
 	</array>
+	<key>com.apple.developer.in-app-payments</key>
+	<array/>
 </dict>
 </plist>

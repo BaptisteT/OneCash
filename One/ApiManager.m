@@ -595,7 +595,7 @@
                                         // pin
                                         [PFObject unpinAllObjectsInBackgroundWithName:kParseLeaderUsersName
                                                                                 block:^(BOOL succeeded, NSError * _Nullable error) {
-                                                                                    [PFObject pinAllInBackground:results];
+                                                                                    [PFObject pinAllInBackground:results withName:kParseLeaderUsersName];
                                                                                 }];
                                     }
                                 }];
@@ -620,7 +620,7 @@
                                         // pin
                                         [PFObject unpinAllObjectsInBackgroundWithName:kParseSuggestedUsersName
                                                                                 block:^(BOOL succeeded, NSError * _Nullable error) {
-                                                                                    [PFObject pinAllInBackground:results];
+                                                                                    [PFObject pinAllInBackground:results withName:kParseSuggestedUsersName];
                                                                                 }];
                                     }
                                 }];

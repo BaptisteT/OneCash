@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 
-
 #import "DatastoreManager.h"
 #import "User.h"
 
 #import "ConstantUtils.h"
 #import "ImageCache.h"
+#import "UIImageView+UserId.h"
 
 @interface User()
 @property (nonatomic, strong) UIImage *userPicture;
@@ -46,6 +46,7 @@
 
 // Set avatar in imageview (download it first if necessary)
 - (void)setAvatarInImageView:(UIImageView *)imageView bigSize:(BOOL)sizeFlag saveLocally:(BOOL)savingFlag {
+    imageView.userId = self.objectId;
     imageView.image = nil; // clean
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     if (self.userPicture) {
@@ -59,7 +60,9 @@
                                 availableBlock:^(UIImage *image) {
                                         if (image) {
                                             self.userPicture = image;
-                                            [imageView setImage:image];
+                                            if ([self.objectId isEqualToString:imageView.userId]) {
+                                                [imageView setImage:image];
+                                            }
                                         }
                                 }   saveLocally:savingFlag];
     }
