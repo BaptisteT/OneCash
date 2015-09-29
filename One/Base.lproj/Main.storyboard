@@ -151,6 +151,12 @@
                                     <constraint firstAttribute="width" constant="146" id="fOu-xZ-D4h"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="terms of services label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XRh-5R-ruq">
+                                <rect key="frame" x="10" y="552" width="580" height="43"/>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="10"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -159,9 +165,13 @@
                             <constraint firstItem="UBp-FQ-Ccw" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="8zA-J9-ggN"/>
                             <constraint firstAttribute="centerX" secondItem="s2j-Nh-PAq" secondAttribute="centerX" id="Iny-04-38s"/>
                             <constraint firstItem="MrP-XW-ciz" firstAttribute="top" secondItem="9wp-hL-NXQ" secondAttribute="top" constant="20" id="LdK-hT-ZuN"/>
+                            <constraint firstItem="XRh-5R-ruq" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="10" id="TU1-eE-qh4"/>
+                            <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="XRh-5R-ruq" secondAttribute="bottom" constant="5" id="VvH-JS-pVm"/>
                             <constraint firstItem="vEJ-Tv-APs" firstAttribute="top" secondItem="s2j-Nh-PAq" secondAttribute="bottom" constant="30" id="W8R-tg-C1S"/>
+                            <constraint firstItem="XRh-5R-ruq" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="bqW-bA-Ped"/>
                             <constraint firstItem="UBp-FQ-Ccw" firstAttribute="centerY" secondItem="p0p-5G-JR1" secondAttribute="centerY" id="eL5-un-J4Y"/>
                             <constraint firstAttribute="trailing" secondItem="MrP-XW-ciz" secondAttribute="trailing" constant="20" id="hpZ-9K-x24"/>
+                            <constraint firstItem="XRh-5R-ruq" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="5" id="i02-l2-wOQ"/>
                             <constraint firstAttribute="centerX" secondItem="vEJ-Tv-APs" secondAttribute="centerX" id="lJQ-hk-Hgy"/>
                         </constraints>
                     </view>
@@ -170,6 +180,7 @@
                         <outlet property="howToButton" destination="MrP-XW-ciz" id="xYN-Ky-XG7"/>
                         <outlet property="loginButton" destination="vEJ-Tv-APs" id="yIz-DK-9it"/>
                         <outlet property="taglineLabel" destination="s2j-Nh-PAq" id="ccK-cH-xwQ"/>
+                        <outlet property="termsLabel" destination="XRh-5R-ruq" id="qFW-g5-aig"/>
                         <segue destination="z09-dk-URt" kind="show" identifier="Email From Welcome" id="WgX-CF-7G0"/>
                         <segue destination="Bef-pm-plE" kind="presentation" identifier="How From Welcome" id="YVN-0x-kbu"/>
                         <segue destination="WNA-kw-5yZ" kind="custom" identifier="Send From Welcome" customClass="PushNoAnimationSegue" id="CWh-84-eC0"/>
@@ -314,12 +325,6 @@
                                     <constraint firstAttribute="trailing" secondItem="ujw-7Q-gT2" secondAttribute="trailing" constant="50" id="w83-wR-ugf"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="terms of services label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fxg-qi-OHp">
-                                <rect key="frame" x="30" y="335" width="540" height="15"/>
-                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jkJ-15-nit">
                                 <rect key="frame" x="255" y="270" width="90" height="34"/>
                                 <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
@@ -340,27 +345,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="j7a-2J-hw8" firstAttribute="leading" secondItem="qLX-je-9sU" secondAttribute="leadingMargin" constant="10" id="3uW-eC-VV9"/>
-                            <constraint firstAttribute="centerX" secondItem="fxg-qi-OHp" secondAttribute="centerX" id="5DU-UY-mcA"/>
                             <constraint firstItem="j7m-K9-PDa" firstAttribute="leading" secondItem="qLX-je-9sU" secondAttribute="leading" id="7jg-Gn-dOV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="j7a-2J-hw8" secondAttribute="trailing" constant="10" id="7oN-c8-Wkg"/>
-                            <constraint firstItem="fxg-qi-OHp" firstAttribute="leading" secondItem="qLX-je-9sU" secondAttribute="leading" constant="30" id="GjT-6E-KwV"/>
                             <constraint firstItem="jkJ-15-nit" firstAttribute="top" secondItem="j7a-2J-hw8" secondAttribute="bottom" constant="44" id="HIa-Oa-ear"/>
                             <constraint firstAttribute="trailing" secondItem="j7m-K9-PDa" secondAttribute="trailing" id="MVm-XV-dn9"/>
                             <constraint firstItem="j7a-2J-hw8" firstAttribute="top" secondItem="j7m-K9-PDa" secondAttribute="bottom" constant="31" id="RFm-xh-zON"/>
                             <constraint firstItem="j7m-K9-PDa" firstAttribute="top" secondItem="qLX-je-9sU" secondAttribute="top" id="b3E-sw-dcH"/>
-                            <constraint firstItem="fxg-qi-OHp" firstAttribute="top" secondItem="jkJ-15-nit" secondAttribute="bottom" constant="31" id="bgC-7R-RQ4"/>
                             <constraint firstItem="jkJ-15-nit" firstAttribute="top" secondItem="j7a-2J-hw8" secondAttribute="bottom" constant="28" id="cUY-qg-Cf0"/>
-                            <constraint firstItem="djb-yX-xR3" firstAttribute="top" secondItem="fxg-qi-OHp" secondAttribute="bottom" constant="250" id="cnJ-wq-C6e"/>
                             <constraint firstAttribute="centerX" secondItem="jkJ-15-nit" secondAttribute="centerX" id="gz9-wd-YT6"/>
-                            <constraint firstItem="fxg-qi-OHp" firstAttribute="top" secondItem="jkJ-15-nit" secondAttribute="bottom" constant="100" id="jDa-fg-igv"/>
                             <constraint firstItem="j7a-2J-hw8" firstAttribute="leading" secondItem="qLX-je-9sU" secondAttribute="leading" constant="30" id="kxF-V2-feC"/>
                             <constraint firstAttribute="centerX" secondItem="j7a-2J-hw8" secondAttribute="centerX" constant="-0.5" id="rx4-WA-5v6"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="jDa-fg-igv"/>
                                 <exclude reference="cUY-qg-Cf0"/>
-                                <exclude reference="cnJ-wq-C6e"/>
                             </mask>
                         </variation>
                     </view>
@@ -368,7 +366,6 @@
                     <connections>
                         <outlet property="backButton" destination="xnn-fH-321" id="XkR-t5-r8f"/>
                         <outlet property="emailTextField" destination="j7a-2J-hw8" id="EVU-qt-jat"/>
-                        <outlet property="termsLabel" destination="fxg-qi-OHp" id="H7E-it-f9w"/>
                         <outlet property="titleLabel" destination="ujw-7Q-gT2" id="wM6-k7-iXA"/>
                         <outlet property="topLabel" destination="qeM-Ch-EGs" id="NS6-lq-u0b"/>
                         <outlet property="topView" destination="j7m-K9-PDa" id="t5T-IF-kea"/>
@@ -1905,7 +1902,7 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ign-3p-bGy"/>
+        <segue reference="B6u-pp-6tI"/>
         <segue reference="CWh-84-eC0"/>
         <segue reference="ep0-aD-elO"/>
     </inferredMetricsTieBreakers>

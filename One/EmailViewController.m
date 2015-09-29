@@ -23,7 +23,6 @@
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
 @interface EmailViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *termsLabel;
 @property (weak, nonatomic) IBOutlet UIButton *validateButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -46,21 +45,11 @@
     self.titleLabel.text = NSLocalizedString(@"email_title_label", nil);
     [self.backButton setTitle:NSLocalizedString(@"back_button", nil) forState:UIControlStateNormal];
     [self.validateButton setTitle:NSLocalizedString(@"done_button", nil) forState:UIControlStateNormal];
-    NSString *terms = NSLocalizedString(@"terms_of_services", nil);
-    NSString *privacy = NSLocalizedString(@"privacy_policy", nil);
-    NSString *completeString = [NSString stringWithFormat:NSLocalizedString(@"terms_label", nil),terms,privacy];
     NSString *username = [User currentUser].caseUsername;
     self.topLabel.text = [NSString stringWithFormat:NSLocalizedString(@"top_bar_email", nil), username];
     
     // UI
     self.titleLabel.numberOfLines = 0;
-    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:completeString];
-    NSDictionary *attribute = @{NSForegroundColorAttributeName : [ColorUtils mainGreen]};
-    [attrString addAttributes:attribute range:[completeString rangeOfString:terms]];
-    [attrString addAttributes:attribute range:[completeString rangeOfString:privacy]];
-    self.termsLabel.textColor = [UIColor lightGrayColor];
-    self.termsLabel.attributedText = attrString;
-    self.termsLabel.numberOfLines = 0;
     self.validateButton.backgroundColor = [ColorUtils mainGreen];
     self.validateButton.layer.cornerRadius = self.validateButton.frame.size.height / 2;
     self.topView.backgroundColor = [ColorUtils mainGreen];
@@ -68,18 +57,9 @@
     [self.emailTextField setValue:[ColorUtils lightBlack]
                        forKeyPath:@"_placeholderLabel.textColor"];
     
-    // Gesture
-    UITapGestureRecognizer *termsTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnTerms)];
-    [self.termsLabel addGestureRecognizer:termsTap];
-    
     // First responder
     self.emailTextField.delegate = self;
     [self.emailTextField becomeFirstResponder];
-    
-    // Iphone 4
-    if (IS_IPHONE_4_OR_LESS) {
-        self.termsLabel.hidden = YES;
-    }
 }
 
 
@@ -119,10 +99,6 @@
     }];
 }
 
-// Redirect to terms webpage
-- (void)tapOnTerms {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kOneWebsiteTermsLink]];
-}
 
 // --------------------------------------------
 #pragma mark - Textfield delegate

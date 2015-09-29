@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *howToButton;
 @property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
+@property (weak, nonatomic) IBOutlet UILabel *termsLabel;
 
 @end
 
@@ -38,6 +39,9 @@
     // wording
     self.taglineLabel.text = NSLocalizedString(@"tagline_label", nil);
     [self.loginButton setTitle:NSLocalizedString(@"twitter_button", nil) forState:UIControlStateNormal];
+    NSString *terms = NSLocalizedString(@"terms_of_services", nil);
+    NSString *privacy = NSLocalizedString(@"privacy_policy", nil);
+    NSString *completeString = [NSString stringWithFormat:NSLocalizedString(@"terms_label", nil),terms,privacy];
     
     // UI
     self.view.backgroundColor = [ColorUtils mainGreen];
@@ -46,6 +50,17 @@
     self.howToButton.layer.cornerRadius = self.howToButton.frame.size.height / 2;
     [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.howToButton.hidden = NO;
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:completeString];
+    NSDictionary *attribute = @{NSUnderlineStyleAttributeName : @1};
+    [attrString addAttributes:attribute range:[completeString rangeOfString:terms]];
+    [attrString addAttributes:attribute range:[completeString rangeOfString:privacy]];
+    self.termsLabel.textColor = [UIColor whiteColor];
+    self.termsLabel.attributedText = attrString;
+    self.termsLabel.numberOfLines = 0;
+    
+    // Gesture
+    UITapGestureRecognizer *termsTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnTerms)];
+    [self.termsLabel addGestureRecognizer:termsTap];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -99,6 +114,11 @@
 - (IBAction)howToButtonClicked:(id)sender {
     [TrackingUtils trackEvent:EVENT_HOW_TO properties:nil];
     [self performSegueWithIdentifier:@"How From Welcome" sender:nil];
+}
+
+// Redirect to terms webpage
+- (void)tapOnTerms {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kOneWebsiteTermsLink]];
 }
 
 // --------------------------------------------

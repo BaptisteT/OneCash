@@ -319,7 +319,7 @@
                                                         // todo BT
                                                         // go to check card ?
                                                     }
-                                                     [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
+                                                    [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
                                                     
                                                     self.ongoingTransactionsCount -= transaction.transactionAmount;
                                                     [self failedAnimation:transaction.transactionAmount];
