@@ -30,6 +30,7 @@
 #import "NotifUtils.h"
 #import "OneLogger.h"
 #import "TrackingUtils.h"
+#import "AFBlurSegue.h"
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
@@ -42,6 +43,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *spinImageView;
 @property (strong, nonatomic) Reachability *internetReachableFoo;
 @property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
+@property (strong, nonatomic) IBOutlet UIButton *getButton;
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
 @property (strong, nonatomic) NSTimer *associationTimer;
 @property (strong, nonatomic) Transaction *transactionToSend;
@@ -93,11 +95,10 @@
     self.titleLabel.layer.borderWidth = 1.f;
     self.pickRecipientAlertLabel.layer.opacity = 0;
     self.spinImageView.hidden = YES;
-    
-    //shadow to fix
     self.titleLabel.layer.shadowOffset = CGSizeMake(0, 0);
     self.titleLabel.layer.shadowRadius = 5;
     self.titleLabel.layer.shadowOpacity = 0.2;
+    [self.getButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
 
     // Animation
     [self doArrowAnimation];
@@ -162,6 +163,14 @@
     } else if ([segueName isEqualToString:@"Balance From Send"]) {
         [self setBadgeValue:0];
         ((BalanceViewController *) [segue destinationViewController]).delegate = self;
+    } else if ([segueName isEqualToString:@"Username Segue"]) {
+        UIViewController *destination = segue.destinationViewController;
+        destination.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        
+        AFBlurSegue *blurSegue = (AFBlurSegue *)segue;
+        blurSegue.saturationDeltaFactor = 0.5;
+        blurSegue.blurEffectStyle = UIBlurEffectStyleLight;
+        blurSegue.tintColor = [ColorUtils lightBlack];
     }
 }
 
@@ -214,6 +223,10 @@
     [User logOut];
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(IBAction)getPressed:(id)sender {
+    [self performSegueWithIdentifier:@"Username Segue" sender:nil];
 }
 
 

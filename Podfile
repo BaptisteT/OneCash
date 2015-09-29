@@ -15,6 +15,7 @@ pod 'pop', :git => 'https://github.com/facebook/pop.git'
 pod 'SVPullToRefresh'
 pod 'DateTools'
 pod 'ApplePayStubs'
+pod 'AFBlurSegue', '~> 1.2.1'
 
 end
 

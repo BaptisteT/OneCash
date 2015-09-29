@@ -4,125 +4,161 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-One-ApplePayStubs.xcscheme</key>
+		<key>AFBlurSegue.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>ApplePayStubs.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>Pods-One-Bolts.xcscheme</key>
+		<key>Bolts.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
-		<key>Pods-One-DateTools.xcscheme</key>
+		<key>DateTools.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
-		<key>Pods-One-FBSDKCoreKit.xcscheme</key>
+		<key>FBSDKCoreKit.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>Pods-One-MBProgressHUD.xcscheme</key>
+		<key>MBProgressHUD.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
-		<key>Pods-One-Mixpanel.xcscheme</key>
+		<key>Mixpanel.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>Pods-One-Parse.xcscheme</key>
+		<key>Parse.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>8</integer>
 		</dict>
-		<key>Pods-One-ParseTwitterUtils.xcscheme</key>
+		<key>ParseTwitterUtils.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>9</integer>
 		</dict>
-		<key>Pods-One-SVPullToRefresh.xcscheme</key>
+		<key>Pods-One.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>10</integer>
 		</dict>
-		<key>Pods-One-Stripe.xcscheme</key>
+		<key>SVPullToRefresh.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>13</integer>
 		</dict>
-		<key>Pods-One-pop.xcscheme</key>
+		<key>Stripe.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
 			<integer>12</integer>
 		</dict>
-		<key>Pods-One.xcscheme</key>
+		<key>pop.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>11</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4E0DFF7041C985F78DE423CC</key>
+		<key>026B74B2EFE31DE27746307CDD2EB7EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E38E208BD891AADDC9061ED</key>
+		<key>4163FCC427F99CA03809C26DAB4481D9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A99ECA8DCED08DA8C94C256</key>
+		<key>47C800E42623009B7192B025B3DD25A1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>83E4DE9751F70634010E8C8C</key>
+		<key>6B3EAE1F0933CC635A71D573203EFC62</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>87E2279C56BC1813D7DFADFB</key>
+		<key>8DED280B2683FAAB5C5C5242ACBB798C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>931E187D96B94B36D43EA79C</key>
+		<key>91A09499B0D482998F9A41171D9AC958</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>98249ACD0D63A4C37A3AAD0B</key>
+		<key>C75A866EAE83E29139436CB666A31D15</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A26A32E850A9E2E8743FCC73</key>
+		<key>C8A666A853A27828399F019CF91EC522</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B8681058865D80DB833E6413</key>
+		<key>D10AFCBBC3949030D56276226438BB24</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C8CE5D1F54228E814660CD35</key>
+		<key>D78BCE0BC5BB4D7CD87EC5E4D270ACD1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E580350A53096BDEDBAE892D</key>
+		<key>DF81AD07E7325F8213D331095EE9ED97</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F38CFFC72D12EF65E12A7DA1</key>
+		<key>E589A06314648320BB988F8CC919875A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EB80D1A720C0D6735F8DF820BF14E2B0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
