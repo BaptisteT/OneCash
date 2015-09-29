@@ -114,7 +114,6 @@
             [self performSegueWithIdentifier:@"Card From Email" sender:nil];
         });
     } failure:^(NSError *error) {
-        [User logOutInBackground];
         [DesignUtils hideProgressHUDForView:self.view];
         [GeneralUtils showAlertWithTitle:NSLocalizedString(@"save_email_error_title", nil) andMessage:[error.userInfo valueForKey:@"error"]];
     }];

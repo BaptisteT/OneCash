@@ -253,6 +253,9 @@
                                                                                           object:nil
                                                                                         userInfo:nil];
                                       [self setBadgeValueToNewTransactionsCount];
+                                      
+                                      // Mixpanel
+                                      [TrackingUtils setPeopleProperties:@{PEOPLE_BALANCE: [NSNumber numberWithInteger:[User currentUser].balance]}];
                                   }
                                   failure:nil];
 }

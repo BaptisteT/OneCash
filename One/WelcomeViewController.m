@@ -67,18 +67,22 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [DesignUtils hideProgressHUDForView:self.view];
             // Rediect to send if email already in / email otherwise
+            BOOL isNew = [User currentUser].isNew;
             NSString *email = [User currentUser].email;
             if (email && email.length > 0) {
                 [ApiManager saveCurrentUserAndExecuteSuccess:^{
-                    if ([User currentUser].isNew) {
+                    if (isNew) {
                         [self performSegueWithIdentifier:@"Card From Welcome" sender:nil];
                     } else {
                         [self performSegueWithIdentifier:@"Send From Welcome" sender:nil];
                     }
                 } failure:^(NSError *error) {
-                    // todo BT
-                    // do something for the existing email case
-                    [User logOut];
+                    // If it's an email issue, go to email
+                    if ([[error.userInfo valueForKey:@"error"] containsString:@"email"]) {
+                        [self performSegueWithIdentifier:@"Email From Welcome" sender:nil];
+                    } else {
+                        [User logOut];
+                    }
                 }];
             } else {
                [self performSegueWithIdentifier:@"Email From Welcome" sender:nil];

@@ -36,7 +36,7 @@
     
     self.balanceLabel.backgroundColor = [ColorUtils mainGreen];
     self.balanceLabel.layer.cornerRadius = self.balanceLabel.frame.size.height / 2;
-    self.balanceLabel.text = [NSString stringWithFormat:@"$%lu",user.balance];
+    self.balanceLabel.text = [NSString stringWithFormat:@"$%lu",(long)user.balance];
     self.balanceLabel.hidden = !flag;
     self.balanceLabel.clipsToBounds = YES;
 }

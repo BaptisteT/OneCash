@@ -53,8 +53,8 @@
 {
     @try {
         [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
-            [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": [NSNumber numberWithBool:(error == nil)]}];
             if (!user) {
+                [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @NO, @"failure": @"login"}];
                 OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
                 if (failureBlock) {
                     failureBlock(error);
@@ -67,10 +67,12 @@
                 
                 // Get twitter info
                 [ApiManager getOtherTwitterInfoAndExecuteSuccess:^{
+                    [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @YES}];
                     if (successBlock){
                         successBlock();
                     }
                 } failure:^(NSError *error) {
+                    [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @NO, @"failure": @"otherInfo"}];
                     if (failureBlock) {
                         failureBlock(error);
                     }
@@ -299,6 +301,11 @@
     [user fetchInBackgroundWithBlock:^(PFObject *user, NSError *error) {
         if (!error) {
             OneLog(ONEAPIMANAGERLOG,@"Success - Fetch User");
+            // Mixpanel
+            NSMutableDictionary *peopleProperty = [NSMutableDictionary new];
+            [peopleProperty setObject:[NSNumber numberWithInteger:((User *)user).paymentMethod] forKey:PEOPLE_PAYMENT_METHOD];
+            [TrackingUtils setPeopleProperties:peopleProperty];
+
             if (successBlock) {
                 successBlock();
             }
