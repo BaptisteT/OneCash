@@ -49,6 +49,7 @@
 #else
     BOOL debug = false;
 #endif
+    debug = false;
     
     // Parse
     [Parse enableLocalDatastore];
