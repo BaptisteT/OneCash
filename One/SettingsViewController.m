@@ -336,22 +336,23 @@ struct {
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,kSettingsHeaderHeight)];
-    if (section != SectionTypes.card) {
-        CGFloat separatorHeight = 0.3;
-        UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, kSettingsHeaderHeight - separatorHeight, self.view.frame.size.width,separatorHeight)];
-        separator.backgroundColor = [self.settingsTableView separatorColor];
-        [headerView addSubview:separator];
-    }
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,[self headerHeightForSection:section])];
+    headerView.backgroundColor = [UIColor clearColor];
+//    if (section != SectionTypes.card) {
+//        CGFloat separatorHeight = 0.3;
+//        UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, kSettingsHeaderHeight - separatorHeight, self.view.frame.size.width,separatorHeight)];
+//        separator.backgroundColor = [self.settingsTableView separatorColor];
+//        [headerView addSubview:separator];
+//    }
     return headerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == SectionTypes.share || section == SectionTypes.logout) {
-        return 0;
-    } else {
-        return kSettingsHeaderHeight;
-    }
+    return [self headerHeightForSection:section];
+}
+
+- (CGFloat)headerHeightForSection:(NSInteger)section {
+    return (section == SectionTypes.share || section == SectionTypes.logout) ? 0 : kSettingsHeaderHeight;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {

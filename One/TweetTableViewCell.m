@@ -59,13 +59,12 @@
     } else {
         [self resizeCell];
     }
-    
     return YES;
 }
 
 - (void)resizeCell {
     CGSize size = [self.textView sizeThatFits:CGSizeMake(self.textView.frame.size.width, FLT_MAX)];
-    [self.delegate adjustHeightOfTweetCell:size.height];
+    [self.delegate adjustHeightOfTweetCell:size.height + 14];
 }
 
 @end
