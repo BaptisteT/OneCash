@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3CD4D5FD1BB91D75001F2C7A"
-               BuildableName = "OneInHouse.app"
-               BlueprintName = "OneInHouse"
+               BuildableName = "OneCash.app"
+               BlueprintName = "OneCash"
                ReferencedContainer = "container:One.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3CD4D5FD1BB91D75001F2C7A"
-            BuildableName = "OneInHouse.app"
-            BlueprintName = "OneInHouse"
+            BuildableName = "OneCash.app"
+            BlueprintName = "OneCash"
             ReferencedContainer = "container:One.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3CD4D5FD1BB91D75001F2C7A"
-            BuildableName = "OneInHouse.app"
-            BlueprintName = "OneInHouse"
+            BuildableName = "OneCash.app"
+            BlueprintName = "OneCash"
             ReferencedContainer = "container:One.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3CD4D5FD1BB91D75001F2C7A"
-            BuildableName = "OneInHouse.app"
-            BlueprintName = "OneInHouse"
+            BuildableName = "OneCash.app"
+            BlueprintName = "OneCash"
             ReferencedContainer = "container:One.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

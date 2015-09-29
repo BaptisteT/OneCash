@@ -222,7 +222,7 @@
 		3CC5FDE31B9CA08600514A43 /* CashView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CashView.xib; sourceTree = "<group>"; };
 		3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewCell.h; sourceTree = "<group>"; };
 		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
-		3CD4D6411BB91D75001F2C7A /* OneInHouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneInHouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CD4D6411BB91D75001F2C7A /* OneCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CD4D6421BB91D76001F2C7A /* OneInHouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OneInHouse-Info.plist"; path = "/Users/baptistetruchot/Documents/Developer/XCode_Projects/One/OneInHouse-Info.plist"; sourceTree = "<absolute>"; };
 		3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UserId.h"; sourceTree = "<group>"; };
 		3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+UserId.m"; sourceTree = "<group>"; };
@@ -305,7 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				3C2E03641B8DA18B00D22D48 /* One.app */,
-				3CD4D6411BB91D75001F2C7A /* OneInHouse.app */,
+				3CD4D6411BB91D75001F2C7A /* OneCash.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -526,9 +526,9 @@
 			productReference = 3C2E03641B8DA18B00D22D48 /* One.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3CD4D5FD1BB91D75001F2C7A /* OneInHouse */ = {
+		3CD4D5FD1BB91D75001F2C7A /* OneCash */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3CD4D63E1BB91D75001F2C7A /* Build configuration list for PBXNativeTarget "OneInHouse" */;
+			buildConfigurationList = 3CD4D63E1BB91D75001F2C7A /* Build configuration list for PBXNativeTarget "OneCash" */;
 			buildPhases = (
 				3CD4D5FE1BB91D75001F2C7A /* Check Pods Manifest.lock */,
 				3CD4D5FF1BB91D75001F2C7A /* Sources */,
@@ -541,9 +541,9 @@
 			);
 			dependencies = (
 			);
-			name = OneInHouse;
+			name = OneCash;
 			productName = One;
-			productReference = 3CD4D6411BB91D75001F2C7A /* OneInHouse.app */;
+			productReference = 3CD4D6411BB91D75001F2C7A /* OneCash.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -594,7 +594,7 @@
 			projectRoot = "";
 			targets = (
 				3C2E03631B8DA18B00D22D48 /* One */,
-				3CD4D5FD1BB91D75001F2C7A /* OneInHouse */,
+				3CD4D5FD1BB91D75001F2C7A /* OneCash */,
 			);
 		};
 /* End PBXProject section */
@@ -943,7 +943,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = One/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -965,7 +965,7 @@
 					"COCOAPODS=1",
 				);
 				INFOPLIST_FILE = One/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -983,7 +983,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ever";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ever";
 				INFOPLIST_FILE = "OneInHouse-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1005,7 +1005,7 @@
 					"COCOAPODS=1",
 				);
 				INFOPLIST_FILE = "OneInHouse-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1034,7 +1034,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3CD4D63E1BB91D75001F2C7A /* Build configuration list for PBXNativeTarget "OneInHouse" */ = {
+		3CD4D63E1BB91D75001F2C7A /* Build configuration list for PBXNativeTarget "OneCash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3CD4D63F1BB91D75001F2C7A /* Debug */,

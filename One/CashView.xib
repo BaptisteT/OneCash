@@ -71,6 +71,12 @@
                         <constraint firstAttribute="height" constant="400" id="E4N-73-zn2"/>
                         <constraint firstAttribute="width" secondItem="Ifu-te-Mtz" secondAttribute="height" multiplier="1:1" id="ORl-KK-PBX"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="3rU-BG-IFp"/>
+                            <exclude reference="E4N-73-zn2"/>
+                        </mask>
+                    </variation>
                 </imageView>
                 <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="caw-zl-TVz">
                     <rect key="frame" x="110" y="110" width="380" height="380"/>
