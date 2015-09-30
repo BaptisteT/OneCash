@@ -169,8 +169,7 @@
         
         AFBlurSegue *blurSegue = (AFBlurSegue *)segue;
         blurSegue.saturationDeltaFactor = 0.5;
-        blurSegue.blurEffectStyle = UIBlurEffectStyleLight;
-        blurSegue.tintColor = [ColorUtils lightBlack];
+        blurSegue.blurEffectStyle = UIBlurEffectStyleDark;
     }
 }
 

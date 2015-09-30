@@ -61,8 +61,10 @@
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
+            <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
@@ -1928,13 +1930,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEm-lQ-2JP">
-                                <rect key="frame" x="40" y="40" width="520" height="520"/>
-                                <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="sEm-lQ-2JP" secondAttribute="height" multiplier="1:1" id="xAg-u9-Xcb"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZK-Xb-t78">
                                 <rect key="frame" x="13" y="20" width="59" height="40"/>
                                 <constraints>
@@ -1950,22 +1945,35 @@
                                     <action selector="closePressed:" destination="9gg-cb-kWX" eventType="touchUpInside" id="4fu-qK-Kf6"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get tipped!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4q8-Fs-b1N">
+                                <rect key="frame" x="257" y="31" width="86" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="86" id="O1B-Vg-ZfU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your username is @craffenoux. You can tip and get tipped with it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOc-52-0MB">
+                                <rect key="frame" x="171" y="79" width="259" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="259" id="KLc-im-9AC"/>
+                                    <constraint firstAttribute="height" constant="42" id="oOs-Hj-wIm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="sEm-lQ-2JP" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="1M2-xA-ulR"/>
-                            <constraint firstItem="sEm-lQ-2JP" firstAttribute="centerY" secondItem="DEo-Go-LIp" secondAttribute="centerY" id="Oi8-oJ-GEP"/>
+                            <constraint firstItem="oOc-52-0MB" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="5at-sq-7zF"/>
+                            <constraint firstItem="4q8-Fs-b1N" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" constant="11" id="AWb-AK-NZj"/>
+                            <constraint firstItem="4q8-Fs-b1N" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="JeY-Qi-4cR"/>
                             <constraint firstItem="eZK-Xb-t78" firstAttribute="leading" secondItem="DEo-Go-LIp" secondAttribute="leadingMargin" constant="-7" id="UtL-RG-Fg6"/>
-                            <constraint firstItem="sEm-lQ-2JP" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="WaQ-Wf-Tuv"/>
-                            <constraint firstItem="sEm-lQ-2JP" firstAttribute="leading" secondItem="DEo-Go-LIp" secondAttribute="leadingMargin" constant="20" id="hgi-UN-h2G"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="sEm-lQ-2JP" secondAttribute="trailing" constant="20" id="rDu-81-o7J"/>
                             <constraint firstItem="eZK-Xb-t78" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" id="xRb-oZ-DpS"/>
+                            <constraint firstItem="oOc-52-0MB" firstAttribute="top" secondItem="4q8-Fs-b1N" secondAttribute="bottom" constant="31" id="z2m-Fe-nua"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="1M2-xA-ulR"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="eZK-Xb-t78" id="qyn-xl-jqx"/>
