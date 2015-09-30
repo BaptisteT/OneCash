@@ -9,10 +9,20 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>OneCash.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>3C2E03631B8DA18B00D22D48</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3CD4D5FD1BB91D75001F2C7A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

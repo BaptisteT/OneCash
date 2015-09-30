@@ -18,6 +18,10 @@
 
 + (void)addTopBorder:(UIView *)view borderSize:(float)borderSize color:(UIColor *)color;
 
++ (void)addShadow:(UIView *)view;
+
++ (void)addShadowToButton:(UIButton *)button;
+
 + (void)showProgressHUDAddedTo:(UIView *)view;
 
 + (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color;

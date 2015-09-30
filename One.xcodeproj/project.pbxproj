@@ -124,6 +124,9 @@
 		A4A2B50B1BADDBEF00CDAF07 /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5051BADDB9E00CDAF07 /* ProximaNova-Light.otf */; };
 		A4A2B50C1BADDBEF00CDAF07 /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5061BADDB9E00CDAF07 /* ProximaNova-Regular.otf */; };
 		A4A2B50D1BADDBEF00CDAF07 /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5071BADDB9E00CDAF07 /* ProximaNova-Semibold.otf */; };
+		A4E49F631BBAF27D0046DA09 /* UsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* UsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
+		A4E49F651BBB05860046DA09 /* UsernameCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E49F641BBB05860046DA09 /* UsernameCard.xib */; settings = {ASSET_TAGS = (); }; };
+		A4E49F681BBB05CC0046DA09 /* UsernameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */; settings = {ASSET_TAGS = (); }; };
 		BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
 /* End PBXBuildFile section */
 
@@ -236,6 +239,11 @@
 		A4A2B5051BADDB9E00CDAF07 /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
 		A4A2B5061BADDB9E00CDAF07 /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
 		A4A2B5071BADDB9E00CDAF07 /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
+		A4E49F611BBAF27D0046DA09 /* UsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsernameViewController.h; sourceTree = "<group>"; };
+		A4E49F621BBAF27D0046DA09 /* UsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsernameViewController.m; sourceTree = "<group>"; };
+		A4E49F641BBB05860046DA09 /* UsernameCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UsernameCard.xib; sourceTree = "<group>"; };
+		A4E49F661BBB05CC0046DA09 /* UsernameCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsernameCardView.h; sourceTree = "<group>"; };
+		A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsernameCardView.m; sourceTree = "<group>"; };
 		F2665AC172E277CDE772D25E /* Pods-One.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One.release.xcconfig"; path = "Pods/Target Support Files/Pods-One/Pods-One.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -412,6 +420,9 @@
 				3C9BBB211BA2D1A100BCAC26 /* SwitchTableViewCell.m */,
 				3C7CBA5C1BABFC0F002D68E1 /* TweetTableViewCell.h */,
 				3C7CBA5D1BABFC0F002D68E1 /* TweetTableViewCell.m */,
+				A4E49F641BBB05860046DA09 /* UsernameCard.xib */,
+				A4E49F661BBB05CC0046DA09 /* UsernameCardView.h */,
+				A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -435,6 +446,8 @@
 				3CC5FDC21B98A6D400514A43 /* SendCashViewController.m */,
 				3CC5FDC41B98A6E100514A43 /* RecipientViewController.h */,
 				3CC5FDC51B98A6E100514A43 /* RecipientViewController.m */,
+				A4E49F611BBAF27D0046DA09 /* UsernameViewController.h */,
+				A4E49F621BBAF27D0046DA09 /* UsernameViewController.m */,
 				3CC5FDC71B98A6EA00514A43 /* BalanceViewController.h */,
 				3CC5FDC81B98A6EA00514A43 /* BalanceViewController.m */,
 				3CC5FDCA1B98A72800514A43 /* SettingsViewController.h */,
@@ -563,7 +576,7 @@
 								enabled = 1;
 							};
 							com.apple.SafariKeychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -609,6 +622,7 @@
 				A4A2B50B1BADDBEF00CDAF07 /* ProximaNova-Light.otf in Resources */,
 				A4A2B50C1BADDBEF00CDAF07 /* ProximaNova-Regular.otf in Resources */,
 				A4A2B50D1BADDBEF00CDAF07 /* ProximaNova-Semibold.otf in Resources */,
+				A4E49F651BBB05860046DA09 /* UsernameCard.xib in Resources */,
 				A470C0111BAA059200FA005F /* Maax Rounded Medium.otf in Resources */,
 				3CC5FDB51B98886700514A43 /* Localizable.strings in Resources */,
 				3C2E03761B8DA18B00D22D48 /* Main.storyboard in Resources */,
@@ -772,9 +786,11 @@
 				3C9BBB221BA2D1A100BCAC26 /* SwitchTableViewCell.m in Sources */,
 				3CC5FDD91B9B597600514A43 /* ImageCache.m in Sources */,
 				3C86E0EF1B8DAF0B005AD52B /* ConstantUtils.m in Sources */,
+				A4E49F681BBB05CC0046DA09 /* UsernameCardView.m in Sources */,
 				3CC5FDB01B98836D00514A43 /* SHValidationResult.m in Sources */,
 				3CC5FDDF1B9C391600514A43 /* KeyboardUtils.m in Sources */,
 				3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */,
+				A4E49F631BBAF27D0046DA09 /* UsernameViewController.m in Sources */,
 				3C7CBA5E1BABFC0F002D68E1 /* TweetTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -940,7 +956,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = One/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -986,7 +1002,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "916ca0d7-8a25-4efc-aa61-829c552523ce";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1007,7 +1023,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "916ca0d7-8a25-4efc-aa61-829c552523ce";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

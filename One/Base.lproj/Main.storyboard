@@ -59,8 +59,16 @@
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
+            <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
@@ -1625,9 +1633,25 @@
                                     <constraint firstAttribute="width" constant="62" id="vz8-0M-Swv"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zv-Oo-YbG">
+                                <rect key="frame" x="448" y="58" width="122" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7K3-4v-7o5"/>
+                                    <constraint firstAttribute="width" constant="122" id="rHp-4P-It7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                <state key="normal" title="Get tipped!">
+                                    <color key="titleColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="getPressed:" destination="WNA-kw-5yZ" eventType="touchUpInside" id="OJL-6w-3qK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="0Zv-Oo-YbG" firstAttribute="top" secondItem="pBP-Bj-f9L" secondAttribute="bottom" constant="38" id="0er-F4-fRu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0Zv-Oo-YbG" secondAttribute="trailing" constant="10" id="0mS-yG-c00"/>
                             <constraint firstItem="IzF-Uo-ATe" firstAttribute="top" secondItem="E2A-4I-kDv" secondAttribute="bottom" id="6HL-y4-ecW"/>
                             <constraint firstItem="nji-5G-axu" firstAttribute="centerX" secondItem="lUg-ge-fn2" secondAttribute="centerX" id="KQY-tw-Gdb"/>
                             <constraint firstItem="IzF-Uo-ATe" firstAttribute="top" secondItem="mjc-cJ-8kp" secondAttribute="bottom" id="Lj6-9P-YNL"/>
@@ -1656,12 +1680,14 @@
                         <outlet property="arrowImageView" destination="Duu-Oq-ilY" id="YhF-Lt-vvk"/>
                         <outlet property="balanceBadge" destination="pdP-2U-JLO" id="MyW-Zh-rfZ"/>
                         <outlet property="balanceButton" destination="71X-ED-w10" id="ztZ-Q1-MWn"/>
+                        <outlet property="getButton" destination="0Zv-Oo-YbG" id="KjK-vs-WOE"/>
                         <outlet property="pickRecipientAlertLabel" destination="E2A-4I-kDv" id="dZI-K6-y3t"/>
                         <outlet property="spinImageView" destination="uA0-z1-Dkm" id="o5T-P7-QAL"/>
                         <outlet property="titleLabel" destination="nji-5G-axu" id="bUL-Yv-Isu"/>
                         <segue destination="cLq-3c-hSu" kind="presentation" identifier="Balance From Send" id="eZD-os-4ei"/>
                         <segue destination="Sg7-PG-Ydg" kind="presentation" identifier="Recipient From Send" id="9qY-8U-Mxz"/>
                         <segue destination="Koy-ZE-4HZ" kind="show" identifier="Card From Send" id="0bD-CV-jtZ"/>
+                        <segue destination="9gg-cb-kWX" kind="custom" identifier="Username Segue" customClass="AFBlurSegue" id="zOC-kp-YUB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKn-61-Mg4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1689,7 +1715,7 @@
                                             <constraint firstAttribute="width" constant="55" id="lX6-7G-gfS"/>
                                             <constraint firstAttribute="height" constant="40" id="vub-3z-vcM"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
                                         <state key="normal" title="Close">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1905,6 +1931,173 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xNs-xH-xvH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3640" y="1010"/>
+        </scene>
+        <!--Username View Controller-->
+        <scene sceneID="GVP-eT-hCX">
+            <objects>
+                <viewController storyboardIdentifier="UsernameVC" id="9gg-cb-kWX" customClass="UsernameViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="H4p-Pj-pVd"/>
+                        <viewControllerLayoutGuide type="bottom" id="wrd-T1-deC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DEo-Go-LIp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZK-Xb-t78">
+                                <rect key="frame" x="13" y="20" width="59" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="59" id="W1r-QG-6Gu"/>
+                                    <constraint firstAttribute="height" constant="40" id="WN7-2J-9x1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
+                                <state key="normal" title="Close">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="closePressed:" destination="9gg-cb-kWX" eventType="touchUpInside" id="4fu-qK-Kf6"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get tipped!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4q8-Fs-b1N">
+                                <rect key="frame" x="257" y="31" width="86" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="86" id="O1B-Vg-ZfU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your username is @craffenoux. You can tip and get tipped with it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOc-52-0MB">
+                                <rect key="frame" x="41" y="79" width="518" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="518" id="KLc-im-9AC"/>
+                                    <constraint firstAttribute="height" constant="42" id="oOs-Hj-wIm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="da7-qs-SXj">
+                                <rect key="frame" x="347" y="510" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.17377717272856424" green="0.40705830002197563" blue="0.84877825797872342" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="2AP-zt-aeA"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="IxP-i6-6vn"/>
+                                    <constraint firstAttribute="height" constant="43" id="KW9-9n-n5a"/>
+                                    <constraint firstAttribute="width" constant="50" id="NOh-uL-aC6"/>
+                                    <constraint firstAttribute="width" constant="102" id="STU-R5-lYL"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="WrV-OW-sQk"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="fet-dg-n9r"/>
+                                    <constraint firstAttribute="height" constant="50" id="w5b-Yk-Txt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="2AP-zt-aeA"/>
+                                        <exclude reference="KW9-9n-n5a"/>
+                                        <exclude reference="STU-R5-lYL"/>
+                                        <exclude reference="fet-dg-n9r"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="shareInstagram:" destination="9gg-cb-kWX" eventType="touchUpInside" id="flN-sW-AW0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYS-p4-lar">
+                                <rect key="frame" x="275" y="510" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.20592558232505481" green="0.37703327184075003" blue="0.66857130984042556" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="ADG-aV-mg6"/>
+                                    <constraint firstAttribute="height" constant="43" id="BjT-B4-D7z"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="FNd-QN-MS0"/>
+                                    <constraint firstAttribute="width" constant="102" id="LqH-vt-jW2"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="shb-8K-kOX"/>
+                                    <constraint firstAttribute="height" constant="50" id="yYa-3d-wGb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="BjT-B4-D7z"/>
+                                        <exclude reference="FNd-QN-MS0"/>
+                                        <exclude reference="LqH-vt-jW2"/>
+                                        <exclude reference="shb-8K-kOX"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="shareInstagram:" destination="9gg-cb-kWX" eventType="touchUpInside" id="gTZ-C7-OTR"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your cover" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPq-F5-x3G">
+                                <rect key="frame" x="244" y="475" width="112.5" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="3GG-g9-RzL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02r-ml-43B">
+                                <rect key="frame" x="203" y="510" width="50" height="50"/>
+                                <color key="backgroundColor" red="0.0" green="0.70045900566843999" blue="0.90441115359042556" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="48E-vU-ZIG"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="8tO-ob-CZm"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="IGU-Dd-0O6"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="PdI-9p-Ukx"/>
+                                    <constraint firstAttribute="width" constant="50" id="VbE-v2-JaU"/>
+                                    <constraint firstAttribute="height" constant="50" id="hg3-Sp-V0h"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="qFF-pj-bLr"/>
+                                    <constraint firstAttribute="width" constant="102" id="zMY-iQ-w7j"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="48E-vU-ZIG"/>
+                                        <exclude reference="8tO-ob-CZm"/>
+                                        <exclude reference="PdI-9p-Ukx"/>
+                                        <exclude reference="zMY-iQ-w7j"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="sendTweet:" destination="9gg-cb-kWX" eventType="touchUpInside" id="Mxx-GF-irI"/>
+                                    <action selector="shareInstagram:" destination="9gg-cb-kWX" eventType="touchUpInside" id="dho-YH-8Wa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="BYS-p4-lar" secondAttribute="bottom" constant="40" id="1Ng-6V-rEo"/>
+                            <constraint firstItem="oOc-52-0MB" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="5at-sq-7zF"/>
+                            <constraint firstItem="4q8-Fs-b1N" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" constant="11" id="AWb-AK-NZj"/>
+                            <constraint firstItem="tPq-F5-x3G" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="FZV-sd-b6N"/>
+                            <constraint firstItem="4q8-Fs-b1N" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="JeY-Qi-4cR"/>
+                            <constraint firstItem="BYS-p4-lar" firstAttribute="leading" secondItem="02r-ml-43B" secondAttribute="trailing" constant="22" id="QE4-5i-czc"/>
+                            <constraint firstItem="eZK-Xb-t78" firstAttribute="leading" secondItem="DEo-Go-LIp" secondAttribute="leadingMargin" constant="-7" id="UtL-RG-Fg6"/>
+                            <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="da7-qs-SXj" secondAttribute="bottom" constant="40" id="V53-8I-qhE"/>
+                            <constraint firstItem="BYS-p4-lar" firstAttribute="top" secondItem="tPq-F5-x3G" secondAttribute="bottom" constant="14" id="XMr-Jy-vLN"/>
+                            <constraint firstItem="BYS-p4-lar" firstAttribute="leading" secondItem="02r-ml-43B" secondAttribute="trailing" constant="22" id="Xd2-xP-eL6"/>
+                            <constraint firstItem="da7-qs-SXj" firstAttribute="leading" secondItem="BYS-p4-lar" secondAttribute="trailing" constant="22" id="YaG-mg-jJe"/>
+                            <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="02r-ml-43B" secondAttribute="bottom" constant="40" id="eYg-Gm-sLe"/>
+                            <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="da7-qs-SXj" secondAttribute="bottom" constant="40" id="oX0-Au-Omr"/>
+                            <constraint firstItem="da7-qs-SXj" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" constant="72" id="pf9-Ey-Phf"/>
+                            <constraint firstItem="eZK-Xb-t78" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" id="xRb-oZ-DpS"/>
+                            <constraint firstItem="oOc-52-0MB" firstAttribute="top" secondItem="4q8-Fs-b1N" secondAttribute="bottom" constant="31" id="z2m-Fe-nua"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="eZK-Xb-t78" id="qyn-xl-jqx"/>
+                        <outlet property="descriptionLabel" destination="oOc-52-0MB" id="zua-rN-zaP"/>
+                        <outlet property="facebookShareButton" destination="da7-qs-SXj" id="hvg-w5-aed"/>
+                        <outlet property="instaShareButton" destination="BYS-p4-lar" id="dGG-Fj-dEK"/>
+                        <outlet property="shareLabel" destination="tPq-F5-x3G" id="FmQ-5K-euH"/>
+                        <outlet property="topLabel" destination="4q8-Fs-b1N" id="KNt-MD-nkk"/>
+                        <outlet property="twitterShareButton" destination="02r-ml-43B" id="gYP-2x-fXh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ldd-8r-JH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4328" y="1010"/>
         </scene>
     </scenes>
     <resources>
