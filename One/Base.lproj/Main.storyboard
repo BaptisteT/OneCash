@@ -1954,14 +1954,14 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your username is @craffenoux. You can tip and get tipped with it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOc-52-0MB">
-                                <rect key="frame" x="171" y="79" width="259" height="42"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your username is @craffenoux. You can tip and get tipped with it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOc-52-0MB">
+                                <rect key="frame" x="41" y="79" width="518" height="42"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="259" id="KLc-im-9AC"/>
+                                    <constraint firstAttribute="width" constant="518" id="KLc-im-9AC"/>
                                     <constraint firstAttribute="height" constant="42" id="oOs-Hj-wIm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1977,6 +1977,8 @@
                     </view>
                     <connections>
                         <outlet property="closeButton" destination="eZK-Xb-t78" id="qyn-xl-jqx"/>
+                        <outlet property="descriptionLabel" destination="oOc-52-0MB" id="zua-rN-zaP"/>
+                        <outlet property="topLabel" destination="4q8-Fs-b1N" id="KNt-MD-nkk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ldd-8r-JH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
