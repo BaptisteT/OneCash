@@ -146,34 +146,32 @@
 #pragma mark - Table view
 // --------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(self.recipientTextfield.text.length > 0) {
+    if([self isSearchSection:section]) {
         return self.searchedUsersArray ? self.searchedUsersArray.count : 0;
+    } else if ([self isRecentSection:section]) {
+        return self.historicUsers.count;
+    } else if ([self isSuggestedSection:section]) {
+        return self.suggestedUsers.count;
     } else {
-        if (section == 0) {
-            return self.historicUsers.count;
-        } else if (section == 1) {
-            return self.suggestedUsers.count;
-        } else {
-            return self.leadingUsers.count;
-        }
+        return self.leadingUsers.count;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *userArray;
-    if (self.recipientTextfield.text.length > 0) {
+    if ([self isSearchSection:indexPath.section]) {
         userArray = self.searchedUsersArray;
-    } else if (indexPath.section == 0) {
+    } else if ([self isRecentSection:indexPath.section]) {
         userArray = self.historicUsers;
-    } else if (indexPath.section == 1) {
+    } else if ([self isSuggestedSection:indexPath.section]) {
         userArray = self.suggestedUsers;
     } else {
         userArray = self.leadingUsers;
     }
     
     UserTableViewCell *cell = (UserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"UserCell"];
-    [cell initWithUser:(User *)userArray[indexPath.row] showBalance:(indexPath.section == 2)];
+    [cell initWithUser:(User *)userArray[indexPath.row] showBalance:[self isLeaderSection:indexPath.section]];
     [cell layoutIfNeeded];
     return cell;
 }
@@ -183,25 +181,20 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if(self.recipientTextfield.text.length > 0) {
+    if([self isSearchSection:section]) {
        return NSLocalizedString(@"search_header", nil);
-    } else {
-        if (section == 0) {
+    } else  if ([self isRecentSection:section]) {
             return NSLocalizedString(@"recent_header", nil);
-        } else if (section == 1) {
-            return NSLocalizedString(@"suggested_header", nil);
-        } else {
-            return NSLocalizedString(@"leaderboard_header", nil);
-        }
+    } else if ([self isSuggestedSection:section]) {
+        return NSLocalizedString(@"suggested_header", nil);
+    } else if ([self isLeaderSection:section]) {
+        return NSLocalizedString(@"leaderboard_header", nil);
     }
+    return @"";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if(self.recipientTextfield.text.length > 0) {
-        return 1;
-    } else {
-        return 3;
-    }
+    return ([self searchedUserSection] != -1) + ([self recentUserSection] != -1) + ([self leaderboardSection] != -1) + ([self suggestedUserSection] != -1);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -241,6 +234,41 @@
     [self.recipientTextfield resignFirstResponder];
 }
 
+
+// --------------------------------------------
+#pragma mark - Utils
+// --------------------------------------------
+- (NSInteger)searchedUserSection {
+    return self.recipientTextfield.text.length > 0 ? 0 : -1;
+}
+
+- (NSInteger)recentUserSection {
+    return (self.recipientTextfield.text.length == 0 && self.historicUsers.count > 0) ? 0 : -1;
+}
+
+- (NSInteger)suggestedUserSection {
+    return (self.recipientTextfield.text.length == 0 && self.suggestedUsers.count > 0) ? ([self recentUserSection] + 1) : -1;
+}
+
+- (NSInteger)leaderboardSection {
+    return (self.recipientTextfield.text.length == 0 && self.leadingUsers.count > 0) ? (MAX([self suggestedUserSection],[self recentUserSection]) + 1) : -1;
+}
+
+- (BOOL)isSearchSection:(NSInteger)section {
+    return section == [self searchedUserSection];
+}
+
+- (BOOL)isRecentSection:(NSInteger)section {
+    return section == [self recentUserSection];
+}
+
+- (BOOL)isSuggestedSection:(NSInteger)section {
+    return section == [self suggestedUserSection];
+}
+
+- (BOOL)isLeaderSection:(NSInteger)section {
+    return section == [self leaderboardSection];
+}
 
 // --------------------------------------------
 #pragma mark - Text field
@@ -285,16 +313,6 @@
     return NO;
 }
 
-//// ----------------------------------------------------------
-//#pragma mark Keyboard
-//// ----------------------------------------------------------
-//
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    [textField resignFirstResponder];
-//    
-//    return YES;
-//}
 
 // --------------------------------------------
 #pragma mark - UI
