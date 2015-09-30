@@ -6,7 +6,7 @@
 //  Copyright © 2015 Mindie. All rights reserved.
 //
 
-#import "UsernameViewController.h"
+#import "ShareUsernameViewController.h"
 
 #import "ColorUtils.h"
 #import "User.h"
@@ -14,7 +14,7 @@
 #import <Accounts/Accounts.h>
 #import <Twitter/Twitter.h>
 
-@interface UsernameViewController ()
+@interface ShareUsernameViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *closeButton;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIButton *instaShareButton;
@@ -114,7 +114,10 @@
 }
 
 -(IBAction)sendTweet:(id)sender {
+    // todo BT
 }
+
+
 
 // --------------------------------------------
 #pragma mark - Actions

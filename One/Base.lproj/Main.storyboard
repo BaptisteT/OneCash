@@ -1932,10 +1932,10 @@
             </objects>
             <point key="canvasLocation" x="3640" y="1010"/>
         </scene>
-        <!--Username View Controller-->
+        <!--Share Username View Controller-->
         <scene sceneID="GVP-eT-hCX">
             <objects>
-                <viewController storyboardIdentifier="UsernameVC" id="9gg-cb-kWX" customClass="UsernameViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UsernameVC" id="9gg-cb-kWX" customClass="ShareUsernameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H4p-Pj-pVd"/>
                         <viewControllerLayoutGuide type="bottom" id="wrd-T1-deC"/>
@@ -2000,9 +2000,6 @@
                                         <exclude reference="fet-dg-n9r"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="shareInstagram:" destination="9gg-cb-kWX" eventType="touchUpInside" id="flN-sW-AW0"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYS-p4-lar">
                                 <rect key="frame" x="275" y="510" width="50" height="50"/>
@@ -2061,7 +2058,6 @@
                                 </variation>
                                 <connections>
                                     <action selector="sendTweet:" destination="9gg-cb-kWX" eventType="touchUpInside" id="Mxx-GF-irI"/>
-                                    <action selector="shareInstagram:" destination="9gg-cb-kWX" eventType="touchUpInside" id="dho-YH-8Wa"/>
                                 </connections>
                             </button>
                         </subviews>

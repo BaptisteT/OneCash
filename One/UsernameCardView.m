@@ -24,31 +24,30 @@
 
 @implementation UsernameCardView
 
-- (void)initWithFrame:(CGRect)frame andDelegate:(id<UsernameViewDeletagteProtocol>)delegate {
-    
-    //Init
-    [self setFrame:frame];
-    self.delegate = delegate;
-    
-    //User
-    self.currentUser = [User currentUser];
-    
-    //UI
-    self.backgroundColor = [ColorUtils mainGreen];
-    self.layer.cornerRadius = self.frame.size.height / 80;
-    [DesignUtils addShadow:self];
-    self.avatarImageView.layer.borderColor = [ColorUtils darkGreen].CGColor;
-    self.avatarImageView.layer.borderWidth = 8;
-    
-    //Avatar
-    [self.currentUser setAvatarInImageView:self.avatarImageView bigSize:YES saveLocally:NO];
-    
-    //Username
-    self.usernameLabel.text = self.currentUser.caseUsername;
-    
-    //Title
-    self.titleLabel.text = NSLocalizedString(@"card_title", nil);
-    
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        //User
+        self.currentUser = [User currentUser];
+        
+        //UI
+        self.backgroundColor = [ColorUtils mainGreen];
+        self.layer.cornerRadius = self.frame.size.height / 80;
+        [DesignUtils addShadow:self];
+        self.avatarImageView.layer.borderColor = [ColorUtils darkGreen].CGColor;
+        self.avatarImageView.layer.borderWidth = 8;
+        
+        //Avatar
+        [self.currentUser setAvatarInImageView:self.avatarImageView bigSize:YES saveLocally:NO];
+        
+        //Username
+        self.usernameLabel.text = self.currentUser.caseUsername;
+        
+        //Title
+        self.titleLabel.text = NSLocalizedString(@"card_title", nil);
+    }
+    return self;
 }
 
 -(void)layoutSubviews {
