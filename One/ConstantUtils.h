@@ -40,6 +40,7 @@ static NSString * const kApplePayMerchantId = @"merchant.cash.one";
 
 // Web
 static NSString * const kOneWebsiteTermsLink = @"http://one.cash/#terms";
+static NSString * const kOneWebsitePrivacyLink = @"http://one.cash/#privacy";
 static NSString * const kOneWebsiteSupportLink = @"http://one.cash/#support";
 static NSString * const kOneWebsiteLink = @"http://one.cash";
 static NSString * const kStripeWebsiteTermsLink = @"https://stripe.com/connect/account-terms";

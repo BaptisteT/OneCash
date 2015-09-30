@@ -335,7 +335,6 @@
     self.applePaySucceeded = NO;
     self.applePaySendingTransaction = transaction;
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
-    paymentRequest.currencyCode = @"usd";
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
         NSInteger valueToWithdraw = self.ongoingTransactionsCount - [User currentUser].balance;
         NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:valueToWithdraw];
@@ -352,11 +351,13 @@
             self.ongoingTransactionsCount -= transaction.transactionAmount;
             [self failedAnimation:transaction.transactionAmount];
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_runtime_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_runtime_error_message", nil)];
+            self.applePaySendingTransaction = nil;
         }
     } else {
         self.ongoingTransactionsCount -= transaction.transactionAmount;
         [self failedAnimation:transaction.transactionAmount];
         [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_runtime_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_runtime_error_message", nil)];
+        self.applePaySendingTransaction = nil;
     }
 }
 

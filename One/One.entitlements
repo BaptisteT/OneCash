@@ -8,6 +8,8 @@
 		<string>applinks:one.cash</string>
 	</array>
 	<key>com.apple.developer.in-app-payments</key>
-	<array/>
+	<array>
+		<string>merchant.cash.one</string>
+	</array>
 </dict>
 </plist>

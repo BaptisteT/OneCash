@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "One/AppDelegate.m"
-            timestampString = "465215889.507651"
+            timestampString = "465238825.022106"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "-handleDeepLink:"
             landmarkType = "5">
          </BreakpointContent>
