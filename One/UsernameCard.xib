@@ -9,10 +9,8 @@
         <mutableArray key="ProximaNova-Light.otf">
             <string>ProximaNova-Light</string>
         </mutableArray>
-        <mutableArray key="ProximaNova-Regular.otf">
-            <string>ProximaNova-Regular</string>
-        </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
+            <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
         </mutableArray>
     </customFonts>
@@ -43,7 +41,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="nv0-UG-v5V"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="14"/>
+                    <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="14"/>
                     <color key="textColor" red="0.11551640220000001" green="0.82181889959999999" blue="0.2544996732" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>

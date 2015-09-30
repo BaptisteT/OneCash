@@ -18,6 +18,7 @@
 @property (weak, nonatomic) id<UsernameViewDeletagteProtocol> delegate;
 
 - (void)initWithFrame:(CGRect)frame andDelegate:(id<UsernameViewDeletagteProtocol>)delegate ;
+- (UIImage *)captureView;
 
 @end
 

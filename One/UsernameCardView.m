@@ -10,6 +10,7 @@
 
 #import "User.h"
 #import "ColorUtils.h"
+#import "DesignUtils.h"
 
 
 @interface UsernameCardView ()
@@ -35,10 +36,7 @@
     //UI
     self.backgroundColor = [ColorUtils mainGreen];
     self.layer.cornerRadius = self.frame.size.height / 80;
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.layer.shadowOffset = CGSizeMake(0, 0);
-    self.layer.shadowOpacity = 0.1;
-    self.layer.shadowRadius = 20;
+    [DesignUtils addShadow:self];
     self.avatarImageView.layer.borderColor = [ColorUtils darkGreen].CGColor;
     self.avatarImageView.layer.borderWidth = 8;
     
@@ -62,5 +60,14 @@
     self.dollarLabel.clipsToBounds = YES;
 }
 
+- (UIImage *)captureView {
+    CGRect rect = CGRectMake(0, 0, 512, 512);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self.layer renderInContext:context];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
 
 @end

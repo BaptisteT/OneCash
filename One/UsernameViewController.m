@@ -10,10 +10,17 @@
 
 #import "ColorUtils.h"
 #import "User.h"
+#import "DesignUtils.h"
+#import <Accounts/Accounts.h>
+#import <Twitter/Twitter.h>
 
 @interface UsernameViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *closeButton;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (strong, nonatomic) IBOutlet UIButton *instaShareButton;
+@property (strong, nonatomic) IBOutlet UIButton *twitterShareButton;
+@property (strong, nonatomic) IBOutlet UILabel *shareLabel;
+@property (strong, nonatomic) IBOutlet UIButton *facebookShareButton;
 @property (strong, nonatomic) IBOutlet UILabel *topLabel;
 @end
 
@@ -45,6 +52,16 @@
     self.closeButton.layer.zPosition = 1;
     self.descriptionLabel.layer.zPosition = 1;
     self.topLabel.layer.zPosition = 1;
+    self.instaShareButton.layer.zPosition = 1;
+    self.instaShareButton.layer.cornerRadius = self.instaShareButton.frame.size.height / 2;
+    self.twitterShareButton.layer.zPosition = 1;
+    self.twitterShareButton.layer.cornerRadius = self.twitterShareButton.frame.size.height / 2;
+    self.facebookShareButton.layer.zPosition = 1;
+    self.facebookShareButton.layer.cornerRadius = self.facebookShareButton.frame.size.height / 2;
+    self.shareLabel.layer.zPosition = 1;
+    [DesignUtils addShadowToButton:self.instaShareButton];
+    [DesignUtils addShadowToButton:self.twitterShareButton];
+    [DesignUtils addShadowToButton:self.facebookShareButton];
     
     //Animation
     [self addDollarLabel];
@@ -53,10 +70,6 @@
                                    selector:@selector(addDollarLabel)
                                    userInfo:nil
                                     repeats:YES];
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
 // --------------------------------------------
@@ -88,6 +101,19 @@
 
 -(IBAction)closePressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(IBAction)shareInstagram:(id)sender {
+    CGFloat width = 512;
+    CGFloat height = 512;
+    CGRect frame = CGRectMake(0, 0, width, height);
+    UsernameCardView *instagramCardView = [[[NSBundle mainBundle] loadNibNamed:@"UsernameCard" owner:self options:nil] objectAtIndex:0];
+    [instagramCardView initWithFrame:frame andDelegate:self];
+    
+    UIImage *image = [instagramCardView captureView];
+}
+
+-(IBAction)sendTweet:(id)sender {
 }
 
 // --------------------------------------------

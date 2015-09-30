@@ -166,6 +166,8 @@
     } else if ([segueName isEqualToString:@"Username Segue"]) {
         UIViewController *destination = segue.destinationViewController;
         destination.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        destination.modalPresentationCapturesStatusBarAppearance = NO;
+        [destination setNeedsStatusBarAppearanceUpdate];
         
         AFBlurSegue *blurSegue = (AFBlurSegue *)segue;
         blurSegue.saturationDeltaFactor = 0.5;

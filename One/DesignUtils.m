@@ -40,6 +40,20 @@
     [view.layer addSublayer:bottomBorder];
 }
 
++ (void)addShadow:(UIView *)view {
+    view.layer.shadowColor = [UIColor blackColor].CGColor;
+    view.layer.shadowOffset = CGSizeMake(0, 0);
+    view.layer.shadowOpacity = 0.1;
+    view.layer.shadowRadius = 20;
+}
+
++ (void)addShadowToButton:(UIButton *)button {
+    button.layer.shadowColor = [UIColor blackColor].CGColor;
+    button.layer.shadowOffset = CGSizeMake(0, 0);
+    button.layer.shadowOpacity = 0.1;
+    button.layer.shadowRadius = 20;
+}
+
 // Show HUD in view
 + (void)showProgressHUDAddedTo:(UIView *)view {
     [self showProgressHUDAddedTo:view withColor:[ColorUtils mainGreen]];
