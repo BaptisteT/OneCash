@@ -26,6 +26,10 @@
 + (void)logInWithTwitterAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
 
++ (void)getTwitterUsersFromString:(NSString *)string
+                          success:(void(^)(NSArray *twitterUsers))successBlock
+                          failure:(void(^)(NSError *error))failureBlock;
+
 // --------------------------------------------
 #pragma mark - User
 // --------------------------------------------

@@ -290,6 +290,7 @@
             self.loadingContainer.hidden = NO;
             [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils mainGreen] transform:CGAffineTransformMakeScale(0.5, 0.5)];
         }
+        // One Users
         [ApiManager findUsersMatchingStartString:self.lastStringSearched
                                          success:^(NSString *string, NSArray *users) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
@@ -305,6 +306,15 @@
                                                  }
                                              });
                                          } failure:nil];
+        
+        // Twitter users
+        [ApiManager getTwitterUsersFromString:self.lastStringSearched
+                                      success:^(NSArray *twitterUsers) {
+                                          // todo BT
+                                      } failure:^(NSError *error) {
+                                          // todo BT
+                                      }];
+        
     } else {
         self.searchedUsersArray = nil;
         [self.recipientsTableView reloadData];
