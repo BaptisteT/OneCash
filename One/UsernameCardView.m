@@ -24,12 +24,9 @@
 
 @implementation UsernameCardView
 
-- (void)initWithFrame:(CGRect)frame andDelegate:(id<UsernameViewDeletagteProtocol>)delegate {
-    
-    //Init
-    [self setFrame:frame];
-    self.delegate = delegate;
-    
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
     //User
     self.currentUser = [User currentUser];
     
@@ -48,7 +45,6 @@
     
     //Title
     self.titleLabel.text = NSLocalizedString(@"card_title", nil);
-    
 }
 
 -(void)layoutSubviews {
@@ -61,7 +57,7 @@
 }
 
 - (UIImage *)captureView {
-    CGRect rect = CGRectMake(0, 0, 512, 512);
+    CGRect rect = self.frame;
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     [self.layer renderInContext:context];

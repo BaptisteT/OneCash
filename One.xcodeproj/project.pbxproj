@@ -114,6 +114,11 @@
 		3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */; };
 		3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
+		3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
+		3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
+		3CDFB25B1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; settings = {ASSET_TAGS = (); }; };
+		3CDFB25C1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; settings = {ASSET_TAGS = (); }; };
 		3CFA3BBC1BBAA6FF00F94A72 /* UIImageView+UserId.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */; settings = {ASSET_TAGS = (); }; };
 		3CFA3BBD1BBAA6FF00F94A72 /* UIImageView+UserId.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */; settings = {ASSET_TAGS = (); }; };
 		A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
@@ -124,7 +129,7 @@
 		A4A2B50B1BADDBEF00CDAF07 /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5051BADDB9E00CDAF07 /* ProximaNova-Light.otf */; };
 		A4A2B50C1BADDBEF00CDAF07 /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5061BADDB9E00CDAF07 /* ProximaNova-Regular.otf */; };
 		A4A2B50D1BADDBEF00CDAF07 /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5071BADDB9E00CDAF07 /* ProximaNova-Semibold.otf */; };
-		A4E49F631BBAF27D0046DA09 /* UsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* UsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
+		A4E49F631BBAF27D0046DA09 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
 		A4E49F651BBB05860046DA09 /* UsernameCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E49F641BBB05860046DA09 /* UsernameCard.xib */; settings = {ASSET_TAGS = (); }; };
 		A4E49F681BBB05CC0046DA09 /* UsernameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */; settings = {ASSET_TAGS = (); }; };
 		BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
@@ -207,7 +212,7 @@
 		3CC5FDC81B98A6EA00514A43 /* BalanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BalanceViewController.m; sourceTree = "<group>"; };
 		3CC5FDCA1B98A72800514A43 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		3CC5FDCB1B98A72800514A43 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		3CC5FDCD1B98C5B600514A43 /* One.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = One.entitlements; sourceTree = "<group>"; };
+		3CC5FDCD1B98C5B600514A43 /* One.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = One.entitlements; path = One/One.entitlements; sourceTree = "<group>"; };
 		3CC5FDCE1B98C7DE00514A43 /* StripeCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StripeCardViewController.h; sourceTree = "<group>"; };
 		3CC5FDCF1B98C7DE00514A43 /* StripeCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StripeCardViewController.m; sourceTree = "<group>"; };
 		3CC5FDD11B99D73100514A43 /* PushNoAnimationSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNoAnimationSegue.h; sourceTree = "<group>"; };
@@ -227,6 +232,8 @@
 		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
 		3CD4D6411BB91D75001F2C7A /* OneCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CD4D6421BB91D76001F2C7A /* OneInHouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OneInHouse-Info.plist"; path = "/Users/baptistetruchot/Documents/Developer/XCode_Projects/One/OneInHouse-Info.plist"; sourceTree = "<absolute>"; };
+		3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UserId.h"; sourceTree = "<group>"; };
 		3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+UserId.m"; sourceTree = "<group>"; };
 		3CFA3BBE1BBAAC9C00F94A72 /* OneInHouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OneInHouse.entitlements; sourceTree = "<group>"; };
@@ -239,8 +246,8 @@
 		A4A2B5051BADDB9E00CDAF07 /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
 		A4A2B5061BADDB9E00CDAF07 /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
 		A4A2B5071BADDB9E00CDAF07 /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
-		A4E49F611BBAF27D0046DA09 /* UsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsernameViewController.h; sourceTree = "<group>"; };
-		A4E49F621BBAF27D0046DA09 /* UsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsernameViewController.m; sourceTree = "<group>"; };
+		A4E49F611BBAF27D0046DA09 /* ShareUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareUsernameViewController.h; sourceTree = "<group>"; };
+		A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareUsernameViewController.m; sourceTree = "<group>"; };
 		A4E49F641BBB05860046DA09 /* UsernameCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UsernameCard.xib; sourceTree = "<group>"; };
 		A4E49F661BBB05CC0046DA09 /* UsernameCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsernameCardView.h; sourceTree = "<group>"; };
 		A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsernameCardView.m; sourceTree = "<group>"; };
@@ -253,7 +260,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */,
+				3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */,
 				3C13EE4D1B9F32DE00930AC7 /* SystemConfiguration.framework in Frameworks */,
+				3CDFB25B1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */,
 				3CC5FD981B974A5500514A43 /* Accounts.framework in Frameworks */,
 				3CC5FD961B974A4F00514A43 /* Social.framework in Frameworks */,
 				BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */,
@@ -265,7 +274,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CD4D62A1BB91D75001F2C7A /* AudioToolbox.framework in Frameworks */,
+				3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */,
 				3CD4D62B1BB91D75001F2C7A /* SystemConfiguration.framework in Frameworks */,
+				3CDFB25C1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */,
 				3CD4D62C1BB91D75001F2C7A /* Accounts.framework in Frameworks */,
 				3CD4D62D1BB91D75001F2C7A /* Social.framework in Frameworks */,
 				3CD4D62E1BB91D75001F2C7A /* libPods-One.a in Frameworks */,
@@ -278,6 +289,8 @@
 		03794D7AE0960F429C553BEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */,
+				3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */,
 				A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */,
 				3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */,
 				3CC5FDB61B988DB300514A43 /* UIKit.framework */,
@@ -301,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				3CFA3BBE1BBAAC9C00F94A72 /* OneInHouse.entitlements */,
+				3CC5FDCD1B98C5B600514A43 /* One.entitlements */,
 				3C2E03661B8DA18B00D22D48 /* One */,
 				3C2E03651B8DA18B00D22D48 /* Products */,
 				6003251E0CB60950663BAB8E /* Pods */,
@@ -334,7 +348,6 @@
 		3C2E03671B8DA18B00D22D48 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3CC5FDCD1B98C5B600514A43 /* One.entitlements */,
 				3C2E03681B8DA18B00D22D48 /* Info.plist */,
 				3CD4D6421BB91D76001F2C7A /* OneInHouse-Info.plist */,
 				3C2E03691B8DA18B00D22D48 /* main.m */,
@@ -446,8 +459,8 @@
 				3CC5FDC21B98A6D400514A43 /* SendCashViewController.m */,
 				3CC5FDC41B98A6E100514A43 /* RecipientViewController.h */,
 				3CC5FDC51B98A6E100514A43 /* RecipientViewController.m */,
-				A4E49F611BBAF27D0046DA09 /* UsernameViewController.h */,
-				A4E49F621BBAF27D0046DA09 /* UsernameViewController.m */,
+				A4E49F611BBAF27D0046DA09 /* ShareUsernameViewController.h */,
+				A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */,
 				3CC5FDC71B98A6EA00514A43 /* BalanceViewController.h */,
 				3CC5FDC81B98A6EA00514A43 /* BalanceViewController.m */,
 				3CC5FDCA1B98A72800514A43 /* SettingsViewController.h */,
@@ -587,7 +600,7 @@
 								enabled = 0;
 							};
 							com.apple.SafariKeychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -790,7 +803,7 @@
 				3CC5FDB01B98836D00514A43 /* SHValidationResult.m in Sources */,
 				3CC5FDDF1B9C391600514A43 /* KeyboardUtils.m in Sources */,
 				3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */,
-				A4E49F631BBAF27D0046DA09 /* UsernameViewController.m in Sources */,
+				A4E49F631BBAF27D0046DA09 /* ShareUsernameViewController.m in Sources */,
 				3C7CBA5E1BABFC0F002D68E1 /* TweetTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -835,6 +848,7 @@
 				3CD4D6201BB91D75001F2C7A /* Transaction.m in Sources */,
 				3CD4D6211BB91D75001F2C7A /* SettingsViewController.m in Sources */,
 				3CD4D6221BB91D75001F2C7A /* SwitchTableViewCell.m in Sources */,
+				3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */,
 				3CD4D6231BB91D75001F2C7A /* ImageCache.m in Sources */,
 				3CD4D6241BB91D75001F2C7A /* ConstantUtils.m in Sources */,
 				3CD4D6251BB91D75001F2C7A /* SHValidationResult.m in Sources */,
@@ -958,6 +972,10 @@
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = One/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -974,8 +992,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -995,9 +1017,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_ENTITLEMENTS = OneInHouse.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ever";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ever";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "OneInHouse-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1013,9 +1038,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_ENTITLEMENTS = OneInHouse.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ever";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ever";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",

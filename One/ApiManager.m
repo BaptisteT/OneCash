@@ -166,7 +166,30 @@
     }];
 }
 
-
++ (void)getTwitterUsersFromString:(NSString *)string
+                          success:(void(^)(NSArray *twitterUsers))successBlock
+                          failure:(void(^)(NSError *error))failureBlock
+{
+    NSURL *verify = [NSURL URLWithString:@"https://api.twitter.com/1.1/users/search.json?q=truchotbaptiste&count=5"];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
+    [[PFTwitterUtils twitter] signRequest:request];
+    // todo BT
+//    NSOperationQueue * queue = [[NSOperationQueue alloc] init];
+//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//        if ( connectionError == nil) {
+//            NSError * error = nil;
+//            NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+//            OneLog(ONEAPIMANAGERLOG, @"Success - twitter users - %@",result);
+//            
+//        } else {
+//            OneLog(ONEAPIMANAGERLOG, @"Failure - twitter users - %@",connectionError);
+//            if (failureBlock) {
+//                failureBlock(connectionError);
+//            }
+//        }
+//    }];
+}
 
 // --------------------------------------------
 #pragma mark - User

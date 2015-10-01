@@ -1393,8 +1393,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26N-Eo-pT6">
-                                <rect key="frame" x="10" y="20" width="39" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26N-Eo-pT6">
+                                <rect key="frame" x="10" y="20" width="37" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="6ZB-U0-nm0"/>
                                     <constraint firstAttribute="height" constant="40" id="7JY-Te-99P"/>
@@ -1415,8 +1415,8 @@
                                     <action selector="backButtonClicked:" destination="bFG-lE-Nfn" eventType="touchUpInside" id="wtx-m3-ShX"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URr-3q-BVX">
-                                <rect key="frame" x="269" y="30" width="62.5" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URr-3q-BVX">
+                                <rect key="frame" x="269" y="31.5" width="62.5" height="17"/>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1502,8 +1502,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="init text view" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1yV-VH-IYu">
-                                                    <rect key="frame" x="10" y="7" width="580" height="34"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" text="init text view" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1yV-VH-IYu">
+                                                    <rect key="frame" x="10" y="7" width="580" height="31"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1863,8 +1863,16 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAQ-cV-nVV">
+                                                    <rect key="frame" x="529" y="19" width="15" height="22"/>
+                                                    <state key="normal" image="TwitterIcon"/>
+                                                    <connections>
+                                                        <action selector="twitterButtonClicked:" destination="CwD-TH-c4R" eventType="touchUpInside" id="5Ey-Dy-KXz"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="hAQ-cV-nVV" firstAttribute="centerY" secondItem="T0j-j8-Hka" secondAttribute="centerY" id="1Ni-Xp-v2A"/>
                                                 <constraint firstItem="wAG-Xv-V4U" firstAttribute="centerY" secondItem="T0j-j8-Hka" secondAttribute="centerY" id="HV2-Hu-rxf"/>
                                                 <constraint firstItem="wAG-Xv-V4U" firstAttribute="top" secondItem="T0j-j8-Hka" secondAttribute="top" constant="10" id="YDD-x1-hR0"/>
                                                 <constraint firstItem="0xG-qv-OR8" firstAttribute="leading" secondItem="T0j-j8-Hka" secondAttribute="leading" constant="18" id="aID-qt-iYn"/>
@@ -1873,11 +1881,13 @@
                                                 <constraint firstAttribute="centerY" secondItem="0xG-qv-OR8" secondAttribute="centerY" constant="-0.25" id="h4z-Yb-5vA"/>
                                                 <constraint firstAttribute="trailing" secondItem="wAG-Xv-V4U" secondAttribute="trailing" constant="8" id="hHE-VN-eBS"/>
                                                 <constraint firstItem="Jmu-D9-d7J" firstAttribute="centerY" secondItem="T0j-j8-Hka" secondAttribute="centerY" id="itF-Vf-W2g"/>
+                                                <constraint firstItem="wAG-Xv-V4U" firstAttribute="leading" secondItem="hAQ-cV-nVV" secondAttribute="trailing" constant="8" id="uOG-kS-99z"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="balanceLabel" destination="wAG-Xv-V4U" id="lhy-eO-MZ5"/>
                                             <outlet property="certifiedImageView" destination="y3L-g4-XZo" id="7la-JP-2fP"/>
+                                            <outlet property="tweetButton" destination="hAQ-cV-nVV" id="dQL-n6-SSI"/>
                                             <outlet property="userPicture" destination="0xG-qv-OR8" id="WPw-EY-IJG"/>
                                             <outlet property="userStatus" destination="oS2-Rh-1Se" id="cIu-Wh-IfO"/>
                                             <outlet property="usernameLabel" destination="awI-uy-jb8" id="2Bp-e3-SJP"/>
@@ -1926,10 +1936,10 @@
             </objects>
             <point key="canvasLocation" x="3640" y="1010"/>
         </scene>
-        <!--Username View Controller-->
+        <!--Share Username View Controller-->
         <scene sceneID="GVP-eT-hCX">
             <objects>
-                <viewController storyboardIdentifier="UsernameVC" id="9gg-cb-kWX" customClass="UsernameViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UsernameVC" id="9gg-cb-kWX" customClass="ShareUsernameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H4p-Pj-pVd"/>
                         <viewControllerLayoutGuide type="bottom" id="wrd-T1-deC"/>
@@ -1995,7 +2005,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="shareInstagram:" destination="9gg-cb-kWX" eventType="touchUpInside" id="flN-sW-AW0"/>
+                                    <action selector="shareFacebook:" destination="9gg-cb-kWX" eventType="touchUpInside" id="jc7-eu-LiF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYS-p4-lar">
@@ -2054,8 +2064,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="sendTweet:" destination="9gg-cb-kWX" eventType="touchUpInside" id="Mxx-GF-irI"/>
-                                    <action selector="shareInstagram:" destination="9gg-cb-kWX" eventType="touchUpInside" id="dho-YH-8Wa"/>
+                                    <action selector="shareTwitter:" destination="9gg-cb-kWX" eventType="touchUpInside" id="hEe-2w-Zy6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2079,6 +2088,7 @@
                             <constraint firstItem="oOc-52-0MB" firstAttribute="top" secondItem="4q8-Fs-b1N" secondAttribute="bottom" constant="31" id="z2m-Fe-nua"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="closeButton" destination="eZK-Xb-t78" id="qyn-xl-jqx"/>
                         <outlet property="descriptionLabel" destination="oOc-52-0MB" id="zua-rN-zaP"/>
@@ -2106,7 +2116,7 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WX6-Iv-dA8"/>
+        <segue reference="0H9-Pw-zbF"/>
         <segue reference="0bD-CV-jtZ"/>
         <segue reference="ep0-aD-elO"/>
     </inferredMetricsTieBreakers>

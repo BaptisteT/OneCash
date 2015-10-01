@@ -4,149 +4,125 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-One-ApplePayStubs.xcscheme</key>
+		<key>AFBlurSegue.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
-		<key>Pods-One-Bolts.xcscheme</key>
+		<key>ApplePayStubs.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
-		<key>Pods-One-DateTools.xcscheme</key>
+		<key>Bolts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
-		<key>Pods-One-FBSDKCoreKit.xcscheme</key>
+		<key>DateTools.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
-		<key>Pods-One-MBProgressHUD.xcscheme</key>
+		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
-		<key>Pods-One-Mixpanel.xcscheme</key>
+		<key>Mixpanel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
-		<key>Pods-One-Parse.xcscheme</key>
+		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
-		<key>Pods-One-ParseTwitterUtils.xcscheme</key>
+		<key>ParseTwitterUtils.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>9</integer>
-		</dict>
-		<key>Pods-One-SVPullToRefresh.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>12</integer>
-		</dict>
-		<key>Pods-One-Stripe.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>11</integer>
-		</dict>
-		<key>Pods-One-pop.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>10</integer>
 		</dict>
 		<key>Pods-One.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
+		</dict>
+		<key>SVPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Stripe.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>pop.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4E0DFF7041C985F78DE423CC</key>
+		<key>0C75282A972C1027DEAFE10C98353EA5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E38E208BD891AADDC9061ED</key>
+		<key>20F416FAFA6F073CF3431464A62CB7E8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A99ECA8DCED08DA8C94C256</key>
+		<key>24B5F6F1340CC0C26CFDCC9651188844</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>83E4DE9751F70634010E8C8C</key>
+		<key>2B84425AC3C61601E690F5033826F47E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>87E2279C56BC1813D7DFADFB</key>
+		<key>47C800E42623009B7192B025B3DD25A1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>931E187D96B94B36D43EA79C</key>
+		<key>7BCF6EDB192C582EF16EEB341DA65D57</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>98249ACD0D63A4C37A3AAD0B</key>
+		<key>8DED280B2683FAAB5C5C5242ACBB798C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A26A32E850A9E2E8743FCC73</key>
+		<key>9212D7F183DC79D640AC28C0FF65114F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B8681058865D80DB833E6413</key>
+		<key>B57F5CEDCEC9083C5278E38C7620AE3A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C8CE5D1F54228E814660CD35</key>
+		<key>C93A9A222B0080D501A52D1971E3637E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E580350A53096BDEDBAE892D</key>
+		<key>D10AFCBBC3949030D56276226438BB24</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F38CFFC72D12EF65E12A7DA1</key>
+		<key>F63E169F0928648217113C4AD89E4BEA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

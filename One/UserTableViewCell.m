@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *certifiedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *userStatus;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
+@property (weak, nonatomic) IBOutlet UIButton *tweetButton;
 
 @end
 
@@ -39,6 +40,14 @@
     self.balanceLabel.text = [NSString stringWithFormat:@"$%lu",(long)user.balance];
     self.balanceLabel.hidden = !flag;
     self.balanceLabel.clipsToBounds = YES;
+}
+
+- (IBAction)twitterButtonClicked:(id)sender {
+    NSString *username = self.user.username;
+    if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",username]]])
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",username]]];
+    }
 }
 
 @end
