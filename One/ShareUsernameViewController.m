@@ -145,19 +145,15 @@
 
 - (IBAction)shareTwitter:(id)sender
 {
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
-        [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
-        SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        
-        [twitterCompose addImage:self.cardImage];
-        [self presentViewController:twitterCompose
-                           animated:YES
-                         completion:^{
-                             [DesignUtils hideProgressHUDForView:self.view];
-                         }];
-    } else {
-        // the user does not have Twitter set up
-    }
+    [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
+    SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    
+    [twitterCompose addImage:self.cardImage];
+    [self presentViewController:twitterCompose
+                       animated:YES
+                     completion:^{
+                         [DesignUtils hideProgressHUDForView:self.view];
+                     }];
 }
 
 - (IBAction)shareFacebook:(id)sender

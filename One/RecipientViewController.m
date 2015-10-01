@@ -229,16 +229,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [TrackingUtils trackEvent:EVENT_RECIPIENT_SET properties:@{@"preselected": [NSNumber numberWithBool:self.recipientTextfield.text.length == 0]}];
     UserTableViewCell *cell = (UserTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     User *selectedUser = cell.user;
     if (selectedUser) {
-        if ([self isTwitterSection:indexPath.section]) {
-            [self sendMessageOnTwitter:selectedUser];
-        } else {
-            [self.delegate setSelectedUser:selectedUser];
-            [self close];
-        }
+        [self.delegate setSelectedUser:selectedUser];
+        [self close];
     }
 }
 
@@ -368,24 +365,6 @@
     return UIStatusBarStyleLightContent;
 }
 
-// --------------------------------------------
-#pragma mark - UI
-// --------------------------------------------
-- (void)sendMessageOnTwitter:(User *)user
-{
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
-        [DesignUtils showProgressHUDAddedTo:self.view];
-        SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [twitterCompose setInitialText:NSLocalizedString(@"", nil)];
-        [self presentViewController:twitterCompose
-                           animated:YES
-                         completion:^{
-                             [DesignUtils hideProgressHUDForView:self.view];
-                         }];
-    } else {
-        // todo BT
-        // the user does not have Twitter set up
-    }
-}
+
 
 @end

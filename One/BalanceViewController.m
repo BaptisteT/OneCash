@@ -143,7 +143,7 @@
 // --------------------------------------------
 - (void)loadLatestTransactionsLocally {
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
-        // relaod transactions
+        // reload transactions
         [self scrollToTop];
         self.transactions = [NSMutableArray arrayWithArray:transactions];
         [self.transactionsTableView reloadData];

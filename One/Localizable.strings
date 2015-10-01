@@ -60,6 +60,8 @@
 "sending_label" = "$%lu";
 "sent_label" = "Sent!";
 "failed_label" = "Fail (%lu)";
+"twitter_user_title" = "Transaction was canceled";
+"twitter_user_message" = "@%@ hasn’t joined yet, we just sent him an invite on Twitter. Your card has not been debited.";
 
 // APple pay
 "apple_pay_item" = "OneCash @%@";
@@ -89,6 +91,7 @@
 "suggested_header" = "Suggested";
 "leaderboard_header" = "Leaderboard";
 "twitter_header" = "Twitter users";
+"twitter_invite_wording" = "I want to send you 1$ tip ! Join me on One.cash";
 
 // Settings
 "settings_title" = "Settings";

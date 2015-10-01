@@ -120,8 +120,8 @@
 		3CDFB25B1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; settings = {ASSET_TAGS = (); }; };
 		3CDFB25C1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; settings = {ASSET_TAGS = (); }; };
 		3CDFB25D1BBD840F001A6913 /* UsernameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */; settings = {ASSET_TAGS = (); }; };
-		3CFA3BBC1BBAA6FF00F94A72 /* UIImageView+UserId.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */; settings = {ASSET_TAGS = (); }; };
-		3CFA3BBD1BBAA6FF00F94A72 /* UIImageView+UserId.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */; settings = {ASSET_TAGS = (); }; };
+		3CFA3BBC1BBAA6FF00F94A72 /* UIImageView+UserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */; settings = {ASSET_TAGS = (); }; };
+		3CFA3BBD1BBAA6FF00F94A72 /* UIImageView+UserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */; settings = {ASSET_TAGS = (); }; };
 		A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		A470C0111BAA059200FA005F /* Maax Rounded Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */; };
 		A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */; };
@@ -235,8 +235,8 @@
 		3CD4D6421BB91D76001F2C7A /* OneInHouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OneInHouse-Info.plist"; path = "/Users/baptistetruchot/Documents/Developer/XCode_Projects/One/OneInHouse-Info.plist"; sourceTree = "<absolute>"; };
 		3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
-		3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UserId.h"; sourceTree = "<group>"; };
-		3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+UserId.m"; sourceTree = "<group>"; };
+		3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UserName.h"; sourceTree = "<group>"; };
+		3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+UserName.m"; sourceTree = "<group>"; };
 		3CFA3BBE1BBAAC9C00F94A72 /* OneInHouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OneInHouse.entitlements; sourceTree = "<group>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -489,8 +489,8 @@
 			children = (
 				3CC5FD9E1B98835C00514A43 /* NSString+EmailAddresses.h */,
 				3CC5FD9F1B98835C00514A43 /* NSString+EmailAddresses.m */,
-				3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserId.h */,
-				3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */,
+				3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserName.h */,
+				3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -762,7 +762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CFA3BBC1BBAA6FF00F94A72 /* UIImageView+UserId.m in Sources */,
+				3CFA3BBC1BBAA6FF00F94A72 /* UIImageView+UserName.m in Sources */,
 				3C43B6421BA95231006679DE /* IPUtils.m in Sources */,
 				3CC5FDD61B9B524A00514A43 /* UserTableViewCell.m in Sources */,
 				3CC5FDAF1B98836D00514A43 /* SHEmailValidator.m in Sources */,
@@ -813,7 +813,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CFA3BBD1BBAA6FF00F94A72 /* UIImageView+UserId.m in Sources */,
+				3CFA3BBD1BBAA6FF00F94A72 /* UIImageView+UserName.m in Sources */,
 				3CD4D6001BB91D75001F2C7A /* IPUtils.m in Sources */,
 				3CD4D6011BB91D75001F2C7A /* UserTableViewCell.m in Sources */,
 				3CD4D6021BB91D75001F2C7A /* SHEmailValidator.m in Sources */,

@@ -411,7 +411,16 @@
         [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"no_receiver_title", nil) andMessage:NSLocalizedString(@"no_receiver_message", nil)];
         }];
-         
+        
+    // Twitter user
+    } else if (!self.receiver.objectId) {
+        NSString *post = [NSString stringWithFormat:@"@%@, %@",self.receiver.caseUsername, NSLocalizedString(@"twitter_invite_wording", nil)];
+        [ApiManager postOnTwitter:post success:nil failure:nil];
+        [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
+            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"twitter_user_title", nil) andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_message", nil),self.receiver.caseUsername]];
+        }];
+
+    
      // No cash, no card
      } else if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodNone) {
          [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {

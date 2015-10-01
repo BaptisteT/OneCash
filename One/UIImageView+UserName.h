@@ -1,5 +1,5 @@
 //
-//  UIImageView+UserId.h
+//  UIImageView+UserName.h
 //  One
 //
 //  Created by Baptiste Truchot on 9/29/15.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImageView (UserId)
+@interface UIImageView (UserName)
 
-@property (strong, nonatomic) NSString *userId;
+@property (strong, nonatomic) NSString *userName;
 
 @end

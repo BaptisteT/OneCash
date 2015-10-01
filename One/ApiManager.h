@@ -20,7 +20,7 @@
 + (void)checkAppVersionAndExecuteSucess:(void(^)(NSDictionary *))successBlock;
 
 // --------------------------------------------
-#pragma mark - Log in
+#pragma mark - Twitter
 // --------------------------------------------
 
 + (void)logInWithTwitterAndExecuteSuccess:(void(^)())successBlock
@@ -29,6 +29,10 @@
 + (void)getTwitterUsersFromString:(NSString *)string
                           success:(void(^)(NSArray *twitterUsers, NSString *string))successBlock
                           failure:(void(^)(NSError *error))failureBlock;
+
++ (void)postOnTwitter:(NSString *)wording
+              success:(void(^)())successBlock
+              failure:(void(^)(NSError *error))failureBlock;
 
 // --------------------------------------------
 #pragma mark - User
