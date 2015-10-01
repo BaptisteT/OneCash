@@ -27,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *shareLabel;
 @property (weak, nonatomic) IBOutlet UIButton *facebookShareButton;
 @property (weak, nonatomic) IBOutlet UILabel *topLabel;
-@property (weak, nonatomic) IBOutlet UIImage *cardImage;
+@property (strong, nonatomic) UIImage *cardImage;
 
 //Instagram
 @property (nonatomic, retain) UIDocumentInteractionController *documentController;

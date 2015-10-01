@@ -41,22 +41,15 @@
     [self.currentUser setAvatarInImageView:self.avatarImageView bigSize:YES saveLocally:NO];
     
     //Username
-    NSLog(@"before : %d",self.usernameLabel == nil); //Debug
     self.usernameLabel.text = self.currentUser.caseUsername;
-    NSLog(@"after : %d",self.usernameLabel == nil); //Debug
 
-    
     //Title
-    self.titleLabel.text = NSLocalizedString(@"share_card_title", nil);
-    NSString *string = NSLocalizedString(@"share_card_title", nil); //Debug
-    NSLog(@"string : %d",string == nil); //Debug
-    NSLog(@"label : %d",self.titleLabel == nil); //Debug
-    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:self.titleLabel.text];
+    NSString *string = NSLocalizedString(@"share_card_title", nil);
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:string];
     NSRange boldRange = [self.titleLabel.text rangeOfString:@"ONECASH"];
     UIFont *boldFont = [UIFont fontWithName:@"ProximaNova-Semibold" size:self.titleLabel.font.pointSize];
     [attrString addAttribute: NSFontAttributeName value:boldFont range:boldRange];
     self.titleLabel.attributedText = attrString;
-
 }
 
 -(void)layoutSubviews {
