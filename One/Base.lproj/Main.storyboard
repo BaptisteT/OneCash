@@ -64,9 +64,6 @@
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
-            <string>ProximaNova-Regular</string>
-            <string>ProximaNova-Regular</string>
-            <string>ProximaNova-Regular</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
             <string>ProximaNova-Semibold</string>
@@ -80,6 +77,11 @@
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
+        </mutableArray>
+        <mutableArray key="socicon.ttf">
+            <string>socicon</string>
+            <string>socicon</string>
+            <string>socicon</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1995,7 +1997,10 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="fet-dg-n9r"/>
                                     <constraint firstAttribute="height" constant="50" id="w5b-Yk-Txt"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="socicon" family="socicon" pointSize="24"/>
+                                <state key="normal" title="b">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                </state>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="2AP-zt-aeA"/>
@@ -2019,7 +2024,10 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="shb-8K-kOX"/>
                                     <constraint firstAttribute="height" constant="50" id="yYa-3d-wGb"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="socicon" family="socicon" pointSize="23"/>
+                                <state key="normal" title="x">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                </state>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="BjT-B4-D7z"/>
@@ -2054,7 +2062,10 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="qFF-pj-bLr"/>
                                     <constraint firstAttribute="width" constant="102" id="zMY-iQ-w7j"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="socicon" family="socicon" pointSize="24"/>
+                                <state key="normal" title="a">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                </state>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="48E-vU-ZIG"/>

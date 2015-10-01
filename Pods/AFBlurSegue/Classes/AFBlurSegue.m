@@ -120,7 +120,6 @@
 
         destinationController.view.backgroundColor = [UIColor clearColor];
         destinationController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-
         [sourceController presentViewController:destinationController animated:YES completion:^{
             
         }];

@@ -135,7 +135,7 @@
         
         self.documentController = [UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
         [self.documentController setDelegate:self];
-       [self.documentController setUTI:@"com.instagram.exclusivegram"];
+        [self.documentController setUTI:@"com.instagram.exclusivegram"];
         [self.documentController presentOpenInMenuFromRect:rect inView:self.view animated:YES];
     } else {
         // The user does not have instagram
@@ -148,8 +148,11 @@
     if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
         [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
         SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        
+        NSString *caption = [NSString stringWithFormat:@"Show me love and send me $1 tip at one.cash/%@ #onecash 💸", [User currentUser].username];
+
         [twitterCompose addImage:self.cardImage];
+        [twitterCompose setInitialText:caption];
+
         [self presentViewController:twitterCompose
                            animated:YES
                          completion:^{

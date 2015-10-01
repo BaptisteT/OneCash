@@ -46,8 +46,8 @@
     //Title
     NSString *string = NSLocalizedString(@"share_card_title", nil);
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:string];
-    NSRange boldRange = [self.titleLabel.text rangeOfString:@"ONECASH"];
-    UIFont *boldFont = [UIFont fontWithName:@"ProximaNova-Semibold" size:self.titleLabel.font.pointSize];
+    NSRange boldRange = [string rangeOfString:@"ONECASH"];
+    UIFont *boldFont = [UIFont fontWithName:@"ProximaNova-Bold" size:self.titleLabel.font.pointSize];
     [attrString addAttribute: NSFontAttributeName value:boldFont range:boldRange];
     self.titleLabel.attributedText = attrString;
 }

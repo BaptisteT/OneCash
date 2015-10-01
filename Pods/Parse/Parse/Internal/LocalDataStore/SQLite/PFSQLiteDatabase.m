@@ -186,7 +186,7 @@ int const PFSQLiteDatabaseDatabaseAlreadyClosed = 4;
             [self _cacheStatement:statement forQuery:sql];
         }
     } else {
-        [statement reset];
+        [statement reset];  
     }
 
     // Make parameter
