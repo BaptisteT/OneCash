@@ -27,7 +27,7 @@
                                   failure:(void(^)(NSError *error))failureBlock;
 
 + (void)getTwitterUsersFromString:(NSString *)string
-                          success:(void(^)(NSArray *twitterUsers))successBlock
+                          success:(void(^)(NSArray *twitterUsers, NSString *string))successBlock
                           failure:(void(^)(NSError *error))failureBlock;
 
 // --------------------------------------------

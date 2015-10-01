@@ -120,40 +120,9 @@
             NSError * error = nil;
             NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             OneLog(ONEAPIMANAGERLOG, @"Success - twitter info - %@",result);
-            // Profile picture
-            NSString * profileImageURL = [[result objectForKey:@"profile_image_url_https"] stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
+            // Update user info
+            [user updateUserWithTwitterInfo:result];
             
-            if (profileImageURL.length > 0 && ![user.pictureURL isEqualToString:profileImageURL]) {
-                user.pictureURL = profileImageURL;
-            }
-            // Username
-            NSString * username = [result objectForKey:@"screen_name"];
-            if (username.length > 0 && ![user.caseUsername isEqualToString:username]) {
-                user.caseUsername = [result objectForKey:@"screen_name"];
-                [user setUsername:[user.caseUsername lowercaseString]];
-            }
-            
-            // Email
-            NSString * email = [result objectForKey:@"email"];
-            if (email.length > 0 && ![user.email isEqualToString:email]) {
-                user.email = [result objectForKey:@"email"];
-            }
-            
-            // Names
-            NSString * names = [result objectForKey:@"name"];
-            if (names.length > 0 && !user.lastName) {
-                NSMutableArray * array = [NSMutableArray arrayWithArray:[names componentsSeparatedByString:@" "]];
-                if ( array.count > 1){
-                    user.lastName = [array lastObject];
-                    
-                    [array removeLastObject];
-                    user.firstName = [array componentsJoinedByString:@" " ];
-                }
-            }
-            // Certified
-            if ([result objectForKey:@"verified"] && user.twitterVerified != [[result objectForKey:@"verified"] boolValue]) {
-                user.twitterVerified = [[result objectForKey:@"verified"] boolValue];
-            }
             if (successBlock) {
                 successBlock();
             }
@@ -167,28 +136,28 @@
 }
 
 + (void)getTwitterUsersFromString:(NSString *)string
-                          success:(void(^)(NSArray *twitterUsers))successBlock
+                          success:(void(^)(NSArray *users, NSString *string))successBlock
                           failure:(void(^)(NSError *error))failureBlock
 {
-    NSURL *verify = [NSURL URLWithString:@"https://api.twitter.com/1.1/users/search.json?q=truchotbaptiste&count=5"];
+    NSURL *verify = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1.1/users/search.json?q=%@&count=10",string]];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
     [[PFTwitterUtils twitter] signRequest:request];
-    // todo BT
-//    NSOperationQueue * queue = [[NSOperationQueue alloc] init];
-//    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//        if ( connectionError == nil) {
-//            NSError * error = nil;
-//            NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-//            OneLog(ONEAPIMANAGERLOG, @"Success - twitter users - %@",result);
-//            
-//        } else {
-//            OneLog(ONEAPIMANAGERLOG, @"Failure - twitter users - %@",connectionError);
-//            if (failureBlock) {
-//                failureBlock(connectionError);
-//            }
-//        }
-//    }];
+    NSOperationQueue * queue = [[NSOperationQueue alloc] init];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if ( connectionError == nil) {
+            NSError * error = nil;
+            NSArray * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            if (successBlock) {
+                successBlock([User createUsersFromTwitterResultArray:result], string);
+            }
+        } else {
+            OneLog(ONEAPIMANAGERLOG, @"Failure - twitter users - %@",connectionError);
+            if (failureBlock) {
+                failureBlock(connectionError);
+            }
+        }
+    }];
 }
 
 // --------------------------------------------

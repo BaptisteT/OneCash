@@ -56,7 +56,6 @@
     self.descriptionLabel.attributedText = attrString;
     self.topLabel.text = NSLocalizedString(@"card_top_title", nil);
 
-    
     //UI
     self.closeButton.layer.zPosition = 1;
     self.descriptionLabel.layer.zPosition = 1;
@@ -148,7 +147,7 @@
                          completion:^{
                              [DesignUtils hideProgressHUDForView:self.view];
                          }];
-    }else{
+    } else {
         // the user does not have Twitter set up
     }
 }

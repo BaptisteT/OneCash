@@ -36,5 +36,8 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 - (void)setAvatarInImageView:(UIImageView *)imageView bigSize:(BOOL)sizeFlag saveLocally:(BOOL)savingFlag;
 - (void)setAvatarInButton:(UIButton *)button bigSize:(BOOL)flag;
 - (BOOL)isEmailVerified;
+- (void)updateUserWithTwitterInfo:(NSDictionary *)twitterInfo;
+
++ (NSArray *)createUsersFromTwitterResultArray:(NSArray *)twitterUsers;
 
 @end

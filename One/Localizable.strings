@@ -88,6 +88,7 @@
 "recipients_search_placeholder" = "Search by username";
 "suggested_header" = "Suggested";
 "leaderboard_header" = "Leaderboard";
+"twitter_header" = "Twitter users";
 
 // Settings
 "settings_title" = "Settings";

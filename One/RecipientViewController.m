@@ -5,6 +5,7 @@
 //  Created by Baptiste Truchot on 9/3/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import <Social/Social.h>
 #import "ApiManager.h"
 #import "DatastoreManager.h"
 #import "User.h"
@@ -32,6 +33,7 @@
 @property (strong, nonatomic) NSArray *suggestedUsers;
 @property (strong, nonatomic) NSArray *leadingUsers;
 @property (strong, nonatomic) NSArray *searchedUsersArray;
+@property (strong, nonatomic) NSArray *twitterUsersArray;
 
 @end
 
@@ -148,6 +150,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if([self isSearchSection:section]) {
         return self.searchedUsersArray ? self.searchedUsersArray.count : 0;
+    } else if ([self isTwitterSection:section]) {
+        return self.twitterUsersArray.count;
     } else if ([self isRecentSection:section]) {
         return self.historicUsers.count;
     } else if ([self isSuggestedSection:section]) {
@@ -162,6 +166,8 @@
     NSArray *userArray;
     if ([self isSearchSection:indexPath.section]) {
         userArray = self.searchedUsersArray;
+    } else if ([self isTwitterSection:indexPath.section]) {
+        userArray = self.twitterUsersArray;
     } else if ([self isRecentSection:indexPath.section]) {
         userArray = self.historicUsers;
     } else if ([self isSuggestedSection:indexPath.section]) {
@@ -183,8 +189,10 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if([self isSearchSection:section]) {
        return NSLocalizedString(@"search_header", nil);
-    } else  if ([self isRecentSection:section]) {
-            return NSLocalizedString(@"recent_header", nil);
+    } else if ([self isTwitterSection:section]) {
+        return NSLocalizedString(@"twitter_header", nil);
+    } else if ([self isRecentSection:section]) {
+        return NSLocalizedString(@"recent_header", nil);
     } else if ([self isSuggestedSection:section]) {
         return NSLocalizedString(@"suggested_header", nil);
     } else if ([self isLeaderSection:section]) {
@@ -194,7 +202,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return ([self searchedUserSection] != -1) + ([self recentUserSection] != -1) + ([self leaderboardSection] != -1) + ([self suggestedUserSection] != -1);
+    return ([self searchedUserSection] != -1) + ([self twitterUserSection] != -1) + ([self recentUserSection] != -1) + ([self leaderboardSection] != -1) + ([self suggestedUserSection] != -1);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -225,8 +233,12 @@
     UserTableViewCell *cell = (UserTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     User *selectedUser = cell.user;
     if (selectedUser) {
-        [self.delegate setSelectedUser:selectedUser];
-        [self close];
+        if ([self isTwitterSection:indexPath.section]) {
+            [self sendMessageOnTwitter:selectedUser];
+        } else {
+            [self.delegate setSelectedUser:selectedUser];
+            [self close];
+        }
     }
 }
 
@@ -240,6 +252,10 @@
 // --------------------------------------------
 - (NSInteger)searchedUserSection {
     return self.recipientTextfield.text.length > 0 ? 0 : -1;
+}
+
+- (NSInteger)twitterUserSection {
+    return (self.recipientTextfield.text.length > 0 && self.twitterUsersArray.count > 0) ? 1 : -1;
 }
 
 - (NSInteger)recentUserSection {
@@ -256,6 +272,10 @@
 
 - (BOOL)isSearchSection:(NSInteger)section {
     return section == [self searchedUserSection];
+}
+
+- (BOOL)isTwitterSection:(NSInteger)section {
+    return section == [self twitterUserSection];
 }
 
 - (BOOL)isRecentSection:(NSInteger)section {
@@ -291,6 +311,7 @@
             [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils mainGreen] transform:CGAffineTransformMakeScale(0.5, 0.5)];
         }
         // One Users
+        // todo BT : cancel request or put some delay to limit them ?
         [ApiManager findUsersMatchingStartString:self.lastStringSearched
                                          success:^(NSString *string, NSArray *users) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
@@ -305,15 +326,29 @@
                                                      }
                                                  }
                                              });
-                                         } failure:nil];
+                                         } failure:^(NSError *error) {
+                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                 if ([self.lastStringSearched isEqualToString:string]) {
+                                                     // end search indicator
+                                                     if (!self.loadingContainer.hidden) {
+                                                         self.loadingContainer.hidden = YES;
+                                                         [DesignUtils hideProgressHUDForView:self.loadingContainer];
+                                                     }
+                                                 }
+                                             });
+                                         }];
         
         // Twitter users
+        // todo BT : cancel request or put some delay to limit them ?
         [ApiManager getTwitterUsersFromString:self.lastStringSearched
-                                      success:^(NSArray *twitterUsers) {
-                                          // todo BT
-                                      } failure:^(NSError *error) {
-                                          // todo BT
-                                      }];
+                                      success:^(NSArray *twitterUsers, NSString *string) {
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              if ([self.lastStringSearched isEqualToString:string]) {
+                                                  self.twitterUsersArray = twitterUsers;
+                                                  [self.recipientsTableView reloadData];
+                                              }
+                                          });
+                                      } failure:nil];
         
     } else {
         self.searchedUsersArray = nil;
@@ -331,6 +366,26 @@
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+// --------------------------------------------
+#pragma mark - UI
+// --------------------------------------------
+- (void)sendMessageOnTwitter:(User *)user
+{
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
+        [DesignUtils showProgressHUDAddedTo:self.view];
+        SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [twitterCompose setInitialText:NSLocalizedString(@"", nil)];
+        [self presentViewController:twitterCompose
+                           animated:YES
+                         completion:^{
+                             [DesignUtils hideProgressHUDForView:self.view];
+                         }];
+    } else {
+        // todo BT
+        // the user does not have Twitter set up
+    }
 }
 
 @end
