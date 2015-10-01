@@ -8,9 +8,6 @@
 @import Foundation;
 #import <UIKit/UIKit.h>
 
-@class User;
-
-
 @interface UsernameCardView : UIView
 
 - (UIImage *)captureView;

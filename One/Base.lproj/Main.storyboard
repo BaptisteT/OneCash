@@ -2000,6 +2000,9 @@
                                         <exclude reference="fet-dg-n9r"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="shareFacebook:" destination="9gg-cb-kWX" eventType="touchUpInside" id="jc7-eu-LiF"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYS-p4-lar">
                                 <rect key="frame" x="275" y="510" width="50" height="50"/>
@@ -2057,7 +2060,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="sendTweet:" destination="9gg-cb-kWX" eventType="touchUpInside" id="Mxx-GF-irI"/>
+                                    <action selector="shareTwitter:" destination="9gg-cb-kWX" eventType="touchUpInside" id="hEe-2w-Zy6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2081,6 +2084,7 @@
                             <constraint firstItem="oOc-52-0MB" firstAttribute="top" secondItem="4q8-Fs-b1N" secondAttribute="bottom" constant="31" id="z2m-Fe-nua"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="closeButton" destination="eZK-Xb-t78" id="qyn-xl-jqx"/>
                         <outlet property="descriptionLabel" destination="oOc-52-0MB" id="zua-rN-zaP"/>

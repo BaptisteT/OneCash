@@ -24,30 +24,27 @@
 
 @implementation UsernameCardView
 
-- (id)initWithFrame:(CGRect)frame
+- (void)setFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        //User
-        self.currentUser = [User currentUser];
-        
-        //UI
-        self.backgroundColor = [ColorUtils mainGreen];
-        self.layer.cornerRadius = self.frame.size.height / 80;
-        [DesignUtils addShadow:self];
-        self.avatarImageView.layer.borderColor = [ColorUtils darkGreen].CGColor;
-        self.avatarImageView.layer.borderWidth = 8;
-        
-        //Avatar
-        [self.currentUser setAvatarInImageView:self.avatarImageView bigSize:YES saveLocally:NO];
-        
-        //Username
-        self.usernameLabel.text = self.currentUser.caseUsername;
-        
-        //Title
-        self.titleLabel.text = NSLocalizedString(@"card_title", nil);
-    }
-    return self;
+    [super setFrame:frame];
+    //User
+    self.currentUser = [User currentUser];
+    
+    //UI
+    self.backgroundColor = [ColorUtils mainGreen];
+    self.layer.cornerRadius = self.frame.size.height / 80;
+    [DesignUtils addShadow:self];
+    self.avatarImageView.layer.borderColor = [ColorUtils darkGreen].CGColor;
+    self.avatarImageView.layer.borderWidth = 8;
+    
+    //Avatar
+    [self.currentUser setAvatarInImageView:self.avatarImageView bigSize:YES saveLocally:NO];
+    
+    //Username
+    self.usernameLabel.text = self.currentUser.caseUsername;
+    
+    //Title
+    self.titleLabel.text = NSLocalizedString(@"card_title", nil);
 }
 
 -(void)layoutSubviews {
@@ -60,7 +57,7 @@
 }
 
 - (UIImage *)captureView {
-    CGRect rect = CGRectMake(0, 0, 512, 512);
+    CGRect rect = self.frame;
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     [self.layer renderInContext:context];

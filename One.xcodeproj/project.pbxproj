@@ -114,6 +114,11 @@
 		3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */; };
 		3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
+		3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
+		3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
+		3CDFB25B1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; settings = {ASSET_TAGS = (); }; };
+		3CDFB25C1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; settings = {ASSET_TAGS = (); }; };
 		3CFA3BBC1BBAA6FF00F94A72 /* UIImageView+UserId.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */; settings = {ASSET_TAGS = (); }; };
 		3CFA3BBD1BBAA6FF00F94A72 /* UIImageView+UserId.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */; settings = {ASSET_TAGS = (); }; };
 		A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
@@ -227,6 +232,8 @@
 		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
 		3CD4D6411BB91D75001F2C7A /* OneCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CD4D6421BB91D76001F2C7A /* OneInHouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OneInHouse-Info.plist"; path = "/Users/baptistetruchot/Documents/Developer/XCode_Projects/One/OneInHouse-Info.plist"; sourceTree = "<absolute>"; };
+		3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UserId.h"; sourceTree = "<group>"; };
 		3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+UserId.m"; sourceTree = "<group>"; };
 		3CFA3BBE1BBAAC9C00F94A72 /* OneInHouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OneInHouse.entitlements; sourceTree = "<group>"; };
@@ -253,7 +260,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */,
+				3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */,
 				3C13EE4D1B9F32DE00930AC7 /* SystemConfiguration.framework in Frameworks */,
+				3CDFB25B1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */,
 				3CC5FD981B974A5500514A43 /* Accounts.framework in Frameworks */,
 				3CC5FD961B974A4F00514A43 /* Social.framework in Frameworks */,
 				BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */,
@@ -265,7 +274,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CD4D62A1BB91D75001F2C7A /* AudioToolbox.framework in Frameworks */,
+				3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */,
 				3CD4D62B1BB91D75001F2C7A /* SystemConfiguration.framework in Frameworks */,
+				3CDFB25C1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */,
 				3CD4D62C1BB91D75001F2C7A /* Accounts.framework in Frameworks */,
 				3CD4D62D1BB91D75001F2C7A /* Social.framework in Frameworks */,
 				3CD4D62E1BB91D75001F2C7A /* libPods-One.a in Frameworks */,
@@ -278,6 +289,8 @@
 		03794D7AE0960F429C553BEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */,
+				3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */,
 				A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */,
 				3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */,
 				3CC5FDB61B988DB300514A43 /* UIKit.framework */,
@@ -835,6 +848,7 @@
 				3CD4D6201BB91D75001F2C7A /* Transaction.m in Sources */,
 				3CD4D6211BB91D75001F2C7A /* SettingsViewController.m in Sources */,
 				3CD4D6221BB91D75001F2C7A /* SwitchTableViewCell.m in Sources */,
+				3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */,
 				3CD4D6231BB91D75001F2C7A /* ImageCache.m in Sources */,
 				3CD4D6241BB91D75001F2C7A /* ConstantUtils.m in Sources */,
 				3CD4D6251BB91D75001F2C7A /* SHValidationResult.m in Sources */,
@@ -958,6 +972,10 @@
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = One/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -976,6 +994,10 @@
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -997,6 +1019,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ever";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ever";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "OneInHouse-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1014,6 +1040,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Ever";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Ever";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",

@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UsernameCardView.h"
 
-@interface ShareUsernameViewController : UIViewController <UsernameViewDeletagteProtocol>
+@interface ShareUsernameViewController : UIViewController <UIDocumentInteractionControllerDelegate>
 
 @end

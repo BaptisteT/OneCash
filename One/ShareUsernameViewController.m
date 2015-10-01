@@ -5,14 +5,19 @@
 //  Created by Clement Raffenoux on 9/29/15.
 //  Copyright © 2015 Mindie. All rights reserved.
 //
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <Accounts/Accounts.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
+#import <Twitter/Twitter.h>
+
+#import "User.h"
 
 #import "ShareUsernameViewController.h"
+#import "UsernameCardView.h"
 
 #import "ColorUtils.h"
-#import "User.h"
 #import "DesignUtils.h"
-#import <Accounts/Accounts.h>
-#import <Twitter/Twitter.h>
+
 
 @interface ShareUsernameViewController ()
 @property (strong, nonatomic) IBOutlet UIButton *closeButton;
@@ -22,9 +27,13 @@
 @property (strong, nonatomic) IBOutlet UILabel *shareLabel;
 @property (strong, nonatomic) IBOutlet UIButton *facebookShareButton;
 @property (strong, nonatomic) IBOutlet UILabel *topLabel;
+@property (weak, nonatomic) UsernameCardView *cardView;
+//Instagram
+@property (nonatomic, retain) UIDocumentInteractionController *documentController;
+
 @end
 
-@implementation UsernameViewController
+@implementation ShareUsernameViewController
 
 // --------------------------------------------
 #pragma mark - Life cycle
@@ -73,54 +82,95 @@
 }
 
 // --------------------------------------------
-#pragma mark - UI
-// --------------------------------------------
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
-
-// --------------------------------------------
 #pragma mark - Card
 // --------------------------------------------
 
--(void)createUsernameCard {
+- (void)createUsernameCard
+{
     CGFloat width = self.view.frame.size.width * 0.85;
     CGFloat height = width;
     CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height) / 2, width, height);
     UsernameCardView *usernameCardView = [[[NSBundle mainBundle] loadNibNamed:@"UsernameCard" owner:self options:nil] objectAtIndex:0];
-    [usernameCardView initWithFrame:frame andDelegate:self];
+    [usernameCardView setFrame:frame];
     [self.view addSubview:usernameCardView];
+    self.cardView = usernameCardView;
     usernameCardView.layer.zPosition = 1;
 }
 
+
 // --------------------------------------------
 #pragma mark - Actions
 // --------------------------------------------
 
--(IBAction)closePressed:(id)sender {
+- (IBAction)closePressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(IBAction)shareInstagram:(id)sender {
-    CGFloat width = 512;
-    CGFloat height = 512;
-    CGRect frame = CGRectMake(0, 0, width, height);
-    UsernameCardView *instagramCardView = [[[NSBundle mainBundle] loadNibNamed:@"UsernameCard" owner:self options:nil] objectAtIndex:0];
-    [instagramCardView initWithFrame:frame andDelegate:self];
+- (IBAction)shareInstagram:(id)sender
+{
+    UIImage *image = [self.cardView captureView];
     
-    UIImage *image = [instagramCardView captureView];
+    NSURL *instagramURL = [NSURL URLWithString:@"instagram://"];
+    if ([[UIApplication sharedApplication] canOpenURL:instagramURL])
+    {
+        //convert image into .png format.
+        NSData *imageData = UIImagePNGRepresentation(image);
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *fullPath = [documentsDirectory stringByAppendingPathComponent:@"insta.igo"];
+        [fileManager createFileAtPath:fullPath contents:imageData attributes:nil];
+        
+        CGRect rect = CGRectMake(0 ,0 , 0, 0);
+        NSString *newJpgPath = [NSString stringWithFormat:@"file://%@",fullPath];
+        NSURL *igImageHookFile = [NSURL URLWithString:newJpgPath];
+        
+        self.documentController = [UIDocumentInteractionController interactionControllerWithURL:igImageHookFile];
+        [self.documentController setDelegate:self];
+       [self.documentController setUTI:@"com.instagram.exclusivegram"];
+        [self.documentController presentOpenInMenuFromRect:rect inView:self.view animated:YES];
+    } else {
+        // The user does not have instagram
+    }
 }
 
--(IBAction)sendTweet:(id)sender {
-    // todo BT
+
+- (IBAction)shareTwitter:(id)sender
+{
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
+        [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
+        SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        [twitterCompose addImage:[self.cardView captureView]];
+        [self presentViewController:twitterCompose
+                           animated:YES
+                         completion:^{
+                             [DesignUtils hideProgressHUDForView:self.view];
+                         }];
+    }else{
+        // the user does not have Twitter set up
+    }
+}
+
+- (IBAction)shareFacebook:(id)sender
+{
+    UIImage *image = [self.cardView captureView];
+    FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
+    photo.image = image;
+    photo.userGenerated = YES;
+    FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc] init];
+    content.photos = @[photo];
+    
+    [FBSDKShareDialog showFromViewController:self
+                                 withContent:content
+                                    delegate:nil];
 }
 
 
 
 // --------------------------------------------
-#pragma mark - Actions
+#pragma mark - UI
 // --------------------------------------------
 
 - (void)addDollarLabel {
@@ -185,6 +235,11 @@
     animation.calculationMode = kCAAnimationCubicPaced;
     CGPathRelease(path);
     return animation;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 
