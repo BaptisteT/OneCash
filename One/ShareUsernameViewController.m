@@ -17,7 +17,7 @@
 
 #import "ColorUtils.h"
 #import "DesignUtils.h"
-
+#import "TrackingUtils.h"
 
 @interface ShareUsernameViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -113,13 +113,14 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)shareInstagram:(id)sender {
-
+- (IBAction)shareInstagram:(id)sender
+{
     UIImage *image = self.cardImage;
-    
     NSURL *instagramURL = [NSURL URLWithString:@"instagram://"];
     if ([[UIApplication sharedApplication] canOpenURL:instagramURL])
     {
+        [TrackingUtils trackEvent:EVENT_SHARE_INSTAGRAM properties:nil];
+        
         //convert image into .png format.
         NSData *imageData = UIImagePNGRepresentation(image);
         
@@ -145,6 +146,7 @@
 
 - (IBAction)shareTwitter:(id)sender
 {
+    [TrackingUtils trackEvent:EVENT_SHARE_TWITTER properties:nil];
     [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
     SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
     
@@ -158,6 +160,7 @@
 
 - (IBAction)shareFacebook:(id)sender
 {
+    [TrackingUtils trackEvent:EVENT_SHARE_FACEBOOK properties:nil];
     UIImage *image = self.cardImage;
     FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
     photo.image = image;
