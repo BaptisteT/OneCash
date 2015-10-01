@@ -27,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *shareLabel;
 @property (weak, nonatomic) IBOutlet UIButton *facebookShareButton;
 @property (weak, nonatomic) IBOutlet UILabel *topLabel;
-@property (weak, nonatomic) IBOutlet UIImage *cardImage;
+@property (strong, nonatomic) UIImage *cardImage;
 
 //Instagram
 @property (nonatomic, retain) UIDocumentInteractionController *documentController;
@@ -57,7 +57,6 @@
     self.descriptionLabel.attributedText = attrString;
     self.topLabel.text = NSLocalizedString(@"card_top_title", nil);
 
-    
     //UI
     self.closeButton.layer.zPosition = 1;
     self.descriptionLabel.layer.zPosition = 1;
@@ -156,7 +155,7 @@
                          completion:^{
                              [DesignUtils hideProgressHUDForView:self.view];
                          }];
-    }else{
+    } else {
         // the user does not have Twitter set up
     }
 }

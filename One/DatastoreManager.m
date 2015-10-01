@@ -151,6 +151,7 @@
     PFQuery *query = [User query];
     [query fromLocalDatastore];
     [query fromPinWithName:kParseLeaderUsersName];
+    [query orderByDescending:@"balance"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
         if (error != nil) {
             OneLog(LOCALLOGENABLED,@"Failure - getLeaders - %@",error.description);
