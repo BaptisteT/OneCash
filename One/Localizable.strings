@@ -142,6 +142,6 @@
 "touch_id_title" = "Are you the device owner?";
 
 //Username Card
-"card_title" = "TIP ME ON ONECASH";
+"share_card_title" = "TIP ME ON ONECASH";
 "card_top_title" = "Get tipped!";
 "card_description" = "Your username is %@.\nYou can tip and get tipped with it!";

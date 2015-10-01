@@ -20,14 +20,15 @@
 
 
 @interface ShareUsernameViewController ()
-@property (strong, nonatomic) IBOutlet UIButton *closeButton;
-@property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (strong, nonatomic) IBOutlet UIButton *instaShareButton;
-@property (strong, nonatomic) IBOutlet UIButton *twitterShareButton;
-@property (strong, nonatomic) IBOutlet UILabel *shareLabel;
-@property (strong, nonatomic) IBOutlet UIButton *facebookShareButton;
-@property (strong, nonatomic) IBOutlet UILabel *topLabel;
-@property (weak, nonatomic) UsernameCardView *cardView;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *instaShareButton;
+@property (weak, nonatomic) IBOutlet UIButton *twitterShareButton;
+@property (weak, nonatomic) IBOutlet UILabel *shareLabel;
+@property (weak, nonatomic) IBOutlet UIButton *facebookShareButton;
+@property (weak, nonatomic) IBOutlet UILabel *topLabel;
+@property (weak, nonatomic) IBOutlet UIImage *cardImage;
+
 //Instagram
 @property (nonatomic, retain) UIDocumentInteractionController *documentController;
 
@@ -89,12 +90,19 @@
 {
     CGFloat width = self.view.frame.size.width * 0.85;
     CGFloat height = width;
-    CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height) / 2, width, height);
+    CGRect frameIV = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height) / 2, width, height);
+    UIImageView *cardIV = [[UIImageView alloc] initWithFrame:frameIV];
+    CGFloat widthC = 512;
+    CGFloat heightC = widthC;
+    CGRect frameC = CGRectMake(0, 0, widthC, heightC);
     UsernameCardView *usernameCardView = [[[NSBundle mainBundle] loadNibNamed:@"UsernameCard" owner:self options:nil] objectAtIndex:0];
-    [usernameCardView setFrame:frame];
-    [self.view addSubview:usernameCardView];
-    self.cardView = usernameCardView;
-    usernameCardView.layer.zPosition = 1;
+    [usernameCardView setFrame:frameC];
+    [usernameCardView layoutSubviews];
+    self.cardImage = [usernameCardView captureView];
+    cardIV.image = self.cardImage;
+    cardIV.layer.cornerRadius = 5;
+    [self.view addSubview:cardIV];
+    cardIV.layer.zPosition = 1;
 }
 
 
@@ -106,9 +114,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)shareInstagram:(id)sender
-{
-    UIImage *image = [self.cardView captureView];
+- (IBAction)shareInstagram:(id)sender {
+
+    UIImage *image = self.cardImage;
     
     NSURL *instagramURL = [NSURL URLWithString:@"instagram://"];
     if ([[UIApplication sharedApplication] canOpenURL:instagramURL])
@@ -142,7 +150,7 @@
         [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
         SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         
-        [twitterCompose addImage:[self.cardView captureView]];
+        [twitterCompose addImage:self.cardImage];
         [self presentViewController:twitterCompose
                            animated:YES
                          completion:^{
@@ -155,7 +163,7 @@
 
 - (IBAction)shareFacebook:(id)sender
 {
-    UIImage *image = [self.cardView captureView];
+    UIImage *image = self.cardImage;
     FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
     photo.image = image;
     photo.userGenerated = YES;
