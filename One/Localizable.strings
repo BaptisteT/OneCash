@@ -62,6 +62,7 @@
 "failed_label" = "Fail (%lu)";
 "twitter_user_title" = "The transaction was canceled";
 "twitter_user_message" = "@%@ hasn’t joined yet, we just sent him an invite on Twitter. Your card has not been debited.";
+"twitter_invite_wording" = "I want to send you 1$ tip ! Join me on One.cash"; // external sending
 
 // APple pay
 "apple_pay_item" = "OneCash @%@";
@@ -91,7 +92,6 @@
 "suggested_header" = "Suggested";
 "leaderboard_header" = "Leaderboard";
 "twitter_header" = "Twitter users";
-"twitter_invite_wording" = "I want to send you 1$ tip ! Join me on One.cash";
 
 // Settings
 "settings_title" = "Settings";
@@ -149,3 +149,6 @@
 "share_card_title" = "TIP ME ON ONECASH";
 "card_top_title" = "Get tipped!";
 "card_description" = "Your username is %@.\nYou can tip and get tipped with it!";
+
+// Share
+"twitter_sharing_wording" = "Show me love and send me $1 tip at one.cash/%@ #onecash 💸";

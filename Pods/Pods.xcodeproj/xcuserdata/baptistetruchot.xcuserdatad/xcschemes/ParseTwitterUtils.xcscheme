@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "65F3EFDA162263346C3316F9"
+               BlueprintIdentifier = "4E731D72E67E63C3DB1E3BE1"
                BuildableName = "libParseTwitterUtils.a"
                BlueprintName = "ParseTwitterUtils"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -166,7 +166,7 @@
     } else if ([segueName isEqualToString:@"Share From Send"]) {
         UIViewController *destination = segue.destinationViewController;
         destination.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        destination.modalPresentationCapturesStatusBarAppearance = NO;
+        destination.modalPresentationCapturesStatusBarAppearance = YES;
         [destination setNeedsStatusBarAppearanceUpdate];
         
         AFBlurSegue *blurSegue = (AFBlurSegue *)segue;
