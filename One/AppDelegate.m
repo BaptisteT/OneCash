@@ -194,12 +194,9 @@
 {
     NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:true];
     if ([components.host containsString:@"one.cash"]) {
-        // todo BT
-        if([[url path] containsString:@"user/"]){
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserURLScheme
-                                                                object:nil
-                                                              userInfo:@{@"username": [[url path] stringByReplacingOccurrencesOfString:@"/user/" withString:@""]}];
-        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserURLScheme
+                                                            object:nil
+                                                          userInfo:@{@"username": [[url path] stringByReplacingOccurrencesOfString:@"/" withString:@""]}];
     }
 }
 

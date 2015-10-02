@@ -65,7 +65,8 @@
     self.titleLabel.text = [User currentUser].caseUsername;
     self.historyLabel.text = NSLocalizedString(@"history_label", nil);
     self.statusTextField.placeholder = NSLocalizedString(@"status_placeholder", nil);
-
+    self.statusTextField.minimumFontSize = 0.1;
+    
     // UI
     self.cashoutButton.backgroundColor = [ColorUtils red];
     self.cashoutButton.layer.cornerRadius = self.cashoutButton.frame.size.height / 2;
@@ -177,6 +178,7 @@
     [attr addAttributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: color} range:NSMakeRange(0,1)];
     self.balanceLabel.attributedText = attr;
     self.statusTextField.text = [User currentUser].userStatus;
+    [self adjustFontSizeOfStatusTextField];
 }
 
 
@@ -320,7 +322,29 @@
     if (newString.length > kMaxStatusLength)
         return NO;
     textField.text = newString;
+    [self adjustFontSizeOfStatusTextField];
     return NO;
+}
+
+- (void)adjustFontSizeOfStatusTextField
+{
+    UIFont *font = self.statusTextField.font;
+    CGSize size = self.statusTextField.frame.size;
+    for (CGFloat maxSize = 17; maxSize >= 1; maxSize -= 1.f)
+    {
+        font = [font fontWithSize:maxSize];
+        CGSize constraintSize = CGSizeMake(size.width, MAXFLOAT);
+        CGSize labelSize = [self.statusTextField.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: font} context:nil].size;
+        if(labelSize.height <= size.height)
+        {
+            self.statusTextField.font = font;
+            [self.statusTextField setNeedsLayout];
+            break;
+        }
+    }
+    // set the font to the minimum size anyway
+    self.statusTextField.font = font;
+    [self.statusTextField setNeedsLayout];
 }
 
 - (void)resignStatusFirstResponder {

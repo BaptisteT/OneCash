@@ -233,6 +233,15 @@
     [TrackingUtils trackEvent:EVENT_RECIPIENT_SET properties:@{@"preselected": [NSNumber numberWithBool:self.recipientTextfield.text.length == 0]}];
     UserTableViewCell *cell = (UserTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     User *selectedUser = cell.user;
+    // External case
+    if (!selectedUser.objectId) {
+        for (User *user in self.searchedUsersArray) {
+            if ([user.username isEqualToString:selectedUser.username]) {
+                selectedUser = user;
+                break;
+            }
+        }
+    }
     if (selectedUser) {
         [self.delegate setSelectedUser:selectedUser];
         [self close];
