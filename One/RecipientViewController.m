@@ -17,7 +17,7 @@
 #import "DesignUtils.h"
 #import "TrackingUtils.h"
 
-#define HEADER_HEIGHT 42
+#define HEADER_HEIGHT 22
 
 @interface RecipientViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -58,7 +58,7 @@
     
     // UI
     self.topBar.backgroundColor = [ColorUtils mainGreen];
-    [DesignUtils addBottomBorder:self.textfieldContainer borderSize:0.5 color:[UIColor lightGrayColor]];
+//    [DesignUtils addBottomBorder:self.textfieldContainer borderSize:0.5 color:[ColorUtils mainGreen]];
     self.recipientTextfield.textColor = [ColorUtils mainGreen];
     self.loadingContainer.hidden = YES;
     
@@ -214,16 +214,19 @@
     UIView *tempView = [[UIView alloc]initWithFrame:CGRectMake(0,0,self.view.frame.size.width,HEADER_HEIGHT)];
     tempView.backgroundColor=[UIColor whiteColor];
     
-    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,20,tempView.frame.size.width,22)];
+    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(15,0,tempView.frame.size.width,22)];
     tempLabel.backgroundColor=[UIColor clearColor];
     tempLabel.textColor = [ColorUtils mainGreen];
     tempLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:15];
     tempLabel.text=[self tableView:tableView titleForHeaderInSection:section];
     UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(0, tempView.frame.size.height - 0.5, tempView.frame.size.width, 0.5)];
     separator.backgroundColor = [ColorUtils mainGreen];
-    
+    UIView *separator2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tempView.frame.size.width, 0.5)];
+    separator2.backgroundColor = [ColorUtils mainGreen];
     [tempView addSubview:tempLabel];
     [tempView addSubview:separator];
+    [tempView addSubview:separator2];
+
     
     return tempView;
 }
