@@ -64,6 +64,7 @@
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
             <string>ProximaNova-Semibold</string>
@@ -1801,13 +1802,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0xG-qv-OR8">
-                                                    <rect key="frame" x="18" y="10" width="40" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="8VW-Iu-6aM"/>
-                                                        <constraint firstAttribute="height" constant="40" id="huN-Lk-PUm"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jmu-D9-d7J">
                                                     <rect key="frame" x="68" y="13" width="519" height="35"/>
                                                     <subviews>
@@ -1856,7 +1850,7 @@
                                                         <constraint firstAttribute="width" secondItem="wAG-Xv-V4U" secondAttribute="height" multiplier="1:1" id="4GJ-jp-ILr"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="wAG-Xv-V4U" secondAttribute="height" multiplier="1:1" id="x4I-pL-OBX"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
@@ -1865,32 +1859,33 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAQ-cV-nVV">
-                                                    <rect key="frame" x="529" y="19" width="15" height="22"/>
-                                                    <state key="normal" image="TwitterIcon"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoU-IJ-nIh">
+                                                    <rect key="frame" x="20" y="10" width="40" height="40"/>
+                                                    <color key="backgroundColor" red="0.9038709275265957" green="0.9038709275265957" blue="0.9038709275265957" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="dLY-pm-YrX"/>
+                                                        <constraint firstAttribute="height" constant="40" id="kwt-8M-En3"/>
+                                                    </constraints>
                                                     <connections>
-                                                        <action selector="twitterButtonClicked:" destination="CwD-TH-c4R" eventType="touchUpInside" id="5Ey-Dy-KXz"/>
+                                                        <action selector="twitterButtonClicked:" destination="CwD-TH-c4R" eventType="touchUpInside" id="K37-Zr-V2d"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="hAQ-cV-nVV" firstAttribute="centerY" secondItem="T0j-j8-Hka" secondAttribute="centerY" id="1Ni-Xp-v2A"/>
+                                                <constraint firstItem="Jmu-D9-d7J" firstAttribute="leading" secondItem="WoU-IJ-nIh" secondAttribute="trailing" constant="8" id="3Xf-O3-zN6"/>
+                                                <constraint firstItem="WoU-IJ-nIh" firstAttribute="centerY" secondItem="T0j-j8-Hka" secondAttribute="centerY" id="GL5-gp-rEy"/>
                                                 <constraint firstItem="wAG-Xv-V4U" firstAttribute="centerY" secondItem="T0j-j8-Hka" secondAttribute="centerY" id="HV2-Hu-rxf"/>
+                                                <constraint firstItem="WoU-IJ-nIh" firstAttribute="leading" secondItem="T0j-j8-Hka" secondAttribute="leadingMargin" constant="12" id="XM8-yP-WDw"/>
                                                 <constraint firstItem="wAG-Xv-V4U" firstAttribute="top" secondItem="T0j-j8-Hka" secondAttribute="top" constant="10" id="YDD-x1-hR0"/>
-                                                <constraint firstItem="0xG-qv-OR8" firstAttribute="leading" secondItem="T0j-j8-Hka" secondAttribute="leading" constant="18" id="aID-qt-iYn"/>
-                                                <constraint firstItem="Jmu-D9-d7J" firstAttribute="leading" secondItem="0xG-qv-OR8" secondAttribute="trailing" constant="10" id="cZ8-p3-rzz"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Jmu-D9-d7J" secondAttribute="trailing" constant="5" id="fYH-Ta-5X7"/>
-                                                <constraint firstAttribute="centerY" secondItem="0xG-qv-OR8" secondAttribute="centerY" constant="-0.25" id="h4z-Yb-5vA"/>
                                                 <constraint firstAttribute="trailing" secondItem="wAG-Xv-V4U" secondAttribute="trailing" constant="8" id="hHE-VN-eBS"/>
                                                 <constraint firstItem="Jmu-D9-d7J" firstAttribute="centerY" secondItem="T0j-j8-Hka" secondAttribute="centerY" id="itF-Vf-W2g"/>
-                                                <constraint firstItem="wAG-Xv-V4U" firstAttribute="leading" secondItem="hAQ-cV-nVV" secondAttribute="trailing" constant="8" id="uOG-kS-99z"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="balanceLabel" destination="wAG-Xv-V4U" id="lhy-eO-MZ5"/>
                                             <outlet property="certifiedImageView" destination="y3L-g4-XZo" id="7la-JP-2fP"/>
-                                            <outlet property="tweetButton" destination="hAQ-cV-nVV" id="dQL-n6-SSI"/>
-                                            <outlet property="userPicture" destination="0xG-qv-OR8" id="WPw-EY-IJG"/>
+                                            <outlet property="userPictureButton" destination="WoU-IJ-nIh" id="2mP-Ha-Rty"/>
                                             <outlet property="userStatus" destination="oS2-Rh-1Se" id="cIu-Wh-IfO"/>
                                             <outlet property="usernameLabel" destination="awI-uy-jb8" id="2Bp-e3-SJP"/>
                                         </connections>
@@ -2129,6 +2124,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="0H9-Pw-zbF"/>
         <segue reference="0bD-CV-jtZ"/>
-        <segue reference="ep0-aD-elO"/>
+        <segue reference="8Kh-LZ-lT7"/>
     </inferredMetricsTieBreakers>
 </document>
