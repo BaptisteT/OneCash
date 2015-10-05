@@ -13,7 +13,7 @@
 
 @protocol BalanceViewControllerProtocol;
 
-@interface BalanceViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ManagedAccountVCProtocol, AccountCardVCProtocol, UITextFieldDelegate>
+@interface BalanceViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ManagedAccountVCProtocol, AccountCardVCProtocol, UITextFieldDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) id<BalanceViewControllerProtocol> delegate;
 

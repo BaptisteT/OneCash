@@ -10,8 +10,10 @@
 
 @class Transaction;
 
+
 @interface TransactionTableViewCell : UITableViewCell
 
 - (void)initWithTransaction:(Transaction *)transaction;
 
 @end
+

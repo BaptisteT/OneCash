@@ -27,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UIView *textfieldContainer;
 @property (weak, nonatomic) IBOutlet UITextField *recipientTextfield;
 @property (weak, nonatomic) IBOutlet UIView *loadingContainer;
-@property (strong, nonatomic) User *selectedUser;
 // Users
 @property (strong, nonatomic) NSString *lastStringSearched;
 @property (strong, nonatomic) NSArray *historicUsers;
@@ -179,7 +178,6 @@
     
     UserTableViewCell *cell = (UserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"UserCell"];
     [cell initWithUser:(User *)userArray[indexPath.row] showBalance:[self isLeaderSection:indexPath.section]];
-    cell.delegate = self;
     [cell layoutIfNeeded];
     return cell;
 }
@@ -370,50 +368,6 @@
 }
 
 // --------------------------------------------
-#pragma mark - User TVC Protocl
-// --------------------------------------------
-- (void)displayTwitterOptionsForUser:(User *)user {
-    self.selectedUser = user;
-    [self.recipientTextfield resignFirstResponder];
-    if ([UIAlertController class] != nil) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"@%@",user.caseUsername]
-                                                                       message:nil
-                                                                preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil)
-                                                                style:UIAlertActionStyleCancel
-                                                              handler:nil];
-        UIAlertAction *profileAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"navigate_to_twitter_action", nil)
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action) {
-                                                                  [self navigateToTwitterProfile];
-                                                              }];
-        UIAlertAction *followAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"follow_action", nil)
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action) {
-                                                                  [self followSelectedUser];
-                                                              }];
-        UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"send_tweet_action", nil)
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action) {
-                                                                  [self sendTweetToSelectedUser];
-                                                              }];
-        
-        [alert addAction:cancelAction];
-        [alert addAction:profileAction];
-        [alert addAction:followAction];
-        [alert addAction:tweetAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    } else {
-        // ios 7
-        [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"@%@",user.caseUsername]
-                                    delegate:self
-                           cancelButtonTitle:NSLocalizedString(@"cancel_button", nil)
-                      destructiveButtonTitle:nil
-                           otherButtonTitles:NSLocalizedString(@"navigate_to_twitter_action", nil), NSLocalizedString(@"follow_action", nil), NSLocalizedString(@"send_tweet_action", nil), nil] showInView:self.view];
-    }
-}
-
-// --------------------------------------------
 #pragma mark - UI
 // --------------------------------------------
 // Set status bar color to white
@@ -422,39 +376,6 @@
     return UIStatusBarStyleLightContent;
 }
 
-// --------------------------------------------
-#pragma mark - Action sheet delegate
-// --------------------------------------------
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:NSLocalizedString(@"navigate_to_twitter_action", nil)]) {
-        [self navigateToTwitterProfile];
-    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"follow_action", nil)]) {
-        [self followSelectedUser];
-    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"send_tweet_action", nil)]) {
-        [self sendTweetToSelectedUser];
-    }
-}
-
-- (void)navigateToTwitterProfile {
-    if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",self.selectedUser.username]]])
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",self.selectedUser.username]]];
-    }
-}
-
-- (void)followSelectedUser {
-    [ApiManager followOnTwitter:self.selectedUser.caseUsername success:nil failure:nil];
-}
-
-- (void)sendTweetToSelectedUser {
-    SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-    NSString *caption = [NSString stringWithFormat:@"@%@", self.selectedUser.username];
-    [twitterCompose setInitialText:caption];
-    [self presentViewController:twitterCompose
-                       animated:YES
-                     completion:nil];
-}
 
 
 @end
