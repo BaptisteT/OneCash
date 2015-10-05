@@ -13,7 +13,7 @@
 @protocol RecipientVCProtocol;
 @class User;
 
-@interface RecipientViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UserTVCProtocol>
+@interface RecipientViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UserTVCProtocol, UIActionSheetDelegate>
 
 @property (weak, nonatomic) id <RecipientVCProtocol> delegate;
 

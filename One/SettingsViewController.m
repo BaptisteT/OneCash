@@ -274,44 +274,47 @@ struct {
             [self.delegate navigateToCardController];
     } else if (indexPath.section == SectionTypes.email) {
         if (indexPath.row == 0) {
-            // todo BT ios 7
             // change email
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"modify_email", nil)
-                                                                           message:nil
-                                                                    preferredStyle:UIAlertControllerStyleAlert];
-            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-                textField.keyboardType = UIKeyboardTypeEmailAddress;
-                textField.textAlignment = NSTextAlignmentCenter;
-                textField.text = [User currentUser].email;
-            }];
-            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok_button", nil)
-                                                                    style:UIAlertActionStyleDefault
-                                                                  handler:^(UIAlertAction * action) {
-                                                                      UITextField *textfield = alert.textFields.firstObject;
-                                                                      NSError *error = nil;
-                                                                      NSString *email = [textfield.text stringByCorrectingEmailTypos];
-                                                                      [[SHEmailValidator validator] validateSyntaxOfEmailAddress:email withError:&error];
-                                                                      if (error) {
-                                                                          [GeneralUtils showAlertWithTitle:NSLocalizedString(@"invalid_email_title", nil) andMessage:NSLocalizedString(@"invalid_email_message", nil)];
-                                                                          return;
-                                                                      }
-                                                                      [DesignUtils showProgressHUDAddedTo:self.view];
-                                                                      [User currentUser].email = email;
-                                                                      [ApiManager saveCurrentUserAndExecuteSuccess:^{
-                                                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                                                              [DesignUtils hideProgressHUDForView:self.view];
-                                                                              [TrackingUtils trackEvent:EVENT_EMAIL_CHANGED properties:nil];
-                                                                              [self.settingsTableView reloadData];
-                                                                          });
-                                                                      } failure:^(NSError *error) {
-                                                                          [DesignUtils hideProgressHUDForView:self.view];
-                                                                          [GeneralUtils showAlertWithTitle:NSLocalizedString(@"save_email_error_title", nil) andMessage:[error.userInfo valueForKey:@"error"]];
-                                                                      }];
-                                                                  }];
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil) style:UIAlertActionStyleCancel handler:nil];
-            [alert addAction:defaultAction];
-            [alert addAction:cancelAction];
-            [self presentViewController:alert animated:YES completion:nil];
+            if ([UIAlertController class] != nil) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"modify_email", nil)
+                                                                               message:nil
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                    textField.keyboardType = UIKeyboardTypeEmailAddress;
+                    textField.textAlignment = NSTextAlignmentCenter;
+                    textField.text = [User currentUser].email;
+                }];
+                UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"ok_button", nil)
+                                                                        style:UIAlertActionStyleDefault
+                                                                      handler:^(UIAlertAction * action) {
+                                  UITextField *textfield = alert.textFields.firstObject;
+                                  NSError *error = nil;
+                                  NSString *email = [textfield.text stringByCorrectingEmailTypos];
+                                  [[SHEmailValidator validator] validateSyntaxOfEmailAddress:email withError:&error];
+                                  if (error) {
+                                      [GeneralUtils showAlertWithTitle:NSLocalizedString(@"invalid_email_title", nil) andMessage:NSLocalizedString(@"invalid_email_message", nil)];
+                                      return;
+                                  }
+                                  [DesignUtils showProgressHUDAddedTo:self.view];
+                                  [User currentUser].email = email;
+                                  [ApiManager saveCurrentUserAndExecuteSuccess:^{
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          [DesignUtils hideProgressHUDForView:self.view];
+                                          [TrackingUtils trackEvent:EVENT_EMAIL_CHANGED properties:nil];
+                                          [self.settingsTableView reloadData];
+                                      });
+                                  } failure:^(NSError *error) {
+                                      [DesignUtils hideProgressHUDForView:self.view];
+                                      [GeneralUtils showAlertWithTitle:NSLocalizedString(@"save_email_error_title", nil) andMessage:[error.userInfo valueForKey:@"error"]];
+                                  }];
+                              }];
+                UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil) style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:defaultAction];
+                [alert addAction:cancelAction];
+                [self presentViewController:alert animated:YES completion:nil];
+            } else {
+                // todo BT ios 7
+            }
         } else if (indexPath.row == 1) {
             // Verify
             [DesignUtils showProgressHUDAddedTo:self.view];

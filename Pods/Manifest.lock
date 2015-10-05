@@ -2,7 +2,7 @@ PODS:
   - AFBlurSegue (1.2.1)
   - ApplePayStubs (0.2)
   - Bolts/Tasks (1.2.1)
-  - Crashlytics (3.3.3)
+  - Crashlytics (3.3.4)
   - DateTools (1.7.0)
   - Fabric (1.4.1):
     - Fabric/Base (= 1.4.1)
@@ -49,7 +49,7 @@ SPEC CHECKSUMS:
   AFBlurSegue: 27e55f015360f4e11117d2c3a959dbb5316eef78
   ApplePayStubs: 5dd63c36527d1117b2045939fb5b6581b4815433
   Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
-  Crashlytics: 9120a5c1515655e57a65e565e2eae8dd326be2e9
+  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: 4f718eeca4c02c7d6f6f4e5f0e5f87c63aa38458
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
