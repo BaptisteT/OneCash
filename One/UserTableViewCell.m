@@ -27,7 +27,18 @@
     _user = user;
     self.userStatus.text = user.userStatus;
     self.userStatus.hidden = !user.userStatus || user.userStatus.length == 0;
-    self.usernameLabel.text = user.caseUsername;
+    
+    if(flag) {
+        NSString *balance = [NSString stringWithFormat:@"$%@",[self abbreviateNumber:(int)user.balance]];
+        NSString *string = [NSString stringWithFormat:@"%@ %@",balance, user.caseUsername];
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
+        [text addAttribute:NSForegroundColorAttributeName
+                     value:[ColorUtils mainGreen]
+                     range:[string rangeOfString:balance]];
+        [self.usernameLabel setAttributedText: text];
+    } else {
+        self.usernameLabel.text = user.caseUsername;
+    }
     [user setAvatarInImageView:self.userPicture bigSize:NO saveLocally:NO];
     self.userPicture.layer.cornerRadius = self.userPicture.frame.size.height / 2;
     self.userPicture.clipsToBounds = YES;
@@ -37,8 +48,8 @@
     
     self.balanceLabel.backgroundColor = [ColorUtils mainGreen];
     self.balanceLabel.layer.cornerRadius = self.balanceLabel.frame.size.height / 2;
-    self.balanceLabel.text = [NSString stringWithFormat:@"$%lu",(long)user.balance];
-    self.balanceLabel.hidden = !flag;
+    self.balanceLabel.text = [NSString stringWithFormat:@"$%@",[self abbreviateNumber:(int)user.balance]];
+    self.balanceLabel.hidden = YES;
     self.balanceLabel.clipsToBounds = YES;
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(displayOptions)];
@@ -46,15 +57,55 @@
 }
 
 - (IBAction)twitterButtonClicked:(id)sender {
-    NSString *username = self.user.username;
-    if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",username]]])
-    {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",username]]];
-    }
+    [self displayOptions];
 }
 
 - (void)displayOptions {
     [self.delegate displayTwitterOptionsForUser:self.user];
+}
+
+- (NSString *)abbreviateNumber:(int)num {
+    
+    NSString *abbrevNum;
+    float number = (float)num;
+    
+    if (num >= 1000) {
+        NSArray *abbrev = @[@"K", @"M", @"B"];
+        
+        for (int i = (int)abbrev.count - 1; i >= 0; i--) {
+            
+            int size = pow(10,(i+1)*3);
+            
+            if(size <= number) {
+                number = number/size;
+                NSString *numberString = [self floatToString:number];
+                
+                abbrevNum = [NSString stringWithFormat:@"%@%@", numberString, [abbrev objectAtIndex:i]];
+            }
+            
+        }
+    } else {
+        abbrevNum = [NSString stringWithFormat:@"%d", (int)number];
+    }
+    
+    return abbrevNum;
+}
+
+- (NSString *)floatToString:(float) val {
+    NSString *ret = [NSString stringWithFormat:@"%.1f", val];
+    unichar c = [ret characterAtIndex:[ret length] - 1];
+    
+    while (c == 48) { // 0
+        ret = [ret substringToIndex:[ret length] - 1];
+        c = [ret characterAtIndex:[ret length] - 1];
+        
+        //After finding the "." we know that everything left is the decimal number, so get a substring excluding the "."
+        if(c == 46) { // .
+            ret = [ret substringToIndex:[ret length] - 1];
+        }
+    }
+    
+    return ret;
 }
 
 @end

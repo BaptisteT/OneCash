@@ -92,9 +92,9 @@
 "suggested_header" = "Suggested";
 "leaderboard_header" = "Leaderboard";
 "twitter_header" = "Twitter users";
-"navigate_to_twitter_action" = "See twitter profile";
+"navigate_to_twitter_action" = "See Profile";
 "follow_action" = "Follow";
-"send_tweet_action" = "Send tweet";
+"send_tweet_action" = "Send Tweet";
 
 // Settings
 "settings_title" = "Settings";

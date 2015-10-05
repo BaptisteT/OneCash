@@ -34,6 +34,10 @@
               success:(void(^)())successBlock
               failure:(void(^)(NSError *error))failureBlock;
 
++ (void)followOnTwitter:(NSString *)followedScreename
+                success:(void(^)())successBlock
+                failure:(void(^)(NSError *error))failureBlock;
+
 // --------------------------------------------
 #pragma mark - User
 // --------------------------------------------
