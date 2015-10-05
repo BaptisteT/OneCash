@@ -178,6 +178,7 @@
     
     UserTableViewCell *cell = (UserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"UserCell"];
     [cell initWithUser:(User *)userArray[indexPath.row] showBalance:[self isLeaderSection:indexPath.section]];
+    cell.delegate = self;
     [cell layoutIfNeeded];
     return cell;
 }
@@ -364,6 +365,51 @@
     return NO;
 }
 
+// --------------------------------------------
+#pragma mark - User TVC Protocl
+// --------------------------------------------
+- (void)displayTwitterOptionsForUser:(User *)user {
+    if ([UIAlertController class] != nil) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
+                                                                       message:nil
+                                                                preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil)
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:nil];
+        UIAlertAction *profileAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"navigate_to_twitter_action", nil)
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                  if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",user.username]]])
+                  {
+                      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",user.username]]];
+                  }
+              }];
+        UIAlertAction *followAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"follow_action", nil)
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  // todo BT
+                                                              }];
+        UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"send_tweet_action", nil)
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                  SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+                  NSString *caption = [NSString stringWithFormat:@"@%@", [User currentUser].username];
+                  [twitterCompose setInitialText:caption];
+                  [self presentViewController:twitterCompose
+                                     animated:YES
+                                   completion:nil];
+
+              }];
+        
+        [alert addAction:cancelAction];
+        [alert addAction:profileAction];
+        [alert addAction:followAction];
+        [alert addAction:tweetAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        // todo BT ios 7
+    }
+}
 
 // --------------------------------------------
 #pragma mark - UI

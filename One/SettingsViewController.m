@@ -274,6 +274,7 @@ struct {
             [self.delegate navigateToCardController];
     } else if (indexPath.section == SectionTypes.email) {
         if (indexPath.row == 0) {
+            // todo BT ios 7
             // change email
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"modify_email", nil)
                                                                            message:nil

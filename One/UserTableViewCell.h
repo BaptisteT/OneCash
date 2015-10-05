@@ -8,12 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol UserTVCProtocol;
+
 @class User;
 
 @interface UserTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) User *user;
+@property (weak, nonatomic) id<UserTVCProtocol> delegate;
 
 - (void)initWithUser:(User *)user showBalance:(BOOL)flag;
+
+@end
+
+@protocol UserTVCProtocol
+
+- (void)displayTwitterOptionsForUser:(User *)user;
 
 @end

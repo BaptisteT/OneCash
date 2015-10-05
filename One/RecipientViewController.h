@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "UserTableViewCell.h"
+
 @protocol RecipientVCProtocol;
 @class User;
 
-@interface RecipientViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface RecipientViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UserTVCProtocol>
 
 @property (weak, nonatomic) id <RecipientVCProtocol> delegate;
 

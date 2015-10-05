@@ -40,6 +40,9 @@
     self.balanceLabel.text = [NSString stringWithFormat:@"$%lu",(long)user.balance];
     self.balanceLabel.hidden = !flag;
     self.balanceLabel.clipsToBounds = YES;
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(displayOptions)];
+    [self addGestureRecognizer:longPress];
 }
 
 - (IBAction)twitterButtonClicked:(id)sender {
@@ -48,6 +51,10 @@
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",username]]];
     }
+}
+
+- (void)displayOptions {
+    [self.delegate displayTwitterOptionsForUser:self.user];
 }
 
 @end

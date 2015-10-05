@@ -28,7 +28,7 @@
 
 // Card
 "later_" = "Not now";
-"card_title" = "Add your card to send and receive money on OneCash";
+"card_title" = "Add a US card to send and receive money on OneCash";
 "card_choice_explanation" = "One is free of charge.\nYou only pay the amount of the tips you send.";
 "stripe_card_title" = "Please enter your debit card information.";
 "apple_pay_button_title" = "Add my debit card with ";
@@ -45,7 +45,7 @@
 "swipe_label" = "Swipe up to send $1";
 "top_bar_payment" = "Payment method";
 "top_bar_card" = "Add a card";
-"explanation_card" = "No credit card information is stored on our server! We use Stripe.com, one of the most secure and reputable payment processors available.";
+"explanation_card" = "No credit card information is stored on our server! We use Stripe.com, the most secure and reputable payment processors available.";
 
 
 // Send
@@ -92,6 +92,9 @@
 "suggested_header" = "Suggested";
 "leaderboard_header" = "Leaderboard";
 "twitter_header" = "Twitter users";
+"navigate_to_twitter_action" = "See twitter profile";
+"follow_action" = "Follow";
+"send_tweet_action" = "Send tweet";
 
 // Settings
 "settings_title" = "Settings";
