@@ -11,7 +11,7 @@
 
 #import "ConstantUtils.h"
 #import "ImageCache.h"
-#import "UIImageView+UserId.h"
+#import "UIImageView+UserName.h"
 
 @interface User()
 @property (nonatomic, strong) UIImage *userPicture;
@@ -46,7 +46,7 @@
 
 // Set avatar in imageview (download it first if necessary)
 - (void)setAvatarInImageView:(UIImageView *)imageView bigSize:(BOOL)sizeFlag saveLocally:(BOOL)savingFlag {
-    imageView.userId = self.objectId;
+    imageView.userName = self.username;
     imageView.image = nil; // clean
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     if (self.userPicture) {
@@ -60,8 +60,7 @@
                                 availableBlock:^(UIImage *image) {
                                         if (image) {
                                             self.userPicture = image;
-                                            NSLog(@"%@ / %@",self.objectId,imageView.userId);
-                                            if ([self.objectId isEqualToString:imageView.userId]) {
+                                            if ([self.username isEqualToString:imageView.userName]) {
                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     [imageView setImage:image];
                                                 });
@@ -98,7 +97,6 @@
     for (NSDictionary *twitterUser in twitterUsers) {
         User *user = [User new];
         [user updateUserWithTwitterInfo:twitterUser];
-        user.objectId = user.username;
         [results addObject:user];
     }
     return results;

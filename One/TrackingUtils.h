@@ -36,6 +36,12 @@
 #define EVENT_RECIPIENT_SET @"recipient.set" // property : preselected
 #define EVENT_AUTO_TWEET_CHANGED @"auto_tweet.changed" // property : state
 #define EVENT_TOUCH_ID_CHANGED @"touchId.changed" // property : state
+#define EVENT_EXTERNAL_TRANSACTION @"transaction.external"
+#define EVENT_SHARE_USERNAME_CLICKED @"share_username.clicked"
+#define EVENT_SHARE_INSTAGRAM @"share.instagram"
+#define EVENT_SHARE_TWITTER @"share.twitter"
+#define EVENT_SHARE_FACEBOOK @"share.facebook"
+
 
 #define PEOPLE_SIGNUP_DATE @"signup.date"
 #define PEOPLE_ALLOW_NOTIF @"notif"

@@ -94,7 +94,11 @@
                 } failure:^(NSError *error) {
                     // If it's an email issue, go to email
                     if ([[error.userInfo valueForKey:@"error"] containsString:@"email"]) {
-                        [self performSegueWithIdentifier:@"Email From Welcome" sender:nil];
+                        if (isNew) {
+                            [self performSegueWithIdentifier:@"Email From Welcome" sender:nil];
+                        } else {
+                            [self performSegueWithIdentifier:@"Send From Welcome" sender:nil];
+                        }
                     } else {
                         [User logOut];
                     }

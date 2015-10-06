@@ -17,7 +17,7 @@
 
 #import "ColorUtils.h"
 #import "DesignUtils.h"
-
+#import "TrackingUtils.h"
 
 @interface ShareUsernameViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
@@ -113,13 +113,14 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)shareInstagram:(id)sender {
-
+- (IBAction)shareInstagram:(id)sender
+{
     UIImage *image = self.cardImage;
-    
     NSURL *instagramURL = [NSURL URLWithString:@"instagram://"];
     if ([[UIApplication sharedApplication] canOpenURL:instagramURL])
     {
+        [TrackingUtils trackEvent:EVENT_SHARE_INSTAGRAM properties:nil];
+        
         //convert image into .png format.
         NSData *imageData = UIImagePNGRepresentation(image);
         
@@ -145,26 +146,22 @@
 
 - (IBAction)shareTwitter:(id)sender
 {
-    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]){
-        [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
-        SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        NSString *caption = [NSString stringWithFormat:@"Show me love and send me $1 tip at one.cash/%@ #onecash 💸", [User currentUser].username];
-
-        [twitterCompose addImage:self.cardImage];
-        [twitterCompose setInitialText:caption];
-
-        [self presentViewController:twitterCompose
-                           animated:YES
-                         completion:^{
-                             [DesignUtils hideProgressHUDForView:self.view];
-                         }];
-    } else {
-        // the user does not have Twitter set up
-    }
+    [TrackingUtils trackEvent:EVENT_SHARE_TWITTER properties:nil];
+    [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
+    SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+     NSString *caption = [NSString stringWithFormat:NSLocalizedString(@"twitter_sharing_wording", nil), [User currentUser].username];
+    [twitterCompose setInitialText:caption];
+    [twitterCompose addImage:self.cardImage];
+    [self presentViewController:twitterCompose
+                       animated:YES
+                     completion:^{
+                         [DesignUtils hideProgressHUDForView:self.view];
+                     }];
 }
 
 - (IBAction)shareFacebook:(id)sender
 {
+    [TrackingUtils trackEvent:EVENT_SHARE_FACEBOOK properties:nil];
     UIImage *image = self.cardImage;
     FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc] init];
     photo.image = image;

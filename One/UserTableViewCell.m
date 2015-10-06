@@ -29,7 +29,7 @@
     self.userStatus.hidden = !user.userStatus || user.userStatus.length == 0;
     
     if(flag) {
-        NSString *balance = [NSString stringWithFormat:@"$%@", [self abbreviateNumber:user.balance]];
+        NSString *balance = [NSString stringWithFormat:@"$%@",[self abbreviateNumber:(int)user.balance]];
         NSString *string = [NSString stringWithFormat:@"%@ %@",balance, user.caseUsername];
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
         [text addAttribute:NSForegroundColorAttributeName
@@ -48,20 +48,21 @@
     
     self.balanceLabel.backgroundColor = [ColorUtils mainGreen];
     self.balanceLabel.layer.cornerRadius = self.balanceLabel.frame.size.height / 2;
-    self.balanceLabel.text = [NSString stringWithFormat:@"$%@",[self abbreviateNumber:user.balance]];
+    self.balanceLabel.text = [NSString stringWithFormat:@"$%@",[self abbreviateNumber:(int)user.balance]];
     self.balanceLabel.hidden = YES;
     self.balanceLabel.clipsToBounds = YES;
 }
 
 - (IBAction)twitterButtonClicked:(id)sender {
-    NSString *username = self.user.username;
-    if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",username]]])
+    if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",self.user.username]]])
     {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",username]]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",self.user.username]]];
     }
 }
 
--(NSString *)abbreviateNumber:(int)num {
+
+
+- (NSString *)abbreviateNumber:(int)num {
     
     NSString *abbrevNum;
     float number = (float)num;
@@ -69,7 +70,7 @@
     if (num >= 1000) {
         NSArray *abbrev = @[@"K", @"M", @"B"];
         
-        for (int i = abbrev.count - 1; i >= 0; i--) {
+        for (int i = (int)abbrev.count - 1; i >= 0; i--) {
             
             int size = pow(10,(i+1)*3);
             
@@ -88,7 +89,7 @@
     return abbrevNum;
 }
 
-- (NSString *) floatToString:(float) val {
+- (NSString *)floatToString:(float) val {
     NSString *ret = [NSString stringWithFormat:@"%.1f", val];
     unichar c = [ret characterAtIndex:[ret length] - 1];
     

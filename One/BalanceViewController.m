@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 #import <LocalAuthentication/LocalAuthentication.h>
+#import <Social/Social.h>
 
 #import <UIScrollView+SVInfiniteScrolling.h>
 
@@ -31,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *historyLabel;
 @property (weak, nonatomic) IBOutlet UIButton *cashoutButton;
 @property (weak, nonatomic) IBOutlet UITableView *transactionsTableView;
-
+@property (strong, nonatomic) User *selectedUser;
 @property (weak, nonatomic) IBOutlet UIView *balanceContainer;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UITextField *statusTextField;
@@ -65,7 +66,8 @@
     self.titleLabel.text = [User currentUser].caseUsername;
     self.historyLabel.text = NSLocalizedString(@"history_label", nil);
     self.statusTextField.placeholder = NSLocalizedString(@"status_placeholder", nil);
-
+    self.statusTextField.minimumFontSize = 0.1;
+    
     // UI
     self.cashoutButton.backgroundColor = [ColorUtils red];
     self.cashoutButton.layer.cornerRadius = self.cashoutButton.frame.size.height / 2;
@@ -91,7 +93,7 @@
     
     // Gesture
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resignStatusFirstResponder)];
-    [self.view addGestureRecognizer:tapGesture];
+    [self.balanceContainer addGestureRecognizer:tapGesture];
     
     // Update badge
     [ApiManager updateBadge:0];
@@ -143,7 +145,7 @@
 // --------------------------------------------
 - (void)loadLatestTransactionsLocally {
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
-        // relaod transactions
+        // reload transactions
         [self scrollToTop];
         self.transactions = [NSMutableArray arrayWithArray:transactions];
         [self.transactionsTableView reloadData];
@@ -177,6 +179,7 @@
     [attr addAttributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: color} range:NSMakeRange(0,1)];
     self.balanceLabel.attributedText = attr;
     self.statusTextField.text = [User currentUser].userStatus;
+    [self adjustFontSizeOfStatusTextField];
 }
 
 
@@ -208,6 +211,20 @@
 
 - (void)scrollToTop {
     [self.transactionsTableView setContentOffset:CGPointZero animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.statusTextField resignFirstResponder];
+    Transaction *transaction = (Transaction *)self.transactions[indexPath.row];
+    User *user = transaction.sender == [User currentUser] ? transaction.receiver : transaction.sender;
+    if (user) {
+        [self displayTwitterOptionsForUser:user];
+    }
+}
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self.statusTextField resignFirstResponder];
 }
 
 // --------------------------------------------
@@ -320,7 +337,29 @@
     if (newString.length > kMaxStatusLength)
         return NO;
     textField.text = newString;
+    [self adjustFontSizeOfStatusTextField];
     return NO;
+}
+
+- (void)adjustFontSizeOfStatusTextField
+{
+    UIFont *font = self.statusTextField.font;
+    CGSize size = self.statusTextField.frame.size;
+    for (CGFloat maxSize = 17; maxSize >= 1; maxSize -= 1.f)
+    {
+        font = [font fontWithSize:maxSize];
+        CGSize constraintSize = CGSizeMake(size.width, MAXFLOAT);
+        CGSize labelSize = [self.statusTextField.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: font} context:nil].size;
+        if(labelSize.height <= size.height)
+        {
+            self.statusTextField.font = font;
+            [self.statusTextField setNeedsLayout];
+            break;
+        }
+    }
+    // set the font to the minimum size anyway
+    self.statusTextField.font = font;
+    [self.statusTextField setNeedsLayout];
 }
 
 - (void)resignStatusFirstResponder {
@@ -335,5 +374,84 @@
         }];
     }
 }
+
+// --------------------------------------------
+#pragma mark - User TVC Protocl
+// --------------------------------------------
+- (void)displayTwitterOptionsForUser:(User *)user {
+    self.selectedUser = user;
+    if ([UIAlertController class] != nil) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"@%@",user.caseUsername]
+                                                                       message:nil
+                                                                preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil)
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:nil];
+        UIAlertAction *profileAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"navigate_to_twitter_action", nil)
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  [self navigateToTwitterProfile];
+                                                              }];
+        UIAlertAction *followAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"follow_action", nil)
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                 [self followSelectedUser];
+                                                             }];
+        UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"send_tweet_action", nil)
+                                                              style:UIAlertActionStyleDefault
+                                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                                [self sendTweetToSelectedUser];
+                                                            }];
+        
+        [alert addAction:cancelAction];
+        [alert addAction:profileAction];
+        [alert addAction:followAction];
+        [alert addAction:tweetAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        // ios 7
+        [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"@%@",user.caseUsername]
+                                     delegate:self
+                            cancelButtonTitle:NSLocalizedString(@"cancel_button", nil)
+                       destructiveButtonTitle:nil
+                            otherButtonTitles:NSLocalizedString(@"navigate_to_twitter_action", nil), NSLocalizedString(@"follow_action", nil), NSLocalizedString(@"send_tweet_action", nil), nil] showInView:self.view];
+    }
+}
+
+
+// --------------------------------------------
+#pragma mark - Action sheet delegate
+// --------------------------------------------
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:NSLocalizedString(@"navigate_to_twitter_action", nil)]) {
+        [self navigateToTwitterProfile];
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"follow_action", nil)]) {
+        [self followSelectedUser];
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"send_tweet_action", nil)]) {
+        [self sendTweetToSelectedUser];
+    }
+}
+
+- (void)navigateToTwitterProfile {
+    if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",self.selectedUser.username]]])
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",self.selectedUser.username]]];
+    }
+}
+
+- (void)followSelectedUser {
+    [ApiManager followOnTwitter:self.selectedUser.caseUsername success:nil failure:nil];
+}
+
+- (void)sendTweetToSelectedUser {
+    SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    NSString *caption = [NSString stringWithFormat:@"@%@", self.selectedUser.username];
+    [twitterCompose setInitialText:caption];
+    [self presentViewController:twitterCompose
+                       animated:YES
+                     completion:nil];
+}
+
 
 @end

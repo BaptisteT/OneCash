@@ -163,7 +163,7 @@
     } else if ([segueName isEqualToString:@"Balance From Send"]) {
         [self setBadgeValue:0];
         ((BalanceViewController *) [segue destinationViewController]).delegate = self;
-    } else if ([segueName isEqualToString:@"Username Segue"]) {
+    } else if ([segueName isEqualToString:@"Share From Send"]) {
         UIViewController *destination = segue.destinationViewController;
         destination.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         destination.modalPresentationCapturesStatusBarAppearance = YES;
@@ -227,7 +227,8 @@
 }
 
 -(IBAction)getPressed:(id)sender {
-    [self performSegueWithIdentifier:@"Username Segue" sender:nil];
+    [TrackingUtils trackEvent:EVENT_SHARE_USERNAME_CLICKED properties:nil];
+    [self performSegueWithIdentifier:@"Share From Send" sender:nil];
 }
 
 
@@ -411,7 +412,18 @@
         [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"no_receiver_title", nil) andMessage:NSLocalizedString(@"no_receiver_message", nil)];
         }];
-         
+        
+    // Twitter user
+    } else if (!self.receiver.objectId) {
+        NSString *post = [NSString stringWithFormat:@"@%@, %@",self.receiver.caseUsername, NSLocalizedString(@"twitter_invite_wording", nil)];
+        [ApiManager postOnTwitter:post success:^() {
+            [TrackingUtils trackEvent:EVENT_EXTERNAL_TRANSACTION properties:nil];
+        } failure:nil];
+        [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
+            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"twitter_user_title", nil) andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_message", nil),self.receiver.caseUsername]];
+        }];
+
+    
      // No cash, no card
      } else if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodNone) {
          [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @class User;
 
 @interface UserTableViewCell : UITableViewCell
@@ -17,3 +18,4 @@
 - (void)initWithUser:(User *)user showBalance:(BOOL)flag;
 
 @end
+

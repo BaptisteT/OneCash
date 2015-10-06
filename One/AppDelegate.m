@@ -62,20 +62,6 @@
     // Fabrick
     [Fabric with:@[CrashlyticsKit]];
     
-    if (!debug) {
-        // Mixpanel
-        [Mixpanel sharedInstanceWithToken:kMixpanelProdToken launchOptions:launchOptions];
-        
-        // Track statistics around application opens.
-        [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-        
-        // Stripe
-        [Stripe setDefaultPublishableKey:kStripeLivePublishableKey];
-    } else {
-        [Mixpanel sharedInstanceWithToken:kMixpanelDevToken launchOptions:launchOptions];
-        [Stripe setDefaultPublishableKey:kStripeTestPublishableKey];
-    }
-    
     // Obsolete API
     [ApiManager checkAppVersionAndExecuteSucess:^(NSDictionary * resultDictionnary) {
         if (resultDictionnary && [resultDictionnary valueForKey:@"title"]) {
@@ -89,6 +75,20 @@
             [self createObsoleteAPIAlertView];
         }
     }];
+    
+    if (!debug) {
+        // Mixpanel
+        [Mixpanel sharedInstanceWithToken:kMixpanelProdToken launchOptions:launchOptions];
+        
+        // Track statistics around application opens.
+        [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+        
+        // Stripe
+        [Stripe setDefaultPublishableKey:kStripeLivePublishableKey];
+    } else {
+        [Mixpanel sharedInstanceWithToken:kMixpanelDevToken launchOptions:launchOptions];
+        [Stripe setDefaultPublishableKey:kStripeTestPublishableKey];
+    }
     
     User *currentUser = [User currentUser];
     
@@ -194,12 +194,9 @@
 {
     NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:true];
     if ([components.host containsString:@"one.cash"]) {
-        // todo BT
-        if([[url path] containsString:@"user/"]){
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserURLScheme
-                                                                object:nil
-                                                              userInfo:@{@"username": [[url path] stringByReplacingOccurrencesOfString:@"/user/" withString:@""]}];
-        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserURLScheme
+                                                            object:nil
+                                                          userInfo:@{@"username": [[url path] stringByReplacingOccurrencesOfString:@"/" withString:@""]}];
     }
 }
 
@@ -224,7 +221,7 @@
 // --------------------------------------------
 - (void)createObsoleteAPIAlertView
 {
-    if (self.alertTitle && self.alertMessage) {
+    if (self.alertTitle || self.alertMessage) {
         [[[UIAlertView alloc] initWithTitle:self.alertTitle
                                     message:self.alertMessage
                                    delegate:self

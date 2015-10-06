@@ -160,6 +160,46 @@
     }];
 }
 
++ (void)postOnTwitter:(NSString *)wording
+              success:(void(^)())successBlock
+              failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"postOnTwitter"
+                       withParameters:@{ @"postWording" : wording }
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - postOnTwitter - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock((NSDictionary *)object);
+                                        }
+                                    }
+                                }];
+}
+
++ (void)followOnTwitter:(NSString *)followedScreename
+                success:(void(^)())successBlock
+                failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"followOnTwitter"
+                       withParameters:@{ @"followedScreename" : followedScreename }
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - followOnTwitter - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock((NSDictionary *)object);
+                                        }
+                                    }
+                                }];
+}
+
 // --------------------------------------------
 #pragma mark - User
 // --------------------------------------------
