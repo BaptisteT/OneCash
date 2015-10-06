@@ -381,7 +381,7 @@
 - (void)displayTwitterOptionsForUser:(User *)user {
     self.selectedUser = user;
     if ([UIAlertController class] != nil) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"@%@",user.caseUsername]
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
                                                                        message:nil
                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil)
@@ -410,7 +410,7 @@
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         // ios 7
-        [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"@%@",user.caseUsername]
+        [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
                                      delegate:self
                             cancelButtonTitle:NSLocalizedString(@"cancel_button", nil)
                        destructiveButtonTitle:nil
@@ -446,7 +446,7 @@
 
 - (void)sendTweetToSelectedUser {
     SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-    NSString *caption = [NSString stringWithFormat:@"@%@", self.selectedUser.username];
+    NSString *caption = [NSString stringWithFormat:@"%@", self.selectedUser.username];
     [twitterCompose setInitialText:caption];
     [self presentViewController:twitterCompose
                        animated:YES
