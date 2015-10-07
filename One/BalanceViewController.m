@@ -214,7 +214,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.statusTextField resignFirstResponder];
+    [self resignStatusFirstResponder];
     Transaction *transaction = (Transaction *)self.transactions[indexPath.row];
     User *user = transaction.sender == [User currentUser] ? transaction.receiver : transaction.sender;
     if (user) {
@@ -224,7 +224,7 @@
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.statusTextField resignFirstResponder];
+    [self resignStatusFirstResponder];
 }
 
 // --------------------------------------------

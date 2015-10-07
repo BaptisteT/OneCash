@@ -382,10 +382,14 @@
     self.applePaySucceeded = YES;
     [[STPAPIClient sharedClient] createTokenWithPayment:payment
                                              completion:^(STPToken *token, NSError *error) {
-                                                 completion(PKPaymentAuthorizationStatusSuccess);
-                                                 [self createPaymentWithTransaction:self.applePaySendingTransaction
-                                                                              token:token.tokenId];
+                                                 if (error || !token || (token.card.country && ![token.card.country isEqualToString:@"US"])) {
+                                                     self.applePaySucceeded = NO;
+                                                 } else {
+                                                     [self createPaymentWithTransaction:self.applePaySendingTransaction
+                                                                                  token:token.tokenId];
+                                                 }
                                                  self.applePaySendingTransaction = nil;
+                                                 completion(PKPaymentAuthorizationStatusSuccess);
                                              }];
 }
 

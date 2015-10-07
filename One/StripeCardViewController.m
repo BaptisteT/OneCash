@@ -97,7 +97,7 @@
                                                       [DesignUtils hideProgressHUDForView:self.view];
                                                       [GeneralUtils showAlertWithTitle:NSLocalizedString(@"create_token_with_card_error_title", nil) andMessage:error.localizedDescription];
                                                       [self.paymentTextField clear];
-                                                  } else if (card.country && card.country.length > 0 && ![card.country isEqualToString:@"US"]) {
+                                                  } else if (token.card.country && token.card.country.length > 0 && ![token.card.country isEqualToString:@"US"]) {
                                                       [DesignUtils hideProgressHUDForView:self.view];
                                                       [GeneralUtils showAlertWithTitle:NSLocalizedString(@"non_us_card_error_title", nil) andMessage:NSLocalizedString(@"non_us_card_error_message", nil)];
                                                       [self.paymentTextField clear];

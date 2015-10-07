@@ -320,7 +320,6 @@
             [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils mainGreen] transform:CGAffineTransformMakeScale(0.5, 0.5)];
         }
         // One Users
-        // todo BT : cancel request or put some delay to limit them ?
         [ApiManager findUsersMatchingStartString:self.lastStringSearched
                                          success:^(NSString *string, NSArray *users) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
@@ -348,7 +347,6 @@
                                          }];
         
         // Twitter users
-        // todo BT : cancel request or put some delay to limit them ?
         [ApiManager getTwitterUsersFromString:self.lastStringSearched
                                       success:^(NSArray *twitterUsers, NSString *string) {
                                           dispatch_async(dispatch_get_main_queue(), ^{
