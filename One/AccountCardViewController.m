@@ -65,8 +65,12 @@
     [self.addCardButton addTarget:self action:@selector(generateTokenAndCreateCard) forControlEvents:UIControlEventTouchUpInside];
     
     // Get accounts
-    // todo BT loading before that
-    [self getManagedAccountAndExecuteSuccess:nil];
+    [DesignUtils showProgressHUDAddedTo:self.view withColor:[ColorUtils mainGreen]];
+    [self getManagedAccountAndExecuteSuccess:^{
+        [DesignUtils hideProgressHUDForView:self.view];
+    } failureBlock:^(NSError *error) {
+        [DesignUtils hideProgressHUDForView:self.view];
+    }];
 }
 
 
@@ -97,7 +101,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     if (indexPath.section == 0) {
-        cell.textLabel.text = [NSString stringWithFormat:@"XXX XXXX XXXX %@",self.accounts[indexPath.row][@"last4"]];
+        cell.textLabel.text = [NSString stringWithFormat:@"XXXX XXXX XXXX %@",self.accounts[indexPath.row][@"last4"]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else {
         if (indexPath.row == 0) {
@@ -127,7 +131,7 @@
             // set as default
             [DesignUtils showProgressHUDAddedTo:self.view];
             [ApiManager setCardAsDefaultInManagedAccount:card[@"id"] success:^{
-                [self getManagedAccountAndExecuteSuccess:nil];
+                [self getManagedAccountAndExecuteSuccess:nil failureBlock:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [DesignUtils hideProgressHUDForView:self.view];
                     [self checkVerificationAndShowConfirmationAlert];
@@ -191,7 +195,7 @@
                                         [DesignUtils hideProgressHUDForView:self.view];
                                         [self getManagedAccountAndExecuteSuccess:^{
                                             [self checkVerificationAndShowConfirmationAlert];
-                                        }];
+                                        } failureBlock:nil];
                                     });
                                 } failure:^(NSError *error) {
                                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -237,6 +241,7 @@
                                                    
 
 - (void)getManagedAccountAndExecuteSuccess:(void(^)())successBlock
+                              failureBlock:(void(^)(NSError *error))failureBlock
 {
     [ApiManager getManageAccountAndExecuteSuccess:^(NSDictionary *managedAccount) {
         self.managedAccountDictionnary = managedAccount;
@@ -245,7 +250,11 @@
         if (successBlock) {
             successBlock();
         }
-    }failure:nil];
+    }failure:^(NSError *error) {
+        if (failureBlock) {
+            failureBlock(error);
+        }
+    }];
 }
 
 // --------------------------------------------
