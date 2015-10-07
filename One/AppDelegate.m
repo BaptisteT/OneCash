@@ -49,7 +49,7 @@
 #else
     BOOL debug = false;
 #endif
-    debug = false;
+    
     // Parse
     [Parse enableLocalDatastore];
     [Parse setApplicationId:debug ? kParseDevApplicationId : kParseProdApplicationId
