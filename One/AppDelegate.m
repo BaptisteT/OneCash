@@ -117,6 +117,21 @@
         [welcomeViewController performSegueWithIdentifier:@"Send From Welcome" sender:notifOpening];
     }
     
+    // Activity
+    NSDictionary *activityDic = [launchOptions objectForKey:UIApplicationLaunchOptionsUserActivityDictionaryKey];
+    if (activityDic) {
+        if ([[activityDic objectForKey:UIApplicationLaunchOptionsUserActivityTypeKey] isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+            NSUserActivity *activity = (NSUserActivity *) [activityDic objectForKey:@"UIApplicationLaunchOptionsUserActivityKey"];
+            [self performSelector:@selector(handleDeepLink:) withObject:activity.webpageURL afterDelay:1];
+        }
+    }
+    
+    // URL
+    NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
+    if (url) {
+        [self performSelector:@selector(handleDeepLink:) withObject:url afterDelay:1];
+    }
+    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                     didFinishLaunchingWithOptions:launchOptions];
 }
@@ -180,10 +195,11 @@
                                                        annotation:annotation];
 }
 
+
 // Handle hyperlink
 - (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler
 {
-    if (userActivity.activityType == NSUserActivityTypeBrowsingWeb) {
+    if ([userActivity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
         NSURL *url = userActivity.webpageURL;
         [self handleDeepLink:url];
     }
