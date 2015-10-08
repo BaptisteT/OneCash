@@ -99,7 +99,11 @@
     
     //Onboarding
     if (![DatastoreManager hasLaunchedOnce:@"CardView"]) {
-        self.onboardingView = [DesignUtils createBubbleAboutView:self.centralLabel withText:NSLocalizedString(@"pick_recipient_tuto", nil) andPosition:kPositionTop];
+        self.onboardingView = [DesignUtils createBubbleAboutView:self.centralLabel
+                                                        withText:NSLocalizedString(@"pick_recipient_tuto", nil)
+                                                        position:kPositionTop
+                                                 backgroundColor:[UIColor whiteColor]
+                                                       textColor:[ColorUtils mainGreen]];
         [self addSubview:self.onboardingView];
     }
 }

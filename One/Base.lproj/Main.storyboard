@@ -1367,6 +1367,7 @@
                         <outlet property="cashoutButton" destination="HOl-qM-dpM" id="kY3-Aj-oIY"/>
                         <outlet property="closeButton" destination="NYy-0U-TGn" id="jEv-7N-gla"/>
                         <outlet property="historyLabel" destination="sT7-z5-HyS" id="Y63-cY-TCR"/>
+                        <outlet property="separatorView" destination="4tz-bO-oqb" id="Uc4-bt-HDk"/>
                         <outlet property="settingsButton" destination="EgS-ct-9Bd" id="uW8-TS-soa"/>
                         <outlet property="statusTextField" destination="vzz-t2-aDx" id="Rcy-w4-9Iz"/>
                         <outlet property="titleLabel" destination="UgK-Uj-hZ5" id="nPv-BS-mhq"/>

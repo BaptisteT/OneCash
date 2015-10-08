@@ -50,7 +50,6 @@
 "swipe_label" = "Swipe up to send $1";
 "pick_recipient_tuto" = "Tap here to pick someone";
 
-
 // Send
 "balance_button" = "Balance";
 "send_controller_title" = "Swipe up to tip $1";
@@ -85,6 +84,7 @@
 "cashout_no_email_message" = "You need to verify your email to cashout.";
 "verify_button" = "Verify";
 "status_placeholder" = "Add a status";
+"no_transactions_tuto" = "No transactions yet";
 
 // Recipients
 "to" = "to";

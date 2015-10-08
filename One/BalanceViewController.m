@@ -36,8 +36,9 @@
 @property (weak, nonatomic) IBOutlet UIView *balanceContainer;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UITextField *statusTextField;
-
+@property (strong, nonatomic) UIView *onboardingView;
 @property (strong, nonatomic) NSMutableArray *transactions;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
 
 @end
 
@@ -108,6 +109,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.balanceLabel.layer.cornerRadius = self.balanceLabel.frame.size.height / 2;
+    [self resetOnboardingView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -147,7 +149,7 @@
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
         // reload transactions
         [self scrollToTop];
-        self.transactions = [NSMutableArray arrayWithArray:transactions];
+//        self.transactions = [NSMutableArray arrayWithArray:transactions];
         [self.transactionsTableView reloadData];
         
         // reset balance
@@ -299,6 +301,18 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+- (void)resetOnboardingView {
+    if (self.transactions.count == 0 && !self.onboardingView) {
+        self.onboardingView = [DesignUtils createBubbleAboutView:self.separatorView
+                                                        withText:NSLocalizedString(@"no_transactions_tuto", nil)
+                                                        position:kPositionBottom
+                                                 backgroundColor:[ColorUtils mainGreen]
+                                                       textColor:[UIColor whiteColor]];
+        [self.view addSubview:self.onboardingView];
+    }
+    self.onboardingView.hidden = (self.transactions.count > 0);
 }
 
 // --------------------------------------------
