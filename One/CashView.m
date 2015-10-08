@@ -96,9 +96,10 @@
     self.userPictureImageView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2;
     self.overlayView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2.2;
     self.removeRecipientButton.layer.cornerRadius = self.removeRecipientButton.frame.size.height / 2;
+    
     //Onboarding
-    self.onboardingView = [DesignUtils addBubbleAboutView:self.centralLabel withText:@"Tap here to pick someone" andPosition:kPositionTop];
     if (![DatastoreManager hasLaunchedOnce:@"CardView"]) {
+        self.onboardingView = [DesignUtils createBubbleAboutView:self.centralLabel withText:NSLocalizedString(@"pick_recipient_tuto", nil) andPosition:kPositionTop];
         [self addSubview:self.onboardingView];
     }
 }

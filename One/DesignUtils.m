@@ -54,7 +54,7 @@
     button.layer.shadowRadius = 20;
 }
 
-+ (UIView *)addBubbleAboutView:(UIView *)view withText:(NSString *)string andPosition:(OneBubblePosition)position {
++ (UIView *)createBubbleAboutView:(UIView *)view withText:(NSString *)string andPosition:(OneBubblePosition)position {
     // Font
     UIFont *font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
     // Define height here
