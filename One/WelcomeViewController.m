@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 #import "ApiManager.h"
+#import "User.h"
 
 #import "SendCashViewController.h"
 #import "WelcomeViewController.h"
@@ -62,6 +63,7 @@
     UITapGestureRecognizer *termsTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnTerms)];
     [self.termsLabel addGestureRecognizer:termsTap];
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSString * segueName = segue.identifier;

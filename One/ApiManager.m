@@ -308,22 +308,22 @@
                             success:(void(^)(NSString *string, NSArray *users))successBlock
                             failure:(void(^)(NSError *error))failureBlock
 {
-    PFQuery *query = [User query];
-    [query whereKey:@"username" hasPrefix:startString];
-    [query setLimit:10];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-        if (error != nil) {
-            OneLog(ONEAPIMANAGERLOG,@"Failure - findUserMatchingStartString - %@",error.description);
-            if (failureBlock) {
-                failureBlock(error);
-            }
-        } else {
-            OneLog(ONEAPIMANAGERLOG,@"Success - findUserMatchingStartString - %lu users found",users.count);
-            if (successBlock) {
-                successBlock(startString, users);
-            }
-        }
-    }];
+    [PFCloud callFunctionInBackground:@"findUsersWithSubstring"
+                       withParameters:@{@"startString": [startString lowercaseString]}
+                                block:^(NSArray *objects, NSError *error) {
+                                    if (error == nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Success - findUserMatchingStartString");
+                                        if (successBlock) {
+                                            successBlock(startString,objects);
+                                        }
+                                    } else {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - findUserMatchingStartString - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                        
+                                    }
+                                }];
 }
 
 + (void)fetchUser:(User *)user
@@ -334,10 +334,11 @@
         if (!error) {
             OneLog(ONEAPIMANAGERLOG,@"Success - Fetch User");
             // Mixpanel
-            NSMutableDictionary *peopleProperty = [NSMutableDictionary new];
-            [peopleProperty setObject:[NSNumber numberWithInteger:((User *)user).paymentMethod] forKey:PEOPLE_PAYMENT_METHOD];
-            [TrackingUtils setPeopleProperties:peopleProperty];
-
+            if ([user.objectId isEqualToString:[User currentUser].objectId]) {
+                NSMutableDictionary *peopleProperty = [NSMutableDictionary new];
+                [peopleProperty setObject:[NSNumber numberWithInteger:((User *)user).paymentMethod] forKey:PEOPLE_PAYMENT_METHOD];
+                [TrackingUtils setPeopleProperties:peopleProperty];
+            }
             if (successBlock) {
                 successBlock();
             }
@@ -354,21 +355,23 @@
                      success:(void(^)(User *user))successBlock
                      failure:(void(^)(NSError *error))failureBlock
 {
-    PFQuery *query = [User query];
-    [query whereKey:@"username" equalTo:username];
-    [query setLimit:1];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *users, NSError *error) {
-        if (error != nil) {
-            OneLog(ONEAPIMANAGERLOG,@"Failure - findUserWithUsername - %@",error.description);
-            if (failureBlock) {
-                failureBlock(error);
-            }
-        } else {
-            if (successBlock) {
-                successBlock(users.firstObject);
-            }
-        }
-    }];
+    NSString *lowercaseUsername = [username lowercaseString];
+    [PFCloud callFunctionInBackground:@"findUserWithUsername"
+                       withParameters:@{@"username": lowercaseUsername}
+                                block:^(NSArray *objects, NSError *error) {
+                                    if (error == nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Success - findUserWithUsername");
+                                        if (successBlock) {
+                                            successBlock(objects.firstObject);
+                                        }
+                                    } else {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - findUserWithUsername - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                        
+                                    }
+                                }];
 }
 
 
