@@ -14,6 +14,13 @@
 
 @interface DesignUtils : NSObject
 
+typedef NS_ENUM(NSInteger,OneBubblePosition) {
+    kPositionTop = 0,
+    kPositionRight = 1,
+    kPositionBottom = 2,
+    kPositionLeft = 4,
+};
+
 + (void)addBottomBorder:(UIView *)view borderSize:(float)borderSize color:(UIColor *)color;
 
 + (void)addTopBorder:(UIView *)view borderSize:(float)borderSize color:(UIColor *)color;
@@ -30,5 +37,6 @@
 
 + (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color transform:(CGAffineTransform)transform;
 
++ (UIView *)addBubbleAboutView:(UIView *)view withText:(NSString *)string andPosition:(OneBubblePosition)position;
 
 @end
