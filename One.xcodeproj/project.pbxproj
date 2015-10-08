@@ -240,7 +240,6 @@
 		3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UserName.h"; sourceTree = "<group>"; };
 		3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+UserName.m"; sourceTree = "<group>"; };
-		3CFA3BBE1BBAAC9C00F94A72 /* OneInHouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OneInHouse.entitlements; sourceTree = "<group>"; };
 		5B40DD4CC7DBD68EA7060432 /* libPods-One.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-One.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Maax Rounded Medium.otf"; sourceTree = "<group>"; };
@@ -319,7 +318,6 @@
 			isa = PBXGroup;
 			children = (
 				3CD6C1DF1BC66A7100D1D991 /* OneCash.entitlements */,
-				3CFA3BBE1BBAAC9C00F94A72 /* OneInHouse.entitlements */,
 				3CC5FDCD1B98C5B600514A43 /* One.entitlements */,
 				3C2E03661B8DA18B00D22D48 /* One */,
 				3C2E03651B8DA18B00D22D48 /* Products */,
@@ -980,8 +978,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -991,7 +989,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "58fc0a89-b578-46bc-9390-01a22646d040";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1002,8 +1000,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1017,7 +1015,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "58fc0a89-b578-46bc-9390-01a22646d040";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

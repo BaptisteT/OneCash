@@ -32,4 +32,6 @@
 
 + (void)cleanLocalData;
 
++ (BOOL)hasLaunchedOnce:(id)sender;
+
 @end

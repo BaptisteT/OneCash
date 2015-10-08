@@ -15,6 +15,7 @@
 #import "DesignUtils.h"
 #import "OneLogger.h"
 #import <AudioToolbox/AudioServices.h>
+#import "DatastoreManager.h"
 
 
 #define LOCALLOGENABLED NO && GLOBALLOGENABLED
@@ -32,6 +33,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *addRecipientButton;
 @property (strong, nonatomic) IBOutlet UIButton *removeRecipientButton;
 @property (strong, nonatomic) IBOutlet UILabel *onboardingLabel;
+
 @property (nonatomic) double rads;
 
 @end
@@ -77,6 +79,7 @@
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                                  action:@selector(handlePan:)];
     [self addGestureRecognizer:recognizer];
+    
 }
 
 - (void)layoutSubviews {
@@ -90,8 +93,11 @@
     self.userPictureImageView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2;
     self.overlayView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2.2;
     self.removeRecipientButton.layer.cornerRadius = self.removeRecipientButton.frame.size.height / 2;
+    //Onboarding
+    if (![DatastoreManager hasLaunchedOnce:@"CardView"]) {
+        [self addSubview:[DesignUtils addBubbleAboutView:self.centralLabel withText:@"Tap here to pick someone" andPosition:kPositionTop]];
+    }
 }
-
 
 // --------------------------------------------
 #pragma mark - UI

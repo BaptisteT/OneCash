@@ -14,6 +14,8 @@
 #import "OneLogger.h"
 
 #define LAST_BALANCE_OPENING @"Last Balance opening"
+#define HAS_LAUNCHED_ONCE @"Has Launched One %@"
+
 #define RECENT_USERS_ARRAY @"Recent Users Array"
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
@@ -81,6 +83,17 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:date forKey:LAST_BALANCE_OPENING];
     [prefs synchronize];
+}
+
++ (BOOL)hasLaunchedOnce:(id)sender {
+    NSString *string = [NSString stringWithFormat:HAS_LAUNCHED_ONCE,sender];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:string])
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:string];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        return NO;
+    }
+    return  YES;
 }
 
 // --------------------------------------------
