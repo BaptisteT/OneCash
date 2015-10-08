@@ -33,8 +33,6 @@
 "stripe_card_title" = "Please enter your debit card information.";
 "apple_pay_button_title" = "Add my debit card with ";
 "manual_pay_button_title" = "Add my debit card manually";
-"message_placeholder" = "Add a message";
-"recipient_alert" = "Pick someone to tip";
 "unexpected_error_title" = "Unexpected error";
 "unexpected_error_message" = "Please, try again or contact us.";
 "create_stripe_customer_error_title" = "Your card was declined by Stripe";
@@ -42,10 +40,15 @@
 "create_token_with_card_error_message" = "Please, try again or contact us.";
 "non_us_card_error_title" = "Sorry, we are only processing US cards for now.";
 "non_us_card_error_message" = "Please, enter a valid US card.";
-"swipe_label" = "Swipe up to send $1";
 "top_bar_payment" = "Payment method";
 "top_bar_card" = "Add a card";
 "explanation_card" = "No credit card information is stored on our server! We use Stripe.com, the most secure and reputable payment processors available.";
+
+// Cash view
+"message_placeholder" = "Add a message";
+"recipient_alert" = "Pick someone to tip";
+"swipe_label" = "Swipe up to send $1";
+"pick_recipient_tuto" = "Tap here to pick someone";
 
 
 // Send

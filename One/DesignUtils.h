@@ -37,6 +37,6 @@ typedef NS_ENUM(NSInteger,OneBubblePosition) {
 
 + (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color transform:(CGAffineTransform)transform;
 
-+ (UIView *)addBubbleAboutView:(UIView *)view withText:(NSString *)string andPosition:(OneBubblePosition)position;
++ (UIView *)createBubbleAboutView:(UIView *)view withText:(NSString *)string andPosition:(OneBubblePosition)position;
 
 @end
