@@ -33,6 +33,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *addRecipientButton;
 @property (strong, nonatomic) IBOutlet UIButton *removeRecipientButton;
 @property (strong, nonatomic) IBOutlet UILabel *onboardingLabel;
+@property (strong, nonatomic) UIView *onboardingView;
+
+
 
 @property (nonatomic) double rads;
 
@@ -94,8 +97,9 @@
     self.overlayView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2.2;
     self.removeRecipientButton.layer.cornerRadius = self.removeRecipientButton.frame.size.height / 2;
     //Onboarding
+    self.onboardingView = [DesignUtils addBubbleAboutView:self.centralLabel withText:@"Tap here to pick someone" andPosition:kPositionTop];
     if (![DatastoreManager hasLaunchedOnce:@"CardView"]) {
-        [self addSubview:[DesignUtils addBubbleAboutView:self.centralLabel withText:@"Tap here to pick someone" andPosition:kPositionTop]];
+        [self addSubview:self.onboardingView];
     }
 }
 
@@ -229,6 +233,7 @@
 }
 
 -(IBAction)recipientPressed:(id)sender {
+    [self.onboardingView removeFromSuperview];
     [self.delegate recipientButtonClicked];
 }
 

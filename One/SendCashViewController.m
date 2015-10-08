@@ -134,9 +134,6 @@
                                                  name:kNotificationUserURLScheme
                                                object:nil];
     
-    if (![DatastoreManager hasLaunchedOnce:@"App"]) {
-        [self performSegueWithIdentifier: @"Share From Send" sender: self];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
