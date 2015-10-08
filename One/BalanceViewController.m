@@ -460,7 +460,7 @@
 
 - (void)sendTweetToSelectedUser {
     SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-    NSString *caption = [NSString stringWithFormat:@"%@", self.selectedUser.username];
+    NSString *caption = [NSString stringWithFormat:@"@%@", self.selectedUser.username];
     [twitterCompose setInitialText:caption];
     [self presentViewController:twitterCompose
                        animated:YES
