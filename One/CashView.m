@@ -235,6 +235,7 @@
 
 -(IBAction)recipientPressed:(id)sender {
     [self.onboardingView removeFromSuperview];
+    self.onboardingView = nil;
     [self.delegate recipientButtonClicked];
 }
 

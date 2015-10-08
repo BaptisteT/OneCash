@@ -428,6 +428,10 @@
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"twitter_user_title", nil) andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_message", nil),self.receiver.caseUsername]];
         }];
 
+        
+     // Receiver = current
+     } else if (self.receiver == [User currentUser]) {
+        [self removeCashSubview:cashView];
     
      // No cash, no card
      } else if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodNone) {
@@ -439,10 +443,6 @@
                                cancelButtonTitle:NSLocalizedString(@"later_", nil)
                                otherButtonTitles:NSLocalizedString(@"add_button", nil), nil] show];
          }];
-     
-     // Receiver = current
-     } else if (self.receiver == [User currentUser]) {
-         [self removeCashSubview:cashView];
 
      // Create transaction
      } else {

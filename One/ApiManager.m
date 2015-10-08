@@ -423,10 +423,17 @@
                           success:(void(^)(NSArray *transactions))successBlock
                           failure:(void(^)(NSError *error))failureBlock
 {
+    User *currentUser = [User currentUser];
+    if (!currentUser) {
+        if (failureBlock) {
+            failureBlock(nil);
+        }
+        return;
+    }
     PFQuery *receiverQuery = [PFQuery queryWithClassName:NSStringFromClass([Transaction class])];
-    [receiverQuery whereKey:@"sender" equalTo:[User currentUser]];
+    [receiverQuery whereKey:@"sender" equalTo:currentUser];
     PFQuery *senderQuery = [PFQuery queryWithClassName:NSStringFromClass([Transaction class])];
-    [senderQuery whereKey:@"receiver" equalTo:[User currentUser]];
+    [senderQuery whereKey:@"receiver" equalTo:currentUser];
     
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[receiverQuery, senderQuery]];
     [query includeKey:@"sender"];
