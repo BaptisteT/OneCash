@@ -317,7 +317,6 @@ struct {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"HowToVC"];
         [self presentViewController:vc animated:YES completion:nil];
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kOneWebsiteSupportLink]];
     } else if (indexPath.section == SectionTypes.share) {
         [self displayShareOptions];
     } else if (indexPath.section == SectionTypes.logout) {
