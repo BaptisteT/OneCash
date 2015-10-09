@@ -11,9 +11,8 @@
 #import "ColorUtils.h"
 
 @interface HowToViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UITextView *howToTextView;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (strong, nonatomic) IBOutlet UIScrollView *ScrollView;
 
 @end
 
@@ -26,16 +25,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Wording
-    self.titleLabel.text = NSLocalizedString(@"how_to_title", nil);
-    self.howToTextView.text = NSLocalizedString(@"how_to_wording", nil);
+    // ScrollView
+
     
     // UI
     self.backButton.backgroundColor = [ColorUtils mainGreen];
     self.backButton.layer.cornerRadius = self.backButton.frame.size.height / 2;
-    self.titleLabel.textColor = [ColorUtils mainGreen];
-    self.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:self.titleLabel.font.pointSize];
-    self.howToTextView.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20];
 
 }
 
