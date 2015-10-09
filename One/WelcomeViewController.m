@@ -52,10 +52,10 @@
     [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.howToButton.hidden = NO;
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:completeString];
-    NSDictionary *attribute = @{NSUnderlineStyleAttributeName : @1};
+    UIColor *color =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
+    NSDictionary *attribute = @{NSForegroundColorAttributeName: color};
     [attrString addAttributes:attribute range:[completeString rangeOfString:terms]];
     [attrString addAttributes:attribute range:[completeString rangeOfString:privacy]];
-    self.termsLabel.textColor = [UIColor whiteColor];
     self.termsLabel.attributedText = attrString;
     self.termsLabel.numberOfLines = 0;
     
