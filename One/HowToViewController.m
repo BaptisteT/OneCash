@@ -9,8 +9,9 @@
 #import "HowToViewController.h"
 
 #import "ColorUtils.h"
+#import <MessageUI/MessageUI.h>
 
-@interface HowToViewController ()
+@interface HowToViewController () <MFMailComposeViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *ScrollView;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *titleLabel;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *answerLabel;
@@ -90,6 +91,21 @@
 // --------------------------------------------
 
 - (IBAction)backButtonClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)supportButtonPressed:(id)sender
+{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *composeViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
+        [composeViewController setMailComposeDelegate:self];
+        [composeViewController setToRecipients:@[@"support@one.cash"]];
+        [self presentViewController:composeViewController animated:YES completion:nil];
+    }
+}
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    //Add an alert in case of failure
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
