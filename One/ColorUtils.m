@@ -22,6 +22,10 @@
     return [UIColor colorWithRed:0./255. green:0./255. blue:0./255 alpha:0.15];
 }
 
++ (UIColor *)veryLightBlack {
+    return [UIColor colorWithRed:0./255. green:0./255. blue:0./255 alpha:0.05];
+}
+
 + (UIColor *)mainGreen {
     return [UIColor colorWithRed:13./255. green:240./255. blue:80./255 alpha:1];
 }

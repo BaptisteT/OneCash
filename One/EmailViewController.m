@@ -53,7 +53,7 @@
     self.validateButton.backgroundColor = [ColorUtils mainGreen];
     self.validateButton.layer.cornerRadius = self.validateButton.frame.size.height / 2;
     self.topView.backgroundColor = [ColorUtils mainGreen];
-    [DesignUtils addBottomBorder:self.emailTextField borderSize:0.5 color:[ColorUtils lightBlack]];
+    [DesignUtils addBottomBorder:self.emailTextField borderSize:0.5 color:[ColorUtils veryLightBlack]];
     [self.emailTextField setValue:[ColorUtils lightBlack]
                        forKeyPath:@"_placeholderLabel.textColor"];
     

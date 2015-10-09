@@ -103,8 +103,7 @@
                                                         withText:NSLocalizedString(@"pick_recipient_tuto", nil)
                                                         position:kPositionTop
                                                  backgroundColor:[UIColor whiteColor]
-                                                       textColor:[ColorUtils mainGreen]
-                                                     borderColor:[UIColor whiteColor]];
+                                                       textColor:[ColorUtils mainGreen]];
         [self addSubview:self.onboardingView];
         self.onboardingLabel.hidden = YES;
     }

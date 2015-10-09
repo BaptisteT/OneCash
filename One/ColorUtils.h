@@ -17,6 +17,8 @@
 
 + (UIColor *)lightBlack;
 
++ (UIColor *)veryLightBlack;
+
 + (UIColor *)mainGreen;
 
 + (UIColor *)alphaGreen;

@@ -61,8 +61,8 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [DesignUtils addBottomBorder:self.applePayButton borderSize:0.5 color:[ColorUtils lightBlack]];
-    [DesignUtils addBottomBorder:self.manualPayButton borderSize:0.5 color:[ColorUtils lightBlack]];
+    [DesignUtils addBottomBorder:self.applePayButton borderSize:0.5 color:[ColorUtils veryLightBlack]];
+    [DesignUtils addBottomBorder:self.manualPayButton borderSize:0.5 color:[ColorUtils veryLightBlack]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

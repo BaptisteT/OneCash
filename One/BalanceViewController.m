@@ -319,10 +319,9 @@
     if (![DatastoreManager hasLaunchedOnce:@"Status"] && self.statusTextField.text.length == 0) {
         self.statusOnboardingView = [DesignUtils createBubbleAboutView:self.statusTextField
                                                               withText:NSLocalizedString(@"add_status_tuto", nil)
-                                                              position:kPositionBottom
+                                                              position:kPositionTop
                                                        backgroundColor:[UIColor whiteColor]
-                                                             textColor:[ColorUtils mainGreen]
-                                                           borderColor:[ColorUtils mainGreen]];
+                                                             textColor:[ColorUtils mainGreen]];
         self.statusOnboardingView.layer.borderColor = [ColorUtils mainGreen].CGColor;
         self.statusOnboardingView.layer.borderWidth = 1;
         [self.statusTextField.superview addSubview:self.statusOnboardingView];
