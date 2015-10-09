@@ -9,7 +9,8 @@
 // How to
 "how_to_title" = "How to";
 "how_end_label" = "For any other questions please contact our support";
-"how_button" = "Contact support";
+"how_support_button" = "Contact support";
+"how_privacy_button" = "Privacy policy";
 "how_title_1" = "What is One?";
 "how_title_2" = "How does it work?";
 "how_title_3" = "Do I need to pay fees?";

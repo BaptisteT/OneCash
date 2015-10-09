@@ -75,6 +75,7 @@
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
             <string>ProximaNova-Semibold</string>
@@ -232,7 +233,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Ng5-Mb-9Aj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Fbl-0K-aAO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="1215"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1270"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3V-sQ-Jrh">
@@ -273,7 +274,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DO7-ir-8Rs">
-                                <rect key="frame" x="0.0" y="143" width="600" height="1072"/>
+                                <rect key="frame" x="0.0" y="143" width="600" height="1127"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bI-0m-w6b">
                                         <rect key="frame" x="33" y="32" width="100" height="21"/>
@@ -590,6 +591,29 @@
                                         <color key="textColor" red="0.75597365360000002" green="0.75597365360000002" blue="0.75597365360000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SsE-Le-237">
+                                        <rect key="frame" x="219" y="1016" width="162" height="34"/>
+                                        <color key="backgroundColor" red="0.85766082114361697" green="0.85766082114361697" blue="0.85766082114361697" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="162" id="TM5-jt-Fno"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="g2p-5j-0u5"/>
+                                            <constraint firstAttribute="height" constant="34" id="m55-TR-Z5u"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="162" id="mDE-Bm-Ugb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
+                                        <state key="normal" title="Privacy policy">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="g2p-5j-0u5"/>
+                                                <exclude reference="mDE-Bm-Ugb"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="tapOnPrivacy:" destination="Bef-pm-plE" eventType="touchUpInside" id="hbB-aZ-Y4V"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
@@ -604,8 +628,10 @@
                                     <constraint firstItem="j3J-vV-Iit" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="2vy-qg-jUf"/>
                                     <constraint firstItem="IVS-dp-Dg9" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="4wC-hM-aDa"/>
                                     <constraint firstItem="3bI-0m-w6b" firstAttribute="top" secondItem="DO7-ir-8Rs" secondAttribute="top" constant="34" id="5Y2-u6-Sdi"/>
+                                    <constraint firstItem="SsE-Le-237" firstAttribute="top" secondItem="Kbm-S0-D8Q" secondAttribute="bottom" constant="8" id="5ic-Xu-Y2I"/>
                                     <constraint firstItem="uld-vm-yWE" firstAttribute="top" secondItem="ROp-kb-fFj" secondAttribute="bottom" constant="11" id="5jc-ye-gAl"/>
                                     <constraint firstItem="9ZD-XL-fM5" firstAttribute="top" secondItem="uld-vm-yWE" secondAttribute="bottom" constant="16" id="63l-Wd-2pI"/>
+                                    <constraint firstItem="SsE-Le-237" firstAttribute="top" secondItem="Kbm-S0-D8Q" secondAttribute="bottom" constant="8" id="6Br-uk-NZc"/>
                                     <constraint firstItem="fPo-Yr-gg6" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="6i8-U0-4pp"/>
                                     <constraint firstItem="rrG-A8-xSu" firstAttribute="top" secondItem="fPo-Yr-gg6" secondAttribute="bottom" constant="16" id="7ga-sP-JpW"/>
                                     <constraint firstItem="12i-Wi-MEb" firstAttribute="top" secondItem="AXw-aS-8Fr" secondAttribute="bottom" constant="16" id="86E-Gk-Wg3"/>
@@ -613,6 +639,7 @@
                                     <constraint firstItem="JEz-rV-nhv" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="9D6-SR-jBi"/>
                                     <constraint firstItem="AXw-aS-8Fr" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="9uI-F1-jEg"/>
                                     <constraint firstItem="sFi-B9-HUW" firstAttribute="top" secondItem="kYv-ei-Ehw" secondAttribute="bottom" constant="16" id="C1B-BO-zSz"/>
+                                    <constraint firstItem="SsE-Le-237" firstAttribute="centerX" secondItem="DO7-ir-8Rs" secondAttribute="centerX" id="CpU-hh-6t1"/>
                                     <constraint firstItem="brc-E9-Hu2" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="CtI-vY-HWV"/>
                                     <constraint firstItem="JEz-rV-nhv" firstAttribute="top" secondItem="odb-tF-QPT" secondAttribute="bottom" constant="16" id="DCg-kT-yjV"/>
                                     <constraint firstItem="j3J-vV-Iit" firstAttribute="top" secondItem="Td0-sM-DMF" secondAttribute="bottom" constant="67" id="DMR-Bt-VeR"/>
@@ -620,6 +647,8 @@
                                     <constraint firstItem="AXw-aS-8Fr" firstAttribute="top" secondItem="rrG-A8-xSu" secondAttribute="bottom" constant="11" id="ExN-tf-IoN"/>
                                     <constraint firstItem="rrG-A8-xSu" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="GAK-UK-HUa"/>
                                     <constraint firstItem="IVS-dp-Dg9" firstAttribute="top" secondItem="JEz-rV-nhv" secondAttribute="bottom" constant="11" id="HDi-KW-xcr"/>
+                                    <constraint firstAttribute="bottom" secondItem="SsE-Le-237" secondAttribute="bottom" constant="77" id="Idh-gs-yOc"/>
+                                    <constraint firstAttribute="bottom" secondItem="SsE-Le-237" secondAttribute="bottom" constant="71" id="J80-4l-E6t"/>
                                     <constraint firstAttribute="bottom" secondItem="Kbm-S0-D8Q" secondAttribute="bottom" constant="79" id="KJG-aa-1GS"/>
                                     <constraint firstAttribute="trailing" secondItem="fPo-Yr-gg6" secondAttribute="trailing" constant="33" id="LeM-PD-NHn"/>
                                     <constraint firstItem="odb-tF-QPT" firstAttribute="top" secondItem="9ZD-XL-fM5" secondAttribute="bottom" constant="11" id="MMf-FF-xHQ"/>
@@ -648,6 +677,7 @@
                                     <constraint firstItem="ROp-kb-fFj" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="oE0-x5-12e"/>
                                     <constraint firstItem="ROp-kb-fFj" firstAttribute="top" secondItem="brc-E9-Hu2" secondAttribute="bottom" constant="16" id="oRu-So-ARM"/>
                                     <constraint firstItem="sFi-B9-HUW" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="odQ-ko-hJz"/>
+                                    <constraint firstAttribute="bottom" secondItem="SsE-Le-237" secondAttribute="bottom" constant="51" id="rzs-DP-Hag"/>
                                     <constraint firstItem="er8-lk-AJY" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="s4V-dV-2Wt"/>
                                     <constraint firstItem="uld-vm-yWE" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="sBP-eI-HHU"/>
                                     <constraint firstItem="9ZD-XL-fM5" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="uFl-ll-wfk"/>
@@ -678,6 +708,9 @@
                                         <exclude reference="vNs-Lb-ElD"/>
                                         <exclude reference="zax-3D-VcG"/>
                                         <exclude reference="1KP-hn-7PK"/>
+                                        <exclude reference="KJG-aa-1GS"/>
+                                        <exclude reference="J80-4l-E6t"/>
+                                        <exclude reference="rzs-DP-Hag"/>
                                     </mask>
                                 </variation>
                             </scrollView>
@@ -703,7 +736,7 @@
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="1215"/>
+                    <size key="freeformSize" width="600" height="1270"/>
                     <connections>
                         <outlet property="ScrollView" destination="DO7-ir-8Rs" id="zgg-Hr-WS5"/>
                         <outlet property="answer1" destination="er8-lk-AJY" id="zcr-rs-Iwc"/>
@@ -717,6 +750,7 @@
                         <outlet property="answer9" destination="Td0-sM-DMF" id="QLM-LI-q3A"/>
                         <outlet property="contactButton" destination="Kbm-S0-D8Q" id="WFk-4U-6PC"/>
                         <outlet property="endLabel" destination="j3J-vV-Iit" id="DvO-LP-pw3"/>
+                        <outlet property="privacyButton" destination="SsE-Le-237" id="27B-Ox-dBo"/>
                         <outlet property="title1" destination="3bI-0m-w6b" id="ezx-kY-pPW"/>
                         <outlet property="title2" destination="v2h-TU-o3l" id="DXs-r1-Sn2"/>
                         <outlet property="title3" destination="ROp-kb-fFj" id="gGS-JS-Jqy"/>
@@ -2708,8 +2742,8 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Ign-3p-bGy"/>
         <segue reference="CWh-84-eC0"/>
-        <segue reference="B6u-pp-6tI"/>
         <segue reference="ep0-aD-elO"/>
     </inferredMetricsTieBreakers>
 </document>

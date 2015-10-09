@@ -7,9 +7,10 @@
 //
 
 #import "HowToViewController.h"
+#import <MessageUI/MessageUI.h>
 
 #import "ColorUtils.h"
-#import <MessageUI/MessageUI.h>
+#import "ConstantUtils.h"
 
 @interface HowToViewController () <MFMailComposeViewControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIScrollView *ScrollView;
@@ -19,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *contactButton;
 @property (strong, nonatomic) IBOutlet UILabel *topLabel;
 @property (strong, nonatomic) IBOutlet UILabel *endLabel;
+@property (strong, nonatomic) IBOutlet UIButton *privacyButton;
 
 @property (strong, nonatomic) IBOutlet UILabel *title1;
 @property (strong, nonatomic) IBOutlet UILabel *title2;
@@ -72,7 +74,8 @@
     self.answer8.text = NSLocalizedString(@"how_answer_8", nil);
     self.answer9.text = NSLocalizedString(@"how_answer_9", nil);
     
-   [self.contactButton setTitle:NSLocalizedString(@"how_button", nil) forState:UIControlStateNormal];
+   [self.contactButton setTitle:NSLocalizedString(@"how_support_button", nil) forState:UIControlStateNormal];
+    [self.privacyButton setTitle:NSLocalizedString(@"how_privacy_button", nil)  forState:UIControlStateNormal];
     self.endLabel.text = NSLocalizedString(@"how_end_label", nil);
     self.topLabel.text = NSLocalizedString(@"how_to_title", nil);
     
@@ -82,6 +85,8 @@
     }
     self.topBarview.backgroundColor = [ColorUtils mainGreen];
     self.contactButton.layer.cornerRadius = self.contactButton.frame.size.height/2;
+    self.privacyButton.layer.cornerRadius = self.privacyButton.frame.size.height/2;
+
     self.contactButton.backgroundColor = [ColorUtils mainGreen];
 
 }
@@ -105,9 +110,14 @@
 }
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
-    //Add an alert in case of failure
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)tapOnPrivacy:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kOneWebsitePrivacyLink]];
+}
+
+
 
 // --------------------------------------------
 #pragma mark - UI
