@@ -42,10 +42,14 @@
     //Avatar
     [self.currentUser setAvatarInImageView:self.avatarImageView bigSize:YES saveLocally:NO];
     [self.currentUser setAvatarInImageView:self.smallAvatarImageView bigSize:YES saveLocally:NO];
-    UIImage *img = self.avatarImageView.image;
-    CGRect frameImg = CGRectMake(0, 0, img.size.width, img.size.height);
-    img = [img applyBlurWithRadius:10 tintColor:[UIColor clearColor] saturationDeltaFactor:1 maskImage:nil atFrame:frameImg];
-    self.avatarImageView.image = img;
+    
+// Code to add an small avatar in the center
+//    UIImage *img = self.avatarImageView.image;
+//    CGRect frameImg = CGRectMake(0, 0, img.size.width, img.size.height);
+//    img = [img applyBlurWithRadius:10 tintColor:[UIColor clearColor] saturationDeltaFactor:1 maskImage:nil atFrame:frameImg];
+//    self.avatarImageView.image = img;
+    
+    self.smallAvatarImageView.hidden = YES;
     
     //Username
     self.usernameLabel.text = [self.currentUser.caseUsername uppercaseString];
