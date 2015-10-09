@@ -41,7 +41,6 @@ typedef NS_ENUM(NSInteger,OneBubblePosition) {
                          withText:(NSString *)string
                          position:(OneBubblePosition)position
                   backgroundColor:(UIColor *)backgroundColor
-                        textColor:(UIColor *)textColor
-                      borderColor:(UIColor *)borderColor;
+                        textColor:(UIColor *)textColor;
 
 @end

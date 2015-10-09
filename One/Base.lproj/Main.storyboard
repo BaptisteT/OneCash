@@ -951,11 +951,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gce-Br-1PR">
-                                        <rect key="frame" x="10" y="22" width="35" height="35"/>
+                                        <rect key="frame" x="10" y="27" width="25" height="25"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="35" id="3hz-Rl-uj5"/>
-                                            <constraint firstAttribute="height" constant="35" id="DuF-F7-4pj"/>
+                                            <constraint firstAttribute="width" constant="25" id="3hz-Rl-uj5"/>
+                                            <constraint firstAttribute="height" constant="25" id="DuF-F7-4pj"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                         <state key="normal" title="?">
@@ -1124,11 +1124,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mOW-CK-K5l">
-                                        <rect key="frame" x="555" y="23" width="35" height="35"/>
+                                        <rect key="frame" x="565" y="28" width="25" height="25"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="35" id="D3q-1D-pi6"/>
-                                            <constraint firstAttribute="height" constant="35" id="Qqm-yU-R13"/>
+                                            <constraint firstAttribute="width" constant="25" id="D3q-1D-pi6"/>
+                                            <constraint firstAttribute="height" constant="25" id="Qqm-yU-R13"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                         <state key="normal" title="?">
@@ -2143,7 +2143,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.050000000000000003" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ArrowBig" translatesAutoresizingMaskIntoConstraints="NO" id="Duu-Oq-ilY">
-                                <rect key="frame" x="264" y="39" width="72" height="20"/>
+                                <rect key="frame" x="264" y="32" width="72" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="81Z-5z-PfX"/>
                                     <constraint firstAttribute="width" constant="72" id="qcQ-C4-7Yi"/>
@@ -2182,7 +2182,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="nji-5G-axu">
-                                <rect key="frame" x="265" y="32" width="70" height="70"/>
+                                <rect key="frame" x="265" y="25" width="70" height="70"/>
                                 <color key="backgroundColor" red="0.050980392159999999" green="0.94117647059999998" blue="0.36470588240000001" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="6dr-2z-VgE"/>
@@ -2244,7 +2244,7 @@
                             <constraint firstAttribute="centerX" secondItem="Duu-Oq-ilY" secondAttribute="centerX" id="Tii-KA-D2L"/>
                             <constraint firstItem="E2A-4I-kDv" firstAttribute="leading" secondItem="lUg-ge-fn2" secondAttribute="leadingMargin" constant="-20" id="UfF-KN-ZXV"/>
                             <constraint firstItem="Duu-Oq-ilY" firstAttribute="top" secondItem="nji-5G-axu" secondAttribute="bottom" constant="-63" id="Xx4-Uc-3hY"/>
-                            <constraint firstItem="nji-5G-axu" firstAttribute="centerY" secondItem="71X-ED-w10" secondAttribute="centerY" constant="7" id="i0i-9n-F8D"/>
+                            <constraint firstItem="nji-5G-axu" firstAttribute="centerY" secondItem="71X-ED-w10" secondAttribute="centerY" id="i0i-9n-F8D"/>
                             <constraint firstItem="mjc-cJ-8kp" firstAttribute="leading" secondItem="lUg-ge-fn2" secondAttribute="leadingMargin" constant="-20" id="iTZ-fy-fhQ"/>
                             <constraint firstItem="uA0-z1-Dkm" firstAttribute="top" secondItem="pBP-Bj-f9L" secondAttribute="bottom" constant="22" id="jkz-Z3-acY"/>
                             <constraint firstItem="uA0-z1-Dkm" firstAttribute="centerX" secondItem="lUg-ge-fn2" secondAttribute="centerX" id="lHv-Tp-HcZ"/>
@@ -2742,8 +2742,8 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ign-3p-bGy"/>
-        <segue reference="CWh-84-eC0"/>
+        <segue reference="WX6-Iv-dA8"/>
+        <segue reference="0bD-CV-jtZ"/>
         <segue reference="ep0-aD-elO"/>
     </inferredMetricsTieBreakers>
 </document>

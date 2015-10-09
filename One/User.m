@@ -14,7 +14,8 @@
 #import "UIImageView+UserName.h"
 
 @interface User()
-@property (nonatomic, strong) UIImage *userPicture;
+@property (nonatomic, strong) UIImage *bigPicture;
+@property (nonatomic, strong) UIImage *smallPicture;
 @end
 
 @implementation User
@@ -34,7 +35,8 @@
 @dynamic touchId;
 @dynamic userStatus;
 
-@synthesize userPicture;
+@synthesize bigPicture;
+@synthesize smallPicture;
 
 + (void)load {
     [self registerSubclass];
@@ -49,9 +51,14 @@
     imageView.userName = self.username;
     imageView.image = nil; // clean
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    if (self.userPicture) {
-        [imageView setImage:self.userPicture];
+    
+    UIImage *picture = sizeFlag ? self.bigPicture : self.smallPicture;
+    if (picture) {
+        [imageView setImage:picture];
     } else {
+        if (self.bigPicture) imageView.image = self.bigPicture;
+        if (self.smallPicture) imageView.image = self.smallPicture;
+        
         CGFloat size = sizeFlag ? kDisplayedPictureBigSize : kDisplayedPictureSmallSize;
         CGSize rescaleSize = {size, size};
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
@@ -59,7 +66,11 @@
                                           mode:UIViewContentModeScaleAspectFill
                                 availableBlock:^(UIImage *image) {
                                         if (image) {
-                                            self.userPicture = image;
+                                            if (sizeFlag) {
+                                                self.bigPicture = image;
+                                            } else {
+                                                self.smallPicture = image;
+                                            }
                                             if ([self.username isEqualToString:imageView.userName]) {
                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     [imageView setImage:image];
@@ -74,9 +85,15 @@
 - (void)setAvatarInButton:(UIButton *)button bigSize:(BOOL)flag {
     [button setImage:nil forState:UIControlStateNormal];
     button.contentMode = UIViewContentModeScaleAspectFill;
-    if (self.userPicture) {
-        [button setImage:self.userPicture forState:UIControlStateNormal];
+    UIImage *picture = flag ? self.bigPicture : self.smallPicture;
+    if (picture) {
+        [button setImage:picture forState:UIControlStateNormal];
     } else {
+        if (self.bigPicture)
+            [button setImage:self.bigPicture forState:UIControlStateNormal];
+        else if (self.smallPicture)
+            [button setImage:self.smallPicture forState:UIControlStateNormal];
+        
         CGFloat size = flag ? kDisplayedPictureBigSize : kDisplayedPictureSmallSize;
         CGSize rescaleSize = {size, size};
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
@@ -84,10 +101,16 @@
                                           mode:UIViewContentModeScaleAspectFill
                                 availableBlock:^(UIImage *image) {
                                     if (image) {
-                                        self.userPicture = image;
-                                        [button setImage:self.userPicture forState:UIControlStateNormal];
+                                        if (flag) {
+                                            self.bigPicture = image;
+                                        } else {
+                                            self.smallPicture = image;
+                                        }
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            [button setImage:image forState:UIControlStateNormal];
+                                        });
                                     }
-                                }   saveLocally:YES];
+                                }   saveLocally:flag];
     }
 }
 

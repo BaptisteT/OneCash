@@ -7,7 +7,7 @@
 */
 
 // How to
-"how_to_title" = "How to";
+"how_to_title" = "One Help";
 "how_end_label" = "For any other questions please contact our support";
 "how_support_button" = "Contact support";
 "how_privacy_button" = "Privacy policy";
@@ -50,9 +50,9 @@
 "later_" = "Not now";
 "card_title" = "Add a US card to send and receive money on OneCash";
 "card_choice_explanation" = "One is free of charge.\nYou only pay the amount of the tips you send.";
-"stripe_card_title" = "Please enter your debit card information.";
-"apple_pay_button_title" = "Add my debit card with ";
-"manual_pay_button_title" = "Add my debit card manually";
+"stripe_card_title" = "Please enter your card information.";
+"apple_pay_button_title" = "Add my card with ";
+"manual_pay_button_title" = "Add my card manually";
 "unexpected_error_title" = "Unexpected error";
 "unexpected_error_message" = "Please, try again or contact us.";
 "create_stripe_customer_error_title" = "Your card was declined by Stripe";
@@ -77,7 +77,7 @@
 "no_receiver_title" = "We can't send this dollar";
 "no_receiver_message" = "Please pick a recipient!";
 "no_card_title" = "Your 1$ tip hasn’t been sent";
-"no_card_message" = "You need to add a valid debit card!";
+"no_card_message" = "You need to add a valid card!";
 "add_button" = "Add";
 "sending_label" = "$%lu";
 "sent_label" = "Sent!";

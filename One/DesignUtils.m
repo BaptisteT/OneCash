@@ -59,7 +59,6 @@
                          position:(OneBubblePosition)position
                   backgroundColor:(UIColor *)backgroundColor
                         textColor:(UIColor *)textColor
-                      borderColor:(UIColor *)borderColor
 {
     // Font
     UIFont *font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
@@ -133,8 +132,6 @@
     bubble.layer.shadowOffset = CGSizeMake(0, 0);
     bubble.layer.shadowRadius = 3;
     bubble.layer.shadowOpacity = 0.2;
-    bubble.layer.borderColor = borderColor.CGColor;
-    bubble.layer.borderWidth = 1;
     triangle.layer.shadowOffset = CGSizeMake(0, 0);
     triangle.layer.shadowRadius = 3;
     triangle.layer.shadowOpacity = 0.2;

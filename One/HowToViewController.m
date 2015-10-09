@@ -106,6 +106,8 @@
         [composeViewController setMailComposeDelegate:self];
         [composeViewController setToRecipients:@[@"support@one.cash"]];
         [self presentViewController:composeViewController animated:YES completion:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kOneWebsiteSupportLink]];
     }
 }
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
