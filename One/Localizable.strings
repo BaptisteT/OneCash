@@ -85,6 +85,7 @@
 "verify_button" = "Verify";
 "status_placeholder" = "Add a status";
 "no_transactions_tuto" = "No transactions yet";
+"add_status_tuto" = "Add a personalized status here";
 
 // Recipients
 "to" = "to";

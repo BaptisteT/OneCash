@@ -547,11 +547,13 @@
         self.arrowImageView.frame = frame;
         self.arrowImageView.layer.opacity = 0;
     } completion:^(BOOL finished) {
-        CGRect frame = self.arrowImageView.frame;
-        frame.origin.y += 50;
-        self.arrowImageView.frame = frame;
-        self.arrowImageView.layer.opacity = 0.1;
-        [self doArrowAnimation];
+        if (self.arrowImageView) {
+            CGRect frame = self.arrowImageView.frame;
+            frame.origin.y += 50;
+            self.arrowImageView.frame = frame;
+            self.arrowImageView.layer.opacity = 0.1;
+            [self doArrowAnimation];
+        }
     }];
 }
 

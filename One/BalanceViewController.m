@@ -36,7 +36,8 @@
 @property (weak, nonatomic) IBOutlet UIView *balanceContainer;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UITextField *statusTextField;
-@property (strong, nonatomic) UIView *onboardingView;
+@property (strong, nonatomic) UIView *transactionsOnboardingView;
+@property (strong, nonatomic) UIView *statusOnboardingView;
 @property (strong, nonatomic) NSMutableArray *transactions;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 
@@ -109,7 +110,6 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.balanceLabel.layer.cornerRadius = self.balanceLabel.frame.size.height / 2;
-    [self resetOnboardingView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -121,6 +121,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.transactionsTableView reloadData];
+    [self resetOnboardingView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -189,6 +190,8 @@
 #pragma mark - Table view
 // --------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.transactionsOnboardingView)
+        self.transactionsOnboardingView.hidden = (self.transactions.count > 0);
     return self.transactions.count;
 }
 
@@ -304,15 +307,24 @@
 }
 
 - (void)resetOnboardingView {
-    if (self.transactions.count == 0 && !self.onboardingView) {
-        self.onboardingView = [DesignUtils createBubbleAboutView:self.separatorView
+    if (self.transactions.count == 0 && !self.transactionsOnboardingView) {
+        self.transactionsOnboardingView = [DesignUtils createBubbleAboutView:self.separatorView
                                                         withText:NSLocalizedString(@"no_transactions_tuto", nil)
                                                         position:kPositionBottom
                                                  backgroundColor:[ColorUtils mainGreen]
                                                        textColor:[UIColor whiteColor]];
-        [self.view addSubview:self.onboardingView];
+        [self.view addSubview:self.transactionsOnboardingView];
     }
-    self.onboardingView.hidden = (self.transactions.count > 0);
+    
+    //Onboarding
+    if (![DatastoreManager hasLaunchedOnce:@"Status"]) {
+        self.statusOnboardingView = [DesignUtils createBubbleAboutView:self.statusTextField
+                                                        withText:NSLocalizedString(@"add_status_tuto", nil)
+                                                        position:kPositionBottom
+                                                 backgroundColor:[UIColor whiteColor]
+                                                       textColor:[ColorUtils mainGreen]];
+        [self.statusTextField.superview addSubview:self.statusOnboardingView];
+    }
 }
 
 // --------------------------------------------
@@ -386,6 +398,13 @@
         } failure:^(NSError *error) {
             [self setBalanceAndStatus];
         }];
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (self.statusOnboardingView) {
+        [self.statusOnboardingView removeFromSuperview];
+        self.statusOnboardingView = nil;
     }
 }
 
