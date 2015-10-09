@@ -176,7 +176,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OnboardingLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYs-XC-1QF">
-                    <rect key="frame" x="124" y="90" width="352" height="56"/>
+                    <rect key="frame" x="124" y="34" width="352" height="56"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="QJW-yu-aJ3"/>
                         <constraint firstAttribute="width" constant="352" id="oNq-LI-7x3"/>
@@ -254,6 +254,7 @@
                 <constraint firstItem="B5x-wJ-GfG" firstAttribute="top" secondItem="Ifu-te-Mtz" secondAttribute="bottom" constant="38" id="HjZ-ZU-IPP"/>
                 <constraint firstItem="B5x-wJ-GfG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Jfd-Zg-6fy"/>
                 <constraint firstAttribute="bottom" secondItem="Bsi-kk-ONP" secondAttribute="bottom" id="LCm-R7-lha"/>
+                <constraint firstItem="Ifu-te-Mtz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rYs-XC-1QF" secondAttribute="bottom" constant="10" id="MNv-Jr-O5i"/>
                 <constraint firstItem="Ifu-te-Mtz" firstAttribute="leading" secondItem="fAf-x4-mf8" secondAttribute="trailing" id="NFU-MM-nmw"/>
                 <constraint firstAttribute="trailing" secondItem="kd1-W6-B96" secondAttribute="trailing" constant="10" id="PF0-37-TIn"/>
                 <constraint firstItem="Bsi-kk-ONP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="QTb-MM-M7d"/>
@@ -263,10 +264,11 @@
                 <constraint firstItem="fAf-x4-mf8" firstAttribute="centerY" secondItem="kiW-wc-Bfo" secondAttribute="centerY" id="T9Y-pc-Fic"/>
                 <constraint firstItem="rYs-XC-1QF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="V8y-PL-FTY"/>
                 <constraint firstAttribute="trailing" secondItem="Bsi-kk-ONP" secondAttribute="trailing" id="W7L-Iq-F3h"/>
+                <constraint firstItem="rYs-XC-1QF" firstAttribute="leading" secondItem="Ifu-te-Mtz" secondAttribute="trailing" constant="-376" id="bc6-dq-cX6"/>
                 <constraint firstItem="caw-zl-TVz" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cNj-jG-SNy"/>
                 <constraint firstAttribute="trailing" secondItem="GiO-jA-KHS" secondAttribute="trailing" id="dOC-WG-YnD"/>
                 <constraint firstItem="Tp8-8B-loE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="9" id="eTJ-ZB-pbf"/>
-                <constraint firstItem="rYs-XC-1QF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="90" id="ee3-Kz-I78"/>
+                <constraint firstItem="rYs-XC-1QF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" priority="750" constant="90" id="ee3-Kz-I78"/>
                 <constraint firstItem="GiO-jA-KHS" firstAttribute="leading" secondItem="caw-zl-TVz" secondAttribute="trailing" constant="10" id="gWA-1x-Phg"/>
                 <constraint firstItem="unO-AI-qNM" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="gyP-5w-TDe"/>
                 <constraint firstItem="kiW-wc-Bfo" firstAttribute="leading" secondItem="fAf-x4-mf8" secondAttribute="trailing" id="hsa-J9-PGL"/>
@@ -283,6 +285,11 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="bc6-dq-cX6"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="addRecipientButton" destination="1kG-KT-NtS" id="jOI-O0-yJg"/>
                 <outlet property="centralLabel" destination="kiW-wc-Bfo" id="m9j-vx-9Le"/>
