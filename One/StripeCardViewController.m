@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (strong, nonatomic) IBOutlet UILabel *topBarLabel;
 @property (strong, nonatomic) IBOutlet UILabel *explanationLabel;
+@property (weak, nonatomic) IBOutlet UIButton *howToButton;
 
 @end
 
@@ -50,6 +51,8 @@
 
     
     // UI
+    self.howToButton.layer.cornerRadius = self.howToButton.frame.size.height / 2;
+    [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.topLabel.numberOfLines = 0;
     self.topBar.backgroundColor = [ColorUtils mainGreen];
     self.doneButton.backgroundColor = [ColorUtils mainGreen];
@@ -148,6 +151,13 @@
     } else {
         [self performSegueWithIdentifier:@"Send From Stripe" sender:nil];
     }
+}
+
+- (IBAction)howToButtonClicked:(id)sender {
+    [TrackingUtils trackEvent:EVENT_HOW_TO properties:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"HowToVC"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 // --------------------------------------------

@@ -106,6 +106,7 @@
                                                        textColor:[ColorUtils mainGreen]
                                                      borderColor:[UIColor whiteColor]];
         [self addSubview:self.onboardingView];
+        self.onboardingLabel.hidden = YES;
     }
 }
 
@@ -240,6 +241,7 @@
 
 -(IBAction)recipientPressed:(id)sender {
     [self.onboardingView removeFromSuperview];
+    self.onboardingLabel.hidden = NO;
     self.onboardingView = nil;
     [self.delegate recipientButtonClicked];
 }

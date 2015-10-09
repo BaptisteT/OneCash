@@ -43,7 +43,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *spinImageView;
 @property (strong, nonatomic) Reachability *internetReachableFoo;
 @property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
-@property (strong, nonatomic) IBOutlet UIButton *getButton;
+@property (strong, nonatomic) IBOutlet UIButton *shareUsernameButton;
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
 @property (strong, nonatomic) NSTimer *associationTimer;
 @property (strong, nonatomic) Transaction *transactionToSend;
@@ -72,6 +72,7 @@
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
     self.pickRecipientAlertLabel.text = NSLocalizedString(@"no_receiver_red_bar", nil);
     [self setSelectedUser:nil];
+    [self.shareUsernameButton setTitle:NSLocalizedString(@"share_username_button", nil) forState:UIControlStateNormal];
 
     // UI
     self.arrowImageView.layer.zPosition = -9999;
@@ -98,7 +99,7 @@
     self.titleLabel.layer.shadowOffset = CGSizeMake(0, 0);
     self.titleLabel.layer.shadowRadius = 5;
     self.titleLabel.layer.shadowOpacity = 0.2;
-    [self.getButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    [self.shareUsernameButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
 
     // Animation
     [self doArrowAnimation];
