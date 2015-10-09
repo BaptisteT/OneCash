@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6B0AE586E07036210D92CA96"
+               BlueprintIdentifier = "5DA6192CB5DDBC87A77794C3"
                BuildableName = "libMixpanel.a"
                BlueprintName = "Mixpanel"
                ReferencedContainer = "container:Pods.xcodeproj">

@@ -24,11 +24,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FBSDKCoreKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -64,6 +59,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>UIImage+BlurredFrame.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>pop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,42 +72,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>065D2DEC9BB76B1EE5F1645BF42454F2</key>
+		<key>0061031E2B760A6392FD49514659E3D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0C75282A972C1027DEAFE10C98353EA5</key>
+		<key>30C443C9A69965B0DBFCB44BDE6D3A96</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1CD4ECCBB9397FF76C423EA087F4AFFF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>20F416FAFA6F073CF3431464A62CB7E8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>24B5F6F1340CC0C26CFDCC9651188844</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>28A0388075090864B5E3B8B76C7CB8F7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2B84425AC3C61601E690F5033826F47E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>45E7B9BB9E1CCEF7086E97935C86A911</key>
+		<key>3973740D8B89EA6F62B0D9779FBE2277</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,27 +92,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4C5EF0D958BD4F187BFACE2FFEEB4B88</key>
+		<key>56027E01E27EC03F499320FD0A1E2B18</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E9B1598DD2202F0DF61F8609892ECB7</key>
+		<key>70878F27D32F41A11F556342A98192D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5EAD64C0B1DF677E098638BAA54526A4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7BCF6EDB192C582EF16EEB341DA65D57</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7D85510FB5D4EC2DC14A723E9574CFDE</key>
+		<key>74D81F70201BFAD49CA789B0443F329D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,57 +112,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E58844A0359B1A3B4342039DA2510D3</key>
+		<key>98E5299B4930B37FBA4617FC1BFCA1C8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>91A09499B0D482998F9A41171D9AC958</key>
+		<key>9F293155DDCADF8C8339CE5280D803A8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9212D7F183DC79D640AC28C0FF65114F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A2A29E5512F1FF6C9828C22836686C7E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AD0FFC25550DBD42980E0960D21C75E5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AFCD5782971B9785D52735CD0ACCAD03</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B57F5CEDCEC9083C5278E38C7620AE3A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B94993FC511857DD94A96D2D1E7118EC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BC84FDA0743A261093D87433BAE87101</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C93A9A222B0080D501A52D1971E3637E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CA9D54A87D9264103183C6B149A59100</key>
+		<key>C2A8C5381F479D721EFBCEF95DAA066A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -207,17 +132,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D27A878D5129C0C21962C811B948C43D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EB9D3011EEB09F34CB45848244D4164E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F63E169F0928648217113C4AD89E4BEA</key>
+		<key>DC806119A1D6DC47E49090475B7EAC5B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

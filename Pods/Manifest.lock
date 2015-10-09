@@ -21,6 +21,7 @@ PODS:
     - Stripe/Core (= 5.1.2)
   - Stripe/Core (5.1.2)
   - SVPullToRefresh (0.4.1)
+  - UIImage+BlurredFrame (0.0.4)
 
 DEPENDENCIES:
   - AFBlurSegue (~> 1.2.1)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - pop (from `https://github.com/facebook/pop.git`)
   - Stripe
   - SVPullToRefresh
+  - UIImage+BlurredFrame
 
 EXTERNAL SOURCES:
   pop:
@@ -59,5 +61,6 @@ SPEC CHECKSUMS:
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
   Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  UIImage+BlurredFrame: ad2f7195c6947ea3117c7d202f75a51958d5061a
 
 COCOAPODS: 0.38.2

@@ -6,12 +6,12 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="ProximaNova-Bold.otf">
+            <string>ProximaNova-Bold</string>
+        </mutableArray>
         <mutableArray key="ProximaNova-Regular.otf">
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
-        </mutableArray>
-        <mutableArray key="ProximaNova-Semibold.otf">
-            <string>ProximaNova-Semibold</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -21,23 +21,8 @@
             <rect key="frame" x="0.0" y="0.0" width="512" height="512"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="craffenoux" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGR-in-SGt">
-                    <rect key="frame" x="46" y="436" width="419.5" height="39"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="AsS-lD-Mf6"/>
-                        <constraint firstAttribute="height" constant="39" id="cez-qH-Z3Z"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="50"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="AsS-lD-Mf6"/>
-                        </mask>
-                    </variation>
-                </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZaX-Hp-Ves">
-                    <rect key="frame" x="98" y="58" width="316" height="316"/>
+                    <rect key="frame" x="0.0" y="0.0" width="512" height="512"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="316" id="OnG-EB-3gn"/>
                         <constraint firstAttribute="height" constant="316" id="QvC-rE-lMM"/>
@@ -47,49 +32,103 @@
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
+                            <exclude reference="OnG-EB-3gn"/>
+                            <exclude reference="QvC-rE-lMM"/>
                             <exclude reference="Ymc-bt-scp"/>
+                            <exclude reference="m3s-wg-CYJ"/>
+                            <exclude reference="yPp-a7-VZr"/>
                         </mask>
                     </variation>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tip me on OneCash" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6P1-3p-bL3">
-                    <rect key="frame" x="26" y="408" width="460" height="20"/>
-                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ram-Rs-ReP">
-                    <rect key="frame" x="373" y="176" width="80" height="80"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bfv-yi-hx6">
+                    <rect key="frame" x="0.0" y="444" width="512" height="68"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CRAFFENOUX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGR-in-SGt">
+                            <rect key="frame" x="17" y="24" width="368.5" height="39"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="AsS-lD-Mf6"/>
+                                <constraint firstAttribute="height" constant="39" id="cez-qH-Z3Z"/>
+                                <constraint firstAttribute="width" constant="368.5" id="h1L-I7-2bn"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="20"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="AsS-lD-Mf6"/>
+                                </mask>
+                            </variation>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIP ME ON ONECASH" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6P1-3p-bL3">
+                            <rect key="frame" x="16" y="15" width="360" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="360" id="P6B-HQ-I2M"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" red="0.11551640220000001" green="0.82181889959999999" blue="0.2544996732" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="6P1-3p-bL3" firstAttribute="leading" secondItem="Bfv-yi-hx6" secondAttribute="leading" constant="16" id="2mW-3R-zLI"/>
+                        <constraint firstAttribute="bottom" secondItem="bGR-in-SGt" secondAttribute="bottom" constant="5" id="9Eu-lH-54j"/>
+                        <constraint firstItem="6P1-3p-bL3" firstAttribute="top" secondItem="Bfv-yi-hx6" secondAttribute="top" constant="15" id="IAf-o7-DaH"/>
+                        <constraint firstItem="bGR-in-SGt" firstAttribute="leading" secondItem="Bfv-yi-hx6" secondAttribute="leading" constant="17" id="JGK-oc-44Z"/>
+                        <constraint firstAttribute="height" constant="68" id="cZv-bL-z0q"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ram-Rs-ReP">
+                    <rect key="frame" x="370" y="405" width="80" height="80"/>
+                    <color key="backgroundColor" red="0.11551640220000001" green="0.82181889959999999" blue="0.2544996732" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Bv9-Di-q6c"/>
                         <constraint firstAttribute="height" constant="80" id="aSb-RV-V0N"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="ydf-ei-NNF"/>
                         <constraint firstAttribute="width" constant="80" id="ytc-mF-RNx"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="40"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eod-9O-enX">
+                    <rect key="frame" x="106" y="76" width="300" height="300"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="2Zl-WL-aL8"/>
+                        <constraint firstAttribute="width" constant="300" id="Vmg-HZ-8RW"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
             <accessibility key="accessibilityConfiguration" identifier="UsernameCard"/>
             <constraints>
-                <constraint firstItem="6P1-3p-bL3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1j7-xN-f1V"/>
-                <constraint firstItem="bGR-in-SGt" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6wW-Gj-JPE"/>
+                <constraint firstItem="eod-9O-enX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="2Ii-af-zJO"/>
+                <constraint firstItem="Bfv-yi-hx6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2sb-mO-gMx"/>
+                <constraint firstAttribute="bottom" secondItem="Bfv-yi-hx6" secondAttribute="bottom" id="7r7-X9-OU8"/>
                 <constraint firstItem="ZaX-Hp-Ves" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="58" id="9zh-8c-DAA"/>
-                <constraint firstAttribute="trailing" secondItem="6P1-3p-bL3" secondAttribute="trailing" constant="26" id="EUu-hD-Izu"/>
-                <constraint firstAttribute="trailing" secondItem="ram-Rs-ReP" secondAttribute="trailing" constant="59" id="Jsd-H5-xcj"/>
-                <constraint firstAttribute="trailing" secondItem="bGR-in-SGt" secondAttribute="trailing" constant="46" id="Nfc-MN-iNv"/>
-                <constraint firstAttribute="bottom" secondItem="bGR-in-SGt" secondAttribute="bottom" constant="37" id="NkQ-xN-ScL"/>
-                <constraint firstItem="6P1-3p-bL3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="26" id="Ut1-8R-TeR"/>
+                <constraint firstAttribute="bottom" secondItem="ZaX-Hp-Ves" secondAttribute="bottom" id="Bab-8B-4ex"/>
+                <constraint firstItem="ZaX-Hp-Ves" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="E4s-st-qFr"/>
+                <constraint firstAttribute="trailing" secondItem="ram-Rs-ReP" secondAttribute="trailing" constant="62" id="I8t-Nr-D37"/>
+                <constraint firstAttribute="trailing" secondItem="ZaX-Hp-Ves" secondAttribute="trailing" id="UGx-18-xeN"/>
+                <constraint firstItem="ZaX-Hp-Ves" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="UXG-s0-bIl"/>
+                <constraint firstAttribute="trailing" secondItem="Bfv-yi-hx6" secondAttribute="trailing" id="UXy-Bj-xFa"/>
                 <constraint firstItem="ZaX-Hp-Ves" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="b88-e1-Fys"/>
-                <constraint firstItem="bGR-in-SGt" firstAttribute="top" secondItem="6P1-3p-bL3" secondAttribute="bottom" constant="8" id="cYA-3U-Vxg"/>
-                <constraint firstItem="bGR-in-SGt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="46" id="h5p-1C-A3e"/>
-                <constraint firstItem="ram-Rs-ReP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="176" id="jgR-gc-a3C"/>
+                <constraint firstAttribute="bottom" secondItem="ram-Rs-ReP" secondAttribute="bottom" constant="27" id="mU5-kh-GLu"/>
+                <constraint firstItem="eod-9O-enX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-30" id="rKc-LR-hxt"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="9zh-8c-DAA"/>
+                    <exclude reference="b88-e1-Fys"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="avatarImageView" destination="ZaX-Hp-Ves" id="AJ6-lZ-J4c"/>
+                <outlet property="bottomView" destination="Bfv-yi-hx6" id="qoJ-Ja-DlO"/>
                 <outlet property="dollarLabel" destination="ram-Rs-ReP" id="6Sl-df-9Kh"/>
+                <outlet property="smallAvatarImageView" destination="eod-9O-enX" id="ay5-7l-Glb"/>
                 <outlet property="titleLabel" destination="6P1-3p-bL3" id="3eT-5U-rMz"/>
                 <outlet property="usernameLabel" destination="bGR-in-SGt" id="7qY-7W-RTi"/>
             </connections>

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EB4A76B3D14487BC4AD8AA36"
-               BuildableName = "libFBSDKCoreKit.a"
-               BlueprintName = "FBSDKCoreKit"
+               BlueprintIdentifier = "347D727CB6C88009F511CC4E"
+               BuildableName = "libUIImage+BlurredFrame.a"
+               BlueprintName = "UIImage+BlurredFrame"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

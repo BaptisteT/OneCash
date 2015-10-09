@@ -15,6 +15,7 @@ pod 'SVPullToRefresh'
 pod 'DateTools'
 pod 'ApplePayStubs'
 pod 'AFBlurSegue', '~> 1.2.1'
+pod 'UIImage+BlurredFrame'
 
 end
 

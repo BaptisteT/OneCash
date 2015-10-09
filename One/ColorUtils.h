@@ -19,6 +19,8 @@
 
 + (UIColor *)mainGreen;
 
++ (UIColor *)alphaGreen;
+
 + (UIColor *)darkGreen;
 
 + (UIColor *)red;
