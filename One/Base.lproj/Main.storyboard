@@ -225,10 +225,10 @@
                                     <action selector="backButtonClicked:" destination="Bef-pm-plE" eventType="touchUpInside" id="yus-s4-YbQ"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DO7-ir-8Rs">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DO7-ir-8Rs">
                                 <rect key="frame" x="0.0" y="163" width="600" height="1337"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Need help ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bI-0m-w6b">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Need help ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bI-0m-w6b">
                                         <rect key="frame" x="33" y="34" width="91" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="WPk-YN-cUx"/>
@@ -243,18 +243,11 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="er8-lk-AJY">
-                                        <rect key="frame" x="35" y="70" width="530" height="851"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="answer to first" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="er8-lk-AJY">
+                                        <rect key="frame" x="35" y="70" width="530" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="530" id="hNV-Tz-7M1"/>
                                         </constraints>
-                                        <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit nisi at velit viverra cursus. Ut feugiat, sem nec tristique maximus, orci lectus venenatis massa, eu accumsan justo ipsum non nisi. Aliquam lobortis sit amet tortor ut porttitor. Nullam at ipsum enim. Vestibulum sollicitudin dictum felis, in convallis tellus venenatis eu. Donec dapibus fringilla neque, id ultricies eros pretium id. Sed nec nisi vel augue vestibulum tristique. Donec aliquet at justo nec fringilla. Phasellus ornare finibus est at tincidunt. Sed ac porta elit. Donec pretium, risus sit amet dapibus sodales, nisl tortor luctus neque, aliquam finibus lorem erat et nunc.
-
-Nulla ut consectetur ipsum. Pellentesque sapien magna, tempus at orci eget, dapibus cursus dui. Vivamus nec nisi nec mi vulputate tincidunt. Ut ultricies massa at dolor convallis, sed sagittis ex condimentum. Aliquam mollis elit id diam pellentesque elementum. Aliquam a varius justo. Phasellus non ante auctor justo tempor finibus. Suspendisse ultricies porta scelerisque. Aenean non tortor commodo, viverra arcu a, fermentum mi. Maecenas lorem lacus, mollis quis accumsan consequat, ultricies vitae lectus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-
-Nulla vulputate leo arcu, sit amet commodo tortor tristique vel. Nam rhoncus quam nisi, at blandit lacus bibendum sit amet. Ut luctus ligula sit amet efficitur suscipit. Ut id tortor et risus ultricies lacinia. Ut interdum, enim eget dignissim varius, odio mauris efficitur justo, sed dapibus libero risus eu metus. Sed vel efficitur mauris, et commodo augue. Fusce et mauris lectus. Donec non lectus in nunc ornare laoreet. Donec convallis sed nunc ut faucibus. Suspendisse lobortis augue magna, at hendrerit eros consectetur vel. Aliquam consectetur tristique erat eget malesuada.
-
-Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse dignissim dolor ac diam varius, sit amet consequat urna laoreet. Vivamus sit amet neque vitae urna dignissim sollicitudin. Nunc felis est, ultricies et mattis vel, mattis at elit. Vestibulum non consectetur neque. Nam elementum tortor nec dictum tristique. Cras vel arcu imperdiet, tincidunt lacus id, dictum arcu. Sed tincidunt vestibulum purus, eget venenatis odio laoreet sed. Curabitur accumsan blandit nibh, vitae ultricies lacus mollis non. Nulla mollis libero ut enim lacinia aliquet. Nunc accumsan imperdiet mauris, ut convallis odio lobortis vitae.</mutableString>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -271,8 +264,11 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                                     <constraint firstAttribute="trailing" secondItem="er8-lk-AJY" secondAttribute="trailing" constant="37" id="2M2-IZ-6Ol"/>
                                     <constraint firstAttribute="trailing" secondItem="er8-lk-AJY" secondAttribute="trailing" constant="37" id="2ug-Pv-lBv"/>
                                     <constraint firstItem="3bI-0m-w6b" firstAttribute="top" secondItem="DO7-ir-8Rs" secondAttribute="top" constant="34" id="5Y2-u6-Sdi"/>
+                                    <constraint firstItem="3bI-0m-w6b" firstAttribute="top" secondItem="DO7-ir-8Rs" secondAttribute="top" constant="34" id="DUE-4f-zvM"/>
                                     <constraint firstItem="er8-lk-AJY" firstAttribute="top" secondItem="3bI-0m-w6b" secondAttribute="bottom" constant="16" id="QGu-Jd-OSg"/>
+                                    <constraint firstAttribute="bottom" secondItem="er8-lk-AJY" secondAttribute="bottom" constant="40" id="Shw-Re-Xof"/>
                                     <constraint firstItem="er8-lk-AJY" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="35" id="ULl-PP-0es"/>
+                                    <constraint firstAttribute="trailing" secondItem="er8-lk-AJY" secondAttribute="trailing" constant="35" id="adL-ue-PWi"/>
                                     <constraint firstAttribute="trailing" secondItem="3bI-0m-w6b" secondAttribute="trailing" constant="33" id="bSr-gX-mMe"/>
                                     <constraint firstAttribute="trailing" secondItem="er8-lk-AJY" secondAttribute="trailing" constant="37" id="cm0-jp-zwF"/>
                                     <constraint firstAttribute="trailing" secondItem="er8-lk-AJY" secondAttribute="trailing" constant="37" id="cma-Um-VlU"/>
@@ -281,9 +277,12 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                                     <constraint firstAttribute="trailing" secondItem="er8-lk-AJY" secondAttribute="trailing" constant="35" id="vNs-Lb-ElD"/>
                                     <constraint firstItem="er8-lk-AJY" firstAttribute="top" secondItem="3bI-0m-w6b" secondAttribute="bottom" constant="15" id="xD6-XX-q0P"/>
                                     <constraint firstItem="er8-lk-AJY" firstAttribute="leading" secondItem="DO7-ir-8Rs" secondAttribute="leading" constant="33" id="zax-3D-VcG"/>
+                                    <constraint firstItem="er8-lk-AJY" firstAttribute="centerX" secondItem="DO7-ir-8Rs" secondAttribute="centerX" id="zrD-fh-244"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="5Y2-u6-Sdi"/>
+                                        <exclude reference="bSr-gX-mMe"/>
                                         <exclude reference="0eq-ym-PkR"/>
                                         <exclude reference="2M2-IZ-6Ol"/>
                                         <exclude reference="2ug-Pv-lBv"/>
@@ -291,6 +290,7 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                                         <exclude reference="cm0-jp-zwF"/>
                                         <exclude reference="cma-Um-VlU"/>
                                         <exclude reference="s4V-dV-2Wt"/>
+                                        <exclude reference="vNs-Lb-ElD"/>
                                         <exclude reference="zax-3D-VcG"/>
                                     </mask>
                                 </variation>
@@ -298,6 +298,8 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="DO7-ir-8Rs" secondAttribute="trailing" id="0Yd-2o-SIS"/>
+                            <constraint firstItem="DO7-ir-8Rs" firstAttribute="leading" secondItem="Fbl-0K-aAO" secondAttribute="leading" id="D1Y-gD-iMn"/>
                             <constraint firstItem="Ng5-Mb-9Aj" firstAttribute="top" secondItem="DO7-ir-8Rs" secondAttribute="bottom" id="JL7-Qj-llE"/>
                             <constraint firstItem="DO7-ir-8Rs" firstAttribute="top" secondItem="zUQ-6i-aUe" secondAttribute="bottom" constant="88" id="MoZ-Vw-FUx"/>
                             <constraint firstAttribute="trailing" secondItem="zUQ-6i-aUe" secondAttribute="trailing" constant="20" id="NIm-px-mk5"/>
@@ -308,6 +310,8 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="SXt-dP-cRi"/>
+                                <exclude reference="mYp-fD-aUd"/>
                                 <exclude reference="vPF-qV-wKm"/>
                             </mask>
                         </variation>
@@ -1288,6 +1292,18 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OfJ-aE-usU">
+                                <rect key="frame" x="268.5" y="455.5" width="63" height="27"/>
+                                <color key="backgroundColor" red="0.32030925500000001" green="1" blue="0.16362500899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="transactionOnboardingButtonClicked:" destination="cLq-3c-hSu" eventType="touchUpInside" id="M6T-wR-CHj"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4tz-bO-oqb">
                                 <rect key="frame" x="0.0" y="336" width="600" height="4"/>
                                 <color key="backgroundColor" red="0.93928690159574468" green="0.93928690159574468" blue="0.93928690159574468" alpha="1" colorSpace="calibratedRGB"/>
@@ -1394,8 +1410,11 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                             <constraint firstAttribute="trailing" secondItem="ZJy-Nb-mro" secondAttribute="trailing" id="DVx-u8-jAs"/>
                             <constraint firstItem="ZJy-Nb-mro" firstAttribute="top" secondItem="HOl-qM-dpM" secondAttribute="bottom" constant="12" id="HsP-ok-TG2"/>
                             <constraint firstAttribute="trailing" secondItem="51c-2q-6W9" secondAttribute="trailing" id="LNs-no-6XO"/>
+                            <constraint firstItem="OfJ-aE-usU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ahA-F8-wkL" secondAttribute="leading" constant="20" id="NPq-V6-GG2"/>
+                            <constraint firstItem="OfJ-aE-usU" firstAttribute="centerX" secondItem="ZJy-Nb-mro" secondAttribute="centerX" id="ROv-fu-AVR"/>
                             <constraint firstItem="sT7-z5-HyS" firstAttribute="leading" secondItem="ahA-F8-wkL" secondAttribute="leading" constant="10" id="RYc-xI-0Hx"/>
                             <constraint firstItem="ZJy-Nb-mro" firstAttribute="leading" secondItem="ahA-F8-wkL" secondAttribute="leading" id="T2G-sH-COt"/>
+                            <constraint firstItem="OfJ-aE-usU" firstAttribute="centerY" secondItem="ZJy-Nb-mro" secondAttribute="centerY" id="XX5-U3-R3E"/>
                             <constraint firstItem="ZJy-Nb-mro" firstAttribute="top" secondItem="4tz-bO-oqb" secondAttribute="bottom" constant="-1" id="YjD-tQ-CTb"/>
                             <constraint firstItem="HOl-qM-dpM" firstAttribute="top" secondItem="51c-2q-6W9" secondAttribute="bottom" constant="11" id="asn-lx-Pj8"/>
                             <constraint firstItem="51c-2q-6W9" firstAttribute="top" secondItem="ahA-F8-wkL" secondAttribute="top" id="bJ0-Gi-Zsu"/>
@@ -1422,6 +1441,7 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                         <outlet property="settingsButton" destination="EgS-ct-9Bd" id="uW8-TS-soa"/>
                         <outlet property="statusTextField" destination="vzz-t2-aDx" id="Rcy-w4-9Iz"/>
                         <outlet property="titleLabel" destination="UgK-Uj-hZ5" id="nPv-BS-mhq"/>
+                        <outlet property="transactionsOnboardingView" destination="OfJ-aE-usU" id="MhD-13-IHb"/>
                         <outlet property="transactionsTableView" destination="ZJy-Nb-mro" id="rfb-pY-bDJ"/>
                         <segue destination="bFG-lE-Nfn" kind="presentation" identifier="Settings From Balance" id="iQR-bP-m9O"/>
                         <segue destination="wTm-kh-mbv" kind="presentation" identifier="Managed From Balance" id="SJv-v2-cWl"/>
@@ -1708,7 +1728,7 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="getPressed:" destination="WNA-kw-5yZ" eventType="touchUpInside" id="OJL-6w-3qK"/>
+                                    <action selector="shareUsernameButtonClicked:" destination="WNA-kw-5yZ" eventType="touchUpInside" id="HeL-TS-clg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1869,8 +1889,8 @@ Quisque vel ante vitae nisl pulvinar porttitor et ac sapien. Suspendisse digniss
                                                         <constraint firstAttribute="height" constant="40" id="huN-Lk-PUm"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jmu-D9-d7J">
-                                                    <rect key="frame" x="68" y="13" width="519" height="35"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jmu-D9-d7J">
+                                                    <rect key="frame" x="68" y="13" width="479" height="33.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awI-uy-jb8">
                                                             <rect key="frame" x="0.0" y="0.0" width="42" height="17"/>
