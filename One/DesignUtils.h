@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger,OneBubblePosition) {
     kPositionTop = 0,
     kPositionRight = 1,
     kPositionBottom = 2,
-    kPositionLeft = 4,
+    kPositionLeft = 4
 };
 
 + (void)addBottomBorder:(UIView *)view borderSize:(float)borderSize color:(UIColor *)color;
@@ -37,6 +37,10 @@ typedef NS_ENUM(NSInteger,OneBubblePosition) {
 
 + (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color transform:(CGAffineTransform)transform;
 
-+ (UIView *)createBubbleAboutView:(UIView *)view withText:(NSString *)string andPosition:(OneBubblePosition)position;
++ (UIView *)createBubbleAboutView:(UIView *)view
+                         withText:(NSString *)string
+                         position:(OneBubblePosition)position
+                  backgroundColor:(UIColor *)backgroundColor
+                        textColor:(UIColor *)textColor;
 
 @end

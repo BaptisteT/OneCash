@@ -119,7 +119,7 @@
     
     // Email
     NSString * email = [twitterInfo objectForKey:@"email"];
-    if (email.length > 0 && ![self.email isEqualToString:email]) {
+    if (email && email.length > 0 && !self.email) {
         self.email = [twitterInfo objectForKey:@"email"];
     }
     

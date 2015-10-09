@@ -54,7 +54,12 @@
     button.layer.shadowRadius = 20;
 }
 
-+ (UIView *)createBubbleAboutView:(UIView *)view withText:(NSString *)string andPosition:(OneBubblePosition)position {
++ (UIView *)createBubbleAboutView:(UIView *)view
+                         withText:(NSString *)string
+                         position:(OneBubblePosition)position
+                  backgroundColor:(UIColor *)backgroundColor
+                        textColor:(UIColor *)textColor
+{
     // Font
     UIFont *font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
     // Define height here
@@ -64,73 +69,62 @@
     
     // TriangleView
     UIView *triangle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    triangle.backgroundColor = [UIColor whiteColor];
-    
+    triangle.backgroundColor = backgroundColor;
     
     // Frame based on the position paremeter
     CGRect frame = CGRectMake(0, 0, width, height);
+    UIBezierPath *path = [UIBezierPath new];
+    
     if (position == kPositionTop) {
         frame = CGRectMake(view.frame.origin.x + view.frame.size.width / 2 - width / 2, view.frame.origin.y - height - triangle.frame.size.height, width, height);
         
-        UIBezierPath *path = [UIBezierPath new];
         [path moveToPoint: CGPointMake(0, 0)];
         [path addLineToPoint: CGPointMake(5, 5)];
         [path addLineToPoint: CGPointMake(10, 0)];
         [path addLineToPoint: CGPointMake(0, 0)];
-        CAShapeLayer *mask = [CAShapeLayer new];
-        mask.frame = triangle.bounds;
-        mask.path = path.CGPath;
-        triangle.layer.mask = mask;
+        
         triangle.frame = CGRectMake(view.frame.origin.x + view.frame.size.width / 2 - triangle.frame.size.width / 2 , view.frame.origin.y - triangle.frame.size.height, triangle.frame.size.width, triangle.frame.size.height);
     } else if (position == kPositionBottom) {
         frame = CGRectMake(view.frame.origin.x + view.frame.size.width / 2 - width / 2, view.frame.origin.y + view.frame.size.height + triangle.frame.size.height, width, height);
         
-        UIBezierPath *path = [UIBezierPath new];
         [path moveToPoint: CGPointMake(0, 10)];
         [path addLineToPoint: CGPointMake(5, 5)];
         [path addLineToPoint: CGPointMake(10, 10)];
         [path addLineToPoint: CGPointMake(0, 10)];
-        CAShapeLayer *mask = [CAShapeLayer new];
-        mask.frame = triangle.bounds;
-        mask.path = path.CGPath;
-        triangle.layer.mask = mask;
         
         triangle.frame = CGRectMake(view.frame.origin.x + view.frame.size.width / 2 - triangle.frame.size.width / 2 , view.frame.origin.y + view.frame.size.height, triangle.frame.size.width, triangle.frame.size.height);
     } else if (position == kPositionRight) {
         frame = CGRectMake(view.frame.origin.x + view.frame.size.width + triangle.frame.size.width - 1, view.frame.origin.y + view.frame.size.height / 2 - height / 2, width, height);
         
-        UIBezierPath *path = [UIBezierPath new];
         [path moveToPoint: CGPointMake(10, 0)];
         [path addLineToPoint: CGPointMake(10, 10)];
         [path addLineToPoint: CGPointMake(5, 5)];
         [path addLineToPoint: CGPointMake(10, 0)];
-        CAShapeLayer *mask = [CAShapeLayer new];
-        mask.frame = triangle.bounds;
-        mask.path = path.CGPath;
-        triangle.layer.mask = mask;
+        
         triangle.frame = CGRectMake(view.frame.origin.x + view.frame.size.width, view.frame.origin.y + view.frame.size.height /2 - triangle.frame.size.height /2, triangle.frame.size.width, triangle.frame.size.height);
     } else if (position == kPositionLeft) {
         frame = CGRectMake(view.frame.origin.x - width - triangle.frame.size.width + 1, view.frame.origin.y + view.frame.size.height / 2 - height / 2, width, height);
         
-        UIBezierPath *path = [UIBezierPath new];
         [path moveToPoint: CGPointMake(0, 0)];
         [path addLineToPoint: CGPointMake(0, 10)];
         [path addLineToPoint: CGPointMake(5, 5)];
         [path addLineToPoint: CGPointMake(0, 0)];
-        CAShapeLayer *mask = [CAShapeLayer new];
-        mask.frame = triangle.bounds;
-        mask.path = path.CGPath;
-        triangle.layer.mask = mask;
         
         triangle.frame = CGRectMake(view.frame.origin.x - triangle.frame.size.width, view.frame.origin.y + view.frame.size.height /2 - triangle.frame.size.height /2, triangle.frame.size.width, triangle.frame.size.height);
     }
+    
+    // Triangle mask
+    CAShapeLayer *mask = [CAShapeLayer new];
+    mask.frame = triangle.bounds;
+    mask.path = path.CGPath;
+    triangle.layer.mask = mask;
 
     // Init
     UILabel *bubble = [[UILabel alloc] initWithFrame:frame];
     // UI
     bubble.text = string;
-    bubble.backgroundColor = [UIColor whiteColor];
-    bubble.textColor = [ColorUtils mainGreen];
+    bubble.backgroundColor = backgroundColor;
+    bubble.textColor = textColor;
     bubble.textAlignment = NSTextAlignmentCenter;
     bubble.layer.cornerRadius = bubble.frame.size.height / 2;
     bubble.clipsToBounds = YES;

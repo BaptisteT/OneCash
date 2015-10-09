@@ -36,8 +36,10 @@
 @property (weak, nonatomic) IBOutlet UIView *balanceContainer;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UITextField *statusTextField;
-
+@property (strong, nonatomic) UIView *transactionsOnboardingView;
+@property (strong, nonatomic) UIView *statusOnboardingView;
 @property (strong, nonatomic) NSMutableArray *transactions;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
 
 @end
 
@@ -119,6 +121,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.transactionsTableView reloadData];
+    [self resetOnboardingView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -187,6 +190,8 @@
 #pragma mark - Table view
 // --------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.transactionsOnboardingView)
+        self.transactionsOnboardingView.hidden = (self.transactions.count > 0);
     return self.transactions.count;
 }
 
@@ -301,6 +306,27 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)resetOnboardingView {
+    if (self.transactions.count == 0 && !self.transactionsOnboardingView) {
+        self.transactionsOnboardingView = [DesignUtils createBubbleAboutView:self.separatorView
+                                                        withText:NSLocalizedString(@"no_transactions_tuto", nil)
+                                                        position:kPositionBottom
+                                                 backgroundColor:[ColorUtils mainGreen]
+                                                       textColor:[UIColor whiteColor]];
+        [self.view addSubview:self.transactionsOnboardingView];
+    }
+    
+    //Onboarding
+    if (![DatastoreManager hasLaunchedOnce:@"Status"]) {
+        self.statusOnboardingView = [DesignUtils createBubbleAboutView:self.statusTextField
+                                                        withText:NSLocalizedString(@"add_status_tuto", nil)
+                                                        position:kPositionBottom
+                                                 backgroundColor:[UIColor whiteColor]
+                                                       textColor:[ColorUtils mainGreen]];
+        [self.statusTextField.superview addSubview:self.statusOnboardingView];
+    }
+}
+
 // --------------------------------------------
 #pragma mark - Touch Id
 // --------------------------------------------
@@ -375,6 +401,13 @@
     }
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (self.statusOnboardingView) {
+        [self.statusOnboardingView removeFromSuperview];
+        self.statusOnboardingView = nil;
+    }
+}
+
 // --------------------------------------------
 #pragma mark - User TVC Protocl
 // --------------------------------------------
@@ -446,7 +479,7 @@
 
 - (void)sendTweetToSelectedUser {
     SLComposeViewController *twitterCompose = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-    NSString *caption = [NSString stringWithFormat:@"%@", self.selectedUser.username];
+    NSString *caption = [NSString stringWithFormat:@"@%@", self.selectedUser.username];
     [twitterCompose setInitialText:caption];
     [self presentViewController:twitterCompose
                        animated:YES

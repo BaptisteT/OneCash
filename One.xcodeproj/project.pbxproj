@@ -115,6 +115,7 @@
 		3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
 		3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */; };
 		3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
+		3CD6C1E01BC6F99700D1D991 /* socicon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CA0E61BBD957C00DBBCB0 /* socicon.ttf */; settings = {ASSET_TAGS = (); }; };
 		3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
 		3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
@@ -665,6 +666,7 @@
 				3CD4D6351BB91D75001F2C7A /* Maax Rounded Medium.otf in Resources */,
 				3CD4D6361BB91D75001F2C7A /* Localizable.strings in Resources */,
 				3CD4D6371BB91D75001F2C7A /* Main.storyboard in Resources */,
+				3CD6C1E01BC6F99700D1D991 /* socicon.ttf in Resources */,
 				3CD4D6381BB91D75001F2C7A /* LaunchScreen.xib in Resources */,
 				3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */,
 				3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */,
