@@ -59,6 +59,7 @@
                          position:(OneBubblePosition)position
                   backgroundColor:(UIColor *)backgroundColor
                         textColor:(UIColor *)textColor
+                      borderColor:(UIColor *)borderColor
 {
     // Font
     UIFont *font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
@@ -132,6 +133,8 @@
     bubble.layer.shadowOffset = CGSizeMake(0, 0);
     bubble.layer.shadowRadius = 3;
     bubble.layer.shadowOpacity = 0.2;
+    bubble.layer.borderColor = borderColor.CGColor;
+    bubble.layer.borderWidth = 1;
     triangle.layer.shadowOffset = CGSizeMake(0, 0);
     triangle.layer.shadowRadius = 3;
     triangle.layer.shadowOpacity = 0.2;
@@ -154,14 +157,18 @@
 }
 
 + (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color {
-    [DesignUtils showProgressHUDAddedTo:view withColor:color transform:CGAffineTransformIdentity];
+    [DesignUtils showProgressHUDAddedTo:view withColor:color transform:CGAffineTransformIdentity userInteraction:NO];
 }
 
-+ (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color transform:(CGAffineTransform)transform {
++ (void)showProgressHUDAddedTo:(UIView *)view
+                     withColor:(UIColor *)color
+                     transform:(CGAffineTransform)transform
+               userInteraction:(BOOL)flag {
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:view];
     hud.color = [UIColor clearColor];
     hud.activityIndicatorColor = color;
     hud.transform = transform;
+    hud.userInteractionEnabled = !flag;
     [view addSubview:hud];
     [hud show:YES];
 }

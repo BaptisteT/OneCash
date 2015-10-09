@@ -1237,6 +1237,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OfJ-aE-usU">
+                                <rect key="frame" x="268.5" y="455.5" width="63" height="27"/>
+                                <color key="backgroundColor" red="0.32030925500000001" green="1" blue="0.16362500899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="transactionOnboardingButtonClicked:" destination="cLq-3c-hSu" eventType="touchUpInside" id="M6T-wR-CHj"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4tz-bO-oqb">
                                 <rect key="frame" x="0.0" y="336" width="600" height="4"/>
                                 <color key="backgroundColor" red="0.93928690159574468" green="0.93928690159574468" blue="0.93928690159574468" alpha="1" colorSpace="calibratedRGB"/>
@@ -1343,8 +1355,11 @@
                             <constraint firstAttribute="trailing" secondItem="ZJy-Nb-mro" secondAttribute="trailing" id="DVx-u8-jAs"/>
                             <constraint firstItem="ZJy-Nb-mro" firstAttribute="top" secondItem="HOl-qM-dpM" secondAttribute="bottom" constant="12" id="HsP-ok-TG2"/>
                             <constraint firstAttribute="trailing" secondItem="51c-2q-6W9" secondAttribute="trailing" id="LNs-no-6XO"/>
+                            <constraint firstItem="OfJ-aE-usU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ahA-F8-wkL" secondAttribute="leading" constant="20" id="NPq-V6-GG2"/>
+                            <constraint firstItem="OfJ-aE-usU" firstAttribute="centerX" secondItem="ZJy-Nb-mro" secondAttribute="centerX" id="ROv-fu-AVR"/>
                             <constraint firstItem="sT7-z5-HyS" firstAttribute="leading" secondItem="ahA-F8-wkL" secondAttribute="leading" constant="10" id="RYc-xI-0Hx"/>
                             <constraint firstItem="ZJy-Nb-mro" firstAttribute="leading" secondItem="ahA-F8-wkL" secondAttribute="leading" id="T2G-sH-COt"/>
+                            <constraint firstItem="OfJ-aE-usU" firstAttribute="centerY" secondItem="ZJy-Nb-mro" secondAttribute="centerY" id="XX5-U3-R3E"/>
                             <constraint firstItem="ZJy-Nb-mro" firstAttribute="top" secondItem="4tz-bO-oqb" secondAttribute="bottom" constant="-1" id="YjD-tQ-CTb"/>
                             <constraint firstItem="HOl-qM-dpM" firstAttribute="top" secondItem="51c-2q-6W9" secondAttribute="bottom" constant="11" id="asn-lx-Pj8"/>
                             <constraint firstItem="51c-2q-6W9" firstAttribute="top" secondItem="ahA-F8-wkL" secondAttribute="top" id="bJ0-Gi-Zsu"/>
@@ -1371,6 +1386,7 @@
                         <outlet property="settingsButton" destination="EgS-ct-9Bd" id="uW8-TS-soa"/>
                         <outlet property="statusTextField" destination="vzz-t2-aDx" id="Rcy-w4-9Iz"/>
                         <outlet property="titleLabel" destination="UgK-Uj-hZ5" id="nPv-BS-mhq"/>
+                        <outlet property="transactionsOnboardingView" destination="OfJ-aE-usU" id="MhD-13-IHb"/>
                         <outlet property="transactionsTableView" destination="ZJy-Nb-mro" id="rfb-pY-bDJ"/>
                         <segue destination="bFG-lE-Nfn" kind="presentation" identifier="Settings From Balance" id="iQR-bP-m9O"/>
                         <segue destination="wTm-kh-mbv" kind="presentation" identifier="Managed From Balance" id="SJv-v2-cWl"/>
@@ -1657,7 +1673,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="getPressed:" destination="WNA-kw-5yZ" eventType="touchUpInside" id="OJL-6w-3qK"/>
+                                    <action selector="shareUsernameButtonClicked:" destination="WNA-kw-5yZ" eventType="touchUpInside" id="HeL-TS-clg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1818,8 +1834,8 @@
                                                         <constraint firstAttribute="height" constant="40" id="huN-Lk-PUm"/>
                                                     </constraints>
                                                 </imageView>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jmu-D9-d7J">
-                                                    <rect key="frame" x="68" y="13" width="519" height="35"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jmu-D9-d7J">
+                                                    <rect key="frame" x="68" y="13" width="479" height="33.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awI-uy-jb8">
                                                             <rect key="frame" x="0.0" y="0.0" width="42" height="17"/>
@@ -2165,8 +2181,8 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0H9-Pw-zbF"/>
         <segue reference="0bD-CV-jtZ"/>
+        <segue reference="0H9-Pw-zbF"/>
         <segue reference="ep0-aD-elO"/>
     </inferredMetricsTieBreakers>
 </document>

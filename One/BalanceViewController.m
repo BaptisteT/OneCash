@@ -36,7 +36,7 @@
 @property (weak, nonatomic) IBOutlet UIView *balanceContainer;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UITextField *statusTextField;
-@property (strong, nonatomic) UIView *transactionsOnboardingView;
+@property (weak, nonatomic) IBOutlet UIButton *transactionsOnboardingView;
 @property (strong, nonatomic) UIView *statusOnboardingView;
 @property (strong, nonatomic) NSMutableArray *transactions;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
@@ -69,6 +69,7 @@
     self.historyLabel.text = NSLocalizedString(@"history_label", nil);
     self.statusTextField.placeholder = NSLocalizedString(@"status_placeholder", nil);
     self.statusTextField.minimumFontSize = 0.1;
+    [self.transactionsOnboardingView setTitle:NSLocalizedString(@"no_transactions_tuto", nil) forState:UIControlStateNormal];
     
     // UI
     self.cashoutButton.backgroundColor = [ColorUtils red];
@@ -81,6 +82,11 @@
     self.transactionsTableView.bounces = YES;
     [self.transactionsTableView setContentInset:UIEdgeInsetsMake(20,0,0,0)];
     [self.transactionsTableView setScrollIndicatorInsets:[self.transactionsTableView contentInset]];
+    self.transactionsOnboardingView.backgroundColor = [UIColor whiteColor];
+    self.transactionsOnboardingView.layer.borderWidth = 1;
+    self.transactionsOnboardingView.layer.borderColor = [ColorUtils mainGreen].CGColor;
+    [self.transactionsOnboardingView setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    self.transactionsOnboardingView.layer.cornerRadius = self.transactionsOnboardingView.frame.size.height / 2;
     
     // Balance
     [self setBalanceAndStatus];
@@ -301,31 +307,33 @@
 // --------------------------------------------
 #pragma mark - UI
 // --------------------------------------------
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
+
+// --------------------------------------------
+#pragma mark - Onboarding
+// --------------------------------------------
 - (void)resetOnboardingView {
-    if (self.transactions.count == 0 && !self.transactionsOnboardingView) {
-        self.transactionsOnboardingView = [DesignUtils createBubbleAboutView:self.separatorView
-                                                        withText:NSLocalizedString(@"no_transactions_tuto", nil)
-                                                        position:kPositionBottom
-                                                 backgroundColor:[ColorUtils mainGreen]
-                                                       textColor:[UIColor whiteColor]];
-        [self.view addSubview:self.transactionsOnboardingView];
-    }
-    
-    //Onboarding
-    if (![DatastoreManager hasLaunchedOnce:@"Status"]) {
+    if (![DatastoreManager hasLaunchedOnce:@"Status"] && self.statusTextField.text.length == 0) {
         self.statusOnboardingView = [DesignUtils createBubbleAboutView:self.statusTextField
-                                                        withText:NSLocalizedString(@"add_status_tuto", nil)
-                                                        position:kPositionBottom
-                                                 backgroundColor:[UIColor whiteColor]
-                                                       textColor:[ColorUtils mainGreen]];
+                                                              withText:NSLocalizedString(@"add_status_tuto", nil)
+                                                              position:kPositionBottom
+                                                       backgroundColor:[UIColor whiteColor]
+                                                             textColor:[ColorUtils mainGreen]
+                                                           borderColor:[ColorUtils mainGreen]];
+        self.statusOnboardingView.layer.borderColor = [ColorUtils mainGreen].CGColor;
+        self.statusOnboardingView.layer.borderWidth = 1;
         [self.statusTextField.superview addSubview:self.statusOnboardingView];
     }
 }
+
+- (IBAction)transactionOnboardingButtonClicked:(id)sender {
+    [self.delegate navigateToShareUsername];
+}
+
+
 
 // --------------------------------------------
 #pragma mark - Touch Id

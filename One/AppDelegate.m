@@ -118,11 +118,14 @@
     }
     
     // Activity
-    NSDictionary *activityDic = [launchOptions objectForKey:UIApplicationLaunchOptionsUserActivityDictionaryKey];
-    if (activityDic) {
-        if ([[activityDic objectForKey:UIApplicationLaunchOptionsUserActivityTypeKey] isEqualToString:NSUserActivityTypeBrowsingWeb]) {
-            NSUserActivity *activity = (NSUserActivity *) [activityDic objectForKey:@"UIApplicationLaunchOptionsUserActivityKey"];
-            [self performSelector:@selector(handleDeepLink:) withObject:activity.webpageURL afterDelay:1];
+    BOOL isAvailable = (&UIApplicationLaunchOptionsUserActivityDictionaryKey != NULL);
+    if (isAvailable) {
+        NSDictionary *activityDic = [launchOptions objectForKey:UIApplicationLaunchOptionsUserActivityDictionaryKey];
+        if (activityDic) {
+            if ([[activityDic objectForKey:UIApplicationLaunchOptionsUserActivityTypeKey] isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+                NSUserActivity *activity = (NSUserActivity *) [activityDic objectForKey:@"UIApplicationLaunchOptionsUserActivityKey"];
+                [self performSelector:@selector(handleDeepLink:) withObject:activity.webpageURL afterDelay:1];
+            }
         }
     }
     

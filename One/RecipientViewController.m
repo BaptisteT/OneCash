@@ -317,7 +317,7 @@
         // Show HUD if not already
         if (self.loadingContainer.hidden) {
             self.loadingContainer.hidden = NO;
-            [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils mainGreen] transform:CGAffineTransformMakeScale(0.5, 0.5)];
+            [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils mainGreen] transform:CGAffineTransformMakeScale(0.5, 0.5) userInteraction:NO];
         }
         // One Users
         [ApiManager findUsersMatchingStartString:self.lastStringSearched

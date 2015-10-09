@@ -22,5 +22,6 @@
 @protocol BalanceViewControllerProtocol
 
 - (void)navigateToCardController;
+- (void)navigateToShareUsername;
 
 @end

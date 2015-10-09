@@ -35,12 +35,13 @@ typedef NS_ENUM(NSInteger,OneBubblePosition) {
 
 + (void)hideProgressHUDForView:(UIView *)view;
 
-+ (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color transform:(CGAffineTransform)transform;
++ (void)showProgressHUDAddedTo:(UIView *)view withColor:(UIColor *)color transform:(CGAffineTransform)transform userInteraction:(BOOL)flag;
 
 + (UIView *)createBubbleAboutView:(UIView *)view
                          withText:(NSString *)string
                          position:(OneBubblePosition)position
                   backgroundColor:(UIColor *)backgroundColor
-                        textColor:(UIColor *)textColor;
+                        textColor:(UIColor *)textColor
+                      borderColor:(UIColor *)borderColor;
 
 @end

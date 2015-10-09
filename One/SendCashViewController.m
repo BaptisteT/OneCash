@@ -172,7 +172,8 @@
         
         AFBlurSegue *blurSegue = (AFBlurSegue *)segue;
         blurSegue.saturationDeltaFactor = 0.5;
-        blurSegue.blurEffectStyle = UIBlurEffectStyleDark;
+        blurSegue.blurRadius = 20;
+        blurSegue.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
     }
 }
 
@@ -227,8 +228,13 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
--(IBAction)getPressed:(id)sender {
+-(IBAction)shareUsernameButtonClicked:(id)sender {
     [TrackingUtils trackEvent:EVENT_SHARE_USERNAME_CLICKED properties:nil];
+    [self navigateToShareUsername];
+}
+
+- (void)navigateToShareUsername {
+    [self dismissViewControllerAnimated:YES completion:nil];
     [self performSegueWithIdentifier:@"Share From Send" sender:nil];
 }
 

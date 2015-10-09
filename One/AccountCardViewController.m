@@ -65,7 +65,7 @@
     [self.addCardButton addTarget:self action:@selector(generateTokenAndCreateCard) forControlEvents:UIControlEventTouchUpInside];
     
     // Get accounts
-    [DesignUtils showProgressHUDAddedTo:self.view withColor:[ColorUtils mainGreen]];
+    [DesignUtils showProgressHUDAddedTo:self.view withColor:[ColorUtils mainGreen] transform:CGAffineTransformIdentity userInteraction:YES];
     [self getManagedAccountAndExecuteSuccess:^{
         [DesignUtils hideProgressHUDForView:self.view];
     } failureBlock:^(NSError *error) {
