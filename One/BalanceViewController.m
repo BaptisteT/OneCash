@@ -149,7 +149,7 @@
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
         // reload transactions
         [self scrollToTop];
-//        self.transactions = [NSMutableArray arrayWithArray:transactions];
+        self.transactions = [NSMutableArray arrayWithArray:transactions];
         [self.transactionsTableView reloadData];
         
         // reset balance
