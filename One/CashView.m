@@ -328,6 +328,7 @@
     return NO;
 }
 
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.isEditingMessage = YES;
 }

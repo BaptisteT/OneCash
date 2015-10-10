@@ -53,6 +53,7 @@
     // UI
     self.howToButton.layer.cornerRadius = self.howToButton.frame.size.height / 2;
     [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    [self.howToButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     self.titleLabel.numberOfLines = 0;
     self.topBar.backgroundColor = [ColorUtils mainGreen];
     self.explanationLabel.numberOfLines = 0;

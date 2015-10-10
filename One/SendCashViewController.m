@@ -722,12 +722,14 @@
         }
     }
     if (editingView) {
+        self.shareUsernameButton.hidden = YES;
         [KeyboardUtils pushUpTopView:editingView whenKeyboardWillShowNotification:notification];
     }
 }
 
 // Move down create comment view on keyboard will hide
 - (void)keyboardWillHide:(NSNotification *)notification {
+    self.shareUsernameButton.hidden = NO;
     CashView *editingView;
     for (CashView *cashView in self.presentedCashViews) {
         if (cashView.isEditingMessage) {

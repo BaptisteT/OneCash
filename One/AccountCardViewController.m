@@ -14,6 +14,7 @@
 #import "ColorUtils.h"
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
+#import "KeyboardUtils.h"
 #import "TrackingUtils.h"
 
 @interface AccountCardViewController ()<STPPaymentCardTextFieldDelegate>
@@ -71,8 +72,28 @@
     } failureBlock:^(NSError *error) {
         [DesignUtils hideProgressHUDForView:self.view];
     }];
+    
+    // Keyboard Observer
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.cardTableView.translatesAutoresizingMaskIntoConstraints = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 // --------------------------------------------
@@ -193,6 +214,7 @@
                                 success:^{
                                     dispatch_async(dispatch_get_main_queue(), ^{
                                         [DesignUtils hideProgressHUDForView:self.view];
+                                        [self.paymentTextField clear];
                                         [self getManagedAccountAndExecuteSuccess:^{
                                             [self checkVerificationAndShowConfirmationAlert];
                                         } failureBlock:nil];
@@ -279,6 +301,19 @@
     }
 }
 
+
+// ----------------------------------------------------------
+#pragma mark Keyboard
+// ----------------------------------------------------------
+// Move up create comment view on keyboard will show
+- (void)keyboardWillShow:(NSNotification *)notification {
+    [KeyboardUtils changeFrameOfView:self.cardTableView whenKeyboardMoveNotification:notification];
+}
+
+// Move down create comment view on keyboard will hide
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [KeyboardUtils changeFrameOfView:self.cardTableView whenKeyboardMoveNotification:notification];
+}
 
 // --------------------------------------------
 #pragma mark - UI
