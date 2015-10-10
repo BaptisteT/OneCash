@@ -83,10 +83,19 @@
     [self.transactionsTableView setContentInset:UIEdgeInsetsMake(20,0,0,0)];
     [self.transactionsTableView setScrollIndicatorInsets:[self.transactionsTableView contentInset]];
     self.transactionsOnboardingView.backgroundColor = [UIColor whiteColor];
-    self.transactionsOnboardingView.layer.borderWidth = 1;
-    self.transactionsOnboardingView.layer.borderColor = [ColorUtils mainGreen].CGColor;
-    [self.transactionsOnboardingView setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    self.transactionsOnboardingView.layer.borderWidth = 5;
+    self.transactionsOnboardingView.layer.borderColor = [UIColor colorWithRed:247./255 green:247./255 blue:247./255 alpha:1].CGColor;
+    [self.transactionsOnboardingView setTitleColor:[UIColor colorWithRed:227./255 green:227./255 blue:227./255 alpha:1] forState:UIControlStateNormal];
     self.transactionsOnboardingView.layer.cornerRadius = self.transactionsOnboardingView.frame.size.height / 2;
+    self.transactionsOnboardingView.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.transactionsOnboardingView.titleLabel.textAlignment = NSTextAlignmentCenter;
+    NSString *string = NSLocalizedString(@"no_transactions_tuto", nil);
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:string];
+    NSRange boldRange = [string rangeOfString:@"Share your username"];
+    UIFont *boldFont = [UIFont fontWithName:@"ProximaNova-Semibold" size:self.transactionsOnboardingView.titleLabel.font.pointSize];
+    [attrString addAttribute: NSFontAttributeName value:boldFont range:boldRange];
+    self.transactionsOnboardingView.titleLabel.attributedText = attrString;
+    
     
     // Balance
     [self setBalanceAndStatus];

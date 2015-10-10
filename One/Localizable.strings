@@ -105,7 +105,7 @@
 "cashout_no_email_message" = "You need to verify your email to cashout.";
 "verify_button" = "Verify";
 "status_placeholder" = "Add a status";
-"no_transactions_tuto" = "No tips received? Share your username!";
+"no_transactions_tuto" = "Share your username and receive your first dollar.";
 "add_status_tuto" = "Add a personalized status here";
 
 // Recipients
