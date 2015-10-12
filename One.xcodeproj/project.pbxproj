@@ -116,6 +116,10 @@
 		3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */; };
 		3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
 		3CD6C1E01BC6F99700D1D991 /* socicon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CA0E61BBD957C00DBBCB0 /* socicon.ttf */; settings = {ASSET_TAGS = (); }; };
+		3CD6C1E11BC9435600D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD4D6421BB91D76001F2C7A /* OneCash-Info.plist */; settings = {ASSET_TAGS = (); }; };
+		3CD6C1E21BC9435700D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD4D6421BB91D76001F2C7A /* OneCash-Info.plist */; settings = {ASSET_TAGS = (); }; };
+		3CD6C1E31BC9436000D1D991 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03681B8DA18B00D22D48 /* Info.plist */; settings = {ASSET_TAGS = (); }; };
+		3CD6C1E41BC9436000D1D991 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03681B8DA18B00D22D48 /* Info.plist */; settings = {ASSET_TAGS = (); }; };
 		3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
 		3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
@@ -235,7 +239,7 @@
 		3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewCell.h; sourceTree = "<group>"; };
 		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
 		3CD4D6411BB91D75001F2C7A /* OneCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3CD4D6421BB91D76001F2C7A /* OneInHouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OneInHouse-Info.plist"; path = "/Users/baptistetruchot/Documents/Developer/XCode_Projects/One/OneInHouse-Info.plist"; sourceTree = "<absolute>"; };
+		3CD4D6421BB91D76001F2C7A /* OneCash-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OneCash-Info.plist"; path = "/Users/baptistetruchot/Documents/Developer/XCode_Projects/One/OneCash-Info.plist"; sourceTree = "<absolute>"; };
 		3CD6C1DF1BC66A7100D1D991 /* OneCash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OneCash.entitlements; sourceTree = "<group>"; };
 		3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -354,7 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				3C2E03681B8DA18B00D22D48 /* Info.plist */,
-				3CD4D6421BB91D76001F2C7A /* OneInHouse-Info.plist */,
+				3CD4D6421BB91D76001F2C7A /* OneCash-Info.plist */,
 				3C2E03691B8DA18B00D22D48 /* main.m */,
 				3CC5FDB41B98886700514A43 /* Localizable.strings */,
 			);
@@ -636,6 +640,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CD6C1E31BC9436000D1D991 /* Info.plist in Resources */,
 				A49CA0E71BBD95BE00DBBCB0 /* socicon.ttf in Resources */,
 				A4A2B5091BADDBEF00CDAF07 /* ProximaNova-Black.otf in Resources */,
 				A4A2B50A1BADDBEF00CDAF07 /* ProximaNova-Bold.otf in Resources */,
@@ -648,6 +653,7 @@
 				3C2E03761B8DA18B00D22D48 /* Main.storyboard in Resources */,
 				3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */,
 				A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */,
+				3CD6C1E11BC9435600D1D991 /* OneCash-Info.plist in Resources */,
 				3C86E1031B8DBA5E005AD52B /* InternalNotifView.xib in Resources */,
 				3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */,
 			);
@@ -657,6 +663,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CD6C1E41BC9436000D1D991 /* Info.plist in Resources */,
 				3CD4D6301BB91D75001F2C7A /* ProximaNova-Black.otf in Resources */,
 				3CD4D6311BB91D75001F2C7A /* ProximaNova-Bold.otf in Resources */,
 				3CD4D6321BB91D75001F2C7A /* ProximaNova-Light.otf in Resources */,
@@ -669,6 +676,7 @@
 				3CD6C1E01BC6F99700D1D991 /* socicon.ttf in Resources */,
 				3CD4D6381BB91D75001F2C7A /* LaunchScreen.xib in Resources */,
 				3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */,
+				3CD6C1E21BC9435700D1D991 /* OneCash-Info.plist in Resources */,
 				3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */,
 				3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */,
 			);
@@ -982,8 +990,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -993,7 +1001,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2ed1ecd3-37bd-4475-bef2-d2e521f00e52";
 			};
 			name = Debug;
 		};
@@ -1004,8 +1012,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mitch Buchannon (86N86JY2JG)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1019,7 +1027,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2ed1ecd3-37bd-4475-bef2-d2e521f00e52";
 			};
 			name = Release;
 		};
@@ -1036,7 +1044,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = "OneInHouse-Info.plist";
+				INFOPLIST_FILE = "OneCash-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;
@@ -1062,7 +1070,7 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 				);
-				INFOPLIST_FILE = "OneInHouse-Info.plist";
+				INFOPLIST_FILE = "OneCash-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one.inhouse;
