@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *skipButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
+@property (weak, nonatomic) IBOutlet UIImageView *applePayImage;
 @property (weak, nonatomic) IBOutlet UIButton *applePayButton;
 @property (weak, nonatomic) IBOutlet UIButton *manualPayButton;
 @property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
@@ -58,6 +59,20 @@
     self.topBar.backgroundColor = [ColorUtils mainGreen];
     self.explanationLabel.numberOfLines = 0;
     self.explanationLabel.textColor = [ColorUtils lightBlack];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if ([self applePayEnabled]) {
+        self.applePayButton.hidden = NO;
+        self.applePayImage.hidden = NO;
+        [self.manualPayButton setTitle:NSLocalizedString(@"manual_pay_button_title", nil) forState:UIControlStateNormal];
+    } else {
+        self.applePayButton.hidden = YES;
+        self.applePayImage.hidden = YES;
+        // todo BT
+        [self.manualPayButton setTitle:NSLocalizedString(@"manual_pay_button_title", nil) forState:UIControlStateNormal];
+    }
 }
 
 - (void)viewDidLayoutSubviews {

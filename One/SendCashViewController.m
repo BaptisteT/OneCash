@@ -326,6 +326,13 @@
 - (void)createPaymentWithTransaction:(Transaction *)transaction
                                token:(NSString *)token
 {
+    
+    // Twitter user
+        // todo BT alert wording
+    if (self.receiver.isExternal) {
+        [GeneralUtils showAlertWithTitle:NSLocalizedString(@"twitter_user_title", nil) andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_message", nil),self.receiver.caseUsername]];
+    }
+    
     [ApiManager createPaymentTransactionWithTransaction:transaction
                                           applePaytoken:token
                                                 success:^{
@@ -425,17 +432,6 @@
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"no_receiver_title", nil) andMessage:NSLocalizedString(@"no_receiver_message", nil)];
         }];
         
-    // Twitter user
-    } else if (!self.receiver.objectId) {
-        NSString *post = [NSString stringWithFormat:@"@%@, %@",self.receiver.caseUsername, NSLocalizedString(@"twitter_invite_wording", nil)];
-        [ApiManager postOnTwitter:post success:^() {
-            [TrackingUtils trackEvent:EVENT_EXTERNAL_TRANSACTION properties:nil];
-        } failure:nil];
-        [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
-            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"twitter_user_title", nil) andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_message", nil),self.receiver.caseUsername]];
-        }];
-
-        
      // Receiver = current
      } else if (self.receiver == [User currentUser]) {
         [self removeCashSubview:cashView];
@@ -457,7 +453,7 @@
          
          if (self.transactionToSend) {
              [self.associationTimer invalidate];
-             BOOL sameReceiver = [self.transactionToSend.receiver.objectId isEqualToString:self.receiver.objectId];
+             BOOL sameReceiver = [self.transactionToSend.receiver.username isEqualToString:self.receiver.username];
              BOOL noMessageConflict = !([self.transactionToSend containsMessage] && cashView.messageTextField.text.length > 0);
              BOOL belowLimit = self.transactionToSend.transactionAmount <= kAssociationTransactionsLimit;
              

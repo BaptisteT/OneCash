@@ -237,7 +237,7 @@
     UserTableViewCell *cell = (UserTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     User *selectedUser = cell.user;
     // External case
-    if (!selectedUser.objectId) {
+    if (!selectedUser.isExternal) {
         for (User *user in self.searchedUsersArray) {
             if ([user.username isEqualToString:selectedUser.username]) {
                 selectedUser = user;

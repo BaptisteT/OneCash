@@ -76,6 +76,7 @@
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
             <string>ProximaNova-Semibold</string>
@@ -718,21 +719,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="DO7-ir-8Rs" secondAttribute="trailing" id="0Yd-2o-SIS"/>
+                            <constraint firstItem="e3V-sQ-Jrh" firstAttribute="top" secondItem="Fbl-0K-aAO" secondAttribute="top" id="BQG-RH-MKT"/>
                             <constraint firstItem="DO7-ir-8Rs" firstAttribute="leading" secondItem="Fbl-0K-aAO" secondAttribute="leading" id="D1Y-gD-iMn"/>
-                            <constraint firstItem="e3V-sQ-Jrh" firstAttribute="leading" secondItem="Fbl-0K-aAO" secondAttribute="leadingMargin" constant="-20" id="EBt-mU-txa"/>
                             <constraint firstItem="DO7-ir-8Rs" firstAttribute="top" secondItem="dwy-pU-8hm" secondAttribute="bottom" constant="123" id="HRJ-y7-5me"/>
                             <constraint firstItem="Ng5-Mb-9Aj" firstAttribute="top" secondItem="DO7-ir-8Rs" secondAttribute="bottom" id="JL7-Qj-llE"/>
-                            <constraint firstItem="e3V-sQ-Jrh" firstAttribute="top" secondItem="Fbl-0K-aAO" secondAttribute="topMargin" id="O9z-I1-4Rs"/>
-                            <constraint firstItem="DO7-ir-8Rs" firstAttribute="leading" secondItem="Fbl-0K-aAO" secondAttribute="leadingMargin" constant="-20" id="SXt-dP-cRi"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="e3V-sQ-Jrh" secondAttribute="trailing" constant="-20" id="eTK-Qi-Q4u"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="DO7-ir-8Rs" secondAttribute="trailing" constant="-20" id="mYp-fD-aUd"/>
+                            <constraint firstAttribute="trailing" secondItem="e3V-sQ-Jrh" secondAttribute="trailing" id="LfI-6I-fP8"/>
+                            <constraint firstItem="e3V-sQ-Jrh" firstAttribute="leading" secondItem="Fbl-0K-aAO" secondAttribute="leading" id="nTe-7y-iVk"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="SXt-dP-cRi"/>
-                                <exclude reference="mYp-fD-aUd"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1070,6 +1063,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="applePayButton" destination="w2n-zt-6oG" id="iOX-l9-tbF"/>
+                        <outlet property="applePayImage" destination="iNu-Xb-hW1" id="LXp-NT-hJo"/>
                         <outlet property="explanationLabel" destination="zwY-mN-z1B" id="K5P-Er-CuV"/>
                         <outlet property="howToButton" destination="Gce-Br-1PR" id="pfP-dI-v17"/>
                         <outlet property="manualPayButton" destination="Rph-Fx-cWl" id="8wT-mY-eb8"/>
@@ -1796,9 +1790,13 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OfJ-aE-usU">
-                                <rect key="frame" x="268.5" y="455.5" width="63" height="27"/>
+                                <rect key="frame" x="225" y="394" width="150" height="150"/>
                                 <color key="backgroundColor" red="0.32030925500000001" green="1" blue="0.16362500899999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="VXW-xc-0AX"/>
+                                    <constraint firstAttribute="height" constant="150" id="mxH-ET-TcB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                 <state key="normal" title="Button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2460,8 +2458,10 @@
                                                     </variation>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAQ-cV-nVV">
-                                                    <rect key="frame" x="565" y="16" width="25" height="28"/>
+                                                    <rect key="frame" x="565" y="15" width="25" height="29.5"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="PGO-93-xji"/>
+                                                        <constraint firstAttribute="height" constant="29.5" id="fFF-tw-vTk"/>
                                                         <constraint firstAttribute="width" constant="15" id="iaQ-7C-H8V"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="socicon" family="socicon" pointSize="17"/>
@@ -2746,8 +2746,8 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0bD-CV-jtZ"/>
         <segue reference="0H9-Pw-zbF"/>
-        <segue reference="ep0-aD-elO"/>
+        <segue reference="Ign-3p-bGy"/>
+        <segue reference="8Kh-LZ-lT7"/>
     </inferredMetricsTieBreakers>
 </document>

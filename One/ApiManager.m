@@ -385,6 +385,24 @@
                                         success:(void(^)())successBlock
                                         failure:(void(^)(NSError *error))failureBlock
 {
+    // todo BT
+    // if external, check there is no user with the same username (must be external)
+    // else create it
+    // then create payment
+    if (!transaction.receiver.objectId) {
+        if (!transaction.receiver.username) return;
+        [ApiManager findUserWithUsername:transaction.receiver.username
+                                 success:^(User *user) {
+                                     if (user) {
+                                         transaction.receiver = user;
+                                     }
+                                 } failure:^(NSError *error) {
+                                     if (failureBlock) {
+                                         failureBlock(error);
+                                     }
+                                 }];
+    }
+    
     NSMutableDictionary *params = [NSMutableDictionary new];
     params[@"receiverId"] = transaction.receiver.objectId;
     if (transaction.message)
@@ -403,7 +421,7 @@
                                         if (failureBlock) {
                                             failureBlock(error);
                                         }
-                                        [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method, @"error":@"create_payment_error"}];
+                                        [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method, @"error":@"create_payment_error", @"externalReceiver": [NSNumber numberWithBool:transaction.receiver.isExternal]}];
                                     } else {
                                         // pin transaction
                                         [(Transaction *)(objects[0]) pinInBackgroundWithName:kParseTransactionsName];
@@ -412,7 +430,7 @@
                                         }
                                         
                                         // TRACKING
-                                        [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method}];
+                                        [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method, @"externalReceiver": [NSNumber numberWithBool:transaction.receiver.isExternal]}];
                                         [TrackingUtils incrementPeopleProperty:PEOPLE_SENDING_TOTAL byValue:(int)transaction.transactionAmount];
                                     }
                                 }];

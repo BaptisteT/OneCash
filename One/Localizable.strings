@@ -84,7 +84,6 @@
 "failed_label" = "Fail (%lu)";
 "twitter_user_title" = "The transaction was canceled";
 "twitter_user_message" = "%@ hasn’t joined yet, we just sent him an invite on Twitter. Your card has not been debited.";
-"twitter_invite_wording" = "I want to tip you $1 ! Join me on One.cash"; // external sending
 "share_username_button" = "Get tipped!";
 
 // APple pay
@@ -105,7 +104,7 @@
 "cashout_no_email_message" = "You need to verify your email to cashout.";
 "verify_button" = "Verify";
 "status_placeholder" = "Add a status";
-"no_transactions_tuto" = "No tips received? Share your username!";
+"no_transactions_tuto" = "Share your username and receive your first dollar.";
 "add_status_tuto" = "Add a personalized status here";
 
 // Recipients
