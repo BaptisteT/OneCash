@@ -21,7 +21,6 @@
 #import "TrackingUtils.h"
 
 @interface CardViewController () 
-@property (weak, nonatomic) IBOutlet UIButton *skipButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet UIImageView *applePayImage;
@@ -30,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
 @property (strong, nonatomic) IBOutlet UILabel *topLabel;
 @property (weak, nonatomic) IBOutlet UIButton *howToButton;
+@property (strong, nonatomic) IBOutlet UIButton *notNowButton;
 
 @end
 
@@ -42,7 +42,8 @@
     [super viewDidLoad];
     
     // wording
-    [self.skipButton setTitle:NSLocalizedString(@"later_", nil) forState:UIControlStateNormal];
+    [self.notNowButton setTitle:NSLocalizedString(@"later_", nil)forState:UIControlStateNormal];
+    [self.notNowButton setTitleColor:[ColorUtils lightBlack] forState:UIControlStateNormal];
     self.titleLabel.text = NSLocalizedString(@"card_title", nil);
     [self.applePayButton setTitle:NSLocalizedString(@"apple_pay_button_title", nil) forState:UIControlStateNormal];
     [self.applePayButton setTitleColor:[ColorUtils lightBlack] forState:UIControlStateNormal];
@@ -79,6 +80,7 @@
     [super viewDidLayoutSubviews];
     [DesignUtils addBottomBorder:self.applePayButton borderSize:0.5 color:[ColorUtils veryLightBlack]];
     [DesignUtils addBottomBorder:self.manualPayButton borderSize:0.5 color:[ColorUtils veryLightBlack]];
+    [DesignUtils addBottomBorder:self.notNowButton borderSize:0.5 color:[ColorUtils veryLightBlack]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
