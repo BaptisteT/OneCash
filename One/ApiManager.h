@@ -73,7 +73,7 @@
 // --------------------------------------------
 + (void)createPaymentTransactionWithTransaction:(Transaction *)transaction
                                   applePaytoken:(NSString *)token
-                                        success:(void(^)())successBlock
+                                        success:(void(^)(Transaction *returnTransaction))successBlock
                                         failure:(void(^)(NSError *error))failureBlock;
 
 + (void)getTransactionsBeforeDate:(NSDate *)date

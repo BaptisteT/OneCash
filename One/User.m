@@ -34,6 +34,7 @@
 @dynamic birthDate;
 @dynamic touchId;
 @dynamic userStatus;
+@dynamic isExternal;
 
 @synthesize bigPicture;
 @synthesize smallPicture;
@@ -120,6 +121,7 @@
     for (NSDictionary *twitterUser in twitterUsers) {
         User *user = [User new];
         [user updateUserWithTwitterInfo:twitterUser];
+        user.isExternal = true;
         [results addObject:user];
     }
     return results;

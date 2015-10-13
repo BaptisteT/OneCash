@@ -96,7 +96,6 @@
     [attrString addAttribute: NSFontAttributeName value:boldFont range:boldRange];
     self.transactionsOnboardingView.titleLabel.attributedText = attrString;
     
-    
     // Balance
     [self setBalanceAndStatus];
     

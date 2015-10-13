@@ -326,27 +326,30 @@
 - (void)createPaymentWithTransaction:(Transaction *)transaction
                                token:(NSString *)token
 {
-    [ApiManager createPaymentTransactionWithTransaction:transaction
-                                          applePaytoken:token
-                                                success:^{
-                                                    self.sentTransactionsCount += transaction.transactionAmount;
-                                                    // send notif to balance controller for refresh
-                                                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshTransactions
-                                                                                                        object:nil
-                                                                                                      userInfo:nil];
-                                                    if (self.ongoingTransactionsCount == 0) {
-                                                        self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
-                                                    }
-                                                } failure:^(NSError *error) {
-                                                    if ([error.description containsString:@"card_error"]) {
-                                                        // todo BT
-                                                        // go to check card ?
-                                                    }
-                                                    [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
-                                                    
-                                                    self.ongoingTransactionsCount -= transaction.transactionAmount;
-                                                    [self failedAnimation:transaction.transactionAmount];
-                                                }];
+    [ApiManager createPaymentTransactionWithTransaction:transaction applePaytoken:token success:^(Transaction *returnTransaction) {
+            // If external show alert
+            if (returnTransaction.receiver.isExternal) {
+                [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:NSLocalizedString(@"twitter_user_alert_message", nil)];
+            }
+            
+            self.sentTransactionsCount += transaction.transactionAmount;
+            // send notif to balance controller for refresh
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshTransactions
+                                                                object:nil
+                                                              userInfo:nil];
+            if (self.ongoingTransactionsCount == 0) {
+                self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
+            }
+        } failure:^(NSError *error) {
+            if ([error.description containsString:@"card_error"]) {
+                // todo BT
+                // go to check card ?
+            }
+            [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
+            
+            self.ongoingTransactionsCount -= transaction.transactionAmount;
+            [self failedAnimation:transaction.transactionAmount];
+        }];
 }
 
 
@@ -425,17 +428,6 @@
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"no_receiver_title", nil) andMessage:NSLocalizedString(@"no_receiver_message", nil)];
         }];
         
-    // Twitter user
-    } else if (!self.receiver.objectId) {
-        NSString *post = [NSString stringWithFormat:@"@%@, %@",self.receiver.caseUsername, NSLocalizedString(@"twitter_invite_wording", nil)];
-        [ApiManager postOnTwitter:post success:^() {
-            [TrackingUtils trackEvent:EVENT_EXTERNAL_TRANSACTION properties:nil];
-        } failure:nil];
-        [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
-            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"twitter_user_title", nil) andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_message", nil),self.receiver.caseUsername]];
-        }];
-
-        
      // Receiver = current
      } else if (self.receiver == [User currentUser]) {
         [self removeCashSubview:cashView];
@@ -457,7 +449,7 @@
          
          if (self.transactionToSend) {
              [self.associationTimer invalidate];
-             BOOL sameReceiver = [self.transactionToSend.receiver.objectId isEqualToString:self.receiver.objectId];
+             BOOL sameReceiver = [self.transactionToSend.receiver.username isEqualToString:self.receiver.username];
              BOOL noMessageConflict = !([self.transactionToSend containsMessage] && cashView.messageTextField.text.length > 0);
              BOOL belowLimit = self.transactionToSend.transactionAmount <= kAssociationTransactionsLimit;
              
@@ -722,12 +714,14 @@
         }
     }
     if (editingView) {
+        self.shareUsernameButton.hidden = YES;
         [KeyboardUtils pushUpTopView:editingView whenKeyboardWillShowNotification:notification];
     }
 }
 
 // Move down create comment view on keyboard will hide
 - (void)keyboardWillHide:(NSNotification *)notification {
+    self.shareUsernameButton.hidden = NO;
     CashView *editingView;
     for (CashView *cashView in self.presentedCashViews) {
         if (cashView.isEditingMessage) {

@@ -14,6 +14,7 @@
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
+#import "GeneralUtils.h"
 #import "OneLogger.h"
 #import "TrackingUtils.h"
 
@@ -50,6 +51,7 @@
     [self.loginButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.howToButton.layer.cornerRadius = self.howToButton.frame.size.height / 2;
     [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    [self.howToButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:completeString];
     UIColor *color =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
     NSDictionary *attribute = @{NSForegroundColorAttributeName: color};
@@ -57,6 +59,9 @@
     [attrString addAttributes:attribute range:[completeString rangeOfString:privacy]];
     self.termsLabel.attributedText = attrString;
     self.termsLabel.numberOfLines = 0;
+    if (IS_IPHONE_4_OR_LESS || IS_IPHONE_5) {
+        self.termsLabel.font = [self.termsLabel.font fontWithSize:14];
+    }
     
     // Gesture
     UITapGestureRecognizer *termsTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnTerms)];
