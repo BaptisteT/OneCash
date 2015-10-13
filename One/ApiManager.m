@@ -208,6 +208,7 @@
 {
     User *user = [User currentUser]; // there should be unsaved changed (username / picture URL..)
     if (user.isDirty) {
+        user.isExternal = false;
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 OneLog(ONEAPIMANAGERLOG,@"Success - Update User");
@@ -374,6 +375,28 @@
                                 }];
 }
 
++ (void)createExternalUser:(User *)user
+                   success:(void(^)(User *user))successBlock
+                   failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"createExternalUser"
+                       withParameters:@{@"username": user.username, @"caseUsername": user.caseUsername, @"pictureURL": user.pictureURL}
+                                block:^(User *user, NSError *error) {
+                                    if (error == nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Success - createExternalUser");
+                                        if (successBlock) {
+                                            successBlock(user);
+                                        }
+                                    } else {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createExternalUser - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                        
+                                    }
+                                }];
+}
+
 
 
 // --------------------------------------------
@@ -382,19 +405,69 @@
 // Create payment transactions
 + (void)createPaymentTransactionWithTransaction:(Transaction *)transaction
                                   applePaytoken:(NSString *)token
-                                        success:(void(^)())successBlock
+                                        success:(void(^)(Transaction *returnTransaction))successBlock
                                         failure:(void(^)(NSError *error))failureBlock
 {
-    // todo BT
-    // if external, check there is no user with the same username (must be external)
-    // else create it
-    // then create payment
-    if (!transaction.receiver.objectId) {
-        if (!transaction.receiver.username) return;
+    // Create transactions => block
+    void (^createTransactionsBlock)(Transaction *) = ^(Transaction *paiement) {
+        NSMutableDictionary *params = [NSMutableDictionary new];
+        params[@"receiverId"] = paiement.receiver.objectId;
+        if (paiement.message)
+            params[@"message"] = paiement.message;
+        params[@"transactionAmount"] = [NSNumber numberWithInteger:paiement.transactionAmount];
+        if (token)
+            params[@"applePayToken"] = token;
+        
+        NSString *method = paiement.transactionAmount > [User currentUser].balance ? @"balance" : [User currentUser].paymentMethod == kPaymentMethodApplePay ? @"Apple Pay" : @"Manual Card";
+        
+        [PFCloud callFunctionInBackground:@"createPaymentTransaction"
+                           withParameters:params
+                                    block:^(NSArray *objects, NSError *error) {
+                                        if (error != nil) {
+                                            OneLog(ONEAPIMANAGERLOG,@"Failure - createPaymentTransaction - %@",error.description);
+                                            if (failureBlock) {
+                                                failureBlock(error);
+                                            }
+                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:(paiement.message !=nil)], @"method": method, @"error":@"create_payment_error", @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
+                                        } else {
+                                            // pin transaction
+                                            Transaction *tr = (Transaction *)(objects[0]);
+                                            [tr pinInBackgroundWithName:kParseTransactionsName];
+                                            if (successBlock) {
+                                                successBlock(tr);
+                                            }
+                                            
+                                            // TRACKING
+                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:(paiement.message !=nil)], @"method": method, @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
+                                            [TrackingUtils incrementPeopleProperty:PEOPLE_SENDING_TOTAL byValue:(int)paiement.transactionAmount];
+                                        }
+                                    }];
+    };
+    
+    User *receiver = transaction.receiver;
+    // Normal case : paiement to other user
+    if (receiver.objectId) {
+        createTransactionsBlock(transaction);
+        
+    // External case
+    } else {
+        if (!receiver.username)
+            return;
         [ApiManager findUserWithUsername:transaction.receiver.username
                                  success:^(User *user) {
                                      if (user) {
                                          transaction.receiver = user;
+                                         createTransactionsBlock(transaction);
+                                     } else {
+                                         [ApiManager createExternalUser:transaction.receiver
+                                                                success:^(User *user) {
+                                                                    transaction.receiver = user;
+                                                                    createTransactionsBlock(transaction);
+                                                                } failure:^(NSError *error) {
+                                                                    if (failureBlock) {
+                                                                        failureBlock(error);
+                                                                    }
+                                                                }];
                                      }
                                  } failure:^(NSError *error) {
                                      if (failureBlock) {
@@ -402,38 +475,6 @@
                                      }
                                  }];
     }
-    
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    params[@"receiverId"] = transaction.receiver.objectId;
-    if (transaction.message)
-        params[@"message"] = transaction.message;
-    params[@"transactionAmount"] = [NSNumber numberWithInteger:transaction.transactionAmount];
-    if (token)
-        params[@"applePayToken"] = token;
-    
-    NSString *method = transaction.transactionAmount > [User currentUser].balance ? @"balance" : [User currentUser].paymentMethod == kPaymentMethodApplePay ? @"Apple Pay" : @"Manual Card";
-
-    [PFCloud callFunctionInBackground:@"createPaymentTransaction"
-                       withParameters:params
-                                block:^(NSArray *objects, NSError *error) {
-                                    if (error != nil) {
-                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createPaymentTransaction - %@",error.description);
-                                        if (failureBlock) {
-                                            failureBlock(error);
-                                        }
-                                        [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method, @"error":@"create_payment_error", @"externalReceiver": [NSNumber numberWithBool:transaction.receiver.isExternal]}];
-                                    } else {
-                                        // pin transaction
-                                        [(Transaction *)(objects[0]) pinInBackgroundWithName:kParseTransactionsName];
-                                        if (successBlock) {
-                                            successBlock();
-                                        }
-                                        
-                                        // TRACKING
-                                        [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:transaction.transactionAmount], @"message": [NSNumber numberWithBool:(transaction.message !=nil)], @"method": method, @"externalReceiver": [NSNumber numberWithBool:transaction.receiver.isExternal]}];
-                                        [TrackingUtils incrementPeopleProperty:PEOPLE_SENDING_TOTAL byValue:(int)transaction.transactionAmount];
-                                    }
-                                }];
 }
 
 // Get transactions (either all after date, or 20)

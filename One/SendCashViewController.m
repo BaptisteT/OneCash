@@ -326,34 +326,30 @@
 - (void)createPaymentWithTransaction:(Transaction *)transaction
                                token:(NSString *)token
 {
-    
-    // Twitter user
-        // todo BT alert wording
-    if (self.receiver.isExternal) {
-        [GeneralUtils showAlertWithTitle:NSLocalizedString(@"twitter_user_title", nil) andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_message", nil),self.receiver.caseUsername]];
-    }
-    
-    [ApiManager createPaymentTransactionWithTransaction:transaction
-                                          applePaytoken:token
-                                                success:^{
-                                                    self.sentTransactionsCount += transaction.transactionAmount;
-                                                    // send notif to balance controller for refresh
-                                                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshTransactions
-                                                                                                        object:nil
-                                                                                                      userInfo:nil];
-                                                    if (self.ongoingTransactionsCount == 0) {
-                                                        self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
-                                                    }
-                                                } failure:^(NSError *error) {
-                                                    if ([error.description containsString:@"card_error"]) {
-                                                        // todo BT
-                                                        // go to check card ?
-                                                    }
-                                                    [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
-                                                    
-                                                    self.ongoingTransactionsCount -= transaction.transactionAmount;
-                                                    [self failedAnimation:transaction.transactionAmount];
-                                                }];
+    [ApiManager createPaymentTransactionWithTransaction:transaction applePaytoken:token success:^(Transaction *returnTransaction) {
+            // If external show alert
+            if (returnTransaction.receiver.isExternal) {
+                [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:NSLocalizedString(@"twitter_user_alert_message", nil)];
+            }
+            
+            self.sentTransactionsCount += transaction.transactionAmount;
+            // send notif to balance controller for refresh
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshTransactions
+                                                                object:nil
+                                                              userInfo:nil];
+            if (self.ongoingTransactionsCount == 0) {
+                self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
+            }
+        } failure:^(NSError *error) {
+            if ([error.description containsString:@"card_error"]) {
+                // todo BT
+                // go to check card ?
+            }
+            [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
+            
+            self.ongoingTransactionsCount -= transaction.transactionAmount;
+            [self failedAnimation:transaction.transactionAmount];
+        }];
 }
 
 
