@@ -948,85 +948,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pu5-Ep-cbd">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="144"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tGg-VA-sK0">
-                                        <rect key="frame" x="559" y="20" width="31" height="40"/>
-                                        <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="PTv-Pd-edd"/>
-                                            <constraint firstAttribute="width" constant="40" id="S6c-jl-i6v"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
-                                        <state key="normal" title="skip">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="S6c-jl-i6v"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <action selector="skipButtonClicked:" destination="Koy-ZE-4HZ" eventType="touchUpInside" id="C4Y-Ym-HPS"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="provide card label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWv-lg-EV8">
-                                        <rect key="frame" x="50" y="84" width="500" height="17"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a payment method" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x5w-QA-jEC">
-                                        <rect key="frame" x="211" y="31" width="179" height="17"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gce-Br-1PR">
-                                        <rect key="frame" x="10" y="27" width="25" height="25"/>
-                                        <animations/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="3hz-Rl-uj5"/>
-                                            <constraint firstAttribute="height" constant="25" id="DuF-F7-4pj"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                        <state key="normal" title="?">
-                                            <color key="titleColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="howToButtonClicked:" destination="Koy-ZE-4HZ" eventType="touchUpInside" id="8V0-Ao-ybE"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <animations/>
-                                <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="144" id="3te-W8-SIE"/>
-                                    <constraint firstAttribute="trailing" secondItem="tGg-VA-sK0" secondAttribute="trailing" constant="10" id="DBd-eB-4n6"/>
-                                    <constraint firstItem="Gce-Br-1PR" firstAttribute="centerY" secondItem="tGg-VA-sK0" secondAttribute="centerY" id="Lcm-oQ-6me"/>
-                                    <constraint firstItem="x5w-QA-jEC" firstAttribute="centerX" secondItem="Pu5-Ep-cbd" secondAttribute="centerX" id="MY7-8y-VfZ"/>
-                                    <constraint firstItem="Gce-Br-1PR" firstAttribute="leading" secondItem="Pu5-Ep-cbd" secondAttribute="leading" constant="10" id="UQH-xt-awo"/>
-                                    <constraint firstAttribute="trailing" secondItem="tWv-lg-EV8" secondAttribute="trailing" constant="50" id="Xgl-Ue-i4n"/>
-                                    <constraint firstItem="tGg-VA-sK0" firstAttribute="leading" secondItem="Pu5-Ep-cbd" secondAttribute="leading" constant="10" id="atg-UO-nYT"/>
-                                    <constraint firstItem="tGg-VA-sK0" firstAttribute="top" secondItem="Pu5-Ep-cbd" secondAttribute="top" constant="20" id="fiY-xZ-CtM"/>
-                                    <constraint firstAttribute="centerY" secondItem="tWv-lg-EV8" secondAttribute="centerY" constant="-20.5" id="h49-2t-KuD"/>
-                                    <constraint firstItem="x5w-QA-jEC" firstAttribute="top" secondItem="Pu5-Ep-cbd" secondAttribute="top" constant="31" id="h5y-P5-t1F"/>
-                                    <constraint firstItem="Gce-Br-1PR" firstAttribute="top" secondItem="Pu5-Ep-cbd" secondAttribute="top" constant="22" id="hSz-47-6bD"/>
-                                    <constraint firstAttribute="centerX" secondItem="tWv-lg-EV8" secondAttribute="centerX" id="rSB-g6-WyJ"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="hSz-47-6bD"/>
-                                        <exclude reference="atg-UO-nYT"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rph-Fx-cWl">
                                 <rect key="frame" x="40" y="299" width="520" height="51"/>
                                 <animations/>
@@ -1040,6 +961,22 @@
                                 </state>
                                 <connections>
                                     <action selector="manualCardClicked:" destination="Koy-ZE-4HZ" eventType="touchUpInside" id="eFH-1a-TnF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VF8-Y5-eji">
+                                <rect key="frame" x="44" y="376" width="514" height="51"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="51" id="5uA-9I-fYn"/>
+                                    <constraint firstAttribute="height" constant="51" id="BVK-ov-drf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
+                                <state key="normal" title="skip">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="skipButtonClicked:" destination="Koy-ZE-4HZ" eventType="touchUpInside" id="Etk-J3-Ace"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2n-zt-6oG">
@@ -1078,6 +1015,62 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pu5-Ep-cbd">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="144"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="provide card label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tWv-lg-EV8">
+                                        <rect key="frame" x="50" y="84" width="500" height="17"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a payment method" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x5w-QA-jEC">
+                                        <rect key="frame" x="211" y="31" width="179" height="17"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gce-Br-1PR">
+                                        <rect key="frame" x="559" y="26" width="25" height="25"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="3hz-Rl-uj5"/>
+                                            <constraint firstAttribute="height" constant="25" id="DuF-F7-4pj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <state key="normal" title="?">
+                                            <color key="titleColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="howToButtonClicked:" destination="Koy-ZE-4HZ" eventType="touchUpInside" id="8V0-Ao-ybE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="144" id="3te-W8-SIE"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gce-Br-1PR" secondAttribute="trailing" constant="16" id="AhL-1S-Mkb"/>
+                                    <constraint firstItem="x5w-QA-jEC" firstAttribute="centerX" secondItem="Pu5-Ep-cbd" secondAttribute="centerX" id="MY7-8y-VfZ"/>
+                                    <constraint firstItem="Gce-Br-1PR" firstAttribute="top" secondItem="Pu5-Ep-cbd" secondAttribute="top" constant="26" id="Nad-3X-mdi"/>
+                                    <constraint firstItem="Gce-Br-1PR" firstAttribute="leading" secondItem="Pu5-Ep-cbd" secondAttribute="leading" constant="553" id="UQH-xt-awo"/>
+                                    <constraint firstAttribute="trailing" secondItem="tWv-lg-EV8" secondAttribute="trailing" constant="50" id="Xgl-Ue-i4n"/>
+                                    <constraint firstAttribute="centerY" secondItem="tWv-lg-EV8" secondAttribute="centerY" constant="-20.5" id="h49-2t-KuD"/>
+                                    <constraint firstItem="x5w-QA-jEC" firstAttribute="top" secondItem="Pu5-Ep-cbd" secondAttribute="top" constant="31" id="h5y-P5-t1F"/>
+                                    <constraint firstItem="Gce-Br-1PR" firstAttribute="top" secondItem="Pu5-Ep-cbd" secondAttribute="top" constant="22" id="hSz-47-6bD"/>
+                                    <constraint firstAttribute="centerX" secondItem="tWv-lg-EV8" secondAttribute="centerX" id="rSB-g6-WyJ"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="UQH-xt-awo"/>
+                                        <exclude reference="hSz-47-6bD"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1086,12 +1079,15 @@
                             <constraint firstAttribute="trailing" secondItem="iNu-Xb-hW1" secondAttribute="trailing" constant="40" id="0gM-4X-boH"/>
                             <constraint firstItem="w2n-zt-6oG" firstAttribute="leading" secondItem="oAa-5q-iqy" secondAttribute="leadingMargin" constant="24" id="1Ta-m8-FWs"/>
                             <constraint firstItem="w2n-zt-6oG" firstAttribute="top" secondItem="Pu5-Ep-cbd" secondAttribute="bottom" priority="250" constant="80" id="2oG-hy-yUt"/>
+                            <constraint firstItem="VF8-Y5-eji" firstAttribute="leading" secondItem="oAa-5q-iqy" secondAttribute="leadingMargin" constant="24" id="4k5-hE-Pke"/>
+                            <constraint firstItem="VF8-Y5-eji" firstAttribute="top" secondItem="Rph-Fx-cWl" secondAttribute="bottom" constant="26" id="7p4-EP-PSp"/>
                             <constraint firstItem="w2n-zt-6oG" firstAttribute="leading" secondItem="oAa-5q-iqy" secondAttribute="leading" constant="40" id="9l4-Hf-CVk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iNu-Xb-hW1" secondAttribute="trailing" constant="20" id="BsJ-mz-PQv"/>
                             <constraint firstItem="Rph-Fx-cWl" firstAttribute="leading" secondItem="oAa-5q-iqy" secondAttribute="leading" constant="40" id="ByH-V2-pP0"/>
                             <constraint firstItem="zwY-mN-z1B" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oAa-5q-iqy" secondAttribute="leadingMargin" constant="10" id="E3J-Pj-RVt"/>
                             <constraint firstItem="Rph-Fx-cWl" firstAttribute="top" secondItem="w2n-zt-6oG" secondAttribute="bottom" constant="24" id="EU1-w4-j1t"/>
                             <constraint firstAttribute="centerX" secondItem="w2n-zt-6oG" secondAttribute="centerX" id="Hs9-Zo-0jM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VF8-Y5-eji" secondAttribute="trailing" constant="22" id="M7G-hz-C4J"/>
                             <constraint firstAttribute="trailing" secondItem="Pu5-Ep-cbd" secondAttribute="trailing" id="Ruy-u8-IBz"/>
                             <constraint firstAttribute="centerX" secondItem="f3G-Op-6nM" secondAttribute="centerX" id="XIN-6w-bSc"/>
                             <constraint firstItem="zwY-mN-z1B" firstAttribute="centerX" secondItem="oAa-5q-iqy" secondAttribute="centerX" id="XKz-g7-Fi9"/>
@@ -1118,7 +1114,7 @@
                         <outlet property="explanationLabel" destination="zwY-mN-z1B" id="K5P-Er-CuV"/>
                         <outlet property="howToButton" destination="Gce-Br-1PR" id="pfP-dI-v17"/>
                         <outlet property="manualPayButton" destination="Rph-Fx-cWl" id="8wT-mY-eb8"/>
-                        <outlet property="skipButton" destination="tGg-VA-sK0" id="J5x-zs-6qW"/>
+                        <outlet property="notNowButton" destination="VF8-Y5-eji" id="khD-J1-xdi"/>
                         <outlet property="titleLabel" destination="tWv-lg-EV8" id="PfV-D1-bXE"/>
                         <outlet property="topBar" destination="Pu5-Ep-cbd" id="WJQ-8p-EZC"/>
                         <outlet property="topLabel" destination="x5w-QA-jEC" id="cPj-uM-5wP"/>
@@ -2901,7 +2897,7 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CWh-84-eC0"/>
+        <segue reference="0H9-Pw-zbF"/>
         <segue reference="Ign-3p-bGy"/>
         <segue reference="8Kh-LZ-lT7"/>
     </inferredMetricsTieBreakers>

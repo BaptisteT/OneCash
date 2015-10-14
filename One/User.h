@@ -34,11 +34,16 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 @property (nonatomic) NSString *userStatus;
 @property (nonatomic) BOOL isExternal;
 
+// local
+@property (nonatomic) BOOL isNewOverride;
+
 - (void)setAvatarInImageView:(UIImageView *)imageView bigSize:(BOOL)sizeFlag saveLocally:(BOOL)savingFlag;
 - (void)setAvatarInButton:(UIButton *)button bigSize:(BOOL)flag;
 - (BOOL)isEmailVerified;
 - (void)updateUserWithTwitterInfo:(NSDictionary *)twitterInfo;
 
 + (NSArray *)createUsersFromTwitterResultArray:(NSArray *)twitterUsers;
+
+- (BOOL)isNew;
 
 @end
