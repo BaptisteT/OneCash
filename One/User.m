@@ -36,6 +36,7 @@
 @dynamic userStatus;
 @dynamic isExternal;
 
+@synthesize isNewOverride;
 @synthesize bigPicture;
 @synthesize smallPicture;
 
@@ -142,6 +143,12 @@
         [self setUsername:[self.caseUsername lowercaseString]];
     }
     
+    // Id
+    NSString * twitterId = [[twitterInfo objectForKey:@"id"] stringValue];
+    if (twitterId && twitterId.length > 0 && ![self.twitterId isEqualToString:twitterId]) {
+        self.twitterId = twitterId;
+    }
+    
     // Email
     NSString * email = [twitterInfo objectForKey:@"email"];
     if (email && email.length > 0 && !self.email) {
@@ -183,6 +190,14 @@
         return [[self objectForKey:@"emailVerified"] boolValue];
     } else {
         return NO;
+    }
+}
+
+- (BOOL)isNew {
+    if (self.isNewOverride) {
+        return true;
+    } else {
+        return [super isNew];
     }
 }
 

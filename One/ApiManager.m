@@ -62,21 +62,58 @@
             } else {
                 OneLog(ONEAPIMANAGERLOG,@"Success - Twitter login - isNew: %d",user.isNew);
                 
-                // tracking
-                [TrackingUtils identifyUser:(User *)user];
+                // auth data
+                PF_Twitter *twitter = [PFTwitterUtils twitter];
+                NSString *userId = twitter.userId;
+                NSString *screenName = twitter.screenName;
+                NSString *authToken = twitter.authToken;
+                NSString *authTokenSecret = twitter.authTokenSecret;
                 
-                // Get twitter info
-                [ApiManager getOtherTwitterInfoAndExecuteSuccess:^{
-                    [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @YES}];
-                    if (successBlock){
-                        successBlock();
-                    }
-                } failure:^(NSError *error) {
-                    [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @NO, @"failure": @"otherInfo"}];
-                    if (failureBlock) {
-                        failureBlock(error);
-                    }
-                }];
+                void(^afterLoginBlock)() = ^() {
+                    [TrackingUtils identifyUser:[User currentUser]];
+                    
+                    // Get twitter info
+                    [ApiManager getOtherTwitterInfoAndExecuteSuccess:^{
+                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @YES}];
+                        if (successBlock){
+                            successBlock();
+                        }
+                    } failure:^(NSError *error) {
+                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @NO, @"failure": @"otherInfo"}];
+                        if (failureBlock) {
+                            failureBlock(error);
+                        }
+                    }];
+                };
+                
+                // login case
+                if ([[User currentUser].username isEqualToString:[screenName lowercaseString]]) {
+                    afterLoginBlock();
+                    
+                // signup case
+                } else {
+                    [PFCloud callFunctionInBackground:@"mergeRealAndExternalUser"
+                                       withParameters:nil
+                                                block:^(id object, NSError *error) {
+                                                    if (error != nil) {
+                                                        OneLog(ONEAPIMANAGERLOG,@"Failure - postOnTwitter - %@",error.description);
+                                                        if (failureBlock) {
+                                                            failureBlock(error);
+                                                        }
+                                                    } else {
+                                                        // external case
+                                                        if ([object valueForKey:@"re-log"]) {
+                                                            [PFTwitterUtils logInWithTwitterId:userId screenName:screenName authToken:authToken authTokenSecret:authTokenSecret block:^(PFUser * _Nullable user, NSError * _Nullable error) {
+                                                                [User currentUser].isNewOverride = YES;
+                                                                afterLoginBlock();
+                                                            }];
+                                                        } else {
+                                                        // No external
+                                                            afterLoginBlock();
+                                                        }
+                                                    }
+                                                }];
+                }
             }
         }];
     }
@@ -208,7 +245,6 @@
 {
     User *user = [User currentUser]; // there should be unsaved changed (username / picture URL..)
     if (user.isDirty) {
-        user.isExternal = false;
         [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 OneLog(ONEAPIMANAGERLOG,@"Success - Update User");
@@ -380,7 +416,7 @@
                    failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"createExternalUser"
-                       withParameters:@{@"username": user.username, @"caseUsername": user.caseUsername, @"pictureURL": user.pictureURL}
+                       withParameters:@{@"username": user.username, @"caseUsername": user.caseUsername, @"pictureURL": user.pictureURL, @"twitterId": user.twitterId}
                                 block:^(User *user, NSError *error) {
                                     if (error == nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Success - createExternalUser");
