@@ -76,7 +76,7 @@
         name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
         
 //        self.seenImageView.hidden = self.transaction.readStatus;
-        self.seenImageView.hidden = TRUE; //DEBUG
+        self.seenImageView.hidden = NO; //DEBUG
 
     }
     NSString *time = transaction.createdAt.shortTimeAgoSinceNow;
