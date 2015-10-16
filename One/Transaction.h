@@ -24,11 +24,14 @@ typedef NS_ENUM(NSInteger,TransactionType) {
 @property (nonatomic) NSInteger transactionAmount; // in $, 1 if kTransactionPayment
 @property (nonatomic) User *receiver; // if kTransactionPayment
 @property (nonatomic) NSString *message;
+@property (nonatomic) BOOL readStatus;
+
 
 + (Transaction *)transactionWithReceiver:(User *)receiver
                        transactionAmount:(NSInteger)amount
                                     type:(TransactionType)type
-                                 message:(NSString *)message;
+                                 message:(NSString *)message
+                              readStatus:(BOOL)readStatus;
 
 - (BOOL)containsMessage;
 

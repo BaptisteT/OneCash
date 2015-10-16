@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameAndTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *seenImageView;
 @property (strong, nonatomic) CAShapeLayer *borderLayer;
 
 @property (strong, nonatomic) Transaction *transaction;
@@ -73,6 +74,10 @@
         
         [transaction.receiver setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
         name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
+        
+//        self.seenImageView.hidden = self.transaction.readStatus;
+        self.seenImageView.hidden = TRUE; //DEBUG
+
     }
     NSString *time = transaction.createdAt.shortTimeAgoSinceNow;
     self.nameAndTimeLabel.text = [NSString stringWithFormat:@"%@%@",name,time];
@@ -85,6 +90,14 @@
     self.userPicture.layer.cornerRadius = self.userPicture.frame.size.height / 2;
     self.userPicture.layer.borderColor = [ColorUtils lightBlack].CGColor;
     self.userPicture.layer.borderWidth = 0.5f;
+}
+
+-(BOOL) getYesOrNo
+{
+    int tmp = (arc4random() % 30)+1;
+    if(tmp % 5 == 0)
+        return YES;
+    return NO;
 }
 
 - (void)layoutSubviews

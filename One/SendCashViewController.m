@@ -472,7 +472,8 @@
              self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
                                                          transactionAmount:kUnitTransactionAmount
                                                                       type:kTransactionPayment
-                                                                   message:cashView.messageTextField.text];
+                                                                   message:cashView.messageTextField.text
+                                                                readStatus:false];
              [self startAssociationTimer];
          }
      }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -23,6 +23,7 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZaX-Hp-Ves">
                     <rect key="frame" x="0.0" y="0.0" width="512" height="512"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="316" id="OnG-EB-3gn"/>
                         <constraint firstAttribute="height" constant="316" id="QvC-rE-lMM"/>
@@ -45,6 +46,7 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CRAFFENOUX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGR-in-SGt">
                             <rect key="frame" x="17" y="24" width="368.5" height="39"/>
+                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="AsS-lD-Mf6"/>
                                 <constraint firstAttribute="height" constant="39" id="cez-qH-Z3Z"/>
@@ -61,6 +63,7 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIP ME ON ONECASH" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6P1-3p-bL3">
                             <rect key="frame" x="16" y="15" width="360" height="20"/>
+                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="360" id="P6B-HQ-I2M"/>
                             </constraints>
@@ -69,6 +72,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" red="0.11551640220000001" green="0.82181889959999999" blue="0.2544996732" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="6P1-3p-bL3" firstAttribute="leading" secondItem="Bfv-yi-hx6" secondAttribute="leading" constant="16" id="2mW-3R-zLI"/>
@@ -80,6 +84,7 @@
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ram-Rs-ReP">
                     <rect key="frame" x="370" y="405" width="80" height="80"/>
+                    <animations/>
                     <color key="backgroundColor" red="0.11551640220000001" green="0.82181889959999999" blue="0.2544996732" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Bv9-Di-q6c"/>
@@ -93,12 +98,14 @@
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eod-9O-enX">
                     <rect key="frame" x="106" y="76" width="300" height="300"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="300" id="2Zl-WL-aL8"/>
                         <constraint firstAttribute="width" constant="300" id="Vmg-HZ-8RW"/>
                     </constraints>
                 </imageView>
             </subviews>
+            <animations/>
             <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
             <accessibility key="accessibilityConfiguration" identifier="UsernameCard"/>
             <constraints>
