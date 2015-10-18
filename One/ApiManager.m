@@ -416,7 +416,7 @@
                    failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"createExternalUser"
-                       withParameters:@{@"username": user.username, @"caseUsername": user.caseUsername, @"pictureURL": user.pictureURL, @"twitterId": user.twitterId}
+                       withParameters:@{@"caseUsername": user.caseUsername, @"pictureURL": user.pictureURL, @"twitterId": user.twitterId}
                                 block:^(User *user, NSError *error) {
                                     if (error == nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Success - createExternalUser");

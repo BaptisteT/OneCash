@@ -329,7 +329,7 @@
     [ApiManager createPaymentTransactionWithTransaction:transaction applePaytoken:token success:^(Transaction *returnTransaction) {
             // If external show alert
             if (returnTransaction.receiver.isExternal) {
-                [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:NSLocalizedString(@"twitter_user_alert_message", nil)];
+                [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_message", nil),self.receiver.caseUsername]];
             }
             
             self.sentTransactionsCount += transaction.transactionAmount;
