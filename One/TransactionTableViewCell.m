@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameAndTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *seenImageView;
 @property (strong, nonatomic) CAShapeLayer *borderLayer;
 
 @property (strong, nonatomic) Transaction *transaction;
@@ -73,6 +74,10 @@
         
         [transaction.receiver setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
         name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
+        
+//        self.seenImageView.hidden = self.transaction.readStatus;
+        self.seenImageView.hidden = NO; //DEBUG
+
     }
     NSString *time = transaction.createdAt.shortTimeAgoSinceNow;
     self.nameAndTimeLabel.text = [NSString stringWithFormat:@"%@%@",name,time];

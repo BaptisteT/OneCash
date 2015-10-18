@@ -100,6 +100,7 @@
     self.titleLabel.layer.shadowRadius = 5;
     self.titleLabel.layer.shadowOpacity = 0.2;
     [self.shareUsernameButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    self.shareUsernameButton.layer.zPosition = -999999;
 
     // Animation
     [self doArrowAnimation];
@@ -471,7 +472,8 @@
              self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
                                                          transactionAmount:kUnitTransactionAmount
                                                                       type:kTransactionPayment
-                                                                   message:cashView.messageTextField.text];
+                                                                   message:cashView.messageTextField.text
+                                                                readStatus:false];
              [self startAssociationTimer];
          }
      }
