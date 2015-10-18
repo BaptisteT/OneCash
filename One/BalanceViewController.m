@@ -235,10 +235,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self resignStatusFirstResponder];
     Transaction *transaction = (Transaction *)self.transactions[indexPath.row];
-    User *user = transaction.sender == [User currentUser] ? transaction.receiver : transaction.sender;
-    if (user) {
-        [self displayTwitterOptionsForUser:user];
-    }
+    [self displayTwitterOptionsForTransaction:transaction];
 }
 
 
@@ -426,43 +423,47 @@
 // --------------------------------------------
 #pragma mark - User TVC Protocl
 // --------------------------------------------
-- (void)displayTwitterOptionsForUser:(User *)user {
-    self.selectedUser = user;
-    if ([UIAlertController class] != nil) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
-                                                                       message:nil
-                                                                preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil)
-                                                               style:UIAlertActionStyleCancel
-                                                             handler:nil];
-        UIAlertAction *profileAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"navigate_to_twitter_action", nil)
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action) {
-                                                                  [self navigateToTwitterProfile];
-                                                              }];
-        UIAlertAction *followAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"follow_action", nil)
-                                                               style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * _Nonnull action) {
-                                                                 [self followSelectedUser];
-                                                             }];
-        UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"send_tweet_action", nil)
-                                                              style:UIAlertActionStyleDefault
-                                                            handler:^(UIAlertAction * _Nonnull action) {
-                                                                [self sendTweetToSelectedUser];
-                                                            }];
-        
-        [alert addAction:cancelAction];
-        [alert addAction:profileAction];
-        [alert addAction:followAction];
-        [alert addAction:tweetAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    } else {
-        // ios 7
-        [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
-                                     delegate:self
-                            cancelButtonTitle:NSLocalizedString(@"cancel_button", nil)
-                       destructiveButtonTitle:nil
-                            otherButtonTitles:NSLocalizedString(@"navigate_to_twitter_action", nil), NSLocalizedString(@"follow_action", nil), NSLocalizedString(@"send_tweet_action", nil), nil] showInView:self.view];
+- (void)displayTwitterOptionsForTransaction:(Transaction *)transaction {
+    User *user = transaction.sender == [User currentUser] ? transaction.receiver : transaction.sender;
+    if (user) {
+        self.selectedUser = user;
+        NSString *tweetActionTitle = (transaction.sender == [User currentUser]) ? NSLocalizedString(@"send_tweet_action", nil) : NSLocalizedString(@"reply_tweet_action", nil);
+        if ([UIAlertController class] != nil) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
+                                                                           message:nil
+                                                                    preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil)
+                                                                   style:UIAlertActionStyleCancel
+                                                                 handler:nil];
+            UIAlertAction *profileAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"navigate_to_twitter_action", nil)
+                                                                    style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * _Nonnull action) {
+                                                                      [self navigateToTwitterProfile];
+                                                                  }];
+            UIAlertAction *followAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"follow_action", nil)
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * _Nonnull action) {
+                                                                     [self followSelectedUser];
+                                                                 }];
+            UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:tweetActionTitle
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                                    [self sendTweetToSelectedUser];
+                                                                }];
+            
+            [alert addAction:cancelAction];
+            [alert addAction:profileAction];
+            [alert addAction:followAction];
+            [alert addAction:tweetAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            // ios 7
+            [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
+                                         delegate:self
+                                cancelButtonTitle:NSLocalizedString(@"cancel_button", nil)
+                           destructiveButtonTitle:nil
+                                otherButtonTitles:NSLocalizedString(@"navigate_to_twitter_action", nil), NSLocalizedString(@"follow_action", nil), tweetActionTitle, nil] showInView:self.view];
+        }
     }
 }
 
@@ -476,7 +477,7 @@
         [self navigateToTwitterProfile];
     } else if ([buttonTitle isEqualToString:NSLocalizedString(@"follow_action", nil)]) {
         [self followSelectedUser];
-    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"send_tweet_action", nil)]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"send_tweet_action", nil)] || [buttonTitle isEqualToString:NSLocalizedString(@"reply_tweet_action", nil)]) {
         [self sendTweetToSelectedUser];
     }
 }

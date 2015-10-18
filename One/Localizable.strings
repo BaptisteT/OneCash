@@ -119,6 +119,7 @@
 "navigate_to_twitter_action" = "See Profile";
 "follow_action" = "Follow";
 "send_tweet_action" = "Send Tweet";
+"reply_tweet_action" = "Reply via Twitter";
 
 // Settings
 "settings_title" = "Settings";
