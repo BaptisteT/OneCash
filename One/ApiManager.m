@@ -583,7 +583,7 @@
             // Mark transactions as read
             NSMutableArray *unreadTransactions = [NSMutableArray new];
             for (Transaction *transaction in transactions) {
-                if (transaction.receiver && transaction.receiver == [User currentUser] &&  transaction.readStatus == false) {
+                if (transaction.receiver && transaction.receiver == [User currentUser] &&  !transaction.readStatus) {
                     [unreadTransactions addObject:transaction.objectId];
                 }
             }
@@ -624,20 +624,22 @@
                        success:(void(^)())successBlock
                        failure:(void(^)(NSError *error))failureBlock
 {
-    [PFCloud callFunctionInBackground:@"markTransactionsAsRead"
-                       withParameters:@{@"transactionIds": transactionIds}
-                                block:^(NSArray *objects, NSError *error) {
-                                    if (error != nil) {
-                                        OneLog(ONEAPIMANAGERLOG,@"Failure - markTransactionsAsRead - %@",error.description);
-                                        if (failureBlock) {
-                                            failureBlock(error);
+    if (transactionIds && transactionIds.count > 0) {
+        [PFCloud callFunctionInBackground:@"markTransactionsAsRead"
+                           withParameters:@{@"transactionIds": transactionIds}
+                                    block:^(NSArray *objects, NSError *error) {
+                                        if (error != nil) {
+                                            OneLog(ONEAPIMANAGERLOG,@"Failure - markTransactionsAsRead - %@",error.description);
+                                            if (failureBlock) {
+                                                failureBlock(error);
+                                            }
+                                        } else {
+                                            if (successBlock) {
+                                                successBlock();
+                                            }
                                         }
-                                    } else {
-                                        if (successBlock) {
-                                            successBlock();
-                                        }
-                                    }
-                                }];
+                                    }];
+    }
 }
 
 // --------------------------------------------
