@@ -447,7 +447,6 @@
      // Create transaction
      } else {
          [self removeCashSubview:cashView];
-         
          if (self.transactionToSend) {
              [self.associationTimer invalidate];
              BOOL sameReceiver = [self.transactionToSend.receiver.username isEqualToString:self.receiver.username];
@@ -472,8 +471,7 @@
              self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
                                                          transactionAmount:kUnitTransactionAmount
                                                                       type:kTransactionPayment
-                                                                   message:cashView.messageTextField.text
-                                                                readStatus:false];
+                                                                   message:cashView.messageTextField.text];
              [self startAssociationTimer];
          }
      }

@@ -32,7 +32,6 @@
                        transactionAmount:(NSInteger)amount
                                     type:(TransactionType)type
                                  message:(NSString *)message
-                              readStatus:(BOOL)readStatus
 {
     Transaction *transaction = [Transaction object];
     transaction.sender = [User currentUser];
@@ -40,7 +39,7 @@
     transaction.transactionAmount = amount;
     transaction.transactionType = type;
     transaction.message = message;
-    transaction.readStatus = readStatus;
+    transaction.readStatus = NO;
     return transaction;
 }
 

@@ -579,6 +579,15 @@
                     successBlock(transactions);
                 }
             }
+            
+            // Mark transactions as read
+            NSMutableArray *unreadTransactions = [NSMutableArray new];
+            for (Transaction *transaction in transactions) {
+                if (transaction.receiver && transaction.receiver == [User currentUser] &&  transaction.readStatus == false) {
+                    [unreadTransactions addObject:transaction.objectId];
+                }
+            }
+            [ApiManager markTransactionsAsRead:unreadTransactions success:nil failure:nil];
         }
     }];
 }
@@ -603,6 +612,27 @@
                                         [TrackingUtils incrementPeopleProperty:PEOPLE_CASHOUT_TOTAL byValue:(int)transaction.transactionAmount];
                                         // pin transaction
                                         [transaction pinInBackgroundWithName:kParseTransactionsName];
+                                        if (successBlock) {
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
+
+// Mark as read
++ (void)markTransactionsAsRead:(NSArray *)transactionIds
+                       success:(void(^)())successBlock
+                       failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"markTransactionsAsRead"
+                       withParameters:@{@"transactionIds": transactionIds}
+                                block:^(NSArray *objects, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - markTransactionsAsRead - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
                                         if (successBlock) {
                                             successBlock();
                                         }

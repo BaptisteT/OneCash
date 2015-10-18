@@ -30,8 +30,7 @@ typedef NS_ENUM(NSInteger,TransactionType) {
 + (Transaction *)transactionWithReceiver:(User *)receiver
                        transactionAmount:(NSInteger)amount
                                     type:(TransactionType)type
-                                 message:(NSString *)message
-                              readStatus:(BOOL)readStatus;
+                                 message:(NSString *)message;
 
 - (BOOL)containsMessage;
 

@@ -75,8 +75,7 @@
         [transaction.receiver setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
         name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
         
-//        self.seenImageView.hidden = self.transaction.readStatus;
-        self.seenImageView.hidden = NO; //DEBUG
+        self.seenImageView.hidden = !self.transaction.readStatus;
 
     }
     NSString *time = transaction.createdAt.shortTimeAgoSinceNow;
