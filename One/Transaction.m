@@ -17,6 +17,7 @@
 @dynamic transactionAmount;
 @dynamic message;
 @dynamic readStatus;
+@dynamic receiverType;
 
 
 + (void)load {

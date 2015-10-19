@@ -135,7 +135,6 @@
                                              selector:@selector(loadUserAndSetSelected:)
                                                  name:kNotificationUserURLScheme
                                                object:nil];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

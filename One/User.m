@@ -131,11 +131,14 @@
 - (void)updateUserWithTwitterInfo:(NSDictionary *)twitterInfo
 {
     // Profile picture
-    NSString * profileImageURL = [[twitterInfo objectForKey:@"profile_image_url_https"] stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
-    
-    if (profileImageURL.length > 0 && ![self.pictureURL isEqualToString:profileImageURL]) {
-        self.pictureURL = profileImageURL;
+    NSString * imageUrl = [twitterInfo objectForKey:@"profile_image_url_https"];
+    if (imageUrl) {
+        NSString * profileImageURL = [imageUrl stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
+        if (profileImageURL.length > 0 && ![self.pictureURL isEqualToString:profileImageURL]) {
+            self.pictureURL = profileImageURL;
+        }
     }
+    
     // Username
     NSString * username = [twitterInfo objectForKey:@"screen_name"];
     if (username.length > 0 && ![self.caseUsername isEqualToString:username]) {
