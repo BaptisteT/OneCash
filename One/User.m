@@ -112,7 +112,7 @@
                                             [button setImage:image forState:UIControlStateNormal];
                                         });
                                     }
-                                }   saveLocally:flag];
+                                }   saveLocally:YES];
     }
 }
 
