@@ -35,6 +35,8 @@
     BOOL sendFlag = (transaction.sender == [User currentUser]);
     
     NSString *name;
+    
+    self.seenImageView.hidden = YES;
    
     // payment received
     if (!sendFlag) {

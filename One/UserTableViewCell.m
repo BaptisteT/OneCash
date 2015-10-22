@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *certifiedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *userStatus;
-@property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *tweetButton;
 
 @end
@@ -45,12 +44,6 @@
     self.userPicture.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.userPicture.layer.borderWidth = 0.5;
     self.certifiedImageView.hidden = ! user.twitterVerified;
-    
-    self.balanceLabel.backgroundColor = [ColorUtils mainGreen];
-    self.balanceLabel.layer.cornerRadius = self.balanceLabel.frame.size.height / 2;
-    self.balanceLabel.text = [NSString stringWithFormat:@"$%@",[self abbreviateNumber:(int)user.balance]];
-    self.balanceLabel.hidden = YES;
-    self.balanceLabel.clipsToBounds = YES;
 }
 
 - (IBAction)twitterButtonClicked:(id)sender {
