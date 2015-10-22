@@ -49,6 +49,9 @@ static NSString * const kStripeWebsiteTermsLink = @"https://stripe.com/connect/a
 static float const kInternalNotifDuration = 3;
 static NSInteger const kInternalNotifHeight = 60;
 static float const kNotifAnimationDuration = 0.5;
+static NSString * const kNotifTypeNewTransaction = @"new_transaction";
+static NSString * const kNotifTypeReadTransaction = @"transaction_read";
+static NSString * const kNotifTypeSignup = @"signup";
 
 // Image
 static NSInteger const kDisplayedPictureBigSize = 1024;

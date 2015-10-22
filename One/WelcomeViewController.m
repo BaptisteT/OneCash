@@ -93,6 +93,9 @@
             if (email && email.length > 0) {
                 [ApiManager saveCurrentUserAndExecuteSuccess:^{
                     if (isNew) {
+                        // Alert followers
+                        [ApiManager alertTwitterFollowersOnSignUpAndSuccess:nil failure:nil];
+                        // GO to card
                         [self performSegueWithIdentifier:@"Card From Welcome" sender:nil];
                     } else {
                         [self performSegueWithIdentifier:@"Send From Welcome" sender:nil];

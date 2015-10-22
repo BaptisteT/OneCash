@@ -107,7 +107,7 @@
         NSNumber *notifOpening = [NSNumber numberWithBool:NO];
         NSDictionary *remoteNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (remoteNotif) {
-            if ([[remoteNotif valueForKey:@"notif_type"] isEqualToString:@"new_transaction"]) {
+            if ([[remoteNotif valueForKey:@"notif_type"] isEqualToString:kNotifTypeNewTransaction]) {
                 notifOpening = [NSNumber numberWithBool:YES];
             }
         }
@@ -168,7 +168,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     UIApplicationState state = [application applicationState];
-    if ([[userInfo valueForKey:@"notif_type"] isEqualToString:@"new_transaction"]) {
+    if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeNewTransaction]) {
         if (state == UIApplicationStateActive) {
             // internal notif
             [self displayInternalNotif:userInfo];
@@ -184,6 +184,27 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushClicked
                                                                 object:nil
                                                               userInfo:nil];
+        }
+    } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReadTransaction]) {
+        if (state == UIApplicationStateActive) {
+            // internal notif
+            [self displayInternalNotif:userInfo];
+            
+            // load latest transactions
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushReceived
+                                                                object:nil
+                                                              userInfo:nil];
+            
+            // Vibrate
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
+    } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeSignup]) {
+        if (state == UIApplicationStateActive) {
+            // internal notif
+            [self displayInternalNotif:userInfo];
+            
+            // Vibrate
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         }
     }
 }

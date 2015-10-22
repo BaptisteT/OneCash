@@ -89,6 +89,9 @@
     [DesignUtils showProgressHUDAddedTo:self.view];
     [User currentUser].email = email;
     [ApiManager saveCurrentUserAndExecuteSuccess:^{
+        // Alert followers
+        [ApiManager alertTwitterFollowersOnSignUpAndSuccess:nil failure:nil];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [DesignUtils hideProgressHUDForView:self.view];
             [self performSegueWithIdentifier:@"Card From Email" sender:nil];

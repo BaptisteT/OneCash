@@ -38,6 +38,9 @@
                 success:(void(^)())successBlock
                 failure:(void(^)(NSError *error))failureBlock;
 
++ (void)alertTwitterFollowersOnSignUpAndSuccess:(void(^)())successBlock
+                                        failure:(void(^)(NSError *error))failureBlock;
+
 // --------------------------------------------
 #pragma mark - User
 // --------------------------------------------

@@ -211,7 +211,7 @@
                                         }
                                     } else {
                                         if (successBlock) {
-                                            successBlock((NSDictionary *)object);
+                                            successBlock();
                                         }
                                     }
                                 }];
@@ -231,7 +231,26 @@
                                         }
                                     } else {
                                         if (successBlock) {
-                                            successBlock((NSDictionary *)object);
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
+
++ (void)alertTwitterFollowersOnSignUpAndSuccess:(void(^)())successBlock
+                                        failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"alertTwitterFollowers"
+                       withParameters:nil
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - alertTwitterFollowers - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
                                         }
                                     }
                                 }];
