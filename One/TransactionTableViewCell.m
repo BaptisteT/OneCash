@@ -6,12 +6,15 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 #import <NSDate+DateTools.h>
+
+#import "Reaction.h"
 #import "Transaction.h"
 #import "User.h"
 
 #import "TransactionTableViewCell.h"
 
 #import "ColorUtils.h"
+#import "DesignUtils.h"
 
 @interface TransactionTableViewCell()
 
@@ -21,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *seenImageView;
 @property (strong, nonatomic) CAShapeLayer *borderLayer;
+@property (weak, nonatomic) IBOutlet UIButton *createReactionButton;
+@property (nonatomic, strong) CAShapeLayer *createReactionShapeCircle;
+@property (weak, nonatomic) IBOutlet UIButton *seeReactionButton;
 
 @property (strong, nonatomic) Transaction *transaction;
 
@@ -28,6 +34,10 @@
 
 
 @implementation TransactionTableViewCell
+
+// --------------------------------------------
+#pragma mark - Life cycle
+// --------------------------------------------
 
 - (void)initWithTransaction:(Transaction *)transaction {
     // Data
@@ -37,6 +47,14 @@
     NSString *name;
     
     self.seenImageView.hidden = YES;
+    
+    self.createReactionButton.hidden = sendFlag || self.transaction.reaction != nil;
+    self.seeReactionButton.hidden = !sendFlag || !transaction.reaction;
+    [self.seeReactionButton setBackgroundColor:[UIColor lightGrayColor]];
+    [self.seeReactionButton setTitle:@"" forState:UIControlStateNormal];
+    self.seeReactionButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.seeReactionButton setAdjustsImageWhenHighlighted:NO];
+    [self animateOngoingReaction:self.transaction.ongoingReaction];
    
     // payment received
     if (!sendFlag) {
@@ -78,7 +96,11 @@
         name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
         
         self.seenImageView.hidden = !self.transaction.readStatus;
-
+        if (self.transaction.reaction) {
+            [self.transaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
+                [self.seeReactionButton setImage:image forState:UIControlStateNormal];
+            } failure:nil];
+        }
     }
     NSString *time = transaction.createdAt.shortTimeAgoSinceNow;
     self.nameAndTimeLabel.text = [NSString stringWithFormat:@"%@%@",name,time];
@@ -98,6 +120,29 @@
     [super layoutSubviews];
     [self setShapeLayers];
 }
+
+// --------------------------------------------
+#pragma mark - Actions
+// --------------------------------------------
+
+- (IBAction)createReactionButtonClicked:(id)sender {
+    self.createReactionButton.enabled = NO;
+    [self.delegate reactToTransaction:self.transaction];
+}
+
+- (IBAction)seeReactionButtonClicked:(id)sender {
+    if (!self.transaction.reaction.readStatus) {
+        CGRect convertedFrame = [self convertRect:self.seeReactionButton.frame toView:self.superview.superview.superview];
+        [self.delegate showReaction:self.transaction.reaction
+                              image:self.seeReactionButton.imageView.image
+                       initialFrame:convertedFrame];
+        self.transaction.reaction.reactionImage = [DesignUtils blurImage:self.transaction.reaction.reactionImage];
+    }
+}
+
+// --------------------------------------------
+#pragma mark - UI
+// --------------------------------------------
 
 - (void)setShapeLayers {
     BOOL sendFlag = (self.transaction.sender == [User currentUser]);
@@ -135,6 +180,32 @@
         [self.messageLabel.layer addSublayer:borderLayer];
         self.borderLayer = borderLayer;
     }
+}
+
+- (void)animateOngoingReaction:(BOOL)flag {
+    self.createReactionButton.enabled = !flag;
+    
+    if (flag) {
+        // Add to parent layer
+        if (!self.createReactionShapeCircle) {
+            [self initLoadingCircleShape];
+        }
+        [self.createReactionButton.layer addSublayer:self.createReactionShapeCircle];
+        CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        rotationAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
+        rotationAnimation.toValue = [NSNumber numberWithFloat:2*M_PI];
+        rotationAnimation.duration = 0.7;
+        rotationAnimation.repeatCount = INFINITY;
+        [self.createReactionShapeCircle addAnimation:rotationAnimation forKey:@"indeterminateAnimation"];
+    } else {
+        [self.createReactionShapeCircle removeAllAnimations];
+        [self.createReactionShapeCircle removeFromSuperlayer];
+    }
+}
+
+- (void)initLoadingCircleShape
+{
+    self.createReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(0,0,self.createReactionButton.frame.size.width,self.createReactionButton.frame.size.height) borderWidth:1 Color:[ColorUtils mainGreen] subDivisions:100];
 }
 
 @end

@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 
+#import "Reaction.h"
 #import "Transaction.h"
 #import "User.h"
+
+#import "DesignUtils.h"
 
 @implementation Transaction
 
@@ -18,7 +21,9 @@
 @dynamic message;
 @dynamic readStatus;
 @dynamic receiverType;
+@dynamic reaction;
 
+@synthesize ongoingReaction;
 
 + (void)load {
     [self registerSubclass];
@@ -46,6 +51,32 @@
 
 - (BOOL)containsMessage {
     return self.message && self.message.length > 0;
+}
+
+- (void)getReactionImageAndExecuteSuccess:(void(^)(UIImage *image))successBlock
+                                  failure:(void(^)())failureBlock
+{
+    if (!self.reaction || self.reaction.reactionType != kReactionImage) {
+        if (failureBlock)
+            failureBlock();
+    } else {
+        if (self.reaction.reactionImage) {
+            successBlock(self.reaction.reactionImage);
+        } else {
+            [self.reaction.imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                if (data) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    if (self.reaction.readStatus) {
+                        image = [DesignUtils blurImage:image];
+                    }
+                    self.reaction.reactionImage = image;
+                    successBlock(image);
+                } else {
+                    if (failureBlock) failureBlock();
+                }
+            }];
+        }
+    }
 }
 
 @end

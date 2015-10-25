@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 #import "User.h"
+
+@class Reaction;
 @class Transaction;
 
 @interface ApiManager : NSObject
@@ -112,11 +114,17 @@
                                  failure:(void(^)(NSError *error))failureBlock;
 
 // --------------------------------------------
-#pragma mark - Misc
+#pragma mark - Reaction
 // --------------------------------------------
-+ (void)alertByEmailWithParams:(NSDictionary *)params
-                       success:(void(^)())successBlock
-                       failure:(void(^)(NSError *error))failureBlock;
+// Add image reaction
++ (void)reactToTransaction:(Transaction *)transaction
+                 withImage:(UIImage *)image
+                   success:(void(^)())successBlock
+                   failure:(void(^)(NSError *error))failureBlock;
+
++ (void)markReactionAsRead:(Reaction *)reaction
+                   success:(void(^)())successBlock
+                   failure:(void(^)(NSError *error))failureBlock;
 
 // --------------------------------------------
 #pragma mark - Recipients
@@ -126,5 +134,13 @@
 
 + (void)getLeadersAndExecuteSuccess:(void(^)(NSArray *results))successBlock
                             failure:(void(^)(NSError *error))failureBlock;
+
+
+// --------------------------------------------
+#pragma mark - Misc
+// --------------------------------------------
++ (void)alertByEmailWithParams:(NSDictionary *)params
+                       success:(void(^)())successBlock
+                       failure:(void(^)(NSError *error))failureBlock;
 
 @end

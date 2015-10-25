@@ -33,6 +33,7 @@
     [query fromPinWithName:kParseTransactionsName];
     [query includeKey:@"sender"];
     [query includeKey:@"receiver"];
+    [query includeKey:@"reaction"];
     [query orderByDescending:@"createdAt"];
     [query setLimit:1000];
     [query findObjectsInBackgroundWithBlock:^(NSArray *transactions, NSError *error) {
@@ -76,7 +77,7 @@
 
 + (NSDate *)getLastBalanceOpening {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    return [prefs objectForKey:LAST_BALANCE_OPENING] ? [prefs objectForKey:LAST_BALANCE_OPENING] : [NSDate date];
+    return [prefs objectForKey:LAST_BALANCE_OPENING] ? [prefs objectForKey:LAST_BALANCE_OPENING] : [NSDate dateWithTimeIntervalSince1970:0];
 }
 
 + (void)setLastBalanceOpeningDate:(NSDate *)date {

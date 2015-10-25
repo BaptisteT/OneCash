@@ -10,6 +10,7 @@
 
 #import "ApiManager.h"
 #import "DatastoreManager.h"
+#import "Reaction.h"
 #import "Transaction.h"
 #import "User.h"
 
@@ -552,6 +553,7 @@
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[receiverQuery, senderQuery]];
     [query includeKey:@"sender"];
     [query includeKey:@"receiver"];
+    [query includeKey:@"reaction"];
     [query orderByDescending:@"createdAt"];
     [query setLimit:20];
     if (date) {
@@ -812,6 +814,59 @@
                                                                                 }];
                                     }
                                 }];
+}
+
+// --------------------------------------------
+#pragma mark - Reaction
+// --------------------------------------------
+// Add image reaction
++ (void)reactToTransaction:(Transaction *)transaction
+                 withImage:(UIImage *)image
+                   success:(void(^)())successBlock
+                   failure:(void(^)(NSError *error))failureBlock
+{
+    PFFile *file = [PFFile fileWithName:@"image.jpg" data:UIImageJPEGRepresentation(image,1.)];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            Reaction *reaction = [Reaction createReactionWithTransaction:transaction imageFile:file];
+            [reaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (error != nil) {
+                    OneLog(ONEAPIMANAGERLOG,@"Failure - addImageReaction - %@",error.description);
+                    if (failureBlock) {
+                        failureBlock(error);
+                    }
+                } else {
+                    transaction.reaction = reaction;
+                    if (successBlock) {
+                        successBlock();
+                    }
+                }
+            }];
+        } else {
+            OneLog(ONEAPIMANAGERLOG,@"Fail to save image - addImageReaction - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }];
+}
+
++ (void)markReactionAsRead:(Reaction *)reaction
+                   success:(void(^)())successBlock
+                   failure:(void(^)(NSError *error))failureBlock
+{
+    reaction.readStatus = true;
+    [reaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            if (successBlock) {
+                successBlock();
+            }
+        } else {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }];
 }
 
 

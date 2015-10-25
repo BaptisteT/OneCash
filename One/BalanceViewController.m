@@ -7,11 +7,11 @@
 //
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <Social/Social.h>
-
 #import <UIScrollView+SVInfiniteScrolling.h>
 
 #import "ApiManager.h"
 #import "DatastoreManager.h"
+#import "Reaction.h"
 #import "Transaction.h"
 #import "User.h"
 
@@ -19,6 +19,7 @@
 #import "SettingsViewController.h"
 #import "TransactionTableViewCell.h"
 
+#import "CameraUtils.h"
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
@@ -40,6 +41,11 @@
 @property (strong, nonatomic) UIView *statusOnboardingView;
 @property (strong, nonatomic) NSMutableArray *transactions;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
+
+// Reaction
+@property (strong, nonatomic) UIImagePickerController *imagePickerController;
+@property (strong, nonatomic) Transaction *reactTransaction;
+@property (nonatomic, strong) AVAudioPlayer *mainPlayer;
 
 @end
 
@@ -220,6 +226,7 @@
     }
     TransactionTableViewCell *cell = (TransactionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     [cell initWithTransaction:(Transaction *)self.transactions[indexPath.row]];
+    cell.delegate = self;
     [cell layoutIfNeeded];
     return cell;
 }
@@ -500,6 +507,92 @@
     [self presentViewController:twitterCompose
                        animated:YES
                      completion:nil];
+}
+
+
+// --------------------------------------------
+#pragma mark - Transaction TVC delegate
+// --------------------------------------------
+- (void)reactToTransaction:(Transaction *)transaction {
+    self.reactTransaction = transaction;
+    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+}
+
+- (void)showReaction:(Reaction *)reaction image:(UIImage *)image initialFrame:(CGRect)frame
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
+    imageView.userInteractionEnabled = NO;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureOnFullScreenReaction:)];
+    [imageView addGestureRecognizer:tap];
+    [self.view addSubview:imageView];
+    imageView.image = image;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self animateDisplayImageReaction:imageView];
+    [ApiManager markReactionAsRead:reaction success:nil failure:nil];
+}
+
+- (void)animateDisplayImageReaction:(UIImageView *)imageView {
+    [UIView animateWithDuration:0.5
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         imageView.frame = self.view.frame;
+                     } completion:^(BOOL flag) {
+                         [self.transactionsTableView reloadData];
+                         imageView.userInteractionEnabled = YES;
+                     }];
+    NSError* error;
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"photo-display" ofType:@".m4a"];
+    NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
+    self.mainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:&error];
+    self.mainPlayer.volume = 0.2;
+    if (error || ![self.mainPlayer prepareToPlay]) {
+        NSLog(@"%@",error);
+    } else {
+        [self.mainPlayer play];
+    }
+}
+
+- (void)tapGestureOnFullScreenReaction:(UITapGestureRecognizer *)sender
+{
+    [sender.view removeFromSuperview];
+}
+
+// ----------------------------------------
+#pragma mark - Image picker delegate
+// ----------------------------------------
+- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    if (![UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        return;
+    }
+    if (!self.imagePickerController) {
+        self.imagePickerController = [CameraUtils allocCameraWithSourceType:sourceType delegate:self];
+    }
+    [self presentViewController:self.imagePickerController animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image =  [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    self.reactTransaction.ongoingReaction = true;
+    [self.transactionsTableView reloadData];
+    [ApiManager reactToTransaction:self.reactTransaction
+                         withImage:image
+                           success:^{
+                               self.reactTransaction.ongoingReaction = false;
+                               [self.transactionsTableView reloadData];
+                           } failure:^(NSError *error) {
+                               self.reactTransaction.ongoingReaction = false;
+                               [self.transactionsTableView reloadData];
+                           }];
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 

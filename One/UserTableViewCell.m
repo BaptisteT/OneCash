@@ -27,7 +27,7 @@
     self.userStatus.text = user.userStatus;
     self.userStatus.hidden = !user.userStatus || user.userStatus.length == 0;
     
-    if(flag) {
+    if(flag && user.balance > 0) {
         NSString *balance = [NSString stringWithFormat:@"$%@",[self abbreviateNumber:(int)user.balance]];
         NSString *string = [NSString stringWithFormat:@"%@ %@",balance, user.caseUsername];
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];

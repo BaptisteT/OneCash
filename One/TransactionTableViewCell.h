@@ -7,13 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class Reaction;
 @class Transaction;
 
+@protocol TransactionTVCProtocol;
 
 @interface TransactionTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) id<TransactionTVCProtocol> delegate;
+
 - (void)initWithTransaction:(Transaction *)transaction;
+
+@end
+
+@protocol TransactionTVCProtocol
+
+- (void)reactToTransaction:(Transaction *)transaction;
+- (void)showReaction:(Reaction *)reaction image:(UIImage *)image initialFrame:(CGRect)frame;
 
 @end
 

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0099FB1BDCA0A500006025 /* Reaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FA1BDCA0A500006025 /* Reaction.m */; settings = {ASSET_TAGS = (); }; };
+		3C0099FC1BDCA0A500006025 /* Reaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FA1BDCA0A500006025 /* Reaction.m */; settings = {ASSET_TAGS = (); }; };
+		3C0099FF1BDCB1DF00006025 /* CameraUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FE1BDCB1DF00006025 /* CameraUtils.m */; settings = {ASSET_TAGS = (); }; };
+		3C009A001BDCB1DF00006025 /* CameraUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FE1BDCB1DF00006025 /* CameraUtils.m */; settings = {ASSET_TAGS = (); }; };
+		3C009A031BDD114800006025 /* photo-display.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C009A021BDD114800006025 /* photo-display.m4a */; settings = {ASSET_TAGS = (); }; };
+		3C009A041BDD114800006025 /* photo-display.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C009A021BDD114800006025 /* photo-display.m4a */; settings = {ASSET_TAGS = (); }; };
 		3C13EE4B1B9F32D500930AC7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13EE4A1B9F32D500930AC7 /* Reachability.m */; };
 		3C13EE4D1B9F32DE00930AC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */; };
 		3C13EE501B9F428D00930AC7 /* DatastoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13EE4F1B9F428D00930AC7 /* DatastoreManager.m */; };
@@ -143,6 +149,11 @@
 
 /* Begin PBXFileReference section */
 		1F0138CD4900B04DB2B1B667 /* Pods-One.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One.debug.xcconfig"; path = "Pods/Target Support Files/Pods-One/Pods-One.debug.xcconfig"; sourceTree = "<group>"; };
+		3C0099F91BDCA0A500006025 /* Reaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reaction.h; sourceTree = "<group>"; };
+		3C0099FA1BDCA0A500006025 /* Reaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reaction.m; sourceTree = "<group>"; };
+		3C0099FD1BDCB1DF00006025 /* CameraUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraUtils.h; sourceTree = "<group>"; };
+		3C0099FE1BDCB1DF00006025 /* CameraUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraUtils.m; sourceTree = "<group>"; };
+		3C009A021BDD114800006025 /* photo-display.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "photo-display.m4a"; sourceTree = "<group>"; };
 		3C13EE491B9F32D500930AC7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3C13EE4A1B9F32D500930AC7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -308,6 +319,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3C009A011BDD113C00006025 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				3C009A021BDD114800006025 /* photo-display.m4a */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 		3C13EE481B9F32CB00930AC7 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,6 +385,7 @@
 		3C2E03901B8DA1BF00D22D48 /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
+				3C009A011BDD113C00006025 /* Sounds */,
 				A4A2B5081BADDBA300CDAF07 /* Fonts */,
 				3C2E03741B8DA18B00D22D48 /* Main.storyboard */,
 				3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */,
@@ -388,6 +408,8 @@
 				3C86E0F41B8DB2BF005AD52B /* User.m */,
 				3CC5FD921B97431000514A43 /* Transaction.h */,
 				3CC5FD931B97431000514A43 /* Transaction.m */,
+				3C0099F91BDCA0A500006025 /* Reaction.h */,
+				3C0099FA1BDCA0A500006025 /* Reaction.m */,
 				3CC5FDD71B9B597600514A43 /* ImageCache.h */,
 				3CC5FDD81B9B597600514A43 /* ImageCache.m */,
 			);
@@ -417,6 +439,8 @@
 				3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */,
 				3C43B6401BA95231006679DE /* IPUtils.h */,
 				3C43B6411BA95231006679DE /* IPUtils.m */,
+				3C0099FD1BDCB1DF00006025 /* CameraUtils.h */,
+				3C0099FE1BDCB1DF00006025 /* CameraUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -652,6 +676,7 @@
 				3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */,
 				A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */,
 				3C86E1031B8DBA5E005AD52B /* InternalNotifView.xib in Resources */,
+				3C009A031BDD114800006025 /* photo-display.m4a in Resources */,
 				3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -674,6 +699,7 @@
 				3CD4D6381BB91D75001F2C7A /* LaunchScreen.xib in Resources */,
 				3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */,
 				3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */,
+				3C009A041BDD114800006025 /* photo-display.m4a in Resources */,
 				3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -790,6 +816,7 @@
 				3C86E0FB1B8DB4DD005AD52B /* OneLogger.m in Sources */,
 				3C13EE501B9F428D00930AC7 /* DatastoreManager.m in Sources */,
 				3C2E036D1B8DA18B00D22D48 /* AppDelegate.m in Sources */,
+				3C0099FF1BDCB1DF00006025 /* CameraUtils.m in Sources */,
 				3CC5FDC31B98A6D400514A43 /* SendCashViewController.m in Sources */,
 				3C86E1021B8DBA5E005AD52B /* InternalNotifView.m in Sources */,
 				3C2E036A1B8DA18B00D22D48 /* main.m in Sources */,
@@ -802,6 +829,7 @@
 				3CC5FDC61B98A6E100514A43 /* RecipientViewController.m in Sources */,
 				3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */,
 				3CC5FDD01B98C7DE00514A43 /* StripeCardViewController.m in Sources */,
+				3C0099FB1BDCA0A500006025 /* Reaction.m in Sources */,
 				3CC5FDB31B98861D00514A43 /* HowToViewController.m in Sources */,
 				3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */,
 				3CC5FDDC1B9B5A6000514A43 /* BackEndUtils.m in Sources */,
@@ -841,6 +869,7 @@
 				3CD4D60C1BB91D75001F2C7A /* OneLogger.m in Sources */,
 				3CD4D60D1BB91D75001F2C7A /* DatastoreManager.m in Sources */,
 				3CD4D60E1BB91D75001F2C7A /* AppDelegate.m in Sources */,
+				3C009A001BDCB1DF00006025 /* CameraUtils.m in Sources */,
 				3CD4D60F1BB91D75001F2C7A /* SendCashViewController.m in Sources */,
 				3CD4D6101BB91D75001F2C7A /* InternalNotifView.m in Sources */,
 				3CD4D6111BB91D75001F2C7A /* main.m in Sources */,
@@ -853,6 +882,7 @@
 				3CD4D6181BB91D75001F2C7A /* RecipientViewController.m in Sources */,
 				3CD4D6191BB91D75001F2C7A /* TransactionTableViewCell.m in Sources */,
 				3CD4D61A1BB91D75001F2C7A /* StripeCardViewController.m in Sources */,
+				3C0099FC1BDCA0A500006025 /* Reaction.m in Sources */,
 				3CD4D61B1BB91D75001F2C7A /* HowToViewController.m in Sources */,
 				3CD4D61C1BB91D75001F2C7A /* TrackingUtils.m in Sources */,
 				3CD4D61D1BB91D75001F2C7A /* BackEndUtils.m in Sources */,

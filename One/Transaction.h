@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Parse/parse.h>
 
+@class Reaction;
 @class User;
 
 @interface Transaction : PFObject <PFSubclassing>
@@ -33,7 +34,11 @@ typedef NS_ENUM(NSInteger,ReceiverType) {
 @property (nonatomic) NSString *message;
 @property (nonatomic) BOOL readStatus;
 @property (nonatomic) ReceiverType receiverType;
+@property (nonatomic) Reaction *reaction;
 
+
+// local
+@property (nonatomic) BOOL ongoingReaction;
 
 + (Transaction *)transactionWithReceiver:(User *)receiver
                        transactionAmount:(NSInteger)amount
@@ -41,5 +46,8 @@ typedef NS_ENUM(NSInteger,ReceiverType) {
                                  message:(NSString *)message;
 
 - (BOOL)containsMessage;
+
+- (void)getReactionImageAndExecuteSuccess:(void(^)(UIImage *image))successBlock
+                                  failure:(void(^)())failureBlock;
 
 @end
