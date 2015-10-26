@@ -64,16 +64,18 @@
             successBlock(self.reaction.reactionImage);
         } else {
             [self.reaction.imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-                if (data) {
-                    UIImage *image = [UIImage imageWithData:data];
-                    if (self.reaction.readStatus) {
-                        image = [DesignUtils blurImage:image];
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
+                    if (data) {
+                        UIImage *image = [UIImage imageWithData:data];
+                        if (self.reaction.readStatus) {
+                            image = [DesignUtils blurAndRescaleImage:image];
+                        }
+                        self.reaction.reactionImage = image;
+                        successBlock(image);
+                    } else {
+                        if (failureBlock) failureBlock();
                     }
-                    self.reaction.reactionImage = image;
-                    successBlock(image);
-                } else {
-                    if (failureBlock) failureBlock();
-                }
+                });
             }];
         }
     }

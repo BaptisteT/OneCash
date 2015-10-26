@@ -52,6 +52,7 @@ static float const kNotifAnimationDuration = 0.5;
 static NSString * const kNotifTypeNewTransaction = @"new_transaction";
 static NSString * const kNotifTypeReadTransaction = @"transaction_read";
 static NSString * const kNotifTypeSignup = @"signup";
+static NSString * const kNotifTypeReaction = @"reaction_created";
 
 // Image
 static NSInteger const kDisplayedPictureBigSize = 1024;

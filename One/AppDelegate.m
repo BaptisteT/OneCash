@@ -185,7 +185,7 @@
                                                                 object:nil
                                                               userInfo:nil];
         }
-    } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReadTransaction]) {
+    } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReadTransaction] || [[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReaction]) {
         if (state == UIApplicationStateActive) {
             // internal notif
             [self displayInternalNotif:userInfo];

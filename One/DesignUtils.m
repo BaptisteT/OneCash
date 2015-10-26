@@ -211,8 +211,39 @@
     return containingLayer;
 }
 
-+ (UIImage *)blurImage:(UIImage *)image {
-    return [UIImage imageWithCGImage:[image applyExtraLightEffect].CGImage scale:0.1 orientation:image.imageOrientation];
++ (UIImage *)blurAndRescaleImage:(UIImage *)image {
+    UIImage *scaledImage = [self imageWithImage:image scaledByFactor:0.25];
+    return [scaledImage applyExtraLightEffect];
+}
+
++ (UIImage *)imageWithImage:(UIImage *)image scaledByFactor:(CGFloat)factor {
+    CGSize newSize = CGSizeMake(image.size.width*factor, image.size.height*factor);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
+// Draw title in Image
++ (UIImage*)drawText:(NSString*)text inImage:(UIImage*)image atPoint:(CGPoint)point
+{
+    NSMutableAttributedString *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    textStyle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",text]];
+    [textStyle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, textStyle.length)];
+    [textStyle addAttribute:NSFontAttributeName  value:[UIFont systemFontOfSize:80.0] range:NSMakeRange(0, textStyle.length)];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init] ;
+    [paragraphStyle setAlignment:NSTextAlignmentCenter];
+    [textStyle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [textStyle length])];
+    UIGraphicsBeginImageContext(image.size);
+    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
+    CGRect rect = CGRectMake(point.x, point.y, image.size.width, image.size.height);
+    [[UIColor whiteColor] set];
+    [textStyle drawInRect:CGRectIntegral(rect)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end

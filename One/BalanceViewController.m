@@ -241,8 +241,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self resignStatusFirstResponder];
-    Transaction *transaction = (Transaction *)self.transactions[indexPath.row];
-    [self displayTwitterOptionsForTransaction:transaction];
 }
 
 
@@ -526,6 +524,7 @@
     [imageView addGestureRecognizer:tap];
     [self.view addSubview:imageView];
     imageView.image = image;
+    imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self animateDisplayImageReaction:imageView];
     [ApiManager markReactionAsRead:reaction success:nil failure:nil];
@@ -533,8 +532,8 @@
 
 - (void)animateDisplayImageReaction:(UIImageView *)imageView {
     [UIView animateWithDuration:0.5
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseOut
+                          delay:0.
+                        options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          imageView.frame = self.view.frame;
                      } completion:^(BOOL flag) {
@@ -579,7 +578,7 @@
     self.reactTransaction.ongoingReaction = true;
     [self.transactionsTableView reloadData];
     [ApiManager reactToTransaction:self.reactTransaction
-                         withImage:image
+                         withImage:[DesignUtils drawText:@"Thanks!" inImage:image atPoint:CGPointMake(0, 0.75*image.size.height)]
                            success:^{
                                self.reactTransaction.ongoingReaction = false;
                                [self.transactionsTableView reloadData];

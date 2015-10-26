@@ -47,14 +47,20 @@
     NSString *name;
     
     self.seenImageView.hidden = YES;
+    self.userPicture.userInteractionEnabled = YES;
     
-    self.createReactionButton.hidden = sendFlag || self.transaction.reaction != nil;
+    // Reaction
+    self.createReactionButton.hidden = sendFlag || self.transaction.reaction != nil || self.transaction.receiverType == kReceiverAutoRefund;
     self.seeReactionButton.hidden = !sendFlag || !transaction.reaction;
-    [self.seeReactionButton setBackgroundColor:[UIColor lightGrayColor]];
     [self.seeReactionButton setTitle:@"" forState:UIControlStateNormal];
     self.seeReactionButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.seeReactionButton setAdjustsImageWhenHighlighted:NO];
     [self animateOngoingReaction:self.transaction.ongoingReaction];
+    self.backgroundColor = (!sendFlag || !transaction.reaction || transaction.reaction.readStatus) ? [UIColor whiteColor] : [ColorUtils veryLightBlack];
+    
+    // Picture tap gesture
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPicture)];
+    [self.userPicture addGestureRecognizer:tapGesture];
    
     // payment received
     if (!sendFlag) {
@@ -96,9 +102,11 @@
         name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
         
         self.seenImageView.hidden = !self.transaction.readStatus;
-        if (self.transaction.reaction) {
+        if (transaction.reaction) {
             [self.transaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
-                [self.seeReactionButton setImage:image forState:UIControlStateNormal];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.seeReactionButton setImage:image forState:UIControlStateNormal];
+                });
             } failure:nil];
         }
     }
@@ -136,8 +144,12 @@
         [self.delegate showReaction:self.transaction.reaction
                               image:self.seeReactionButton.imageView.image
                        initialFrame:convertedFrame];
-        self.transaction.reaction.reactionImage = [DesignUtils blurImage:self.transaction.reaction.reactionImage];
+        self.transaction.reaction.reactionImage = nil;
     }
+}
+
+- (void)tapOnPicture {
+    [self.delegate displayTwitterOptionsForTransaction:self.transaction];
 }
 
 // --------------------------------------------

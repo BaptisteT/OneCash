@@ -24,6 +24,7 @@
 
 - (void)reactToTransaction:(Transaction *)transaction;
 - (void)showReaction:(Reaction *)reaction image:(UIImage *)image initialFrame:(CGRect)frame;
+- (void)displayTwitterOptionsForTransaction:(Transaction *)transaction;
 
 @end
 

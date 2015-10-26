@@ -831,7 +831,7 @@
             Reaction *reaction = [Reaction createReactionWithTransaction:transaction imageFile:file];
             [reaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (error != nil) {
-                    OneLog(ONEAPIMANAGERLOG,@"Failure - addImageReaction - %@",error.description);
+                    OneLog(ONEAPIMANAGERLOG,@"Failure - reactToTransaction - %@",error.description);
                     if (failureBlock) {
                         failureBlock(error);
                     }

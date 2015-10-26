@@ -1786,7 +1786,9 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6As-9d-Rl3">
                                                     <rect key="frame" x="560" y="35" width="30" height="30"/>
-                                                    <state key="normal" title="R"/>
+                                                    <state key="normal" title="R">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="createReactionButtonClicked:" destination="xuQ-0p-lJB" eventType="touchUpInside" id="WIS-ib-KkS"/>
                                                     </connections>
@@ -1799,6 +1801,7 @@
                                                 <constraint firstItem="axC-fu-9Nu" firstAttribute="leading" secondItem="VDe-AG-uRa" secondAttribute="leading" id="DMI-t2-PuP"/>
                                                 <constraint firstItem="6As-9d-Rl3" firstAttribute="centerY" secondItem="9pP-Bd-Msg" secondAttribute="centerY" id="FjF-al-ii4"/>
                                                 <constraint firstItem="5Cm-IO-o4O" firstAttribute="height" secondItem="axC-fu-9Nu" secondAttribute="height" id="GkJ-FW-QWu"/>
+                                                <constraint firstItem="6As-9d-Rl3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9pP-Bd-Msg" secondAttribute="trailing" constant="5" id="IbN-0H-bmt"/>
                                                 <constraint firstItem="9pP-Bd-Msg" firstAttribute="leading" secondItem="axC-fu-9Nu" secondAttribute="trailing" id="LnT-an-jpJ"/>
                                                 <constraint firstAttribute="centerY" secondItem="5Cm-IO-o4O" secondAttribute="centerY" constant="-10" id="MMw-bb-gmk"/>
                                                 <constraint firstItem="9pP-Bd-Msg" firstAttribute="centerY" secondItem="axC-fu-9Nu" secondAttribute="centerY" id="Mly-cD-lcm"/>
@@ -1808,6 +1811,11 @@
                                                 <constraint firstItem="axC-fu-9Nu" firstAttribute="top" secondItem="VDe-AG-uRa" secondAttribute="bottom" constant="5" id="i66-vg-Fwd"/>
                                                 <constraint firstItem="5Cm-IO-o4O" firstAttribute="leading" secondItem="zJU-jf-l3E" secondAttribute="leading" constant="15" id="q0Z-H8-xAU"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="frn-Nf-4nd"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
@@ -1906,6 +1914,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Iop-hI-peU" secondAttribute="trailing" constant="15" id="hKj-Jl-0cd"/>
                                                 <constraint firstItem="PAh-yJ-okV" firstAttribute="leading" secondItem="vos-XS-bF5" secondAttribute="leadingMargin" constant="5" id="jDR-ez-mcI"/>
                                                 <constraint firstItem="Iop-hI-peU" firstAttribute="leading" secondItem="vos-XS-bF5" secondAttribute="leading" constant="15" id="kGL-RW-FAF"/>
+                                                <constraint firstItem="Cgx-Cl-GuP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PAh-yJ-okV" secondAttribute="trailing" constant="5" id="myA-uD-iqJ"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="BX0-1P-F4q" secondAttribute="trailing" constant="1" id="oqP-13-eRp"/>
                                                 <constraint firstItem="Cgx-Cl-GuP" firstAttribute="centerY" secondItem="hyS-1n-vcd" secondAttribute="centerY" id="qdU-3V-AN0"/>
                                                 <constraint firstItem="Cgx-Cl-GuP" firstAttribute="width" relation="greaterThanOrEqual" secondItem="Cgx-Cl-GuP" secondAttribute="height" multiplier="20:20" id="r4r-ys-lbj"/>
@@ -1916,6 +1925,7 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="JTn-rp-NIB"/>
+                                                    <exclude reference="uEb-Ig-ySC"/>
                                                     <exclude reference="CVb-Cq-hOO"/>
                                                     <exclude reference="VhX-Fb-LqB"/>
                                                     <exclude reference="YUf-ZD-V5W"/>

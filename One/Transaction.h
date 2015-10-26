@@ -27,14 +27,14 @@ typedef NS_ENUM(NSInteger,ReceiverType) {
     kReceiverRefunded = 3 // sent to a non user, but refuned 7 days after
 };
 
-@property (nonatomic) User *sender;
+@property (strong, nonatomic) User *sender;
 @property (nonatomic) TransactionType transactionType;
 @property (nonatomic) NSInteger transactionAmount; // in $, 1 if kTransactionPayment
-@property (nonatomic) User *receiver; // if kTransactionPayment
-@property (nonatomic) NSString *message;
+@property (strong, nonatomic) User *receiver; // if kTransactionPayment
+@property (strong, nonatomic) NSString *message;
 @property (nonatomic) BOOL readStatus;
 @property (nonatomic) ReceiverType receiverType;
-@property (nonatomic) Reaction *reaction;
+@property (strong, nonatomic) Reaction *reaction;
 
 
 // local

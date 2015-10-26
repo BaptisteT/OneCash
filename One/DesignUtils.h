@@ -48,5 +48,8 @@ typedef NS_ENUM(NSInteger,OneBubblePosition) {
                                                Color:(UIColor *)color
                                         subDivisions:(NSInteger)nbSubDivisions;
 
-+ (UIImage *)blurImage:(UIImage *)image;
++ (UIImage *)blurAndRescaleImage:(UIImage *)image;
+
++ (UIImage*)drawText:(NSString*)text inImage:(UIImage*)image atPoint:(CGPoint)point;
+
 @end
