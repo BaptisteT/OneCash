@@ -60,14 +60,5 @@
     self.dollarLabel.clipsToBounds = YES;
 }
 
-- (UIImage *)captureView {
-    CGRect rect = self.frame;
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [self.layer renderInContext:context];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return img;
-}
 
 @end

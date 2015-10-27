@@ -157,7 +157,7 @@
         if ( connectionError == nil) {
             NSError * error = nil;
             NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-            OneLog(ONEAPIMANAGERLOG, @"Success - twitter info - %@",result);
+            OneLog(ONEAPIMANAGERLOG, @"Success - twitter info");
             // Update user info
             [user updateUserWithTwitterInfo:result];
             

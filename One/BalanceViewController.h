@@ -9,13 +9,14 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
+#import "CameraViewController.h"
 #import "ManagedAccountViewController.h"
 #import "AccountCardViewController.h"
 #import "TransactionTableViewCell.h"
 
 @protocol BalanceViewControllerProtocol;
 
-@interface BalanceViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ManagedAccountVCProtocol, AccountCardVCProtocol, UITextFieldDelegate, UIActionSheetDelegate, TransactionTVCProtocol, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface BalanceViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ManagedAccountVCProtocol, AccountCardVCProtocol, UITextFieldDelegate, UIActionSheetDelegate, TransactionTVCProtocol, CameraVCProtocol>
 
 @property (weak, nonatomic) id<BalanceViewControllerProtocol> delegate;
 

@@ -52,4 +52,6 @@ typedef NS_ENUM(NSInteger,OneBubblePosition) {
 
 + (UIImage*)drawText:(NSString*)text inImage:(UIImage*)image atPoint:(CGPoint)point;
 
++ (UIImage*)createImageFromView:(UIView *)view;
+
 @end

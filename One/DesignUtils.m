@@ -246,4 +246,15 @@
     return newImage;
 }
 
++ (UIImage*)createImageFromView:(UIView *)view
+{
+    CGRect rect = view.frame;
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [view.layer renderInContext:context];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
+
 @end

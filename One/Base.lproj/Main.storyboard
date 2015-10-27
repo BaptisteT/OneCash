@@ -1269,6 +1269,76 @@
             </objects>
             <point key="canvasLocation" x="2934" y="-468"/>
         </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="UPZ-aK-lgX">
+            <objects>
+                <viewController id="FU8-cO-3hB" customClass="CameraViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iqO-VB-mni"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZQb-w8-shn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CRr-pS-cnW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lcv-4A-br6">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-QA-t5a">
+                                <rect key="frame" x="20" y="40" width="45" height="30"/>
+                                <state key="normal" title="cancel"/>
+                                <connections>
+                                    <action selector="cancelPhotoButtonClicked:" destination="FU8-cO-3hB" eventType="touchUpInside" id="3Jw-kN-qbs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Y7-Zj-NjF">
+                                <rect key="frame" x="526" y="543" width="54" height="30"/>
+                                <state key="normal" title="validate"/>
+                                <connections>
+                                    <action selector="checkButtonClicked:" destination="FU8-cO-3hB" eventType="touchUpInside" id="HzK-fP-0nD"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thanks_sticker" translatesAutoresizingMaskIntoConstraints="NO" id="Q7n-IT-0r8">
+                                <rect key="frame" x="150" y="389.5" width="300" height="160.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Q7n-IT-0r8" secondAttribute="height" multiplier="15:8" id="7ak-Eo-wsu"/>
+                                    <constraint firstAttribute="width" constant="120" id="s03-xU-AuT"/>
+                                    <constraint firstAttribute="height" constant="64" id="uWN-R5-oov"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="s03-xU-AuT"/>
+                                        <exclude reference="uWN-R5-oov"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Lcv-4A-br6" firstAttribute="top" secondItem="CRr-pS-cnW" secondAttribute="top" id="167-zS-iFl"/>
+                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="Lcv-4A-br6" secondAttribute="bottom" id="9tG-U2-iac"/>
+                            <constraint firstAttribute="trailing" secondItem="6Y7-Zj-NjF" secondAttribute="trailing" constant="20" id="AJk-fQ-Bey"/>
+                            <constraint firstItem="Q7n-IT-0r8" firstAttribute="centerX" secondItem="Lcv-4A-br6" secondAttribute="centerX" id="GL7-4C-fBG"/>
+                            <constraint firstAttribute="trailing" secondItem="Lcv-4A-br6" secondAttribute="trailing" id="OR7-57-GW6"/>
+                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="Q7n-IT-0r8" secondAttribute="bottom" constant="50" id="UYP-ws-UQQ"/>
+                            <constraint firstItem="RWs-QA-t5a" firstAttribute="top" secondItem="iqO-VB-mni" secondAttribute="bottom" constant="20" id="YU4-0w-vkz"/>
+                            <constraint firstItem="Q7n-IT-0r8" firstAttribute="width" secondItem="Lcv-4A-br6" secondAttribute="height" multiplier="1:2" id="b89-Uc-WHX"/>
+                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="6Y7-Zj-NjF" secondAttribute="bottom" constant="27" id="gZV-Cg-FqK"/>
+                            <constraint firstItem="Lcv-4A-br6" firstAttribute="leading" secondItem="CRr-pS-cnW" secondAttribute="leading" id="q4M-AO-oAf"/>
+                            <constraint firstItem="RWs-QA-t5a" firstAttribute="leading" secondItem="CRr-pS-cnW" secondAttribute="leading" constant="20" id="sHx-hb-Nz5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="Lcv-4A-br6" id="qEH-Pf-a5T"/>
+                        <outlet property="photoConfirmButton" destination="6Y7-Zj-NjF" id="o5d-uH-Zgx"/>
+                        <outlet property="photoDeleteButton" destination="RWs-QA-t5a" id="8II-ss-5ch"/>
+                        <outlet property="stickerImageView" destination="Q7n-IT-0r8" id="Lcy-sJ-dmb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xfe-by-LUw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5028" y="-1124"/>
+        </scene>
         <!--Managed Account View Controller-->
         <scene sceneID="ylz-Mf-RfX">
             <objects>
@@ -1786,8 +1856,8 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6As-9d-Rl3">
                                                     <rect key="frame" x="560" y="35" width="30" height="30"/>
-                                                    <state key="normal" title="R">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="📷">
+                                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="createReactionButtonClicked:" destination="xuQ-0p-lJB" eventType="touchUpInside" id="WIS-ib-KkS"/>
@@ -1889,7 +1959,7 @@
                                                         <constraint firstAttribute="width" constant="30" id="206-VZ-7bF"/>
                                                         <constraint firstAttribute="height" constant="30" id="H1M-Al-IU4"/>
                                                     </constraints>
-                                                    <state key="normal" title="R">
+                                                    <state key="normal" title="📷">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -2095,6 +2165,7 @@
                         <segue destination="bFG-lE-Nfn" kind="presentation" identifier="Settings From Balance" id="iQR-bP-m9O"/>
                         <segue destination="wTm-kh-mbv" kind="presentation" identifier="Managed From Balance" id="SJv-v2-cWl"/>
                         <segue destination="GoK-Qs-WaZ" kind="presentation" identifier="AccountCard From Balance" id="ep0-aD-elO"/>
+                        <segue destination="FU8-cO-3hB" kind="presentation" identifier="Camera From Balance" animates="NO" id="3u3-41-HYy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WiH-rA-uGu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2919,6 +2990,7 @@
         <image name="shadow" width="1" height="10"/>
         <image name="spin" width="65" height="65"/>
         <image name="stripe_icon" width="119" height="26"/>
+        <image name="thanks_sticker" width="400" height="158"/>
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>

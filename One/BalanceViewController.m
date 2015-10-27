@@ -19,7 +19,6 @@
 #import "SettingsViewController.h"
 #import "TransactionTableViewCell.h"
 
-#import "CameraUtils.h"
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
@@ -43,7 +42,6 @@
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
 
 // Reaction
-@property (strong, nonatomic) UIImagePickerController *imagePickerController;
 @property (strong, nonatomic) Transaction *reactTransaction;
 @property (nonatomic, strong) AVAudioPlayer *mainPlayer;
 
@@ -160,6 +158,8 @@
         ((ManagedAccountViewController *) [segue destinationViewController]).delegate = self;
     } else if ([segueName isEqualToString:@"AccountCard From Balance"]) {
         ((AccountCardViewController *) [segue destinationViewController]).delegate = self;
+    } else if ([segueName isEqualToString:@"Camera From Balance"]) {
+        ((CameraViewController *) [segue destinationViewController]).delegate = self;
     }
 }
 
@@ -168,10 +168,19 @@
 // --------------------------------------------
 - (void)loadLatestTransactionsLocally {
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
-        // reload transactions
-        [self scrollToTop];
-        self.transactions = [NSMutableArray arrayWithArray:transactions];
-        [self.transactionsTableView reloadData];
+        // reload transactions (only if some are new)
+        BOOL reload = false;
+        for (Transaction *transaction in transactions) {
+            if (![self.transactions containsObject:transaction]) {
+                reload = true;
+                break;
+            }
+        }
+        if (reload) {
+            [self scrollToTop];
+            self.transactions = [NSMutableArray arrayWithArray:transactions];
+            [self.transactionsTableView reloadData];
+        }
         
         // reset balance
         [self setBalanceAndStatus];
@@ -513,7 +522,7 @@
 // --------------------------------------------
 - (void)reactToTransaction:(Transaction *)transaction {
     self.reactTransaction = transaction;
-    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    [self performSegueWithIdentifier:@"Camera From Balance" sender:nil];
 }
 
 - (void)showReaction:(Reaction *)reaction image:(UIImage *)image initialFrame:(CGRect)frame
@@ -529,6 +538,10 @@
     [self animateDisplayImageReaction:imageView];
     [ApiManager markReactionAsRead:reaction success:nil failure:nil];
 }
+
+// --------------------------------------------
+#pragma mark - Display image reaction
+// --------------------------------------------
 
 - (void)animateDisplayImageReaction:(UIImageView *)imageView {
     [UIView animateWithDuration:0.5
@@ -557,42 +570,25 @@
     [sender.view removeFromSuperview];
 }
 
-// ----------------------------------------
-#pragma mark - Image picker delegate
-// ----------------------------------------
-- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType
+// --------------------------------------------
+#pragma mark - Camera VC Protocol
+// --------------------------------------------
+- (void)handleImage:(UIImage *)image
 {
-    if (![UIImagePickerController isSourceTypeAvailable:sourceType]) {
-        return;
-    }
-    if (!self.imagePickerController) {
-        self.imagePickerController = [CameraUtils allocCameraWithSourceType:sourceType delegate:self];
-    }
-    [self presentViewController:self.imagePickerController animated:YES completion:nil];
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *image =  [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-    self.reactTransaction.ongoingReaction = true;
-    [self.transactionsTableView reloadData];
+    Transaction *transaction = self.reactTransaction;
+    transaction.ongoingReaction = true;
     [ApiManager reactToTransaction:self.reactTransaction
-                         withImage:[DesignUtils drawText:@"Thanks!" inImage:image atPoint:CGPointMake(0, 0.75*image.size.height)]
+                         withImage:image
                            success:^{
-                               self.reactTransaction.ongoingReaction = false;
+                               transaction.ongoingReaction = false;
                                [self.transactionsTableView reloadData];
                            } failure:^(NSError *error) {
-                               self.reactTransaction.ongoingReaction = false;
+                               transaction.ongoingReaction = false;
                                [self.transactionsTableView reloadData];
                            }];
-    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
+
 
 
 @end

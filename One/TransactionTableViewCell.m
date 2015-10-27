@@ -26,6 +26,7 @@
 @property (strong, nonatomic) CAShapeLayer *borderLayer;
 @property (weak, nonatomic) IBOutlet UIButton *createReactionButton;
 @property (nonatomic, strong) CAShapeLayer *createReactionShapeCircle;
+@property (nonatomic, strong) CAShapeLayer *seeReactionShapeCircle;
 @property (weak, nonatomic) IBOutlet UIButton *seeReactionButton;
 
 @property (strong, nonatomic) Transaction *transaction;
@@ -48,15 +49,28 @@
     
     self.seenImageView.hidden = YES;
     self.userPicture.userInteractionEnabled = YES;
+    self.backgroundColor = [UIColor whiteColor];
     
-    // Reaction
-    self.createReactionButton.hidden = sendFlag || self.transaction.reaction != nil || self.transaction.receiverType == kReceiverAutoRefund;
+    // Create Reaction
+    [self animateOngoingReaction:NO];
+    if (sendFlag || self.transaction.receiverType == kReceiverAutoRefund) {
+        self.createReactionButton.hidden = YES;
+    } else {
+        self.createReactionButton.hidden = NO;
+        if (self.transaction.reaction != nil) {
+            [self.createReactionButton setTitle:@"✓" forState:UIControlStateNormal];
+            self.createReactionButton.enabled = NO;
+        } else {
+            [self.createReactionButton setTitle:@"📷" forState:UIControlStateNormal];
+            [self animateOngoingReaction:self.transaction.ongoingReaction];
+        }
+    }
+
+    // See reaction
     self.seeReactionButton.hidden = !sendFlag || !transaction.reaction;
     [self.seeReactionButton setTitle:@"" forState:UIControlStateNormal];
     self.seeReactionButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.seeReactionButton setAdjustsImageWhenHighlighted:NO];
-    [self animateOngoingReaction:self.transaction.ongoingReaction];
-    self.backgroundColor = (!sendFlag || !transaction.reaction || transaction.reaction.readStatus) ? [UIColor whiteColor] : [ColorUtils veryLightBlack];
     
     // Picture tap gesture
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPicture)];
@@ -103,9 +117,15 @@
         
         self.seenImageView.hidden = !self.transaction.readStatus;
         if (transaction.reaction) {
+            [self.seeReactionButton setImage:nil forState:UIControlStateNormal];
+            [self animateDownloadingReaction:YES];
             [self.transaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.seeReactionButton setImage:image forState:UIControlStateNormal];
+                    [self animateDownloadingReaction:NO];
+                    if (transaction.reaction.readStatus == false) {
+                        self.backgroundColor = [ColorUtils veryLightBlack];
+                    }
                 });
             } failure:nil];
         }
@@ -139,7 +159,7 @@
 }
 
 - (IBAction)seeReactionButtonClicked:(id)sender {
-    if (!self.transaction.reaction.readStatus) {
+    if (self.transaction.reaction.readStatus == false && self.transaction.reaction.reactionImage) {
         CGRect convertedFrame = [self convertRect:self.seeReactionButton.frame toView:self.superview.superview.superview];
         [self.delegate showReaction:self.transaction.reaction
                               image:self.seeReactionButton.imageView.image
@@ -215,9 +235,35 @@
     }
 }
 
+- (void)animateDownloadingReaction:(BOOL)flag {
+    self.seeReactionButton.enabled = !flag;
+    
+    if (flag) {
+        // Add to parent layer
+        if (!self.seeReactionShapeCircle) {
+            [self initLoadingSeeCircleShape];
+        }
+        [self.seeReactionButton.layer addSublayer:self.seeReactionShapeCircle];
+        CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        rotationAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
+        rotationAnimation.toValue = [NSNumber numberWithFloat:2*M_PI];
+        rotationAnimation.duration = 0.7;
+        rotationAnimation.repeatCount = INFINITY;
+        [self.seeReactionShapeCircle addAnimation:rotationAnimation forKey:@"indeterminateAnimation"];
+    } else {
+        [self.seeReactionShapeCircle removeAllAnimations];
+        [self.seeReactionShapeCircle removeFromSuperlayer];
+    }
+}
+
 - (void)initLoadingCircleShape
 {
     self.createReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(0,0,self.createReactionButton.frame.size.width,self.createReactionButton.frame.size.height) borderWidth:1 Color:[ColorUtils mainGreen] subDivisions:100];
+}
+
+- (void)initLoadingSeeCircleShape
+{
+    self.seeReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(0,0,self.seeReactionButton.frame.size.width,self.seeReactionButton.frame.size.height) borderWidth:1 Color:[ColorUtils mainGreen] subDivisions:100];
 }
 
 @end

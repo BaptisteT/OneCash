@@ -118,6 +118,9 @@
     // Register for notif
     [NotifUtils registerForRemoteNotif];
     
+    // Dl big profile picture of current user
+    [[User currentUser] setAvatarInImageView:[UIImageView new] bigSize:YES saveLocally:YES];
+    
     // Callback
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(willBecomeActiveCallback)
