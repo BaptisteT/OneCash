@@ -138,6 +138,7 @@
     [self.imagePickerController takePicture];
 }
 
+
 - (IBAction)flipCameraButtonClicked:(id)sender
 {
     if (self.imagePickerController.cameraDevice == UIImagePickerControllerCameraDeviceFront){
