@@ -862,6 +862,7 @@
                 successBlock();
             }
         } else {
+            OneLog(ONEAPIMANAGERLOG,@"markReactionAsRead - %@",error.description);
             if (failureBlock) {
                 failureBlock(error);
             }
