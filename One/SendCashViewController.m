@@ -118,6 +118,9 @@
     // Register for notif
     [NotifUtils registerForRemoteNotif];
     
+    // Dl big profile picture of current user
+    [[User currentUser] setAvatarInImageView:[UIImageView new] bigSize:YES saveLocally:YES];
+    
     // Callback
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(willBecomeActiveCallback)
@@ -135,7 +138,6 @@
                                              selector:@selector(loadUserAndSetSelected:)
                                                  name:kNotificationUserURLScheme
                                                object:nil];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -330,7 +332,7 @@
     [ApiManager createPaymentTransactionWithTransaction:transaction applePaytoken:token success:^(Transaction *returnTransaction) {
             // If external show alert
             if (returnTransaction.receiver.isExternal) {
-                [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:NSLocalizedString(@"twitter_user_alert_message", nil)];
+                [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_message", nil),self.receiver.caseUsername]];
             }
             
             self.sentTransactionsCount += transaction.transactionAmount;
@@ -447,7 +449,6 @@
      // Create transaction
      } else {
          [self removeCashSubview:cashView];
-         
          if (self.transactionToSend) {
              [self.associationTimer invalidate];
              BOOL sameReceiver = [self.transactionToSend.receiver.username isEqualToString:self.receiver.username];
@@ -472,8 +473,7 @@
              self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
                                                          transactionAmount:kUnitTransactionAmount
                                                                       type:kTransactionPayment
-                                                                   message:cashView.messageTextField.text
-                                                                readStatus:false];
+                                                                   message:cashView.messageTextField.text];
              [self startAssociationTimer];
          }
      }

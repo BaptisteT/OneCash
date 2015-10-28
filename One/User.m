@@ -10,13 +10,17 @@
 #import "User.h"
 
 #import "ConstantUtils.h"
+#import "OneLogger.h"
 #import "ImageCache.h"
 #import "UIImageView+UserName.h"
+
+#define LOCALLOGENABLED NO && GLOBALLOGENABLED
 
 @interface User()
 @property (nonatomic, strong) UIImage *bigPicture;
 @property (nonatomic, strong) UIImage *smallPicture;
 @end
+
 
 @implementation User
 
@@ -56,10 +60,16 @@
     
     UIImage *picture = sizeFlag ? self.bigPicture : self.smallPicture;
     if (picture) {
+        OneLog(LOCALLOGENABLED,@"setAvatar : direct %@",sizeFlag ? @"big" : @"small");
         [imageView setImage:picture];
     } else {
-        if (self.bigPicture) imageView.image = self.bigPicture;
-        if (self.smallPicture) imageView.image = self.smallPicture;
+        if (self.bigPicture) {
+            OneLog(LOCALLOGENABLED,@"setAvatar : temp big");
+            imageView.image = self.bigPicture;
+        } else if (self.smallPicture) {
+            OneLog(LOCALLOGENABLED,@"setAvatar : temp small");
+            imageView.image = self.smallPicture;
+        }
         
         CGFloat size = sizeFlag ? kDisplayedPictureBigSize : kDisplayedPictureSmallSize;
         CGSize rescaleSize = {size, size};
@@ -68,6 +78,7 @@
                                           mode:UIViewContentModeScaleAspectFill
                                 availableBlock:^(UIImage *image) {
                                         if (image) {
+                                            OneLog(LOCALLOGENABLED,@"setAvatar : dl %@",sizeFlag ? @"big" : @"small");
                                             if (sizeFlag) {
                                                 self.bigPicture = image;
                                             } else {
@@ -89,12 +100,16 @@
     button.contentMode = UIViewContentModeScaleAspectFill;
     UIImage *picture = flag ? self.bigPicture : self.smallPicture;
     if (picture) {
+        OneLog(LOCALLOGENABLED,@"setAvatar : direct %@",flag ? @"big" : @"small");
         [button setImage:picture forState:UIControlStateNormal];
     } else {
-        if (self.bigPicture)
+        if (self.bigPicture) {
+            OneLog(LOCALLOGENABLED,@"setAvatar : temp big");
             [button setImage:self.bigPicture forState:UIControlStateNormal];
-        else if (self.smallPicture)
+        } else if (self.smallPicture) {
+            OneLog(LOCALLOGENABLED,@"setAvatar : temp small");
             [button setImage:self.smallPicture forState:UIControlStateNormal];
+        }
         
         CGFloat size = flag ? kDisplayedPictureBigSize : kDisplayedPictureSmallSize;
         CGSize rescaleSize = {size, size};
@@ -103,6 +118,7 @@
                                           mode:UIViewContentModeScaleAspectFill
                                 availableBlock:^(UIImage *image) {
                                     if (image) {
+                                        OneLog(LOCALLOGENABLED,@"setAvatar : dl %@",flag ? @"big" : @"small");
                                         if (flag) {
                                             self.bigPicture = image;
                                         } else {
@@ -112,7 +128,7 @@
                                             [button setImage:image forState:UIControlStateNormal];
                                         });
                                     }
-                                }   saveLocally:flag];
+                                }   saveLocally:YES];
     }
 }
 
@@ -131,11 +147,14 @@
 - (void)updateUserWithTwitterInfo:(NSDictionary *)twitterInfo
 {
     // Profile picture
-    NSString * profileImageURL = [[twitterInfo objectForKey:@"profile_image_url_https"] stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
-    
-    if (profileImageURL.length > 0 && ![self.pictureURL isEqualToString:profileImageURL]) {
-        self.pictureURL = profileImageURL;
+    NSString * imageUrl = [twitterInfo objectForKey:@"profile_image_url_https"];
+    if (imageUrl) {
+        NSString * profileImageURL = [imageUrl stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
+        if (profileImageURL.length > 0 && ![self.pictureURL isEqualToString:profileImageURL]) {
+            self.pictureURL = profileImageURL;
+        }
     }
+    
     // Username
     NSString * username = [twitterInfo objectForKey:@"screen_name"];
     if (username.length > 0 && ![self.caseUsername isEqualToString:username]) {

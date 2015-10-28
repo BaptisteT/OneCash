@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0099FB1BDCA0A500006025 /* Reaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FA1BDCA0A500006025 /* Reaction.m */; settings = {ASSET_TAGS = (); }; };
+		3C0099FC1BDCA0A500006025 /* Reaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FA1BDCA0A500006025 /* Reaction.m */; settings = {ASSET_TAGS = (); }; };
+		3C009A031BDD114800006025 /* photo-display.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C009A021BDD114800006025 /* photo-display.m4a */; settings = {ASSET_TAGS = (); }; };
+		3C009A041BDD114800006025 /* photo-display.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C009A021BDD114800006025 /* photo-display.m4a */; settings = {ASSET_TAGS = (); }; };
 		3C13EE4B1B9F32D500930AC7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13EE4A1B9F32D500930AC7 /* Reachability.m */; };
 		3C13EE4D1B9F32DE00930AC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */; };
 		3C13EE501B9F428D00930AC7 /* DatastoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13EE4F1B9F428D00930AC7 /* DatastoreManager.m */; };
@@ -14,6 +18,10 @@
 		3C2E036D1B8DA18B00D22D48 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E036C1B8DA18B00D22D48 /* AppDelegate.m */; };
 		3C2E03761B8DA18B00D22D48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03741B8DA18B00D22D48 /* Main.storyboard */; };
 		3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */; };
+		3C401B411BDF441F0070F8D2 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B401BDF441F0070F8D2 /* CameraViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3C401B421BDF441F0070F8D2 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B401BDF441F0070F8D2 /* CameraViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3C401B441BDF47250070F8D2 /* CameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C401B431BDF47250070F8D2 /* CameraOverlay.xib */; settings = {ASSET_TAGS = (); }; };
+		3C401B451BDF47250070F8D2 /* CameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C401B431BDF47250070F8D2 /* CameraOverlay.xib */; settings = {ASSET_TAGS = (); }; };
 		3C43B6421BA95231006679DE /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; settings = {ASSET_TAGS = (); }; };
 		3C43B6451BA96567006679DE /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3C43B6481BA9B239006679DE /* AccountCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6471BA9B239006679DE /* AccountCardViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -116,7 +124,8 @@
 		3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */; };
 		3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
 		3CD6C1E01BC6F99700D1D991 /* socicon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CA0E61BBD957C00DBBCB0 /* socicon.ttf */; settings = {ASSET_TAGS = (); }; };
-		3CD6C1E21BC9435700D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD4D6421BB91D76001F2C7A /* OneCash-Info.plist */; settings = {ASSET_TAGS = (); }; };
+		3CD6C1E61BCE782000D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */; settings = {ASSET_TAGS = (); }; };
+		3CD6C1E71BCE782000D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */; settings = {ASSET_TAGS = (); }; };
 		3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
 		3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
@@ -142,6 +151,9 @@
 
 /* Begin PBXFileReference section */
 		1F0138CD4900B04DB2B1B667 /* Pods-One.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One.debug.xcconfig"; path = "Pods/Target Support Files/Pods-One/Pods-One.debug.xcconfig"; sourceTree = "<group>"; };
+		3C0099F91BDCA0A500006025 /* Reaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reaction.h; sourceTree = "<group>"; };
+		3C0099FA1BDCA0A500006025 /* Reaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reaction.m; sourceTree = "<group>"; };
+		3C009A021BDD114800006025 /* photo-display.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "photo-display.m4a"; sourceTree = "<group>"; };
 		3C13EE491B9F32D500930AC7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3C13EE4A1B9F32D500930AC7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -154,6 +166,9 @@
 		3C2E036C1B8DA18B00D22D48 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3C2E03751B8DA18B00D22D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3C2E037A1B8DA18B00D22D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		3C401B3F1BDF441F0070F8D2 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		3C401B401BDF441F0070F8D2 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		3C401B431BDF47250070F8D2 /* CameraOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlay.xib; sourceTree = "<group>"; };
 		3C43B6401BA95231006679DE /* IPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPUtils.h; sourceTree = "<group>"; };
 		3C43B6411BA95231006679DE /* IPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPUtils.m; sourceTree = "<group>"; };
 		3C43B6431BA96567006679DE /* ManagedAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedAccountViewController.h; sourceTree = "<group>"; };
@@ -236,8 +251,8 @@
 		3CC5FDE51B9D937D00514A43 /* TransactionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewCell.h; sourceTree = "<group>"; };
 		3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewCell.m; sourceTree = "<group>"; };
 		3CD4D6411BB91D75001F2C7A /* OneCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3CD4D6421BB91D76001F2C7A /* OneCash-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "OneCash-Info.plist"; path = "/Users/clementraffenoux/Documents/OneCash/OneCash-Info.plist"; sourceTree = "<absolute>"; };
 		3CD6C1DF1BC66A7100D1D991 /* OneCash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OneCash.entitlements; sourceTree = "<group>"; };
+		3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OneCash-Info.plist"; sourceTree = "<group>"; };
 		3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UserName.h"; sourceTree = "<group>"; };
@@ -307,6 +322,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3C009A011BDD113C00006025 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				3C009A021BDD114800006025 /* photo-display.m4a */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 		3C13EE481B9F32CB00930AC7 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,7 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				3C2E03681B8DA18B00D22D48 /* Info.plist */,
-				3CD4D6421BB91D76001F2C7A /* OneCash-Info.plist */,
+				3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */,
 				3C2E03691B8DA18B00D22D48 /* main.m */,
 				3CC5FDB41B98886700514A43 /* Localizable.strings */,
 			);
@@ -365,9 +388,11 @@
 		3C2E03901B8DA1BF00D22D48 /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
+				3C009A011BDD113C00006025 /* Sounds */,
 				A4A2B5081BADDBA300CDAF07 /* Fonts */,
 				3C2E03741B8DA18B00D22D48 /* Main.storyboard */,
 				3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */,
+				3C401B431BDF47250070F8D2 /* CameraOverlay.xib */,
 				3CC5FDD11B99D73100514A43 /* PushNoAnimationSegue.h */,
 				3CC5FDD21B99D73100514A43 /* PushNoAnimationSegue.m */,
 				A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */,
@@ -387,6 +412,8 @@
 				3C86E0F41B8DB2BF005AD52B /* User.m */,
 				3CC5FD921B97431000514A43 /* Transaction.h */,
 				3CC5FD931B97431000514A43 /* Transaction.m */,
+				3C0099F91BDCA0A500006025 /* Reaction.h */,
+				3C0099FA1BDCA0A500006025 /* Reaction.m */,
 				3CC5FDD71B9B597600514A43 /* ImageCache.h */,
 				3CC5FDD81B9B597600514A43 /* ImageCache.m */,
 			);
@@ -475,6 +502,8 @@
 				3C43B6441BA96567006679DE /* ManagedAccountViewController.m */,
 				3C43B6461BA9B239006679DE /* AccountCardViewController.h */,
 				3C43B6471BA9B239006679DE /* AccountCardViewController.m */,
+				3C401B3F1BDF441F0070F8D2 /* CameraViewController.h */,
+				3C401B401BDF441F0070F8D2 /* CameraViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -637,9 +666,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C401B441BDF47250070F8D2 /* CameraOverlay.xib in Resources */,
 				A49CA0E71BBD95BE00DBBCB0 /* socicon.ttf in Resources */,
 				A4A2B5091BADDBEF00CDAF07 /* ProximaNova-Black.otf in Resources */,
 				A4A2B50A1BADDBEF00CDAF07 /* ProximaNova-Bold.otf in Resources */,
+				3CD6C1E61BCE782000D1D991 /* OneCash-Info.plist in Resources */,
 				A4A2B50B1BADDBEF00CDAF07 /* ProximaNova-Light.otf in Resources */,
 				A4A2B50C1BADDBEF00CDAF07 /* ProximaNova-Regular.otf in Resources */,
 				A4A2B50D1BADDBEF00CDAF07 /* ProximaNova-Semibold.otf in Resources */,
@@ -650,6 +681,7 @@
 				3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */,
 				A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */,
 				3C86E1031B8DBA5E005AD52B /* InternalNotifView.xib in Resources */,
+				3C009A031BDD114800006025 /* photo-display.m4a in Resources */,
 				3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -658,20 +690,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C401B451BDF47250070F8D2 /* CameraOverlay.xib in Resources */,
 				3CD4D6301BB91D75001F2C7A /* ProximaNova-Black.otf in Resources */,
 				3CD4D6311BB91D75001F2C7A /* ProximaNova-Bold.otf in Resources */,
 				3CD4D6321BB91D75001F2C7A /* ProximaNova-Light.otf in Resources */,
 				3CD4D6331BB91D75001F2C7A /* ProximaNova-Regular.otf in Resources */,
 				3CD4D6341BB91D75001F2C7A /* ProximaNova-Semibold.otf in Resources */,
 				3C4824DD1BC2CBCF005B759D /* UsernameCard.xib in Resources */,
+				3CD6C1E71BCE782000D1D991 /* OneCash-Info.plist in Resources */,
 				3CD4D6351BB91D75001F2C7A /* Maax Rounded Medium.otf in Resources */,
 				3CD4D6361BB91D75001F2C7A /* Localizable.strings in Resources */,
 				3CD4D6371BB91D75001F2C7A /* Main.storyboard in Resources */,
 				3CD6C1E01BC6F99700D1D991 /* socicon.ttf in Resources */,
 				3CD4D6381BB91D75001F2C7A /* LaunchScreen.xib in Resources */,
 				3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */,
-				3CD6C1E21BC9435700D1D991 /* OneCash-Info.plist in Resources */,
 				3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */,
+				3C009A041BDD114800006025 /* photo-display.m4a in Resources */,
 				3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,6 +834,7 @@
 				3CC5FDC61B98A6E100514A43 /* RecipientViewController.m in Sources */,
 				3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */,
 				3CC5FDD01B98C7DE00514A43 /* StripeCardViewController.m in Sources */,
+				3C0099FB1BDCA0A500006025 /* Reaction.m in Sources */,
 				3CC5FDB31B98861D00514A43 /* HowToViewController.m in Sources */,
 				3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */,
 				3CC5FDDC1B9B5A6000514A43 /* BackEndUtils.m in Sources */,
@@ -815,6 +850,7 @@
 				3CC5FDDF1B9C391600514A43 /* KeyboardUtils.m in Sources */,
 				3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */,
 				A4E49F631BBAF27D0046DA09 /* ShareUsernameViewController.m in Sources */,
+				3C401B411BDF441F0070F8D2 /* CameraViewController.m in Sources */,
 				3C7CBA5E1BABFC0F002D68E1 /* TweetTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -851,6 +887,7 @@
 				3CD4D6181BB91D75001F2C7A /* RecipientViewController.m in Sources */,
 				3CD4D6191BB91D75001F2C7A /* TransactionTableViewCell.m in Sources */,
 				3CD4D61A1BB91D75001F2C7A /* StripeCardViewController.m in Sources */,
+				3C0099FC1BDCA0A500006025 /* Reaction.m in Sources */,
 				3CD4D61B1BB91D75001F2C7A /* HowToViewController.m in Sources */,
 				3CD4D61C1BB91D75001F2C7A /* TrackingUtils.m in Sources */,
 				3CD4D61D1BB91D75001F2C7A /* BackEndUtils.m in Sources */,
@@ -866,6 +903,7 @@
 				3CD4D6251BB91D75001F2C7A /* SHValidationResult.m in Sources */,
 				3CD4D6261BB91D75001F2C7A /* KeyboardUtils.m in Sources */,
 				3CD4D6271BB91D75001F2C7A /* CashView.m in Sources */,
+				3C401B421BDF441F0070F8D2 /* CameraViewController.m in Sources */,
 				3CD4D6281BB91D75001F2C7A /* TweetTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

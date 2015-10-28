@@ -82,9 +82,9 @@
 "sending_label" = "$%lu";
 "sent_label" = "Sent!";
 "failed_label" = "Fail (%lu)";
-"twitter_user_alert_title" = "%@ is not yet on twitter";// todo BT
-"twitter_user_alert_message" = "We warmed him on twitter. If he did not sign up in one week, we will return your money.";
-"share_username_button" = "Get tipped!";// todo BT
+"twitter_user_alert_title" = "%@ is not yet on One";
+"twitter_user_alert_message" = "We informed %@ on Twitter. If he/she does not sign up in one week, we will refund you.";
+"share_username_button" = "Get tipped!";
 
 // APple pay
 "apple_pay_item" = "OneCash @%@";
@@ -119,6 +119,7 @@
 "navigate_to_twitter_action" = "See Profile";
 "follow_action" = "Follow";
 "send_tweet_action" = "Send Tweet";
+"reply_tweet_action" = "Reply via Twitter";
 
 // Settings
 "settings_title" = "Settings";

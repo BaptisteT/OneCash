@@ -97,7 +97,7 @@
     UsernameCardView *usernameCardView = [[[NSBundle mainBundle] loadNibNamed:@"UsernameCard" owner:self options:nil] objectAtIndex:0];
     [usernameCardView setFrame:frameC];
     [usernameCardView layoutSubviews];
-    self.cardImage = [usernameCardView captureView];
+    self.cardImage = [DesignUtils createImageFromView:usernameCardView];
     cardIV.image = self.cardImage;
     cardIV.layer.cornerRadius = 5;
     [self.view addSubview:cardIV];

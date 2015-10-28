@@ -43,4 +43,15 @@ typedef NS_ENUM(NSInteger,OneBubblePosition) {
                   backgroundColor:(UIColor *)backgroundColor
                         textColor:(UIColor *)textColor;
 
++ (CAShapeLayer *)createGradientCircleLayerWithFrame:(CGRect)frame
+                                         borderWidth:(NSInteger)borderWidth
+                                               Color:(UIColor *)color
+                                        subDivisions:(NSInteger)nbSubDivisions;
+
++ (UIImage *)blurAndRescaleImage:(UIImage *)image;
+
++ (UIImage*)drawText:(NSString*)text inImage:(UIImage*)image atPoint:(CGPoint)point;
+
++ (UIImage*)createImageFromView:(UIView *)view;
+
 @end

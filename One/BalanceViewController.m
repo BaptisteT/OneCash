@@ -7,11 +7,11 @@
 //
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <Social/Social.h>
-
 #import <UIScrollView+SVInfiniteScrolling.h>
 
 #import "ApiManager.h"
 #import "DatastoreManager.h"
+#import "Reaction.h"
 #import "Transaction.h"
 #import "User.h"
 
@@ -40,6 +40,10 @@
 @property (strong, nonatomic) UIView *statusOnboardingView;
 @property (strong, nonatomic) NSMutableArray *transactions;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
+
+// Reaction
+@property (strong, nonatomic) Transaction *reactTransaction;
+@property (nonatomic, strong) AVAudioPlayer *mainPlayer;
 
 @end
 
@@ -154,6 +158,8 @@
         ((ManagedAccountViewController *) [segue destinationViewController]).delegate = self;
     } else if ([segueName isEqualToString:@"AccountCard From Balance"]) {
         ((AccountCardViewController *) [segue destinationViewController]).delegate = self;
+    } else if ([segueName isEqualToString:@"Camera From Balance"]) {
+        ((CameraViewController *) [segue destinationViewController]).delegate = self;
     }
 }
 
@@ -162,10 +168,19 @@
 // --------------------------------------------
 - (void)loadLatestTransactionsLocally {
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
-        // reload transactions
-        [self scrollToTop];
-        self.transactions = [NSMutableArray arrayWithArray:transactions];
-        [self.transactionsTableView reloadData];
+        // reload transactions (only if some are new)
+        BOOL reload = false;
+        for (Transaction *transaction in transactions) {
+            if (![self.transactions containsObject:transaction]) {
+                reload = true;
+                break;
+            }
+        }
+        if (reload) {
+            [self scrollToTop];
+            self.transactions = [NSMutableArray arrayWithArray:transactions];
+            [self.transactionsTableView reloadData];
+        }
         
         // reset balance
         [self setBalanceAndStatus];
@@ -220,6 +235,7 @@
     }
     TransactionTableViewCell *cell = (TransactionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     [cell initWithTransaction:(Transaction *)self.transactions[indexPath.row]];
+    cell.delegate = self;
     [cell layoutIfNeeded];
     return cell;
 }
@@ -234,11 +250,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self resignStatusFirstResponder];
-    Transaction *transaction = (Transaction *)self.transactions[indexPath.row];
-    User *user = transaction.sender == [User currentUser] ? transaction.receiver : transaction.sender;
-    if (user) {
-        [self displayTwitterOptionsForUser:user];
-    }
 }
 
 
@@ -426,43 +437,47 @@
 // --------------------------------------------
 #pragma mark - User TVC Protocl
 // --------------------------------------------
-- (void)displayTwitterOptionsForUser:(User *)user {
-    self.selectedUser = user;
-    if ([UIAlertController class] != nil) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
-                                                                       message:nil
-                                                                preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil)
-                                                               style:UIAlertActionStyleCancel
-                                                             handler:nil];
-        UIAlertAction *profileAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"navigate_to_twitter_action", nil)
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * _Nonnull action) {
-                                                                  [self navigateToTwitterProfile];
-                                                              }];
-        UIAlertAction *followAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"follow_action", nil)
-                                                               style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * _Nonnull action) {
-                                                                 [self followSelectedUser];
-                                                             }];
-        UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"send_tweet_action", nil)
-                                                              style:UIAlertActionStyleDefault
-                                                            handler:^(UIAlertAction * _Nonnull action) {
-                                                                [self sendTweetToSelectedUser];
-                                                            }];
-        
-        [alert addAction:cancelAction];
-        [alert addAction:profileAction];
-        [alert addAction:followAction];
-        [alert addAction:tweetAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    } else {
-        // ios 7
-        [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
-                                     delegate:self
-                            cancelButtonTitle:NSLocalizedString(@"cancel_button", nil)
-                       destructiveButtonTitle:nil
-                            otherButtonTitles:NSLocalizedString(@"navigate_to_twitter_action", nil), NSLocalizedString(@"follow_action", nil), NSLocalizedString(@"send_tweet_action", nil), nil] showInView:self.view];
+- (void)displayTwitterOptionsForTransaction:(Transaction *)transaction {
+    User *user = transaction.sender == [User currentUser] ? transaction.receiver : transaction.sender;
+    if (user) {
+        self.selectedUser = user;
+        NSString *tweetActionTitle = (transaction.sender == [User currentUser]) ? NSLocalizedString(@"send_tweet_action", nil) : NSLocalizedString(@"reply_tweet_action", nil);
+        if ([UIAlertController class] != nil) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
+                                                                           message:nil
+                                                                    preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel_button", nil)
+                                                                   style:UIAlertActionStyleCancel
+                                                                 handler:nil];
+            UIAlertAction *profileAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"navigate_to_twitter_action", nil)
+                                                                    style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * _Nonnull action) {
+                                                                      [self navigateToTwitterProfile];
+                                                                  }];
+            UIAlertAction *followAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"follow_action", nil)
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * _Nonnull action) {
+                                                                     [self followSelectedUser];
+                                                                 }];
+            UIAlertAction *tweetAction = [UIAlertAction actionWithTitle:tweetActionTitle
+                                                                  style:UIAlertActionStyleDefault
+                                                                handler:^(UIAlertAction * _Nonnull action) {
+                                                                    [self sendTweetToSelectedUser];
+                                                                }];
+            
+            [alert addAction:cancelAction];
+            [alert addAction:profileAction];
+            [alert addAction:followAction];
+            [alert addAction:tweetAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            // ios 7
+            [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"%@",user.caseUsername]
+                                         delegate:self
+                                cancelButtonTitle:NSLocalizedString(@"cancel_button", nil)
+                           destructiveButtonTitle:nil
+                                otherButtonTitles:NSLocalizedString(@"navigate_to_twitter_action", nil), NSLocalizedString(@"follow_action", nil), tweetActionTitle, nil] showInView:self.view];
+        }
     }
 }
 
@@ -476,7 +491,7 @@
         [self navigateToTwitterProfile];
     } else if ([buttonTitle isEqualToString:NSLocalizedString(@"follow_action", nil)]) {
         [self followSelectedUser];
-    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"send_tweet_action", nil)]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"send_tweet_action", nil)] || [buttonTitle isEqualToString:NSLocalizedString(@"reply_tweet_action", nil)]) {
         [self sendTweetToSelectedUser];
     }
 }
@@ -500,6 +515,80 @@
                        animated:YES
                      completion:nil];
 }
+
+
+// --------------------------------------------
+#pragma mark - Transaction TVC delegate
+// --------------------------------------------
+- (void)reactToTransaction:(Transaction *)transaction {
+    self.reactTransaction = transaction;
+    [self performSegueWithIdentifier:@"Camera From Balance" sender:nil];
+}
+
+- (void)showReaction:(Reaction *)reaction image:(UIImage *)image initialFrame:(CGRect)frame
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
+    imageView.userInteractionEnabled = NO;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureOnFullScreenReaction:)];
+    [imageView addGestureRecognizer:tap];
+    [self.view addSubview:imageView];
+    imageView.image = image;
+    imageView.clipsToBounds = YES;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self animateDisplayImageReaction:imageView];
+    [ApiManager markReactionAsRead:reaction success:nil failure:nil];
+}
+
+// --------------------------------------------
+#pragma mark - Display image reaction
+// --------------------------------------------
+
+- (void)animateDisplayImageReaction:(UIImageView *)imageView {
+    [UIView animateWithDuration:0.5
+                          delay:0.
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         imageView.frame = self.view.frame;
+                     } completion:^(BOOL flag) {
+                         [self.transactionsTableView reloadData];
+                         imageView.userInteractionEnabled = YES;
+                     }];
+    NSError* error;
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"photo-display" ofType:@".m4a"];
+    NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
+    self.mainPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:&error];
+    self.mainPlayer.volume = 0.2;
+    if (error || ![self.mainPlayer prepareToPlay]) {
+        NSLog(@"%@",error);
+    } else {
+        [self.mainPlayer play];
+    }
+}
+
+- (void)tapGestureOnFullScreenReaction:(UITapGestureRecognizer *)sender
+{
+    [sender.view removeFromSuperview];
+}
+
+// --------------------------------------------
+#pragma mark - Camera VC Protocol
+// --------------------------------------------
+- (void)handleImage:(UIImage *)image
+{
+    Transaction *transaction = self.reactTransaction;
+    transaction.ongoingReaction = true;
+    [ApiManager reactToTransaction:self.reactTransaction
+                         withImage:image
+                           success:^{
+                               transaction.ongoingReaction = false;
+                               [self.transactionsTableView reloadData];
+                           } failure:^(NSError *error) {
+                               transaction.ongoingReaction = false;
+                               [self.transactionsTableView reloadData];
+                           }];
+}
+
+
 
 
 @end

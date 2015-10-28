@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) User *currentUser;
 @property (strong, nonatomic) IBOutlet UIView *bottomView;
-@property (strong, nonatomic) IBOutlet UIImageView *smallAvatarImageView;
 
 @end
 
@@ -40,16 +39,7 @@
     self.bottomView.backgroundColor = [ColorUtils mainGreen];
     
     //Avatar
-    [self.currentUser setAvatarInImageView:self.avatarImageView bigSize:YES saveLocally:NO];
-    [self.currentUser setAvatarInImageView:self.smallAvatarImageView bigSize:YES saveLocally:NO];
-    
-// Code to add an small avatar in the center
-//    UIImage *img = self.avatarImageView.image;
-//    CGRect frameImg = CGRectMake(0, 0, img.size.width, img.size.height);
-//    img = [img applyBlurWithRadius:10 tintColor:[UIColor clearColor] saturationDeltaFactor:1 maskImage:nil atFrame:frameImg];
-//    self.avatarImageView.image = img;
-    
-    self.smallAvatarImageView.hidden = YES;
+    [self.currentUser setAvatarInImageView:self.avatarImageView bigSize:YES saveLocally:YES];
     
     //Username
     self.usernameLabel.text = [self.currentUser.caseUsername uppercaseString];
@@ -68,20 +58,7 @@
     [self layoutIfNeeded];
     self.dollarLabel.layer.cornerRadius = self.dollarLabel.frame.size.width / 2 ;
     self.dollarLabel.clipsToBounds = YES;
-    self.smallAvatarImageView.layer.cornerRadius = self.smallAvatarImageView.frame.size.height/2;
-    self.smallAvatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.smallAvatarImageView.layer.borderWidth = 8;
-    self.smallAvatarImageView.clipsToBounds = YES;
 }
 
-- (UIImage *)captureView {
-    CGRect rect = self.frame;
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [self.layer renderInContext:context];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return img;
-}
 
 @end

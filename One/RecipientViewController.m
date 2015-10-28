@@ -177,7 +177,7 @@
     }
     
     UserTableViewCell *cell = (UserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"UserCell"];
-    [cell initWithUser:(User *)userArray[indexPath.row] showBalance:[self isLeaderSection:indexPath.section]];
+    [cell initWithUser:(User *)userArray[indexPath.row] showBalance:![self isTwitterSection:indexPath.section]];
     [cell layoutIfNeeded];
     return cell;
 }

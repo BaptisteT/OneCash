@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 #import <MBProgressHUD.h>
+#import <UIImage+ImageEffects.h>
+
 
 #import "ColorUtils.h"
 #import "DesignUtils.h"
@@ -175,6 +177,84 @@
     [MBProgressHUD hideHUDForView:view animated:YES];
 }
 
++ (CAShapeLayer *)createGradientCircleLayerWithFrame:(CGRect)frame
+                                         borderWidth:(NSInteger)borderWidth
+                                               Color:(UIColor *)color
+                                        subDivisions:(NSInteger)nbSubDivisions
+{
+    CGPoint center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
+    CGFloat red, green, blue, alpha, subAlpha = 0, startAngle = 0, endAngle = DEGREES_TO_RADIANS(360)/nbSubDivisions;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    
+    CAShapeLayer *containingLayer = [CAShapeLayer new];
+    containingLayer.frame = frame;
+    
+    for (int i=0; i<nbSubDivisions; i++) {
+        CAShapeLayer *subLayer = [CAShapeLayer new];
+        subLayer.frame = frame;
+        subLayer.fillColor = [UIColor clearColor].CGColor;
+        subLayer.lineWidth = borderWidth;
+        subLayer.strokeColor = [UIColor colorWithRed:red green:green blue:blue alpha:subAlpha].CGColor;
+        
+        subLayer.path = [UIBezierPath bezierPathWithArcCenter:center
+                                                       radius:frame.size.width/2 + 4
+                                                   startAngle:startAngle
+                                                     endAngle:endAngle
+                                                    clockwise:YES].CGPath;
+        [containingLayer addSublayer:subLayer];
+        
+        // Prepare next subdiv
+        subAlpha += alpha / nbSubDivisions;
+        startAngle = endAngle;
+        endAngle += DEGREES_TO_RADIANS(180)/nbSubDivisions;
+    }
+    return containingLayer;
+}
 
++ (UIImage *)blurAndRescaleImage:(UIImage *)image {
+    UIImage *scaledImage = [self imageWithImage:image scaledByFactor:0.25];
+    return [scaledImage applyExtraLightEffect];
+}
+
++ (UIImage *)imageWithImage:(UIImage *)image scaledByFactor:(CGFloat)factor {
+    CGSize newSize = CGSizeMake(image.size.width*factor, image.size.height*factor);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
+// Draw title in Image
++ (UIImage*)drawText:(NSString*)text inImage:(UIImage*)image atPoint:(CGPoint)point
+{
+    NSMutableAttributedString *textStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    textStyle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@",text]];
+    [textStyle addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, textStyle.length)];
+    [textStyle addAttribute:NSFontAttributeName  value:[UIFont systemFontOfSize:80.0] range:NSMakeRange(0, textStyle.length)];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init] ;
+    [paragraphStyle setAlignment:NSTextAlignmentCenter];
+    [textStyle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [textStyle length])];
+    UIGraphicsBeginImageContext(image.size);
+    [image drawInRect:CGRectMake(0,0,image.size.width,image.size.height)];
+    CGRect rect = CGRectMake(point.x, point.y, image.size.width, image.size.height);
+    [[UIColor whiteColor] set];
+    [textStyle drawInRect:CGRectIntegral(rect)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
++ (UIImage*)createImageFromView:(UIView *)view
+{
+    CGRect rect = view.frame;
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [view.layer renderInContext:context];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
 
 @end

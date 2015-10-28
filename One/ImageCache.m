@@ -13,7 +13,7 @@
 #import "ImageCache.h"
 #import "OneLogger.h"
 
-#define LOCALLOGENABLED YES && GLOBALLOGENABLED
+#define LOCALLOGENABLED NO && GLOBALLOGENABLED
 
 
 @interface ImageCache()

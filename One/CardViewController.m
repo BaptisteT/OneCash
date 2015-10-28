@@ -64,16 +64,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([self applePayEnabled]) {
-        self.applePayButton.hidden = NO;
-        self.applePayImage.hidden = NO;
-        [self.manualPayButton setTitle:NSLocalizedString(@"manual_pay_button_title", nil) forState:UIControlStateNormal];
-    } else {
-        self.applePayButton.hidden = YES;
-        self.applePayImage.hidden = YES;
-        // todo BT
-        [self.manualPayButton setTitle:NSLocalizedString(@"manual_pay_button_title", nil) forState:UIControlStateNormal];
-    }
+    self.applePayButton.hidden = ![self applePayEnabled];
+    self.applePayImage.hidden = ![self applePayEnabled];
 }
 
 - (void)viewDidLayoutSubviews {

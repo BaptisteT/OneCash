@@ -10,6 +10,7 @@
 
 #import "ApiManager.h"
 #import "DatastoreManager.h"
+#import "Reaction.h"
 #import "Transaction.h"
 #import "User.h"
 
@@ -156,7 +157,7 @@
         if ( connectionError == nil) {
             NSError * error = nil;
             NSDictionary* result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-            OneLog(ONEAPIMANAGERLOG, @"Success - twitter info - %@",result);
+            OneLog(ONEAPIMANAGERLOG, @"Success - twitter info");
             // Update user info
             [user updateUserWithTwitterInfo:result];
             
@@ -211,7 +212,7 @@
                                         }
                                     } else {
                                         if (successBlock) {
-                                            successBlock((NSDictionary *)object);
+                                            successBlock();
                                         }
                                     }
                                 }];
@@ -231,7 +232,26 @@
                                         }
                                     } else {
                                         if (successBlock) {
-                                            successBlock((NSDictionary *)object);
+                                            successBlock();
+                                        }
+                                    }
+                                }];
+}
+
++ (void)alertTwitterFollowersOnSignUpAndSuccess:(void(^)())successBlock
+                                        failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"alertTwitterFollowers"
+                       withParameters:nil
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - alertTwitterFollowers - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                    } else {
+                                        if (successBlock) {
+                                            successBlock();
                                         }
                                     }
                                 }];
@@ -416,7 +436,7 @@
                    failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"createExternalUser"
-                       withParameters:@{@"username": user.username, @"caseUsername": user.caseUsername, @"pictureURL": user.pictureURL, @"twitterId": user.twitterId}
+                       withParameters:@{@"caseUsername": user.caseUsername, @"pictureURL": user.pictureURL, @"twitterId": user.twitterId}
                                 block:^(User *user, NSError *error) {
                                     if (error == nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Success - createExternalUser");
@@ -533,6 +553,7 @@
     PFQuery *query = [PFQuery orQueryWithSubqueries:@[receiverQuery, senderQuery]];
     [query includeKey:@"sender"];
     [query includeKey:@"receiver"];
+    [query includeKey:@"reaction"];
     [query orderByDescending:@"createdAt"];
     [query setLimit:20];
     if (date) {
@@ -579,6 +600,15 @@
                     successBlock(transactions);
                 }
             }
+            
+            // Mark transactions as read
+            NSMutableArray *unreadTransactions = [NSMutableArray new];
+            for (Transaction *transaction in transactions) {
+                if (transaction.receiver && transaction.receiver == [User currentUser] &&  !transaction.readStatus) {
+                    [unreadTransactions addObject:transaction.objectId];
+                }
+            }
+            [ApiManager markTransactionsAsRead:unreadTransactions success:nil failure:nil];
         }
     }];
 }
@@ -608,6 +638,29 @@
                                         }
                                     }
                                 }];
+}
+
+// Mark as read
++ (void)markTransactionsAsRead:(NSArray *)transactionIds
+                       success:(void(^)())successBlock
+                       failure:(void(^)(NSError *error))failureBlock
+{
+    if (transactionIds && transactionIds.count > 0) {
+        [PFCloud callFunctionInBackground:@"markTransactionsAsRead"
+                           withParameters:@{@"transactionIds": transactionIds}
+                                    block:^(NSArray *objects, NSError *error) {
+                                        if (error != nil) {
+                                            OneLog(ONEAPIMANAGERLOG,@"Failure - markTransactionsAsRead - %@",error.description);
+                                            if (failureBlock) {
+                                                failureBlock(error);
+                                            }
+                                        } else {
+                                            if (successBlock) {
+                                                successBlock();
+                                            }
+                                        }
+                                    }];
+    }
 }
 
 // --------------------------------------------
@@ -761,6 +814,60 @@
                                                                                 }];
                                     }
                                 }];
+}
+
+// --------------------------------------------
+#pragma mark - Reaction
+// --------------------------------------------
+// Add image reaction
++ (void)reactToTransaction:(Transaction *)transaction
+                 withImage:(UIImage *)image
+                   success:(void(^)())successBlock
+                   failure:(void(^)(NSError *error))failureBlock
+{
+    PFFile *file = [PFFile fileWithName:@"image.jpg" data:UIImageJPEGRepresentation(image,1.)];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            Reaction *reaction = [Reaction createReactionWithTransaction:transaction imageFile:file];
+            [reaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (error != nil) {
+                    OneLog(ONEAPIMANAGERLOG,@"Failure - reactToTransaction - %@",error.description);
+                    if (failureBlock) {
+                        failureBlock(error);
+                    }
+                } else {
+                    transaction.reaction = reaction;
+                    if (successBlock) {
+                        successBlock();
+                    }
+                }
+            }];
+        } else {
+            OneLog(ONEAPIMANAGERLOG,@"Fail to save image - addImageReaction - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }];
+}
+
++ (void)markReactionAsRead:(Reaction *)reaction
+                   success:(void(^)())successBlock
+                   failure:(void(^)(NSError *error))failureBlock
+{
+    reaction.readStatus = true;
+    [reaction saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (succeeded) {
+            if (successBlock) {
+                successBlock();
+            }
+        } else {
+            OneLog(ONEAPIMANAGERLOG,@"markReactionAsRead - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }];
 }
 
 

@@ -39,9 +39,9 @@ static NSString * const kTwitterConsumerSecret = @"VXz7PNnUxHNUH9pJgZSKWuYcvkzan
 static NSString * const kApplePayMerchantId = @"merchant.cash.one";
 
 // Web
-static NSString * const kOneWebsiteTermsLink = @"http://one.cash/#terms";
-static NSString * const kOneWebsitePrivacyLink = @"http://one.cash/#privacy";
-static NSString * const kOneWebsiteSupportLink = @"http://one.cash/#support";
+static NSString * const kOneWebsiteTermsLink = @"http://one.cash/terms";
+static NSString * const kOneWebsitePrivacyLink = @"http://one.cash/privacy";
+static NSString * const kOneWebsiteSupportLink = @"http://one.cash/support";
 static NSString * const kOneWebsiteLink = @"http://one.cash";
 static NSString * const kStripeWebsiteTermsLink = @"https://stripe.com/connect/account-terms";
 
@@ -49,6 +49,10 @@ static NSString * const kStripeWebsiteTermsLink = @"https://stripe.com/connect/a
 static float const kInternalNotifDuration = 3;
 static NSInteger const kInternalNotifHeight = 60;
 static float const kNotifAnimationDuration = 0.5;
+static NSString * const kNotifTypeNewTransaction = @"new_transaction";
+static NSString * const kNotifTypeReadTransaction = @"transaction_read";
+static NSString * const kNotifTypeSignup = @"signup";
+static NSString * const kNotifTypeReaction = @"reaction_created";
 
 // Image
 static NSInteger const kDisplayedPictureBigSize = 1024;
@@ -82,4 +86,7 @@ static NSString * const kNotificationPushReceived = @"Push received";
 static NSString * const kNotificationPushClicked = @"Push Clicked";
 static NSString * const kNotificationRefreshTransactions = @"Refresh Transactions";
 static NSString * const kNotificationUserURLScheme = @"User URL Scheme";
+
+// Camera
+static const float kCameraAspectRatio = 4.0 / 3.0;
 

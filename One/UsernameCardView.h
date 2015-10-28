@@ -10,7 +10,5 @@
 
 @interface UsernameCardView : UIView
 
-- (UIImage *)captureView;
-
 @end
 
