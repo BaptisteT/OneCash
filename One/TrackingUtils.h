@@ -11,12 +11,13 @@
 
 #define EVENT_USER_SIGNUP @"user.signup"
 #define EVENT_SESSION @"session" // property : length (seconds)
-#define EVENT_TWITTER_CONNECT @"twitter_connect" // property : success
+#define EVENT_TWITTER_CONNECT @"twitter_connect" 
+#define EVENT_TWITTER_CONNECT_FAIL @"twitter_connect.fail" // property : cause
 #define EVENT_HOW_TO @"how_to.clicked"
 #define EVENT_EMAIL_INPUT @"email.input"
 #define EVENT_EMAIL_CHANGED @"email.changed"
 #define EVENT_CARD_LATER_CLICKED @"card_later.clicked"
-#define EVENT_APPLE_PAY_CLICKED @"apple_pay.clicked" // property : enabled
+#define EVENT_APPLE_PAY_CLICKED @"apple_pay.clicked" 
 #define EVENT_STRIPE_CLICKED @"stripe.clicked"
 #define EVENT_STRIPE_CREATE_TOKEN_WITH_CARD @"stripe.card.token.create" // property : success
 #define EVENT_STRIPE_CREATE_CUSTOMER @"stripe.customer.create" // property : success
@@ -25,8 +26,8 @@
 #define EVENT_CREATE_PAYMENT_FAIL @"payment.fail" // property : amount, message, method, error
 #define EVENT_CASHOUT_CLICKED @"cashout.clicked"
 #define EVENT_MANAGED_ACCOUNT_CREATE @"managed_account.create" // property : all params of managed account
-#define EVENT_MANAGED_ACCOUNT_ADD_CARD @"managed_account.card.add" // property : success
 #define EVENT_MANAGED_ACCOUNT_FAIL @"managed_account.fail"
+#define EVENT_MANAGED_ACCOUNT_ADD_CARD @"managed_account.card.add" // property : success
 #define EVENT_CREATE_CASHOUT @"cashout.create" // property : amount
 #define EVENT_CREATE_CASHOUT_FAIL @"cashout.fail"
 #define EVENT_INVITE_SENT @"invite.sent" // property : sharing_type
@@ -40,6 +41,13 @@
 #define EVENT_SHARE_INSTAGRAM @"share.instagram"
 #define EVENT_SHARE_TWITTER @"share.twitter"
 #define EVENT_SHARE_FACEBOOK @"share.facebook"
+#define EVENT_TWITTER_FOLLOW @"twitter.follow"
+#define EVENT_TWITTER_PROFILE @"twitter.profile"
+#define EVENT_TWITTER_TWEET @"twitter.tweet"
+#define EVENT_REACTION_CREATE @"reaction.create"
+// refund transactions
+
+// Reactions
 
 
 #define PEOPLE_SIGNUP_DATE @"signup.date"

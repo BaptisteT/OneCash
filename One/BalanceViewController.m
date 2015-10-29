@@ -502,10 +502,12 @@
     if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",self.selectedUser.username]]])
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",self.selectedUser.username]]];
+        [TrackingUtils trackEvent:EVENT_TWITTER_PROFILE properties:nil];
     }
 }
 
 - (void)followSelectedUser {
+    [TrackingUtils trackEvent:EVENT_TWITTER_FOLLOW properties:nil];
     [ApiManager followOnTwitter:self.selectedUser.caseUsername success:nil failure:nil];
 }
 
@@ -515,7 +517,9 @@
     [twitterCompose setInitialText:caption];
     [self presentViewController:twitterCompose
                        animated:YES
-                     completion:nil];
+                     completion:^() {
+                         [TrackingUtils trackEvent:EVENT_TWITTER_TWEET properties:nil];
+                     }];
 }
 
 

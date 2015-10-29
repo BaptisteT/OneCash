@@ -55,7 +55,9 @@
 
 @end
 
-@implementation SendCashViewController
+@implementation SendCashViewController {
+    CGFloat _arrowInitialY;
+}
 
 // --------------------------------------------
 #pragma mark - Life cycle
@@ -75,6 +77,7 @@
     [self.shareUsernameButton setTitle:NSLocalizedString(@"share_username_button", nil) forState:UIControlStateNormal];
 
     // UI
+    _arrowInitialY = self.arrowImageView.frame.origin.y;
     self.arrowImageView.layer.zPosition = -9999;
     self.view.backgroundColor = [UIColor whiteColor];
     self.balanceBadge.backgroundColor = [ColorUtils red];
@@ -101,9 +104,6 @@
     self.titleLabel.layer.shadowOpacity = 0.2;
     [self.shareUsernameButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.shareUsernameButton.layer.zPosition = -999999;
-
-    // Animation
-    [self doArrowAnimation];
     
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
@@ -156,6 +156,9 @@
         self.navigateDirectlyToBalance = NO;
         [self performSelector:@selector(navigateToBalance) withObject:nil afterDelay:0.1];
     }
+    
+    // Animation
+    [self doArrowAnimation:true];
 }
 
 
@@ -190,6 +193,8 @@
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    // Animation
+    [self doArrowAnimation:false];
 }
 
 // --------------------------------------------
@@ -543,22 +548,27 @@
     }
 }
 
--(void)doArrowAnimation {
-    if (self.arrowImageView) {
+-(void)doArrowAnimation:(BOOL)flag {
+    if (flag && self.arrowImageView) {
         [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
             CGRect frame = self.arrowImageView.frame;
             frame.origin.y -= 50;
             self.arrowImageView.frame = frame;
             self.arrowImageView.layer.opacity = 0;
         } completion:^(BOOL finished) {
-            if (self.arrowImageView) {
+            if (finished && self.arrowImageView) {
                 CGRect frame = self.arrowImageView.frame;
                 frame.origin.y += 50;
                 self.arrowImageView.frame = frame;
                 self.arrowImageView.layer.opacity = 0.1;
-                [self doArrowAnimation];
+                [self doArrowAnimation:true];
             }
         }];
+    } else {
+        [self.arrowImageView.layer removeAllAnimations];
+        CGRect frame = self.arrowImageView.frame;
+        frame.origin.y = _arrowInitialY + 50;
+        self.arrowImageView.frame = frame;
     }
 }
 

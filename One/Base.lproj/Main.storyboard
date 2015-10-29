@@ -1855,7 +1855,12 @@
                                                     </variation>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6As-9d-Rl3">
-                                                    <rect key="frame" x="560" y="35" width="30" height="30"/>
+                                                    <rect key="frame" x="550" y="30" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="hly-4Q-5eS"/>
+                                                        <constraint firstAttribute="width" constant="40" id="vEp-nu-6s3"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                                     <state key="normal" title="📷">
                                                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -2994,8 +2999,8 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ign-3p-bGy"/>
         <segue reference="CWh-84-eC0"/>
+        <segue reference="0bD-CV-jtZ"/>
         <segue reference="ep0-aD-elO"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -55,7 +55,7 @@
     @try {
         [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
             if (!user) {
-                [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @NO, @"failure": @"login"}];
+                [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"login"}];
                 OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
                 if (failureBlock) {
                     failureBlock(error);
@@ -75,12 +75,12 @@
                     
                     // Get twitter info
                     [ApiManager getOtherTwitterInfoAndExecuteSuccess:^{
-                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @YES}];
+                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:nil];
                         if (successBlock){
                             successBlock();
                         }
                     } failure:^(NSError *error) {
-                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @NO, @"failure": @"otherInfo"}];
+                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"otherInfo"}];
                         if (failureBlock) {
                             failureBlock(error);
                         }
@@ -98,6 +98,7 @@
                                                 block:^(id object, NSError *error) {
                                                     if (error != nil) {
                                                         OneLog(ONEAPIMANAGERLOG,@"Failure - mergeRealAndExternalUser - %@",error.description);
+                                                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"mergeRealAndExternalUser"}];
                                                         if (failureBlock) {
                                                             failureBlock(error);
                                                         }
@@ -836,6 +837,7 @@
                         failureBlock(error);
                     }
                 } else {
+                    [TrackingUtils trackEvent:EVENT_REACTION_CREATE properties:nil];
                     transaction.reaction = reaction;
                     if (successBlock) {
                         successBlock();

@@ -7,8 +7,10 @@
 //
 #import "User.h"
 
-#import "ColorUtils.h"
 #import "UserTableViewCell.h"
+
+#import "ColorUtils.h"
+#import "TrackingUtils.h"
 
 @interface UserTableViewCell()
 
@@ -50,9 +52,9 @@
     if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",self.user.username]]])
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",self.user.username]]];
+        [TrackingUtils trackEvent:EVENT_TWITTER_PROFILE properties:nil];
     }
 }
-
 
 
 - (NSString *)abbreviateNumber:(int)num {

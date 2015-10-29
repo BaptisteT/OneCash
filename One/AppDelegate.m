@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 #import <AudioToolbox/AudioServices.h>
+#import <AVFoundation/AVFoundation.h>
 #import <Fabric/Fabric.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Crashlytics/Crashlytics.h>
@@ -49,6 +50,9 @@
 #else
     BOOL debug = false;
 #endif
+    
+    //Stop app pausing other sound.
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
     
     // Parse
     [Parse enableLocalDatastore];
