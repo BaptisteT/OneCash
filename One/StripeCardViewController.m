@@ -87,16 +87,16 @@
     }
 
     [DesignUtils showProgressHUDAddedTo:self.view];
-    STPCard *card = [[STPCard alloc] init];
-    card.number = self.paymentTextField.cardNumber;
-    card.expMonth = self.paymentTextField.expirationMonth;
-    card.expYear = self.paymentTextField.expirationYear;
-    card.cvc = self.paymentTextField.cvc;
+    STPCardParams *card = [[STPCardParams alloc] init];
+    card.number = self.paymentTextField.card.number;
+    card.expMonth = self.paymentTextField.card.expMonth;
+    card.expYear = self.paymentTextField.card.expYear;
+    card.cvc = self.paymentTextField.card.cvc;
     
     [[STPAPIClient sharedClient] createTokenWithCard:card
                                           completion:^(STPToken *token, NSError *error) {
                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                  [TrackingUtils trackEvent:EVENT_STRIPE_CREATE_TOKEN_WITH_CARD properties:@{@"success" : [NSNumber numberWithBool:(error == nil)], @"country": card.country ? card.country : @""}];
+                                                  [TrackingUtils trackEvent:EVENT_STRIPE_CREATE_TOKEN_WITH_CARD properties:@{@"success" : [NSNumber numberWithBool:(error == nil)], @"country": token.card.country ? token.card.country : @""}];
                                                   if (error) {
                                                       [DesignUtils hideProgressHUDForView:self.view];
                                                       [GeneralUtils showAlertWithTitle:NSLocalizedString(@"create_token_with_card_error_title", nil) andMessage:error.localizedDescription];

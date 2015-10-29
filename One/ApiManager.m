@@ -97,7 +97,7 @@
                                        withParameters:nil
                                                 block:^(id object, NSError *error) {
                                                     if (error != nil) {
-                                                        OneLog(ONEAPIMANAGERLOG,@"Failure - postOnTwitter - %@",error.description);
+                                                        OneLog(ONEAPIMANAGERLOG,@"Failure - mergeRealAndExternalUser - %@",error.description);
                                                         if (failureBlock) {
                                                             failureBlock(error);
                                                         }

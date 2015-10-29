@@ -186,11 +186,12 @@
         return;
     }
     [self.paymentTextField resignFirstResponder];
-    STPCard *card = [[STPCard alloc] init];
-    card.number = self.paymentTextField.cardNumber;
-    card.expMonth = self.paymentTextField.expirationMonth;
-    card.expYear = self.paymentTextField.expirationYear;
-    card.cvc = self.paymentTextField.cvc;
+    
+    STPCardParams *card = [[STPCardParams alloc] init];
+    card.number = self.paymentTextField.card.number;
+    card.expMonth = self.paymentTextField.card.expMonth;
+    card.expYear = self.paymentTextField.card.expYear;
+    card.cvc = self.paymentTextField.card.cvc;
     card.currency = @"usd";
     
     [DesignUtils showProgressHUDAddedTo:self.view];

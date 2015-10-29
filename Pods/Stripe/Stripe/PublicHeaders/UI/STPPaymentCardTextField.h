@@ -6,7 +6,9 @@
 //  Copyright (c) 2015 Stripe, Inc. All rights reserved.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
+
+#import "STPCard.h"
 
 @class STPPaymentCardTextField;
 
@@ -38,7 +40,7 @@
 /**
  *  @see STPPaymentCardTextFieldDelegate
  */
-@property(nonatomic, weak, nullable) id<STPPaymentCardTextFieldDelegate> delegate;
+@property(nonatomic, weak, nullable) IBOutlet id<STPPaymentCardTextFieldDelegate> delegate;
 
 /**
  *  The font used in each child field. Default is [UIFont systemFontOfSize:18]. Set this property to nil to reset to the default.
@@ -61,6 +63,21 @@
 @property(nonatomic, copy, null_resettable) IBInspectable UIColor *placeholderColor UI_APPEARANCE_SELECTOR IBInspectable;
 
 /**
+ *  The placeholder for the card number field. Default is @"1234567812345678". If this is set to something that resembles a card number, it will automatically format it as such (in other words, you don't need to add spaces to this string).
+ */
+@property(nonatomic, copy, nullable) NSString *numberPlaceholder;
+
+/**
+ *  The placeholder for the expiration field. Defaults to @"MM/YY".
+ */
+@property(nonatomic, copy, nullable) NSString *expirationPlaceholder;
+
+/**
+ *  The placeholder for the cvc field. Defaults to @"CVC".
+ */
+@property(nonatomic, copy, nullable) NSString *cvcPlaceholder;
+
+/**
  *  The border color for the field. Default is [UIColor lightGreyColor]. Can be nil (in which case no border will be drawn).
  */
 @property(nonatomic, copy, nullable) IBInspectable UIColor *borderColor UI_APPEARANCE_SELECTOR IBInspectable;
@@ -74,6 +91,11 @@
  *  The corner radius for the field's border. Default is 5.0.
  */
 @property(nonatomic, assign) IBInspectable CGFloat cornerRadius UI_APPEARANCE_SELECTOR IBInspectable;
+
+/**
+ *  The keyboard appearance for the field. Default is UIKeyboardAppearanceDefault.
+ */
+@property(nonatomic, assign) IBInspectable UIKeyboardAppearance keyboardAppearance UI_APPEARANCE_SELECTOR;
 
 /**
  *  This behaves identically to setting the inputAccessoryView for each child text field.
@@ -135,7 +157,7 @@
 /**
  *  Convenience method to create a STPCard from the currently entered information. Will return nil if not valid.
  */
-@property(nonatomic, readonly, nullable) STPCard *card;
+@property(nonatomic, readonly, nullable) STPCardParams *card;
 
 @end
 

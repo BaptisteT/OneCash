@@ -104,7 +104,7 @@
 
     // Animation
     [self doArrowAnimation];
-
+    
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
     [self addNewCashSubview];
@@ -330,29 +330,31 @@
                                token:(NSString *)token
 {
     [ApiManager createPaymentTransactionWithTransaction:transaction applePaytoken:token success:^(Transaction *returnTransaction) {
-            // If external show alert
-            if (returnTransaction.receiver.isExternal) {
-                [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_message", nil),self.receiver.caseUsername]];
-            }
-            
-            self.sentTransactionsCount += transaction.transactionAmount;
-            // send notif to balance controller for refresh
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshTransactions
-                                                                object:nil
-                                                              userInfo:nil];
-            if (self.ongoingTransactionsCount == 0) {
-                self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
-            }
-        } failure:^(NSError *error) {
-            if ([error.description containsString:@"card_error"]) {
-                // todo BT
-                // go to check card ?
-            }
-            [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
-            
-            self.ongoingTransactionsCount -= transaction.transactionAmount;
-            [self failedAnimation:transaction.transactionAmount];
-        }];
+        // If external show alert
+        if (returnTransaction.receiver.isExternal) {
+            [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_message", nil),self.receiver.caseUsername]];
+        }
+        
+        self.sentTransactionsCount += transaction.transactionAmount;
+        // send notif to balance controller for refresh
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshTransactions
+                                                            object:nil
+                                                          userInfo:nil];
+        if (self.ongoingTransactionsCount == 0) {
+            self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
+        }
+        // remove recipient
+        [self setSelectedUser:nil];
+    } failure:^(NSError *error) {
+        if ([error.description containsString:@"card_error"]) {
+            // todo BT
+            // go to check card ?
+        }
+        [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
+        
+        self.ongoingTransactionsCount -= transaction.transactionAmount;
+        [self failedAnimation:transaction.transactionAmount];
+    }];
 }
 
 
@@ -542,20 +544,22 @@
 }
 
 -(void)doArrowAnimation {
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        CGRect frame = self.arrowImageView.frame;
-        frame.origin.y -= 50;
-        self.arrowImageView.frame = frame;
-        self.arrowImageView.layer.opacity = 0;
-    } completion:^(BOOL finished) {
-        if (self.arrowImageView) {
+    if (self.arrowImageView) {
+        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
             CGRect frame = self.arrowImageView.frame;
-            frame.origin.y += 50;
+            frame.origin.y -= 50;
             self.arrowImageView.frame = frame;
-            self.arrowImageView.layer.opacity = 0.1;
-            [self doArrowAnimation];
-        }
-    }];
+            self.arrowImageView.layer.opacity = 0;
+        } completion:^(BOOL finished) {
+            if (self.arrowImageView) {
+                CGRect frame = self.arrowImageView.frame;
+                frame.origin.y += 50;
+                self.arrowImageView.frame = frame;
+                self.arrowImageView.layer.opacity = 0.1;
+                [self doArrowAnimation];
+            }
+        }];
+    }
 }
 
 -(void)startSendingAnimation {

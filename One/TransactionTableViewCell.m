@@ -118,7 +118,8 @@
         self.seenImageView.hidden = !self.transaction.readStatus;
         if (transaction.reaction) {
             [self.seeReactionButton setImage:nil forState:UIControlStateNormal];
-            [self animateDownloadingReaction:YES];
+            if (transaction.reaction.readStatus == false)
+                [self animateDownloadingReaction:YES];
             [self.transaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.seeReactionButton setImage:image forState:UIControlStateNormal];
@@ -156,6 +157,7 @@
 - (IBAction)createReactionButtonClicked:(id)sender {
     self.createReactionButton.enabled = NO;
     [self.delegate reactToTransaction:self.transaction];
+    self.createReactionButton.enabled = YES;
 }
 
 - (IBAction)seeReactionButtonClicked:(id)sender {

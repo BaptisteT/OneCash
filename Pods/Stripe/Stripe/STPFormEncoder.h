@@ -6,16 +6,14 @@
 //  Copyright (c) 2015 Stripe, Inc. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
-
-@class STPBankAccount, STPCard;
+@class STPCardParams, STPBankAccountParams;
+@protocol STPFormEncodable;
 
 @interface STPFormEncoder : NSObject
 
-+ (nonnull NSData *)formEncodedDataForBankAccount:(nonnull STPBankAccount *)bankAccount;
-
-+ (nonnull NSData *)formEncodedDataForCard:(nonnull STPCard *)card;
++ (nonnull NSData *)formEncodedDataForObject:(nonnull NSObject<STPFormEncodable> *)object;
 
 + (nonnull NSString *)stringByURLEncoding:(nonnull NSString *)string;
 

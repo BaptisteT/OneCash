@@ -13,6 +13,8 @@
 
 + (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message;
 
++ (void)openSettings;
+
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
