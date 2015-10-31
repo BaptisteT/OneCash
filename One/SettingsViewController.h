@@ -21,7 +21,6 @@
 
 @protocol SettingsVCProtocol
 
-- (void)navigateToCardController;
 - (void)logoutUser;
 
 @end

@@ -78,7 +78,7 @@
 }
 
 - (IBAction)backButtonClicked:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self navigateToSend];
 }
 
 - (IBAction)doneButtonClicked:(id)sender {
@@ -147,11 +147,8 @@
 }
 
 - (void)navigateToSend {
-    if (self.redirectionViewController && [self.redirectionViewController isKindOfClass:[SendCashViewController class]]) {
-        [self.navigationController popToViewController:self.redirectionViewController animated:YES];
-    } else {
-        [self performSegueWithIdentifier:@"Send From Stripe" sender:nil];
-    }
+    // dismiss card & stripe card VC
+    [self.redirectionViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)howToButtonClicked:(id)sender {

@@ -95,11 +95,8 @@
                     if (isNew) {
                         // Alert followers
                         [ApiManager alertTwitterFollowersOnSignUpAndSuccess:nil failure:nil];
-                        // GO to card
-                        [self performSegueWithIdentifier:@"Card From Welcome" sender:nil];
-                    } else {
-                        [self performSegueWithIdentifier:@"Send From Welcome" sender:nil];
                     }
+                    [self performSegueWithIdentifier:@"Send From Welcome" sender:nil];
                 } failure:^(NSError *error) {
                     // If it's an email issue, go to email
                     if ([[error.userInfo valueForKey:@"error"] containsString:@"email"]) {

@@ -225,7 +225,6 @@
                         <segue destination="z09-dk-URt" kind="show" identifier="Email From Welcome" id="WgX-CF-7G0"/>
                         <segue destination="Bef-pm-plE" kind="presentation" identifier="How From Welcome" id="YVN-0x-kbu"/>
                         <segue destination="WNA-kw-5yZ" kind="custom" identifier="Send From Welcome" customClass="PushNoAnimationSegue" id="CWh-84-eC0"/>
-                        <segue destination="Koy-ZE-4HZ" kind="show" identifier="Card From Welcome" id="Ign-3p-bGy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cbG-Qj-SfJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -929,7 +928,7 @@
                         <outlet property="topLabel" destination="qeM-Ch-EGs" id="NS6-lq-u0b"/>
                         <outlet property="topView" destination="j7m-K9-PDa" id="t5T-IF-kea"/>
                         <outlet property="validateButton" destination="jkJ-15-nit" id="pLO-uZ-eyB"/>
-                        <segue destination="Koy-ZE-4HZ" kind="show" identifier="Card From Email" id="B6u-pp-6tI"/>
+                        <segue destination="WNA-kw-5yZ" kind="show" identifier="Send From Email" id="Vmr-bZ-gqE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPM-dY-wzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1118,13 +1117,12 @@
                         <outlet property="titleLabel" destination="tWv-lg-EV8" id="PfV-D1-bXE"/>
                         <outlet property="topBar" destination="Pu5-Ep-cbd" id="WJQ-8p-EZC"/>
                         <outlet property="topLabel" destination="x5w-QA-jEC" id="cPj-uM-5wP"/>
-                        <segue destination="WNA-kw-5yZ" kind="show" identifier="Send From Card" id="0H9-Pw-zbF"/>
-                        <segue destination="Qp9-af-myn" kind="show" identifier="Stripe From Card" id="kK8-ek-Kwl"/>
+                        <segue destination="Qp9-af-myn" kind="presentation" identifier="Stripe From Card" animates="NO" id="kK8-ek-Kwl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dIQ-5I-ehe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2053" y="-468"/>
+            <point key="canvasLocation" x="3524" y="784"/>
         </scene>
         <!--Stripe Card View Controller-->
         <scene sceneID="CS0-jz-lMi">
@@ -1262,12 +1260,11 @@
                         <outlet property="topBar" destination="Q3W-PY-tci" id="F6m-sH-95J"/>
                         <outlet property="topBarLabel" destination="qan-0l-2Gj" id="w3i-Uu-Ryn"/>
                         <outlet property="topLabel" destination="EtY-is-a5O" id="0BR-t9-hef"/>
-                        <segue destination="WNA-kw-5yZ" kind="show" identifier="Send From Stripe" id="WX6-Iv-dA8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fiO-Tv-WYa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2934" y="-468"/>
+            <point key="canvasLocation" x="4218" y="784"/>
         </scene>
         <!--Camera View Controller-->
         <scene sceneID="UPZ-aK-lgX">
@@ -1337,7 +1334,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xfe-by-LUw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5028" y="-1124"/>
+            <point key="canvasLocation" x="3524" y="-1332"/>
         </scene>
         <!--Managed Account View Controller-->
         <scene sceneID="ylz-Mf-RfX">
@@ -1650,7 +1647,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FM8-TU-3vH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5028" y="-433"/>
+            <point key="canvasLocation" x="3524" y="-641"/>
         </scene>
         <!--Account Card View Controller-->
         <scene sceneID="nqs-pS-GHg">
@@ -1747,7 +1744,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Znt-64-xfi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5794" y="-438"/>
+            <point key="canvasLocation" x="4290" y="-646"/>
         </scene>
         <!--Balance View Controller-->
         <scene sceneID="AuI-ZF-ZQB">
@@ -2175,7 +2172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WiH-rA-uGu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4328" y="276"/>
+            <point key="canvasLocation" x="2824" y="68"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="9cf-au-QEO">
@@ -2366,11 +2363,12 @@
                         <outlet property="settingsTableView" destination="VeZ-dF-kXx" id="S5z-Gu-d8V"/>
                         <outlet property="titleLabel" destination="URr-3q-BVX" id="fuC-om-EZq"/>
                         <outlet property="topBarView" destination="6Z2-Qu-W3c" id="8fe-EQ-fah"/>
+                        <segue destination="Koy-ZE-4HZ" kind="presentation" identifier="Card From Settings" id="SEe-pj-trK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="why-7Y-f45" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5028" y="276"/>
+            <point key="canvasLocation" x="3524" y="68"/>
         </scene>
         <!--Send Cash View Controller-->
         <scene sceneID="2Yk-MR-zqM">
@@ -2524,13 +2522,13 @@
                         <outlet property="titleLabel" destination="nji-5G-axu" id="bUL-Yv-Isu"/>
                         <segue destination="cLq-3c-hSu" kind="presentation" identifier="Balance From Send" id="eZD-os-4ei"/>
                         <segue destination="Sg7-PG-Ydg" kind="presentation" identifier="Recipient From Send" id="9qY-8U-Mxz"/>
-                        <segue destination="Koy-ZE-4HZ" kind="show" identifier="Card From Send" id="0bD-CV-jtZ"/>
+                        <segue destination="Koy-ZE-4HZ" kind="modal" identifier="Card From Send" id="0bD-CV-jtZ"/>
                         <segue destination="9gg-cb-kWX" kind="custom" identifier="Share From Send" customClass="AFBlurSegue" id="zOC-kp-YUB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKn-61-Mg4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3640" y="276"/>
+            <point key="canvasLocation" x="2136" y="68"/>
         </scene>
         <!--Recipient View Controller-->
         <scene sceneID="sk2-Gd-vg4">
@@ -2793,7 +2791,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xNs-xH-xvH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3640" y="1010"/>
+            <point key="canvasLocation" x="2136" y="1442"/>
         </scene>
         <!--Share Username View Controller-->
         <scene sceneID="GVP-eT-hCX">
@@ -2983,7 +2981,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ldd-8r-JH6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4328" y="1010"/>
+            <point key="canvasLocation" x="2824" y="1442"/>
         </scene>
     </scenes>
     <resources>
@@ -2999,7 +2997,7 @@
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CWh-84-eC0"/>
+        <segue reference="Vmr-bZ-gqE"/>
         <segue reference="0bD-CV-jtZ"/>
         <segue reference="ep0-aD-elO"/>
     </inferredMetricsTieBreakers>

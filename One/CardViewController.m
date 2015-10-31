@@ -121,11 +121,8 @@
 }
 
 - (void)navigateToSend {
-    if (self.redirectionViewController && [self.redirectionViewController isKindOfClass:[SendCashViewController class]]) {
-        [self.navigationController popToViewController:self.redirectionViewController animated:YES];
-    } else {
-        [self performSegueWithIdentifier:@"Send From Card" sender:nil];
-    }
+    // dismiss card vc
+    [self.redirectionViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)howToButtonClicked:(id)sender {

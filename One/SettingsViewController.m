@@ -12,6 +12,7 @@
 #import "ApiManager.h"
 #import "User.h"
 
+#import "CardViewController.h"
 #import "SettingsViewController.h"
 #import "SwitchTableViewCell.h"
 #import "TweetTableViewCell.h"
@@ -109,9 +110,21 @@ struct {
     } failure:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.settingsTableView reloadData];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSString * segueName = segue.identifier;
+    if ([segueName isEqualToString:@"Card From Settings"]) {
+        ((CardViewController *) [segue destinationViewController]).redirectionViewController = self;
+    }
 }
 
 // --------------------------------------------
@@ -271,7 +284,7 @@ struct {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == SectionTypes.card) {
         if (indexPath.row == 0)
-            [self.delegate navigateToCardController];
+            [self performSegueWithIdentifier:@"Card From Settings" sender:nil];
     } else if (indexPath.section == SectionTypes.email) {
         if (indexPath.row == 0) {
             // change email
