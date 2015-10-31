@@ -2522,7 +2522,7 @@
                         <outlet property="titleLabel" destination="nji-5G-axu" id="bUL-Yv-Isu"/>
                         <segue destination="cLq-3c-hSu" kind="presentation" identifier="Balance From Send" id="eZD-os-4ei"/>
                         <segue destination="Sg7-PG-Ydg" kind="presentation" identifier="Recipient From Send" id="9qY-8U-Mxz"/>
-                        <segue destination="Koy-ZE-4HZ" kind="modal" identifier="Card From Send" id="0bD-CV-jtZ"/>
+                        <segue destination="Koy-ZE-4HZ" kind="presentation" identifier="Card From Send" id="0bD-CV-jtZ"/>
                         <segue destination="9gg-cb-kWX" kind="custom" identifier="Share From Send" customClass="AFBlurSegue" id="zOC-kp-YUB"/>
                     </connections>
                 </viewController>
@@ -2998,7 +2998,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Vmr-bZ-gqE"/>
-        <segue reference="0bD-CV-jtZ"/>
         <segue reference="ep0-aD-elO"/>
+        <segue reference="SEe-pj-trK"/>
     </inferredMetricsTieBreakers>
 </document>
