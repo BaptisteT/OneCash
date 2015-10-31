@@ -55,7 +55,7 @@
 
 + (void)incrementPeopleProperty:(NSString *)property byValue:(int)increment{
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
-    [mixpanel.people increment:property by:[NSNumber numberWithInt:1]];
+    [mixpanel.people increment:property by:[NSNumber numberWithInt:increment]];
 }
 
 @end

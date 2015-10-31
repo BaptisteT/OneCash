@@ -443,7 +443,7 @@
         [self removeCashSubview:cashView];
     
      // No cash, no card
-     } else if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodNone) {
+     } else if (![self userExpectedBalanceIsPositive] && [[User currentUser] paymentMethodNotAvailable]) {
          [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
              // if yes, send back to payment controller
              [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"no_card_title", nil)

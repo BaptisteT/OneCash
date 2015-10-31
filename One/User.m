@@ -12,6 +12,7 @@
 #import "ConstantUtils.h"
 #import "OneLogger.h"
 #import "ImageCache.h"
+#import "PaymentUtils.h"
 #import "UIImageView+UserName.h"
 
 #define LOCALLOGENABLED NO && GLOBALLOGENABLED
@@ -220,5 +221,8 @@
     }
 }
 
+- (BOOL)paymentMethodNotAvailable {
+    return self.paymentMethod == kPaymentMethodNone || (self.paymentMethod == kPaymentMethodApplePay && ![PaymentUtils applePayEnabled]);
+}
 
 @end

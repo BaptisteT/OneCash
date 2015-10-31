@@ -22,6 +22,8 @@
 		3C401B421BDF441F0070F8D2 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B401BDF441F0070F8D2 /* CameraViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3C401B441BDF47250070F8D2 /* CameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C401B431BDF47250070F8D2 /* CameraOverlay.xib */; settings = {ASSET_TAGS = (); }; };
 		3C401B451BDF47250070F8D2 /* CameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C401B431BDF47250070F8D2 /* CameraOverlay.xib */; settings = {ASSET_TAGS = (); }; };
+		3C401B481BE490810070F8D2 /* PaymentUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B471BE490810070F8D2 /* PaymentUtils.m */; settings = {ASSET_TAGS = (); }; };
+		3C401B491BE490850070F8D2 /* PaymentUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B471BE490810070F8D2 /* PaymentUtils.m */; settings = {ASSET_TAGS = (); }; };
 		3C43B6421BA95231006679DE /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; settings = {ASSET_TAGS = (); }; };
 		3C43B6451BA96567006679DE /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
 		3C43B6481BA9B239006679DE /* AccountCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6471BA9B239006679DE /* AccountCardViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -169,6 +171,8 @@
 		3C401B3F1BDF441F0070F8D2 /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		3C401B401BDF441F0070F8D2 /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		3C401B431BDF47250070F8D2 /* CameraOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraOverlay.xib; sourceTree = "<group>"; };
+		3C401B461BE490810070F8D2 /* PaymentUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentUtils.h; sourceTree = "<group>"; };
+		3C401B471BE490810070F8D2 /* PaymentUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentUtils.m; sourceTree = "<group>"; };
 		3C43B6401BA95231006679DE /* IPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPUtils.h; sourceTree = "<group>"; };
 		3C43B6411BA95231006679DE /* IPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IPUtils.m; sourceTree = "<group>"; };
 		3C43B6431BA96567006679DE /* ManagedAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagedAccountViewController.h; sourceTree = "<group>"; };
@@ -443,6 +447,8 @@
 				3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */,
 				3C43B6401BA95231006679DE /* IPUtils.h */,
 				3C43B6411BA95231006679DE /* IPUtils.m */,
+				3C401B461BE490810070F8D2 /* PaymentUtils.h */,
+				3C401B471BE490810070F8D2 /* PaymentUtils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -836,6 +842,7 @@
 				3C9BBB1F1BA1E3CB00BCAC26 /* PaddingTextField.m in Sources */,
 				3CC5FDD31B99D73100514A43 /* PushNoAnimationSegue.m in Sources */,
 				3C86E0FB1B8DB4DD005AD52B /* OneLogger.m in Sources */,
+				3C401B481BE490810070F8D2 /* PaymentUtils.m in Sources */,
 				3C13EE501B9F428D00930AC7 /* DatastoreManager.m in Sources */,
 				3C2E036D1B8DA18B00D22D48 /* AppDelegate.m in Sources */,
 				3CC5FDC31B98A6D400514A43 /* SendCashViewController.m in Sources */,
@@ -889,6 +896,7 @@
 				3CD4D60A1BB91D75001F2C7A /* PaddingTextField.m in Sources */,
 				3CD4D60B1BB91D75001F2C7A /* PushNoAnimationSegue.m in Sources */,
 				3CD4D60C1BB91D75001F2C7A /* OneLogger.m in Sources */,
+				3C401B491BE490850070F8D2 /* PaymentUtils.m in Sources */,
 				3CD4D60D1BB91D75001F2C7A /* DatastoreManager.m in Sources */,
 				3CD4D60E1BB91D75001F2C7A /* AppDelegate.m in Sources */,
 				3CD4D60F1BB91D75001F2C7A /* SendCashViewController.m in Sources */,

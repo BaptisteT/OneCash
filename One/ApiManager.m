@@ -556,7 +556,7 @@
     [query includeKey:@"receiver"];
     [query includeKey:@"reaction"];
     [query orderByDescending:@"createdAt"];
-    [query setLimit:20];
+    [query setLimit:30];
     if (date) {
         [query whereKey:@"createdAt" lessThan:date];
     }

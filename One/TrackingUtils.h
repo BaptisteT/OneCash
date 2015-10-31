@@ -45,10 +45,6 @@
 #define EVENT_TWITTER_PROFILE @"twitter.profile"
 #define EVENT_TWITTER_TWEET @"twitter.tweet"
 #define EVENT_REACTION_CREATE @"reaction.create"
-// refund transactions
-
-// Reactions
-
 
 #define PEOPLE_SIGNUP_DATE @"signup.date"
 #define PEOPLE_ALLOW_NOTIF @"notif"

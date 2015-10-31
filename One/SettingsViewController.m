@@ -161,7 +161,7 @@ struct {
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     User *user = [User currentUser];
     if (section == SectionTypes.card) {
-        return [User currentUser].paymentMethod > 0 ? 2 : 1;
+        return [[User currentUser] paymentMethodNotAvailable] ? 1 : 2;
     } else if (section == SectionTypes.tweet) {
         return [User currentUser].autoTweet ? 2 : 1;
     } else if (section == SectionTypes.pin) {
@@ -185,7 +185,7 @@ struct {
     if (indexPath.section == SectionTypes.card) {
         if (indexPath.row == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CardCell"];
-            cell.textLabel.text = user.paymentMethod == kPaymentMethodNone ? NSLocalizedString(@"no_card_section", nil) : NSLocalizedString(@"card_section", nil);
+            cell.textLabel.text = [[User currentUser] paymentMethodNotAvailable] ? NSLocalizedString(@"no_card_section", nil) : NSLocalizedString(@"card_section", nil);
             cell.backgroundColor = [ColorUtils mainGreen];
             cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
             cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure"]];
@@ -197,7 +197,7 @@ struct {
                 cell.textLabel.text = @"Apple Pay";
                 cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
             } else if (self.customerCards && self.customerCards.count > 0) {
-                cell.textLabel.text = [NSString stringWithFormat:@"XXX XXXX XXXX %@",self.customerCards[0][@"last4"]];
+                cell.textLabel.text = [NSString stringWithFormat:@"XXXX XXXX XXXX %@",self.customerCards[0][@"last4"]];
                 cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
