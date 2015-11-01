@@ -42,7 +42,7 @@
     self.imageView.backgroundColor = [UIColor blackColor];
     self.photoConfirmButton.hidden = YES;
     self.photoDeleteButton.hidden = YES;
-    self.stickerImageView.hidden = YES;
+//    self.stickerImageView.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated

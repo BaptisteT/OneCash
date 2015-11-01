@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -1280,9 +1280,11 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lcv-4A-br6">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-QA-t5a">
                                 <rect key="frame" x="20" y="40" width="45" height="30"/>
+                                <animations/>
                                 <state key="normal" title="cancel"/>
                                 <connections>
                                     <action selector="cancelPhotoButtonClicked:" destination="FU8-cO-3hB" eventType="touchUpInside" id="3Jw-kN-qbs"/>
@@ -1290,15 +1292,17 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Y7-Zj-NjF">
                                 <rect key="frame" x="526" y="543" width="54" height="30"/>
+                                <animations/>
                                 <state key="normal" title="validate"/>
                                 <connections>
                                     <action selector="checkButtonClicked:" destination="FU8-cO-3hB" eventType="touchUpInside" id="HzK-fP-0nD"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thanks_sticker" translatesAutoresizingMaskIntoConstraints="NO" id="Q7n-IT-0r8">
-                                <rect key="frame" x="150" y="389.5" width="300" height="160.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thanks_sticker" translatesAutoresizingMaskIntoConstraints="NO" id="Q7n-IT-0r8">
+                                <rect key="frame" x="0.0" y="286.5" width="600" height="313.5"/>
+                                <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Q7n-IT-0r8" secondAttribute="height" multiplier="15:8" id="7ak-Eo-wsu"/>
+                                    <constraint firstAttribute="width" secondItem="Q7n-IT-0r8" secondAttribute="height" multiplier="375:196" id="7ak-Eo-wsu"/>
                                     <constraint firstAttribute="width" constant="120" id="s03-xU-AuT"/>
                                     <constraint firstAttribute="height" constant="64" id="uWN-R5-oov"/>
                                 </constraints>
@@ -1310,6 +1314,7 @@
                                 </variation>
                             </imageView>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Lcv-4A-br6" firstAttribute="top" secondItem="CRr-pS-cnW" secondAttribute="top" id="167-zS-iFl"/>
@@ -1317,13 +1322,22 @@
                             <constraint firstAttribute="trailing" secondItem="6Y7-Zj-NjF" secondAttribute="trailing" constant="20" id="AJk-fQ-Bey"/>
                             <constraint firstItem="Q7n-IT-0r8" firstAttribute="centerX" secondItem="Lcv-4A-br6" secondAttribute="centerX" id="GL7-4C-fBG"/>
                             <constraint firstAttribute="trailing" secondItem="Lcv-4A-br6" secondAttribute="trailing" id="OR7-57-GW6"/>
-                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="Q7n-IT-0r8" secondAttribute="bottom" constant="50" id="UYP-ws-UQQ"/>
+                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="Q7n-IT-0r8" secondAttribute="bottom" id="UYP-ws-UQQ"/>
                             <constraint firstItem="RWs-QA-t5a" firstAttribute="top" secondItem="iqO-VB-mni" secondAttribute="bottom" constant="20" id="YU4-0w-vkz"/>
+                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="Q7n-IT-0r8" secondAttribute="bottom" id="Z6J-bQ-ABZ"/>
                             <constraint firstItem="Q7n-IT-0r8" firstAttribute="width" secondItem="Lcv-4A-br6" secondAttribute="height" multiplier="1:2" id="b89-Uc-WHX"/>
+                            <constraint firstItem="Q7n-IT-0r8" firstAttribute="leading" secondItem="CRr-pS-cnW" secondAttribute="leading" id="bCW-mr-MPu"/>
+                            <constraint firstAttribute="trailing" secondItem="Q7n-IT-0r8" secondAttribute="trailing" id="et4-wo-EBX"/>
                             <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="6Y7-Zj-NjF" secondAttribute="bottom" constant="27" id="gZV-Cg-FqK"/>
                             <constraint firstItem="Lcv-4A-br6" firstAttribute="leading" secondItem="CRr-pS-cnW" secondAttribute="leading" id="q4M-AO-oAf"/>
                             <constraint firstItem="RWs-QA-t5a" firstAttribute="leading" secondItem="CRr-pS-cnW" secondAttribute="leading" constant="20" id="sHx-hb-Nz5"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GL7-4C-fBG"/>
+                                <exclude reference="b89-Uc-WHX"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="Lcv-4A-br6" id="qEH-Pf-a5T"/>
@@ -1853,6 +1867,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6As-9d-Rl3">
                                                     <rect key="frame" x="550" y="30" width="40" height="40"/>
+                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="hly-4Q-5eS"/>
                                                         <constraint firstAttribute="width" constant="40" id="vEp-nu-6s3"/>
@@ -1957,6 +1972,7 @@
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PAh-yJ-okV">
                                                     <rect key="frame" x="13" y="35" width="30" height="30"/>
+                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="206-VZ-7bF"/>
                                                         <constraint firstAttribute="height" constant="30" id="H1M-Al-IU4"/>
@@ -2993,7 +3009,7 @@
         <image name="shadow" width="1" height="10"/>
         <image name="spin" width="65" height="65"/>
         <image name="stripe_icon" width="119" height="26"/>
-        <image name="thanks_sticker" width="400" height="158"/>
+        <image name="thanks_sticker" width="375" height="196"/>
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
