@@ -14,9 +14,11 @@
 
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
+#import "DatastoreManager.h"
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
 #import "OneLogger.h"
+#import "PaymentUtils.h"
 #import "TrackingUtils.h"
 
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
@@ -66,6 +68,15 @@
     self.paymentTextField.delegate = self;
     [self.view addSubview:self.paymentTextField];
     [self.paymentTextField becomeFirstResponder];
+    
+    [ApiManager getCustomerCardsAndExecuteSuccess:^(NSArray *cards){
+        if (cards && cards.count > 0) {
+            [DatastoreManager saveCardInfo:cards[0]];
+        }
+        // todo BT
+        // show original card if any in the UI (cf uber)
+        
+    } failure:nil];
 }
 
 
@@ -117,6 +128,7 @@
     [ApiManager createStripeCustomerWithToken:token.tokenId
                                 paymentMethod:kPaymentMethodStripe
                                       success:^{
+                                          [DatastoreManager saveCardInfo:[PaymentUtils encodeSTPCardToNSDictionnary:token.card]];
                                           dispatch_async(dispatch_get_main_queue(), ^{
                                               [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
                                               [DesignUtils hideProgressHUDForView:self.view];

@@ -124,12 +124,16 @@
             [self.seeReactionButton setImage:nil forState:UIControlStateNormal];
             if (transaction.reaction.readStatus == false)
                 [self animateDownloadingReaction:YES];
-            [self.transaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
+            __weak Transaction *weakTransaction = self.transaction;
+            [weakTransaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.seeReactionButton setImage:image forState:UIControlStateNormal];
-                    [self animateDownloadingReaction:NO];
-                    if (transaction.reaction.readStatus == false) {
-                        self.backgroundColor = [ColorUtils veryLightBlack];
+                    // todo BT test
+                    if (self.transaction == weakTransaction) {
+                        [self.seeReactionButton setImage:image forState:UIControlStateNormal];
+                        [self animateDownloadingReaction:NO];
+                        if (transaction.reaction.readStatus == false) {
+                            self.backgroundColor = [ColorUtils veryLightBlack];
+                        }
                     }
                 });
             } failure:nil];

@@ -15,8 +15,8 @@
 #import "OneLogger.h"
 
 #define HAS_LAUNCHED_ONCE @"Has Launched One %@"
+#define CARD_USED_INFO @"Card Used Info"
 
-#define RECENT_USERS_ARRAY @"Recent Users Array"
 #define LOCALLOGENABLED YES && GLOBALLOGENABLED
 
 @implementation DatastoreManager
@@ -76,10 +76,11 @@
 
 + (BOOL)hasLaunchedOnce:(id)sender {
     NSString *string = [NSString stringWithFormat:HAS_LAUNCHED_ONCE,sender];
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:string])
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if (![prefs boolForKey:string])
     {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:string];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [prefs setBool:YES forKey:string];
+        [prefs synchronize];
         return NO;
     }
     return  YES;
@@ -193,6 +194,23 @@
         }
     }];
 }
+
+// --------------------------------------------
+#pragma mark - Card
+// --------------------------------------------
++ (void)saveCardInfo:(NSDictionary *)cardInfo
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:cardInfo forKey:CARD_USED_INFO];
+    [prefs synchronize];
+}
+
++ (NSDictionary *)getCardInfo
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs objectForKey:CARD_USED_INFO];
+}
+
 
 // --------------------------------------------
 #pragma mark - Clean local data

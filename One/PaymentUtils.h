@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class STPCard;
+
 @interface PaymentUtils : NSObject
 
 + (BOOL)applePayEnabled;
+
++ (NSDictionary *)encodeSTPCardToNSDictionnary:(STPCard *)card;
 
 @end
