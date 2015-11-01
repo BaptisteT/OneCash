@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C0099FB1BDCA0A500006025 /* Reaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FA1BDCA0A500006025 /* Reaction.m */; settings = {ASSET_TAGS = (); }; };
-		3C0099FC1BDCA0A500006025 /* Reaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FA1BDCA0A500006025 /* Reaction.m */; settings = {ASSET_TAGS = (); }; };
-		3C009A031BDD114800006025 /* photo-display.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C009A021BDD114800006025 /* photo-display.m4a */; settings = {ASSET_TAGS = (); }; };
-		3C009A041BDD114800006025 /* photo-display.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C009A021BDD114800006025 /* photo-display.m4a */; settings = {ASSET_TAGS = (); }; };
+		3C0099FB1BDCA0A500006025 /* Reaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FA1BDCA0A500006025 /* Reaction.m */; };
+		3C0099FC1BDCA0A500006025 /* Reaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0099FA1BDCA0A500006025 /* Reaction.m */; };
+		3C009A031BDD114800006025 /* photo-display.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C009A021BDD114800006025 /* photo-display.m4a */; };
+		3C009A041BDD114800006025 /* photo-display.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3C009A021BDD114800006025 /* photo-display.m4a */; };
 		3C13EE4B1B9F32D500930AC7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13EE4A1B9F32D500930AC7 /* Reachability.m */; };
 		3C13EE4D1B9F32DE00930AC7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */; };
 		3C13EE501B9F428D00930AC7 /* DatastoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13EE4F1B9F428D00930AC7 /* DatastoreManager.m */; };
@@ -18,17 +18,17 @@
 		3C2E036D1B8DA18B00D22D48 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E036C1B8DA18B00D22D48 /* AppDelegate.m */; };
 		3C2E03761B8DA18B00D22D48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03741B8DA18B00D22D48 /* Main.storyboard */; };
 		3C2E037B1B8DA18B00D22D48 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */; };
-		3C401B411BDF441F0070F8D2 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B401BDF441F0070F8D2 /* CameraViewController.m */; settings = {ASSET_TAGS = (); }; };
-		3C401B421BDF441F0070F8D2 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B401BDF441F0070F8D2 /* CameraViewController.m */; settings = {ASSET_TAGS = (); }; };
-		3C401B441BDF47250070F8D2 /* CameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C401B431BDF47250070F8D2 /* CameraOverlay.xib */; settings = {ASSET_TAGS = (); }; };
-		3C401B451BDF47250070F8D2 /* CameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C401B431BDF47250070F8D2 /* CameraOverlay.xib */; settings = {ASSET_TAGS = (); }; };
-		3C401B481BE490810070F8D2 /* PaymentUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B471BE490810070F8D2 /* PaymentUtils.m */; settings = {ASSET_TAGS = (); }; };
-		3C401B491BE490850070F8D2 /* PaymentUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B471BE490810070F8D2 /* PaymentUtils.m */; settings = {ASSET_TAGS = (); }; };
-		3C43B6421BA95231006679DE /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; settings = {ASSET_TAGS = (); }; };
-		3C43B6451BA96567006679DE /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
-		3C43B6481BA9B239006679DE /* AccountCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6471BA9B239006679DE /* AccountCardViewController.m */; settings = {ASSET_TAGS = (); }; };
-		3C4824DD1BC2CBCF005B759D /* UsernameCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E49F641BBB05860046DA09 /* UsernameCard.xib */; settings = {ASSET_TAGS = (); }; };
-		3C7CBA5E1BABFC0F002D68E1 /* TweetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CBA5D1BABFC0F002D68E1 /* TweetTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		3C401B411BDF441F0070F8D2 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B401BDF441F0070F8D2 /* CameraViewController.m */; };
+		3C401B421BDF441F0070F8D2 /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B401BDF441F0070F8D2 /* CameraViewController.m */; };
+		3C401B441BDF47250070F8D2 /* CameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C401B431BDF47250070F8D2 /* CameraOverlay.xib */; };
+		3C401B451BDF47250070F8D2 /* CameraOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C401B431BDF47250070F8D2 /* CameraOverlay.xib */; };
+		3C401B481BE490810070F8D2 /* PaymentUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B471BE490810070F8D2 /* PaymentUtils.m */; };
+		3C401B491BE490850070F8D2 /* PaymentUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C401B471BE490810070F8D2 /* PaymentUtils.m */; };
+		3C43B6421BA95231006679DE /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; };
+		3C43B6451BA96567006679DE /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; };
+		3C43B6481BA9B239006679DE /* AccountCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6471BA9B239006679DE /* AccountCardViewController.m */; };
+		3C4824DD1BC2CBCF005B759D /* UsernameCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E49F641BBB05860046DA09 /* UsernameCard.xib */; };
+		3C7CBA5E1BABFC0F002D68E1 /* TweetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CBA5D1BABFC0F002D68E1 /* TweetTableViewCell.m */; };
 		3C86E0EF1B8DAF0B005AD52B /* ConstantUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0EE1B8DAF0B005AD52B /* ConstantUtils.m */; };
 		3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F11B8DB07C005AD52B /* TrackingUtils.m */; };
 		3C86E0F51B8DB2BF005AD52B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F41B8DB2BF005AD52B /* User.m */; };
@@ -67,7 +67,7 @@
 		3CC5FDE21B9C47F800514A43 /* CashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE11B9C47F800514A43 /* CashView.m */; };
 		3CC5FDE41B9CA08600514A43 /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
 		3CC5FDE71B9D937D00514A43 /* TransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */; };
-		3CD4D6001BB91D75001F2C7A /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; settings = {ASSET_TAGS = (); }; };
+		3CD4D6001BB91D75001F2C7A /* IPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6411BA95231006679DE /* IPUtils.m */; };
 		3CD4D6011BB91D75001F2C7A /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDD51B9B524A00514A43 /* UserTableViewCell.m */; };
 		3CD4D6021BB91D75001F2C7A /* SHEmailValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDA91B98836D00514A43 /* SHEmailValidator.m */; };
 		3CD4D6031BB91D75001F2C7A /* EmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FD9A1B976F4400514A43 /* EmailViewController.m */; };
@@ -87,9 +87,9 @@
 		3CD4D6111BB91D75001F2C7A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E03691B8DA18B00D22D48 /* main.m */; };
 		3CD4D6121BB91D75001F2C7A /* ApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0FD1B8DB577005AD52B /* ApiManager.m */; };
 		3CD4D6131BB91D75001F2C7A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C13EE4A1B9F32D500930AC7 /* Reachability.m */; };
-		3CD4D6141BB91D75001F2C7A /* AccountCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6471BA9B239006679DE /* AccountCardViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3CD4D6141BB91D75001F2C7A /* AccountCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6471BA9B239006679DE /* AccountCardViewController.m */; };
 		3CD4D6151BB91D75001F2C7A /* DesignUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDBC1B98A14F00514A43 /* DesignUtils.m */; };
-		3CD4D6161BB91D75001F2C7A /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3CD4D6161BB91D75001F2C7A /* ManagedAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C43B6441BA96567006679DE /* ManagedAccountViewController.m */; };
 		3CD4D6171BB91D75001F2C7A /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E1081B8DE501005AD52B /* WelcomeViewController.m */; };
 		3CD4D6181BB91D75001F2C7A /* RecipientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDC51B98A6E100514A43 /* RecipientViewController.m */; };
 		3CD4D6191BB91D75001F2C7A /* TransactionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE61B9D937D00514A43 /* TransactionTableViewCell.m */; };
@@ -107,7 +107,7 @@
 		3CD4D6251BB91D75001F2C7A /* SHValidationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDAB1B98836D00514A43 /* SHValidationResult.m */; };
 		3CD4D6261BB91D75001F2C7A /* KeyboardUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDDE1B9C391600514A43 /* KeyboardUtils.m */; };
 		3CD4D6271BB91D75001F2C7A /* CashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE11B9C47F800514A43 /* CashView.m */; };
-		3CD4D6281BB91D75001F2C7A /* TweetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CBA5D1BABFC0F002D68E1 /* TweetTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		3CD4D6281BB91D75001F2C7A /* TweetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CBA5D1BABFC0F002D68E1 /* TweetTableViewCell.m */; };
 		3CD4D62A1BB91D75001F2C7A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */; };
 		3CD4D62B1BB91D75001F2C7A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C13EE4C1B9F32DE00930AC7 /* SystemConfiguration.framework */; };
 		3CD4D62C1BB91D75001F2C7A /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CC5FD971B974A5500514A43 /* Accounts.framework */; };
@@ -122,21 +122,21 @@
 		3CD4D6361BB91D75001F2C7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDB41B98886700514A43 /* Localizable.strings */; };
 		3CD4D6371BB91D75001F2C7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03741B8DA18B00D22D48 /* Main.storyboard */; };
 		3CD4D6381BB91D75001F2C7A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */; };
-		3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		3CD4D6391BB91D75001F2C7A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; };
 		3CD4D63A1BB91D75001F2C7A /* InternalNotifView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C86E1011B8DBA5E005AD52B /* InternalNotifView.xib */; };
 		3CD4D63B1BB91D75001F2C7A /* CashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC5FDE31B9CA08600514A43 /* CashView.xib */; };
-		3CD6C1E01BC6F99700D1D991 /* socicon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CA0E61BBD957C00DBBCB0 /* socicon.ttf */; settings = {ASSET_TAGS = (); }; };
-		3CD6C1E61BCE782000D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */; settings = {ASSET_TAGS = (); }; };
-		3CD6C1E71BCE782000D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */; settings = {ASSET_TAGS = (); }; };
-		3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
-		3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
-		3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; settings = {ASSET_TAGS = (); }; };
-		3CDFB25B1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; settings = {ASSET_TAGS = (); }; };
-		3CDFB25C1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; settings = {ASSET_TAGS = (); }; };
-		3CDFB25D1BBD840F001A6913 /* UsernameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */; settings = {ASSET_TAGS = (); }; };
-		3CFA3BBC1BBAA6FF00F94A72 /* UIImageView+UserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */; settings = {ASSET_TAGS = (); }; };
-		3CFA3BBD1BBAA6FF00F94A72 /* UIImageView+UserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */; settings = {ASSET_TAGS = (); }; };
-		A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		3CD6C1E01BC6F99700D1D991 /* socicon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CA0E61BBD957C00DBBCB0 /* socicon.ttf */; };
+		3CD6C1E61BCE782000D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */; };
+		3CD6C1E71BCE782000D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */; };
+		3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; };
+		3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; };
+		3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; };
+		3CDFB25B1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; };
+		3CDFB25C1BBD4389001A6913 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */; };
+		3CDFB25D1BBD840F001A6913 /* UsernameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */; };
+		3CFA3BBC1BBAA6FF00F94A72 /* UIImageView+UserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */; };
+		3CFA3BBD1BBAA6FF00F94A72 /* UIImageView+UserName.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */; };
+		A413CD8B1BB1A6FC0079CD41 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */; };
 		A470C0111BAA059200FA005F /* Maax Rounded Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A470C0101BAA056200FA005F /* Maax Rounded Medium.otf */; };
 		A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */; };
 		A49CA0E71BBD95BE00DBBCB0 /* socicon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CA0E61BBD957C00DBBCB0 /* socicon.ttf */; };
@@ -145,9 +145,9 @@
 		A4A2B50B1BADDBEF00CDAF07 /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5051BADDB9E00CDAF07 /* ProximaNova-Light.otf */; };
 		A4A2B50C1BADDBEF00CDAF07 /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5061BADDB9E00CDAF07 /* ProximaNova-Regular.otf */; };
 		A4A2B50D1BADDBEF00CDAF07 /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4A2B5071BADDB9E00CDAF07 /* ProximaNova-Semibold.otf */; };
-		A4E49F631BBAF27D0046DA09 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; settings = {ASSET_TAGS = (); }; };
-		A4E49F651BBB05860046DA09 /* UsernameCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E49F641BBB05860046DA09 /* UsernameCard.xib */; settings = {ASSET_TAGS = (); }; };
-		A4E49F681BBB05CC0046DA09 /* UsernameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */; settings = {ASSET_TAGS = (); }; };
+		A4E49F631BBAF27D0046DA09 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; };
+		A4E49F651BBB05860046DA09 /* UsernameCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E49F641BBB05860046DA09 /* UsernameCard.xib */; };
+		A4E49F681BBB05CC0046DA09 /* UsernameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F671BBB05CC0046DA09 /* UsernameCardView.m */; };
 		BA5D4DF4158F71EC5D5D6C8D /* libPods-One.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B40DD4CC7DBD68EA7060432 /* libPods-One.a */; };
 /* End PBXBuildFile section */
 
@@ -1046,8 +1046,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindie, Inc. (86N86JY2JG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mindie, Inc. (86N86JY2JG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitch Buchannon (NMWVMQS5Z5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mitch Buchannon (NMWVMQS5Z5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1057,7 +1057,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1ab2ef55-c2c3-4812-895e-0d130b476518";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1068,8 +1068,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindie, Inc. (86N86JY2JG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mindie, Inc. (86N86JY2JG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitch Buchannon (NMWVMQS5Z5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mitch Buchannon (NMWVMQS5Z5)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1083,7 +1083,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1ab2ef55-c2c3-4812-895e-0d130b476518";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

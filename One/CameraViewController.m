@@ -43,6 +43,7 @@
     self.photoConfirmButton.hidden = YES;
     self.photoDeleteButton.hidden = YES;
     self.stickerImageView.hidden = YES;
+    self.cameraFlipButton.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated

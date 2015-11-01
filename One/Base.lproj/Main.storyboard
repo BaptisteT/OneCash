@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -79,6 +79,7 @@
             <string>ProximaNova-Regular</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
+            <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
@@ -1280,25 +1281,26 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lcv-4A-br6">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWs-QA-t5a">
-                                <rect key="frame" x="20" y="40" width="45" height="30"/>
-                                <state key="normal" title="cancel"/>
+                                <rect key="frame" x="15" y="45" width="53" height="29"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
+                                <size key="titleShadowOffset" width="0.0" height="1"/>
+                                <state key="normal" title="Retake">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.22" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="cancelPhotoButtonClicked:" destination="FU8-cO-3hB" eventType="touchUpInside" id="3Jw-kN-qbs"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Y7-Zj-NjF">
-                                <rect key="frame" x="526" y="543" width="54" height="30"/>
-                                <state key="normal" title="validate"/>
-                                <connections>
-                                    <action selector="checkButtonClicked:" destination="FU8-cO-3hB" eventType="touchUpInside" id="HzK-fP-0nD"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thanks_sticker" translatesAutoresizingMaskIntoConstraints="NO" id="Q7n-IT-0r8">
-                                <rect key="frame" x="150" y="389.5" width="300" height="160.5"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thanks_sticker" translatesAutoresizingMaskIntoConstraints="NO" id="Q7n-IT-0r8">
+                                <rect key="frame" x="0.0" y="286" width="600" height="313.5"/>
+                                <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Q7n-IT-0r8" secondAttribute="height" multiplier="15:8" id="7ak-Eo-wsu"/>
+                                    <constraint firstAttribute="width" secondItem="Q7n-IT-0r8" secondAttribute="height" multiplier="375:196" id="7ak-Eo-wsu"/>
                                     <constraint firstAttribute="width" constant="120" id="s03-xU-AuT"/>
                                     <constraint firstAttribute="height" constant="64" id="uWN-R5-oov"/>
                                 </constraints>
@@ -1309,22 +1311,47 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Y7-Zj-NjF">
+                                <rect key="frame" x="518" y="40" width="66" height="41"/>
+                                <animations/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="1"/>
+                                <state key="normal" image="send">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.22" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkButtonClicked:" destination="FU8-cO-3hB" eventType="touchUpInside" id="HzK-fP-0nD"/>
+                                </connections>
+                            </button>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Lcv-4A-br6" firstAttribute="top" secondItem="CRr-pS-cnW" secondAttribute="top" id="167-zS-iFl"/>
                             <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="Lcv-4A-br6" secondAttribute="bottom" id="9tG-U2-iac"/>
-                            <constraint firstAttribute="trailing" secondItem="6Y7-Zj-NjF" secondAttribute="trailing" constant="20" id="AJk-fQ-Bey"/>
+                            <constraint firstAttribute="trailing" secondItem="6Y7-Zj-NjF" secondAttribute="trailing" constant="16" id="AJk-fQ-Bey"/>
                             <constraint firstItem="Q7n-IT-0r8" firstAttribute="centerX" secondItem="Lcv-4A-br6" secondAttribute="centerX" id="GL7-4C-fBG"/>
                             <constraint firstAttribute="trailing" secondItem="Lcv-4A-br6" secondAttribute="trailing" id="OR7-57-GW6"/>
-                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="Q7n-IT-0r8" secondAttribute="bottom" constant="50" id="UYP-ws-UQQ"/>
-                            <constraint firstItem="RWs-QA-t5a" firstAttribute="top" secondItem="iqO-VB-mni" secondAttribute="bottom" constant="20" id="YU4-0w-vkz"/>
+                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="Q7n-IT-0r8" secondAttribute="bottom" id="UYP-ws-UQQ"/>
+                            <constraint firstItem="6Y7-Zj-NjF" firstAttribute="top" secondItem="iqO-VB-mni" secondAttribute="bottom" constant="20" id="Y9m-bm-olf"/>
+                            <constraint firstItem="RWs-QA-t5a" firstAttribute="top" secondItem="iqO-VB-mni" secondAttribute="bottom" constant="25" id="YU4-0w-vkz"/>
+                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="Q7n-IT-0r8" secondAttribute="bottom" id="Z6J-bQ-ABZ"/>
                             <constraint firstItem="Q7n-IT-0r8" firstAttribute="width" secondItem="Lcv-4A-br6" secondAttribute="height" multiplier="1:2" id="b89-Uc-WHX"/>
-                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="6Y7-Zj-NjF" secondAttribute="bottom" constant="27" id="gZV-Cg-FqK"/>
+                            <constraint firstItem="Q7n-IT-0r8" firstAttribute="leading" secondItem="CRr-pS-cnW" secondAttribute="leading" id="bCW-mr-MPu"/>
+                            <constraint firstAttribute="trailing" secondItem="Q7n-IT-0r8" secondAttribute="trailing" id="et4-wo-EBX"/>
+                            <constraint firstItem="ZQb-w8-shn" firstAttribute="top" secondItem="6Y7-Zj-NjF" secondAttribute="bottom" constant="545" id="gZV-Cg-FqK"/>
                             <constraint firstItem="Lcv-4A-br6" firstAttribute="leading" secondItem="CRr-pS-cnW" secondAttribute="leading" id="q4M-AO-oAf"/>
-                            <constraint firstItem="RWs-QA-t5a" firstAttribute="leading" secondItem="CRr-pS-cnW" secondAttribute="leading" constant="20" id="sHx-hb-Nz5"/>
+                            <constraint firstItem="RWs-QA-t5a" firstAttribute="leading" secondItem="CRr-pS-cnW" secondAttribute="leading" constant="15" id="sHx-hb-Nz5"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GL7-4C-fBG"/>
+                                <exclude reference="b89-Uc-WHX"/>
+                                <exclude reference="gZV-Cg-FqK"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="Lcv-4A-br6" id="qEH-Pf-a5T"/>
                         <outlet property="photoConfirmButton" destination="6Y7-Zj-NjF" id="o5d-uH-Zgx"/>
@@ -1851,14 +1878,14 @@
                                                         </mask>
                                                     </variation>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6As-9d-Rl3">
-                                                    <rect key="frame" x="550" y="30" width="40" height="40"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6As-9d-Rl3">
+                                                    <rect key="frame" x="248.5" y="30" width="40" height="40"/>
+                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="hly-4Q-5eS"/>
                                                         <constraint firstAttribute="width" constant="40" id="vEp-nu-6s3"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
-                                                    <state key="normal" title="📷">
+                                                    <state key="normal" image="reply">
                                                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -1868,8 +1895,11 @@
                                             </subviews>
                                             <animations/>
                                             <constraints>
+                                                <constraint firstItem="6As-9d-Rl3" firstAttribute="leading" secondItem="9pP-Bd-Msg" secondAttribute="trailing" constant="5" id="3lm-IK-Lbt"/>
                                                 <constraint firstItem="9pP-Bd-Msg" firstAttribute="width" relation="greaterThanOrEqual" secondItem="9pP-Bd-Msg" secondAttribute="height" multiplier="20:20" id="7Qj-IM-bQv"/>
                                                 <constraint firstAttribute="trailing" secondItem="6As-9d-Rl3" secondAttribute="trailing" constant="10" id="8O5-tU-jAx"/>
+                                                <constraint firstItem="6As-9d-Rl3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="axC-fu-9Nu" secondAttribute="trailing" priority="250" constant="5" id="9V4-0D-Lgz"/>
+                                                <constraint firstItem="6As-9d-Rl3" firstAttribute="leading" secondItem="axC-fu-9Nu" secondAttribute="trailing" constant="148" id="AeZ-VS-4ms"/>
                                                 <constraint firstItem="axC-fu-9Nu" firstAttribute="leading" secondItem="VDe-AG-uRa" secondAttribute="leading" id="DMI-t2-PuP"/>
                                                 <constraint firstItem="6As-9d-Rl3" firstAttribute="centerY" secondItem="9pP-Bd-Msg" secondAttribute="centerY" id="FjF-al-ii4"/>
                                                 <constraint firstItem="5Cm-IO-o4O" firstAttribute="height" secondItem="axC-fu-9Nu" secondAttribute="height" id="GkJ-FW-QWu"/>
@@ -1886,6 +1916,9 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="frn-Nf-4nd"/>
+                                                    <exclude reference="8O5-tU-jAx"/>
+                                                    <exclude reference="AeZ-VS-4ms"/>
+                                                    <exclude reference="IbN-0H-bmt"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -1957,6 +1990,7 @@
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PAh-yJ-okV">
                                                     <rect key="frame" x="13" y="35" width="30" height="30"/>
+                                                    <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="206-VZ-7bF"/>
                                                         <constraint firstAttribute="height" constant="30" id="H1M-Al-IU4"/>
@@ -2990,10 +3024,12 @@
         <image name="TwitterIcon" width="15" height="13"/>
         <image name="apple_pay" width="56" height="36"/>
         <image name="logo" width="1000" height="1000"/>
+        <image name="reply" width="40" height="40"/>
+        <image name="send" width="66" height="41"/>
         <image name="shadow" width="1" height="10"/>
         <image name="spin" width="65" height="65"/>
         <image name="stripe_icon" width="119" height="26"/>
-        <image name="thanks_sticker" width="400" height="158"/>
+        <image name="thanks_sticker" width="375" height="196"/>
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
