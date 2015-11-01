@@ -16,6 +16,7 @@
 
 #import "ConstantUtils.h"
 #import "OneLogger.h"
+#import "PaymentUtils.h"
 #import "TrackingUtils.h"
 
 #define ONEAPIMANAGERLOG YES && GLOBALLOGENABLED
@@ -356,7 +357,7 @@
                                         }
                                     } else {
                                         if (cards && cards.count > 0) {
-                                            [DatastoreManager saveCardInfo:cards[0]];
+                                            [DatastoreManager saveCardInfo:[PaymentUtils encodeSTPCardToNSDictionnary:cards[0]]];
                                         }
                                         if (successBlock) {
                                             successBlock();

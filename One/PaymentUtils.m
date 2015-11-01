@@ -25,7 +25,7 @@
 {
     if (!card) return nil;
     // only one field used for now
-    return [NSDictionary dictionaryWithObjects:@[card.last4] forKeys:@[@"last4"]];
+    return [NSDictionary dictionaryWithObjects:@[[card valueForKey:@"last4"]] forKeys:@[@"last4"]];
 }
 
 @end
