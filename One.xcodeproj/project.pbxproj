@@ -1057,7 +1057,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dec2af55-6cd9-4c06-81f7-7edf52ae532b";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1083,7 +1083,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dec2af55-6cd9-4c06-81f7-7edf52ae532b";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

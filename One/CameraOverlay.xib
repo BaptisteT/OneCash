@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="ProximaNova-Semibold.otf">
+            <string>ProximaNova-Semibold</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CameraViewController">
             <connections>
@@ -18,40 +24,79 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mqp-Hl-oPo">
-                    <rect key="frame" x="20" y="20" width="32" height="32"/>
-                    <state key="normal" image="close_button"/>
+                    <rect key="frame" x="0.0" y="13" width="48" height="48"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="AbS-GT-g0J"/>
+                        <constraint firstAttribute="width" constant="48" id="s8c-3L-GsD"/>
+                    </constraints>
+                    <state key="normal" image="back"/>
                     <connections>
                         <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="iJ6-Lh-XGK"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhF-PZ-SOB">
-                    <rect key="frame" x="260" y="520" width="81" height="30"/>
-                    <state key="normal" title="TakePicture"/>
-                    <connections>
-                        <action selector="takePictureButtonClicked:" destination="-1" eventType="touchUpInside" id="h49-cZ-CAw"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppm-ZZ-hMm">
                     <rect key="frame" x="550" y="21" width="30" height="30"/>
+                    <animations/>
                     <state key="normal" title="flip"/>
                     <connections>
                         <action selector="flipCameraButtonClicked:" destination="-1" eventType="touchUpInside" id="wy2-RG-giO"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thanks_sticker" translatesAutoresizingMaskIntoConstraints="NO" id="XfF-M7-OQt">
+                    <rect key="frame" x="0.0" y="286" width="600" height="313.5"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="XfF-M7-OQt" secondAttribute="height" multiplier="375:196" id="fto-4c-6Wo"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jhF-PZ-SOB">
+                    <rect key="frame" x="0.0" y="60" width="600" height="540"/>
+                    <animations/>
+                    <connections>
+                        <action selector="takePictureButtonClicked:" destination="-1" eventType="touchUpInside" id="h49-cZ-CAw"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the screen to react" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8n-G0-mcI">
+                    <rect key="frame" x="213" y="30" width="174" height="18"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" white="0.0" alpha="0.21558665644171779" colorSpace="calibratedWhite"/>
+                    <size key="shadowOffset" width="0.0" height="1"/>
+                </label>
             </subviews>
+            <animations/>
             <constraints>
+                <constraint firstItem="jhF-PZ-SOB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0QS-Ec-wfX"/>
                 <constraint firstAttribute="bottom" secondItem="jhF-PZ-SOB" secondAttribute="bottom" constant="50" id="577-rv-T8z"/>
-                <constraint firstItem="Mqp-Hl-oPo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="8Ui-d0-QG5"/>
+                <constraint firstItem="Mqp-Hl-oPo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="8Ui-d0-QG5"/>
+                <constraint firstItem="jhF-PZ-SOB" firstAttribute="top" secondItem="Mqp-Hl-oPo" secondAttribute="top" constant="47" id="9Jj-cY-k9Q"/>
+                <constraint firstAttribute="trailing" secondItem="jhF-PZ-SOB" secondAttribute="trailing" id="9Ye-0X-qmI"/>
                 <constraint firstAttribute="trailing" secondItem="ppm-ZZ-hMm" secondAttribute="trailing" constant="20" id="B2G-yX-s6s"/>
-                <constraint firstItem="Mqp-Hl-oPo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="DJy-k2-0wL"/>
+                <constraint firstItem="Mqp-Hl-oPo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="DJy-k2-0wL"/>
+                <constraint firstItem="XfF-M7-OQt" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Loc-IG-sus"/>
                 <constraint firstItem="jhF-PZ-SOB" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Oud-Jb-SKn"/>
-                <constraint firstItem="ppm-ZZ-hMm" firstAttribute="centerY" secondItem="Mqp-Hl-oPo" secondAttribute="centerY" id="VNd-CE-1Tr"/>
+                <constraint firstItem="ppm-ZZ-hMm" firstAttribute="centerY" secondItem="Mqp-Hl-oPo" secondAttribute="centerY" constant="-1" id="VNd-CE-1Tr"/>
+                <constraint firstItem="k8n-G0-mcI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="adF-AD-wsK"/>
+                <constraint firstAttribute="bottom" secondItem="jhF-PZ-SOB" secondAttribute="bottom" id="dHT-cl-6WX"/>
+                <constraint firstAttribute="trailing" secondItem="XfF-M7-OQt" secondAttribute="trailing" id="exg-1G-Nsl"/>
+                <constraint firstAttribute="bottom" secondItem="XfF-M7-OQt" secondAttribute="bottom" id="uvt-7J-DBb"/>
+                <constraint firstItem="k8n-G0-mcI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="zzJ-i5-avp"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="577-rv-T8z"/>
+                    <exclude reference="Oud-Jb-SKn"/>
+                </mask>
+            </variation>
         </view>
     </objects>
     <resources>
-        <image name="close_button" width="32" height="32"/>
+        <image name="back" width="22" height="32"/>
+        <image name="thanks_sticker" width="375" height="196"/>
     </resources>
 </document>
