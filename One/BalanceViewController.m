@@ -62,7 +62,6 @@
     // init
     _layoutFlag = YES;
     self.transactions = [NSMutableArray new];
-    [DatastoreManager setLastBalanceOpeningDate:[NSDate date]];
     self.statusTextField.delegate = self;
     
     // Wording
@@ -145,9 +144,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    // Last balance date
-    [DatastoreManager setLastBalanceOpeningDate:[NSDate date]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -214,6 +210,19 @@
     [self adjustFontSizeOfStatusTextField];
 }
 
+// override set transactions to mark as unread
+- (void)setTransactions:(NSMutableArray *)transactions {
+    _transactions = transactions;
+    // Mark transactions as read
+    NSMutableArray *unreadTransactions = [NSMutableArray new];
+    for (Transaction *transaction in transactions) {
+        if (transaction.receiver && transaction.receiver == [User currentUser] &&  transaction.readStatus == false) {
+            transaction.readStatus = true;
+            [unreadTransactions addObject:transaction.objectId];
+        }
+    }
+    [ApiManager markTransactionsAsRead:unreadTransactions success:nil failure:nil];
+}
 
 // --------------------------------------------
 #pragma mark - Table view
@@ -320,6 +329,8 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"verify_button", nil)]) {
         [self performSegueWithIdentifier:@"Settings From Balance" sender:nil];
+    } else if ([alertView.title isEqualToString:NSLocalizedString(@"camera_access_error_title", nil)]) {
+        [GeneralUtils openSettings];
     }
 }
 
@@ -500,10 +511,12 @@
     if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"twitter://user?screen_name=",self.selectedUser.username]]])
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",@"https://twitter.com/",self.selectedUser.username]]];
+        [TrackingUtils trackEvent:EVENT_TWITTER_PROFILE properties:nil];
     }
 }
 
 - (void)followSelectedUser {
+    [TrackingUtils trackEvent:EVENT_TWITTER_FOLLOW properties:nil];
     [ApiManager followOnTwitter:self.selectedUser.caseUsername success:nil failure:nil];
 }
 
@@ -513,7 +526,9 @@
     [twitterCompose setInitialText:caption];
     [self presentViewController:twitterCompose
                        animated:YES
-                     completion:nil];
+                     completion:^() {
+                         [TrackingUtils trackEvent:EVENT_TWITTER_TWEET properties:nil];
+                     }];
 }
 
 
@@ -522,7 +537,24 @@
 // --------------------------------------------
 - (void)reactToTransaction:(Transaction *)transaction {
     self.reactTransaction = transaction;
-    [self performSegueWithIdentifier:@"Camera From Balance" sender:nil];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if(authStatus == AVAuthorizationStatusAuthorized) {
+            [self performSegueWithIdentifier:@"Camera From Balance" sender:nil];
+        } else if(authStatus == AVAuthorizationStatusDenied || authStatus == AVAuthorizationStatusRestricted){
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"camera_access_error_title", nil)
+                                        message:NSLocalizedString(@"camera_access_error_message", nil)
+                                       delegate:self
+                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                              otherButtonTitles:nil] show];
+        } else if(authStatus == AVAuthorizationStatusNotDetermined){
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                if(granted){
+                    [self performSegueWithIdentifier:@"Camera From Balance" sender:nil];
+                }
+            }];
+        }
+    }
 }
 
 - (void)showReaction:(Reaction *)reaction image:(UIImage *)image initialFrame:(CGRect)frame
@@ -544,15 +576,8 @@
 // --------------------------------------------
 
 - (void)animateDisplayImageReaction:(UIImageView *)imageView {
-    [UIView animateWithDuration:0.5
-                          delay:0.
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         imageView.frame = self.view.frame;
-                     } completion:^(BOOL flag) {
-                         [self.transactionsTableView reloadData];
-                         imageView.userInteractionEnabled = YES;
-                     }];
+    imageView.frame = self.view.frame;
+    [self.transactionsTableView reloadData];
     NSError* error;
     NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"photo-display" ofType:@".m4a"];
     NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
@@ -563,6 +588,7 @@
     } else {
         [self.mainPlayer play];
     }
+    imageView.userInteractionEnabled = YES;
 }
 
 - (void)tapGestureOnFullScreenReaction:(UITapGestureRecognizer *)sender
@@ -587,6 +613,7 @@
                                [self.transactionsTableView reloadData];
                            }];
 }
+
 
 
 

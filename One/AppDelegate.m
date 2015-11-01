@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
 #import <AudioToolbox/AudioServices.h>
+#import <AVFoundation/AVFoundation.h>
 #import <Fabric/Fabric.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Crashlytics/Crashlytics.h>
@@ -49,6 +50,9 @@
 #else
     BOOL debug = false;
 #endif
+    
+    //Stop app pausing other sound.
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
     
     // Parse
     [Parse enableLocalDatastore];
@@ -168,13 +172,13 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     UIApplicationState state = [application applicationState];
-    if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeNewTransaction]) {
+    if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReadTransaction] || [[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeNewTransaction]) {
         if (state == UIApplicationStateActive) {
             // internal notif
             [self displayInternalNotif:userInfo];
             
             // load latest transactions
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushReceived
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationTransactionPushReceived
                                                                 object:nil
                                                               userInfo:nil];
             
@@ -185,18 +189,22 @@
                                                                 object:nil
                                                               userInfo:nil];
         }
-    } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReadTransaction] || [[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReaction]) {
+    } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReaction]) {
         if (state == UIApplicationStateActive) {
             // internal notif
             [self displayInternalNotif:userInfo];
             
             // load latest transactions
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushReceived
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReactionPushReceived
                                                                 object:nil
                                                               userInfo:nil];
             
             // Vibrate
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushClicked
+                                                                object:nil
+                                                              userInfo:nil];
         }
     } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeSignup]) {
         if (state == UIApplicationStateActive) {

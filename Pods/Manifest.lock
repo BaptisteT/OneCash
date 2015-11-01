@@ -1,25 +1,25 @@
 PODS:
   - AFBlurSegue (1.2.1)
   - ApplePayStubs (0.2)
-  - Bolts/Tasks (1.2.1)
+  - Bolts/Tasks (1.4.0)
   - Crashlytics (3.3.4)
   - DateTools (1.7.0)
   - Fabric (1.5.5):
     - Fabric/Base (= 1.5.5)
   - Fabric/Base (1.5.5)
   - MBProgressHUD (0.9.1)
-  - Mixpanel (2.8.3):
-    - Mixpanel/Mixpanel (= 2.8.3)
-  - Mixpanel/Mixpanel (2.8.3)
-  - Parse (1.8.2):
-    - Bolts/Tasks (>= 1.2.1)
-  - ParseTwitterUtils (1.8.2):
-    - Bolts/Tasks (>= 1.2.1)
-    - Parse (~> 1.8.2)
-  - pop (1.0.7)
-  - Stripe (5.1.2):
-    - Stripe/Core (= 5.1.2)
-  - Stripe/Core (5.1.2)
+  - Mixpanel (2.9.0):
+    - Mixpanel/Mixpanel (= 2.9.0)
+  - Mixpanel/Mixpanel (2.9.0)
+  - Parse (1.9.1):
+    - Bolts/Tasks (>= 1.4.0)
+  - ParseTwitterUtils (1.9.0):
+    - Bolts/Tasks (>= 1.3.0)
+    - Parse (~> 1.9)
+  - pop (1.0.8)
+  - Stripe (6.0.1):
+    - Stripe/Core (= 6.0.1)
+  - Stripe/Core (6.0.1)
   - SVPullToRefresh (0.4.1)
   - UIImage+BlurredFrame (0.0.4)
 
@@ -44,23 +44,23 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   pop:
-    :commit: 4d1a49d0f31274aeae23104ad7be6b62e2abac2d
+    :commit: 26a268505fd68e0fb537e22628be49ed898acd41
     :git: https://github.com/facebook/pop.git
 
 SPEC CHECKSUMS:
   AFBlurSegue: 27e55f015360f4e11117d2c3a959dbb5316eef78
   ApplePayStubs: 5dd63c36527d1117b2045939fb5b6581b4815433
-  Bolts: 7686a5cb204d1ac54cee26f12d9b7622db3f80d1
+  Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
   Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  Mixpanel: fd52e097ae0d27295d0595b2261c60b94d191fda
-  Parse: 188601c6cd91fae55906badd283b513104a3a8c9
-  ParseTwitterUtils: af5c073b0750519b9efb33c3069a161cdeafe433
-  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
-  Stripe: 141b28d157f12db2e1624315cf19f1b6bd5af84d
+  Mixpanel: 42ae6168effc48481d957f7883dd8514a398738d
+  Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
+  ParseTwitterUtils: 0155d1a4e388690aa5d80405a586474e66606968
+  pop: ce367ec8f3b48b47ea8958e31ed2f9c6c7df7f92
+  Stripe: 04f215191702c268b89fe0cdf28dc24a9688a71b
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   UIImage+BlurredFrame: ad2f7195c6947ea3117c7d202f75a51958d5061a
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

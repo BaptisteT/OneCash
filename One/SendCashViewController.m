@@ -55,7 +55,11 @@
 
 @end
 
-@implementation SendCashViewController
+@implementation SendCashViewController {
+    CGFloat _arrowInitialY;
+    NSInteger _unreadTransactionsCount;
+    NSInteger _unreadReactionsCount;
+}
 
 // --------------------------------------------
 #pragma mark - Life cycle
@@ -66,7 +70,9 @@
     // Init
     self.sentTransactionsCount = 0;
     self.ongoingTransactionsCount = 0;
-    [self setBadgeValue:0];
+    _unreadReactionsCount = 0;
+    _unreadReactionsCount = 0;
+    [self setBadgeValue];
     
     // Wording
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
@@ -75,6 +81,7 @@
     [self.shareUsernameButton setTitle:NSLocalizedString(@"share_username_button", nil) forState:UIControlStateNormal];
 
     // UI
+    _arrowInitialY = self.arrowImageView.frame.origin.y;
     self.arrowImageView.layer.zPosition = -9999;
     self.view.backgroundColor = [UIColor whiteColor];
     self.balanceBadge.backgroundColor = [ColorUtils red];
@@ -101,16 +108,16 @@
     self.titleLabel.layer.shadowOpacity = 0.2;
     [self.shareUsernameButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.shareUsernameButton.layer.zPosition = -999999;
-
-    // Animation
-    [self doArrowAnimation];
-
+    
     // Cash views
     self.presentedCashViews = [NSMutableArray new];
     [self addNewCashSubview];
     
     // Load server data
     [self loadLatestTransactions];
+    
+    // load reactions
+    [self loadUnreadReactions];
     
     // Internet connection
     [self testInternetConnection];
@@ -128,7 +135,11 @@
                                                object: nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadLatestTransactions)
-                                                 name:kNotificationPushReceived
+                                                 name:kNotificationTransactionPushReceived
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(retrievelatestTransactionsAndUnreadReactions)
+                                                 name:kNotificationReactionPushReceived
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(navigateToBalance)
@@ -142,19 +153,27 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    // Keyboard Observer
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
     
     if (self.navigateDirectlyToBalance) {
         self.navigateDirectlyToBalance = NO;
         [self performSelector:@selector(navigateToBalance) withObject:nil afterDelay:0.1];
+    } else {
+        // Keyboard Observer
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillShow:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillHide:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
+        
+        // Animation
+        [self doArrowAnimation:true];
+    
+        // update badge
+        [self countUnreadTransactions];
+        [self countUnreadReactions];
     }
 }
 
@@ -166,7 +185,7 @@
     } else if ([segueName isEqualToString:@"Card From Send"]) {
         ((CardViewController *) [segue destinationViewController]).redirectionViewController = self;
     } else if ([segueName isEqualToString:@"Balance From Send"]) {
-        [self setBadgeValue:0];
+        _unreadTransactionsCount = 0; _unreadReactionsCount = 0; [self setBadgeValue];
         ((BalanceViewController *) [segue destinationViewController]).delegate = self;
     } else if ([segueName isEqualToString:@"Share From Send"]) {
         UIViewController *destination = segue.destinationViewController;
@@ -182,14 +201,20 @@
 }
 
 - (void)willBecomeActiveCallback {
-    // load new transactions
+    [self retrievelatestTransactionsAndUnreadReactions];
+}
+
+- (void)retrievelatestTransactionsAndUnreadReactions {
     [self loadLatestTransactions];
+    [self loadUnreadReactions];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    // Animation
+    [self doArrowAnimation:false];
 }
 
 // --------------------------------------------
@@ -213,7 +238,6 @@
 }
 
 - (void)navigateToCardController {
-    [self dismissViewControllerAnimated:NO completion:nil];
     [self performSegueWithIdentifier:@"Card From Send" sender:nil];
 }
 
@@ -278,7 +302,9 @@
                                       [[NSNotificationCenter defaultCenter] postNotificationName: kNotificationRefreshTransactions
                                                                                           object:nil
                                                                                         userInfo:nil];
-                                      [self setBadgeValueToNewTransactionsCount];
+                                      
+                                      // Recount & update badge
+                                      [self countUnreadTransactions];
                                       
                                       // Mixpanel
                                       [TrackingUtils setPeopleProperties:@{PEOPLE_BALANCE: [NSNumber numberWithInteger:[User currentUser].balance]}];
@@ -286,12 +312,15 @@
                                   failure:nil];
 }
 
-- (void)setBadgeValueToNewTransactionsCount
-{
-    [DatastoreManager getNumberOfTransactionsSinceDate:[DatastoreManager getLastBalanceOpening]
-                                               success:^(NSInteger count) {
-                                                   [self setBadgeValue:count];
-                                               } failure:nil];
+
+// --------------------------------------------
+#pragma mark - Load Reactions
+// --------------------------------------------
+- (void)loadUnreadReactions {
+    [ApiManager getUnreadReactionsAndExecuteSuccess:^{
+        // Recount & update badge
+        [self countUnreadReactions];
+    } failure:nil];
 }
 
 // --------------------------------------------
@@ -330,29 +359,30 @@
                                token:(NSString *)token
 {
     [ApiManager createPaymentTransactionWithTransaction:transaction applePaytoken:token success:^(Transaction *returnTransaction) {
-            // If external show alert
-            if (returnTransaction.receiver.isExternal) {
-                [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_message", nil),self.receiver.caseUsername]];
-            }
-            
-            self.sentTransactionsCount += transaction.transactionAmount;
-            // send notif to balance controller for refresh
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshTransactions
-                                                                object:nil
-                                                              userInfo:nil];
-            if (self.ongoingTransactionsCount == 0) {
-                self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
-            }
-        } failure:^(NSError *error) {
-            if ([error.description containsString:@"card_error"]) {
-                // todo BT
-                // go to check card ?
-            }
-            [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
-            
-            self.ongoingTransactionsCount -= transaction.transactionAmount;
-            [self failedAnimation:transaction.transactionAmount];
-        }];
+        // If external show alert
+        if (returnTransaction.receiver.isExternal) {
+            [GeneralUtils showAlertWithTitle:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_title", nil),self.receiver.caseUsername] andMessage:[NSString stringWithFormat:NSLocalizedString(@"twitter_user_alert_message", nil),self.receiver.caseUsername]];
+        }
+        
+        self.sentTransactionsCount += transaction.transactionAmount;
+        // send notif to balance controller for refresh
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshTransactions
+                                                            object:nil
+                                                          userInfo:nil];
+        if (self.ongoingTransactionsCount == 0) {
+            self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
+        }
+        // remove recipient
+        [self setSelectedUser:nil];
+    } failure:^(NSError *error) {
+        if ([error.description containsString:@"card_error"]) {
+            // go to check card ?
+        }
+        [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
+        
+        self.ongoingTransactionsCount -= transaction.transactionAmount;
+        [self failedAnimation:transaction.transactionAmount];
+    }];
 }
 
 
@@ -436,7 +466,7 @@
         [self removeCashSubview:cashView];
     
      // No cash, no card
-     } else if (![self userExpectedBalanceIsPositive] && [User currentUser].paymentMethod == kPaymentMethodNone) {
+     } else if (![self userExpectedBalanceIsPositive] && [[User currentUser] paymentMethodNotAvailable]) {
          [cashView moveViewToCenterAndExecute:^(POPAnimation *anim, BOOL completed) {
              // if yes, send back to payment controller
              [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"no_card_title", nil)
@@ -541,21 +571,28 @@
     }
 }
 
--(void)doArrowAnimation {
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-        CGRect frame = self.arrowImageView.frame;
-        frame.origin.y -= 50;
-        self.arrowImageView.frame = frame;
-        self.arrowImageView.layer.opacity = 0;
-    } completion:^(BOOL finished) {
-        if (self.arrowImageView) {
+-(void)doArrowAnimation:(BOOL)flag {
+    if (flag && self.arrowImageView) {
+        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
             CGRect frame = self.arrowImageView.frame;
-            frame.origin.y += 50;
+            frame.origin.y -= 50;
             self.arrowImageView.frame = frame;
-            self.arrowImageView.layer.opacity = 0.1;
-            [self doArrowAnimation];
-        }
-    }];
+            self.arrowImageView.layer.opacity = 0;
+        } completion:^(BOOL finished) {
+            if (finished && self.arrowImageView) {
+                CGRect frame = self.arrowImageView.frame;
+                frame.origin.y += 50;
+                self.arrowImageView.frame = frame;
+                self.arrowImageView.layer.opacity = 0.1;
+                [self doArrowAnimation:true];
+            }
+        }];
+    } else {
+        [self.arrowImageView.layer removeAllAnimations];
+        CGRect frame = self.arrowImageView.frame;
+        frame.origin.y = _arrowInitialY + 50;
+        self.arrowImageView.frame = frame;
+    }
 }
 
 -(void)startSendingAnimation {
@@ -819,9 +856,24 @@
                                                             repeats:NO];
 }
 
-- (void)setBadgeValue:(NSInteger)count {
+- (void)setBadgeValue {
+    NSInteger count = _unreadReactionsCount + _unreadTransactionsCount;
     self.balanceBadge.text = [NSString stringWithFormat:@"%lu",(long)count];
     self.balanceBadge.hidden = (count == 0);
+}
+
+- (void)countUnreadReactions {
+    [DatastoreManager getNumberOfUnreadReactionsAndExecuteSuccess:^(NSInteger count) {
+        _unreadReactionsCount = count;
+        [self setBadgeValue];
+    } failure:nil];
+}
+
+- (void)countUnreadTransactions {
+    [DatastoreManager getNumberOfUnreadReceivedTransactionsAndExecuteSuccess:^(NSInteger count) {
+        _unreadTransactionsCount = count;
+        [self setBadgeValue];
+    } failure:nil];
 }
 
 

@@ -57,13 +57,17 @@
         self.createReactionButton.hidden = YES;
     } else {
         self.createReactionButton.hidden = NO;
-        if (self.transaction.reaction != nil) {
-            [self.createReactionButton setTitle:@"✓" forState:UIControlStateNormal];
+        NSString *buttonTitle = self.transaction.reaction ? (self.transaction.reaction.readStatus ? @"✓✓" : @"✓") : @"📷";
+        NSNumber *letterSpacing = @(0);
+        if (self.transaction.reaction) {
             self.createReactionButton.enabled = NO;
+            if (self.transaction.reaction.readStatus) letterSpacing = @(-5);
         } else {
-            [self.createReactionButton setTitle:@"📷" forState:UIControlStateNormal];
             [self animateOngoingReaction:self.transaction.ongoingReaction];
         }
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:buttonTitle];
+        [attributedString addAttributes:@{NSKernAttributeName: letterSpacing, NSForegroundColorAttributeName: [UIColor lightGrayColor]} range:NSMakeRange(0, [buttonTitle length])];
+        [self.createReactionButton setAttributedTitle:attributedString forState:UIControlStateNormal];
     }
 
     // See reaction
@@ -118,7 +122,8 @@
         self.seenImageView.hidden = !self.transaction.readStatus;
         if (transaction.reaction) {
             [self.seeReactionButton setImage:nil forState:UIControlStateNormal];
-            [self animateDownloadingReaction:YES];
+            if (transaction.reaction.readStatus == false)
+                [self animateDownloadingReaction:YES];
             [self.transaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.seeReactionButton setImage:image forState:UIControlStateNormal];
@@ -156,6 +161,7 @@
 - (IBAction)createReactionButtonClicked:(id)sender {
     self.createReactionButton.enabled = NO;
     [self.delegate reactToTransaction:self.transaction];
+    self.createReactionButton.enabled = YES;
 }
 
 - (IBAction)seeReactionButtonClicked:(id)sender {
@@ -230,8 +236,10 @@
         rotationAnimation.repeatCount = INFINITY;
         [self.createReactionShapeCircle addAnimation:rotationAnimation forKey:@"indeterminateAnimation"];
     } else {
-        [self.createReactionShapeCircle removeAllAnimations];
-        [self.createReactionShapeCircle removeFromSuperlayer];
+        if (self.createReactionShapeCircle) {
+            [self.createReactionShapeCircle removeAllAnimations];
+            [self.createReactionShapeCircle removeFromSuperlayer];
+        }
     }
 }
 
@@ -251,8 +259,10 @@
         rotationAnimation.repeatCount = INFINITY;
         [self.seeReactionShapeCircle addAnimation:rotationAnimation forKey:@"indeterminateAnimation"];
     } else {
-        [self.seeReactionShapeCircle removeAllAnimations];
-        [self.seeReactionShapeCircle removeFromSuperlayer];
+        if (self.seeReactionShapeCircle) {
+            [self.seeReactionShapeCircle removeAllAnimations];
+            [self.seeReactionShapeCircle removeFromSuperlayer];
+        }
     }
 }
 

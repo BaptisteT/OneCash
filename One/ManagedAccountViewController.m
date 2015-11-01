@@ -177,10 +177,10 @@
     [ApiManager createManageAccountWithParameters:parameters
                                           success:^{
                                               [DesignUtils hideProgressHUDForView:self.view];
-                                              [TrackingUtils trackEvent:EVENT_CREATE_CASHOUT properties:parameters];
+                                              [TrackingUtils trackEvent:EVENT_MANAGED_ACCOUNT_CREATE properties:parameters];
                                               [self performSegueWithIdentifier:@"AccountCard From Managed" sender:nil];
                                           } failure:^(NSError *error) {
-                                              [TrackingUtils trackEvent:EVENT_CREATE_CASHOUT_FAIL properties:nil];
+                                              [TrackingUtils trackEvent:EVENT_MANAGED_ACCOUNT_FAIL properties:nil];
                                               [DesignUtils hideProgressHUDForView:self.view];
                                               [GeneralUtils showAlertWithTitle:NSLocalizedString(@"unexpected_error_title", nil) andMessage:NSLocalizedString(@"unexpected_error_message", nil)];
                                           }];

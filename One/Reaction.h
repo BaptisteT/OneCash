@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger,ReactionType) {
 };
 
 @property (strong, nonatomic) NSString *transactionId;
+@property (strong, nonatomic) NSString *reactedId;
 @property (nonatomic) ReactionType reactionType;
 @property (strong, nonatomic) PFFile *imageFile;
 @property (nonatomic) BOOL readStatus;

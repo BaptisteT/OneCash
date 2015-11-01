@@ -45,5 +45,6 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 + (NSArray *)createUsersFromTwitterResultArray:(NSArray *)twitterUsers;
 
 - (BOOL)isNew;
+- (BOOL)paymentMethodNotAvailable;
 
 @end

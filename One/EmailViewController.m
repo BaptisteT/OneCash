@@ -94,7 +94,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [DesignUtils hideProgressHUDForView:self.view];
-            [self performSegueWithIdentifier:@"Card From Email" sender:nil];
+            [self performSegueWithIdentifier:@"Send From Email" sender:nil];
         });
     } failure:^(NSError *error) {
         [DesignUtils hideProgressHUDForView:self.view];

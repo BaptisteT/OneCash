@@ -18,6 +18,7 @@
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "GeneralUtils.h"
+#import "PaymentUtils.h"
 #import "TrackingUtils.h"
 
 @interface CardViewController () 
@@ -64,8 +65,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.applePayButton.hidden = ![self applePayEnabled];
-    self.applePayImage.hidden = ![self applePayEnabled];
+    self.applePayButton.hidden = ![PaymentUtils applePayEnabled];
+    self.applePayImage.hidden = ![PaymentUtils applePayEnabled];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -92,8 +93,8 @@
 }
 
 - (IBAction)applePayClicked:(id)sender {
-    BOOL enabled = [self applePayEnabled];
-    [TrackingUtils trackEvent:EVENT_APPLE_PAY_CLICKED properties:@{@"enabled": [NSNumber numberWithBool:enabled]}];
+    BOOL enabled = [PaymentUtils applePayEnabled];
+    [TrackingUtils trackEvent:EVENT_APPLE_PAY_CLICKED properties:nil];
     if (!enabled) {
         [GeneralUtils showAlertWithTitle:NSLocalizedString(@"apple_pay_unavailable_error_title", nil) andMessage:NSLocalizedString(@"apple_pay_unavailable_error_message", nil)];
         return;
@@ -120,11 +121,8 @@
 }
 
 - (void)navigateToSend {
-    if (self.redirectionViewController && [self.redirectionViewController isKindOfClass:[SendCashViewController class]]) {
-        [self.navigationController popToViewController:self.redirectionViewController animated:YES];
-    } else {
-        [self performSegueWithIdentifier:@"Send From Card" sender:nil];
-    }
+    // dismiss card vc
+    [self.redirectionViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)howToButtonClicked:(id)sender {
@@ -132,19 +130,6 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"HowToVC"];
     [self presentViewController:vc animated:YES completion:nil];
-}
-
-// --------------------------------------------
-#pragma mark - Apple pay
-// --------------------------------------------
-
-- (BOOL)applePayEnabled {
-    if ([PKPaymentRequest class]) {
-        PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
-        paymentRequest.currencyCode = @"USD";
-        return [Stripe canSubmitPaymentRequest:paymentRequest];
-    }
-    return NO;
 }
 
 

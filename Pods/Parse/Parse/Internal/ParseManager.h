@@ -9,9 +9,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import <Parse/PFConstants.h>
+
 #import "PFDataProvider.h"
 #import "PFOfflineStore.h"
+#import "PFMacros.h"
 
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFAnalyticsController;
 @class PFCoreManager;
 @class PFInstallationIdentifierStore;
@@ -34,11 +38,14 @@ PFInstallationIdentifierStoreProvider>
 @property (nonatomic, copy, readonly) NSString *containingApplicationIdentifier;
 
 @property (nonatomic, strong, readonly) PFCoreManager *coreManager;
+
+#if !TARGET_OS_WATCH && !TARGET_OS_TV
 @property (nonatomic, strong) PFPushManager *pushManager;
+#endif
 
 @property (nonatomic, strong) PFAnalyticsController *analyticsController;
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS || TARGET_OS_TV
 @property (nonatomic, strong) PFPurchaseController *purchaseController;
 #endif
 

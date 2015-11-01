@@ -63,6 +63,7 @@ static NSString * const kParseTransactionsName = @"Transactions";
 static NSString * const kParseUsersName = @"OneUsers";
 static NSString * const kParseSuggestedUsersName = @"SuggestedUsers";
 static NSString * const kParseLeaderUsersName = @"LeaderUsers";
+static NSString * const kParseReactionName = @"Reactions";
 
 // Messages
 static NSInteger const kMaxMessagesLength = 30;
@@ -82,7 +83,8 @@ static float const kSettingsCellHeight = 50.;
 static float const kMaxTweetLength = 120.;
 
 // Notifications
-static NSString * const kNotificationPushReceived = @"Push received";
+static NSString * const kNotificationTransactionPushReceived = @"Transaction Push received";
+static NSString * const kNotificationReactionPushReceived = @"Reaction Push received";
 static NSString * const kNotificationPushClicked = @"Push Clicked";
 static NSString * const kNotificationRefreshTransactions = @"Refresh Transactions";
 static NSString * const kNotificationUserURLScheme = @"User URL Scheme";

@@ -55,7 +55,7 @@
     @try {
         [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
             if (!user) {
-                [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @NO, @"failure": @"login"}];
+                [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"login"}];
                 OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
                 if (failureBlock) {
                     failureBlock(error);
@@ -75,12 +75,12 @@
                     
                     // Get twitter info
                     [ApiManager getOtherTwitterInfoAndExecuteSuccess:^{
-                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @YES}];
+                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:nil];
                         if (successBlock){
                             successBlock();
                         }
                     } failure:^(NSError *error) {
-                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT properties:@{@"success": @NO, @"failure": @"otherInfo"}];
+                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"otherInfo"}];
                         if (failureBlock) {
                             failureBlock(error);
                         }
@@ -97,7 +97,8 @@
                                        withParameters:nil
                                                 block:^(id object, NSError *error) {
                                                     if (error != nil) {
-                                                        OneLog(ONEAPIMANAGERLOG,@"Failure - postOnTwitter - %@",error.description);
+                                                        OneLog(ONEAPIMANAGERLOG,@"Failure - mergeRealAndExternalUser - %@",error.description);
+                                                        [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"mergeRealAndExternalUser"}];
                                                         if (failureBlock) {
                                                             failureBlock(error);
                                                         }
@@ -555,7 +556,7 @@
     [query includeKey:@"receiver"];
     [query includeKey:@"reaction"];
     [query orderByDescending:@"createdAt"];
-    [query setLimit:20];
+    [query setLimit:30];
     if (date) {
         [query whereKey:@"createdAt" lessThan:date];
     }
@@ -600,15 +601,6 @@
                     successBlock(transactions);
                 }
             }
-            
-            // Mark transactions as read
-            NSMutableArray *unreadTransactions = [NSMutableArray new];
-            for (Transaction *transaction in transactions) {
-                if (transaction.receiver && transaction.receiver == [User currentUser] &&  !transaction.readStatus) {
-                    [unreadTransactions addObject:transaction.objectId];
-                }
-            }
-            [ApiManager markTransactionsAsRead:unreadTransactions success:nil failure:nil];
         }
     }];
 }
@@ -819,7 +811,7 @@
 // --------------------------------------------
 #pragma mark - Reaction
 // --------------------------------------------
-// Add image reaction
+// Create image reaction
 + (void)reactToTransaction:(Transaction *)transaction
                  withImage:(UIImage *)image
                    success:(void(^)())successBlock
@@ -836,6 +828,7 @@
                         failureBlock(error);
                     }
                 } else {
+                    [TrackingUtils trackEvent:EVENT_REACTION_CREATE properties:nil];
                     transaction.reaction = reaction;
                     if (successBlock) {
                         successBlock();
@@ -851,6 +844,7 @@
     }];
 }
 
+// Mark reaction as read
 + (void)markReactionAsRead:(Reaction *)reaction
                    success:(void(^)())successBlock
                    failure:(void(^)(NSError *error))failureBlock
@@ -866,6 +860,35 @@
             if (failureBlock) {
                 failureBlock(error);
             }
+        }
+    }];
+}
+
+// Get unread reaction
++ (void)getUnreadReactionsAndExecuteSuccess:(void(^)())successBlock
+                                    failure:(void(^)(NSError *error))failureBlock
+{
+    PFQuery *query = [PFQuery queryWithClassName:NSStringFromClass([Reaction class])];
+    [query whereKey:@"reactedId" equalTo:[User currentUser].objectId];
+    [query whereKey:@"readStatus" equalTo:[NSNumber numberWithBool:false]];
+    [query setLimit:1000];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *reactions, NSError *error) {
+        if (error != nil) {
+            OneLog(ONEAPIMANAGERLOG,@"failure - get unread reactions - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        } else {
+            OneLog(ONEAPIMANAGERLOG,@"Success - get unread reactions - %lu found",reactions.count);
+            // pin
+            [PFObject unpinAllObjectsInBackgroundWithName:kParseReactionName
+                                                    block:^(BOOL succeeded, NSError * _Nullable error) {
+                                                        [PFObject pinAllInBackground:reactions withName:kParseReactionName block:^(BOOL succeeded, NSError * _Nullable error) {
+                                                            if (succeeded && successBlock) {
+                                                                successBlock();
+                                                            }
+                                                        }];
+                                                    }];
         }
     }];
 }
