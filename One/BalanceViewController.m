@@ -166,11 +166,15 @@
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
         // reload transactions (only if some are new)
         BOOL reload = false;
-        for (Transaction *transaction in transactions) {
-            if (![self.transactions containsObject:transaction]) {
-                reload = true;
-                break;
+        if (transactions && transactions.count > 0) {
+            for (Transaction *transaction in transactions) {
+                if (![self.transactions containsObject:transaction]) {
+                    reload = true;
+                    break;
+                }
             }
+        } else {
+            reload = true;
         }
         if (reload) {
             [self scrollToTop];
