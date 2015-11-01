@@ -10,6 +10,7 @@
 #import "SHEmailValidator.h"
 
 #import "ApiManager.h"
+#import "DatastoreManager.h"
 #import "User.h"
 
 #import "CardViewController.h"
@@ -38,7 +39,7 @@ struct {
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UITableView *settingsTableView;
-@property (strong, nonatomic) NSArray *customerCards;
+@property (strong, nonatomic) NSDictionary *customerCard;
 @property (nonatomic) NSInteger tweetCellHeight;
 @property (strong, nonatomic) IBOutlet UIView *topBarView;
 
@@ -96,10 +97,7 @@ struct {
                                                object: nil];
     
     // Get card
-    [ApiManager getCustomerCardsAndExecuteSuccess:^(NSArray *cards){
-        self.customerCards = cards;
-        [self.settingsTableView reloadData];
-    } failure:nil];
+    self.customerCard = [DatastoreManager getCardInfo];
 }
 
 
@@ -147,6 +145,9 @@ struct {
         event = EVENT_TOUCH_ID_CHANGED;
         property = PEOPLE_TOUCH_ID;
     }
+    // todo BT
+    // bug failure
+    // don't stop UI
     [ApiManager saveCurrentUserAndExecuteSuccess:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [DesignUtils hideProgressHUDForView:self.view];
@@ -209,8 +210,8 @@ struct {
             if ([User currentUser].paymentMethod == kPaymentMethodApplePay) {
                 cell.textLabel.text = @"Apple Pay";
                 cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
-            } else if (self.customerCards && self.customerCards.count > 0) {
-                cell.textLabel.text = [NSString stringWithFormat:@"XXXX XXXX XXXX %@",self.customerCards[0][@"last4"]];
+            } else if (self.customerCard) {
+                cell.textLabel.text = [NSString stringWithFormat:@"XXXX XXXX XXXX %@",self.customerCard[@"last4"]];
                 cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:17];
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -283,8 +284,9 @@ struct {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == SectionTypes.card) {
-        if (indexPath.row == 0)
+        if (indexPath.row == 0) {
             [self performSegueWithIdentifier:@"Card From Settings" sender:nil];
+        }
     } else if (indexPath.section == SectionTypes.email) {
         if (indexPath.row == 0) {
             // change email

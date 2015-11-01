@@ -55,7 +55,7 @@
                               success:(void(^)())successBlock
                               failure:(void(^)(NSError *error))failureBlock;
 
-+ (void)getCustomerCardsAndExecuteSuccess:(void(^)(NSArray *cards))successBlock
++ (void)getCustomerCardsAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock;
 
 + (void)findUsersMatchingStartString:(NSString *)startString

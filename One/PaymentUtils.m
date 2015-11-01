@@ -21,4 +21,11 @@
     return NO;
 }
 
++ (NSDictionary *)encodeSTPCardToNSDictionnary:(STPCard *)card
+{
+    if (!card) return nil;
+    // only one field used for now
+    return [NSDictionary dictionaryWithObjects:@[card.last4] forKeys:@[@"last4"]];
+}
+
 @end

@@ -343,7 +343,7 @@
 }
 
 // Get customer cards
-+ (void)getCustomerCardsAndExecuteSuccess:(void(^)(NSArray *cards))successBlock
++ (void)getCustomerCardsAndExecuteSuccess:(void(^)())successBlock
                                   failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"retrieveCards"
@@ -355,8 +355,11 @@
                                             failureBlock(error);
                                         }
                                     } else {
+                                        if (cards && cards.count > 0) {
+                                            [DatastoreManager saveCardInfo:cards[0]];
+                                        }
                                         if (successBlock) {
-                                            successBlock(cards);
+                                            successBlock();
                                         }
                                     }
                                 }];

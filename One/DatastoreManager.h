@@ -28,6 +28,10 @@
 + (void)getNumberOfUnreadReactionsAndExecuteSuccess:(void(^)(NSInteger count))successBlock
                                             failure:(void(^)(NSError *error))failureBlock;
 
++ (void)saveCardInfo:(NSDictionary *)cardInfo;
+
++ (NSDictionary *)getCardInfo;
+
 + (void)cleanLocalData;
 
 + (BOOL)hasLaunchedOnce:(id)sender;
