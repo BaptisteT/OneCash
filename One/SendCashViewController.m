@@ -57,6 +57,8 @@
 
 @implementation SendCashViewController {
     CGFloat _arrowInitialY;
+    NSInteger _unreadTransactionsCount;
+    NSInteger _unreadReactionsCount;
 }
 
 // --------------------------------------------
@@ -68,7 +70,9 @@
     // Init
     self.sentTransactionsCount = 0;
     self.ongoingTransactionsCount = 0;
-    [self setBadgeValue:0];
+    _unreadReactionsCount = 0;
+    _unreadReactionsCount = 0;
+    [self setBadgeValue];
     
     // Wording
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
@@ -112,6 +116,9 @@
     // Load server data
     [self loadLatestTransactions];
     
+    // load reactions
+    [self loadUnreadReactions];
+    
     // Internet connection
     [self testInternetConnection];
     
@@ -128,7 +135,11 @@
                                                object: nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadLatestTransactions)
-                                                 name:kNotificationPushReceived
+                                                 name:kNotificationTransactionPushReceived
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(retrievelatestTransactionsAndUnreadReactions)
+                                                 name:kNotificationReactionPushReceived
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(navigateToBalance)
@@ -142,23 +153,28 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    // Keyboard Observer
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
     
     if (self.navigateDirectlyToBalance) {
         self.navigateDirectlyToBalance = NO;
         [self performSelector:@selector(navigateToBalance) withObject:nil afterDelay:0.1];
-    }
+    } else {
+        // Keyboard Observer
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillShow:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillHide:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
+        
+        // Animation
+        [self doArrowAnimation:true];
     
-    // Animation
-    [self doArrowAnimation:true];
+        // update badge
+        [self countUnreadTransactions];
+        [self countUnreadReactions];
+    }
 }
 
 
@@ -169,7 +185,7 @@
     } else if ([segueName isEqualToString:@"Card From Send"]) {
         ((CardViewController *) [segue destinationViewController]).redirectionViewController = self;
     } else if ([segueName isEqualToString:@"Balance From Send"]) {
-        [self setBadgeValue:0];
+        _unreadTransactionsCount = 0; _unreadReactionsCount = 0; [self setBadgeValue];
         ((BalanceViewController *) [segue destinationViewController]).delegate = self;
     } else if ([segueName isEqualToString:@"Share From Send"]) {
         UIViewController *destination = segue.destinationViewController;
@@ -185,8 +201,12 @@
 }
 
 - (void)willBecomeActiveCallback {
-    // load new transactions
+    [self retrievelatestTransactionsAndUnreadReactions];
+}
+
+- (void)retrievelatestTransactionsAndUnreadReactions {
     [self loadLatestTransactions];
+    [self loadUnreadReactions];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -282,7 +302,9 @@
                                       [[NSNotificationCenter defaultCenter] postNotificationName: kNotificationRefreshTransactions
                                                                                           object:nil
                                                                                         userInfo:nil];
-                                      [self setBadgeValueToNewTransactionsCount];
+                                      
+                                      // Recount & update badge
+                                      [self countUnreadTransactions];
                                       
                                       // Mixpanel
                                       [TrackingUtils setPeopleProperties:@{PEOPLE_BALANCE: [NSNumber numberWithInteger:[User currentUser].balance]}];
@@ -290,12 +312,15 @@
                                   failure:nil];
 }
 
-- (void)setBadgeValueToNewTransactionsCount
-{
-    [DatastoreManager getNumberOfTransactionsSinceDate:[DatastoreManager getLastBalanceOpening]
-                                               success:^(NSInteger count) {
-                                                   [self setBadgeValue:count];
-                                               } failure:nil];
+
+// --------------------------------------------
+#pragma mark - Load Reactions
+// --------------------------------------------
+- (void)loadUnreadReactions {
+    [ApiManager getUnreadReactionsAndExecuteSuccess:^{
+        // Recount & update badge
+        [self countUnreadReactions];
+    } failure:nil];
 }
 
 // --------------------------------------------
@@ -832,9 +857,24 @@
                                                             repeats:NO];
 }
 
-- (void)setBadgeValue:(NSInteger)count {
+- (void)setBadgeValue {
+    NSInteger count = _unreadReactionsCount + _unreadTransactionsCount;
     self.balanceBadge.text = [NSString stringWithFormat:@"%lu",(long)count];
     self.balanceBadge.hidden = (count == 0);
+}
+
+- (void)countUnreadReactions {
+    [DatastoreManager getNumberOfUnreadReactionsAndExecuteSuccess:^(NSInteger count) {
+        _unreadReactionsCount = count;
+        [self setBadgeValue];
+    } failure:nil];
+}
+
+- (void)countUnreadTransactions {
+    [DatastoreManager getNumberOfUnreadReceivedTransactionsAndExecuteSuccess:^(NSInteger count) {
+        _unreadTransactionsCount = count;
+        [self setBadgeValue];
+    } failure:nil];
 }
 
 

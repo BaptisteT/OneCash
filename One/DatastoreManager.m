@@ -7,13 +7,13 @@
 //
 
 #import "DatastoreManager.h"
+#import "Reaction.h"
 #import "Transaction.h"
 #import "User.h"
 
 #import "ConstantUtils.h"
 #import "OneLogger.h"
 
-#define LAST_BALANCE_OPENING @"Last Balance opening"
 #define HAS_LAUNCHED_ONCE @"Has Launched One %@"
 
 #define RECENT_USERS_ARRAY @"Recent Users Array"
@@ -52,20 +52,18 @@
     }];
 }
 
-+ (void)getNumberOfTransactionsSinceDate:(NSDate *)date
-                                 success:(void(^)(NSInteger count))successBlock
-                                 failure:(void(^)(NSError *error))failureBlock
++ (void)getNumberOfUnreadReceivedTransactionsAndExecuteSuccess:(void(^)(NSInteger count))successBlock
+                                                       failure:(void(^)(NSError *error))failureBlock
 {
     PFQuery *query = [PFQuery queryWithClassName:[Transaction parseClassName]];
     [query fromLocalDatastore];
     [query fromPinWithName:kParseTransactionsName];
-    [query whereKey:@"createdAt" greaterThan:date];
-    [query whereKey:@"sender" notEqualTo:[User currentUser]];
-    [query setLimit:1000];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *transactions, NSError *error) {
+    [query whereKey:@"receiver" equalTo:[User currentUser]];
+    [query whereKey:@"readStatus" equalTo:@"false"];
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError * _Nullable error) {
         if (!error) {
             if (successBlock) {
-                successBlock(transactions.count);
+                successBlock(number);
             }
         } else {
             if (failureBlock) {
@@ -75,16 +73,6 @@
     }];
 }
 
-+ (NSDate *)getLastBalanceOpening {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    return [prefs objectForKey:LAST_BALANCE_OPENING] ? [prefs objectForKey:LAST_BALANCE_OPENING] : [NSDate dateWithTimeIntervalSince1970:0];
-}
-
-+ (void)setLastBalanceOpeningDate:(NSDate *)date {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:date forKey:LAST_BALANCE_OPENING];
-    [prefs synchronize];
-}
 
 + (BOOL)hasLaunchedOnce:(id)sender {
     NSString *string = [NSString stringWithFormat:HAS_LAUNCHED_ONCE,sender];
@@ -182,6 +170,29 @@
 }
 
 
+// --------------------------------------------
+#pragma mark - Reactions
+// --------------------------------------------
++ (void)getNumberOfUnreadReactionsAndExecuteSuccess:(void(^)(NSInteger count))successBlock
+                                            failure:(void(^)(NSError *error))failureBlock
+{
+    PFQuery *query = [PFQuery queryWithClassName:[Reaction parseClassName]];
+    [query fromLocalDatastore];
+    [query fromPinWithName:kParseReactionName];
+    [query whereKey:@"reactedId" equalTo:[User currentUser].objectId];
+    [query whereKey:@"readStatus" equalTo:[NSNumber numberWithBool:false]];
+    [query countObjectsInBackgroundWithBlock:^(int number, NSError * _Nullable error) {
+        if (!error) {
+            if (successBlock) {
+                successBlock(number);
+            }
+        } else {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        }
+    }];
+}
 
 // --------------------------------------------
 #pragma mark - Clean local data

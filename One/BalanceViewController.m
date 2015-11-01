@@ -62,7 +62,6 @@
     // init
     _layoutFlag = YES;
     self.transactions = [NSMutableArray new];
-    [DatastoreManager setLastBalanceOpeningDate:[NSDate date]];
     self.statusTextField.delegate = self;
     
     // Wording
@@ -145,9 +144,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    // Last balance date
-    [DatastoreManager setLastBalanceOpeningDate:[NSDate date]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -214,6 +210,18 @@
     [self adjustFontSizeOfStatusTextField];
 }
 
+// override set transactions to mark as unread
+- (void)setTransactions:(NSMutableArray *)transactions {
+    _transactions = transactions;
+    // Mark transactions as read
+    NSMutableArray *unreadTransactions = [NSMutableArray new];
+    for (Transaction *transaction in transactions) {
+        if (transaction.receiver && transaction.receiver == [User currentUser] &&  !transaction.readStatus) {
+            [unreadTransactions addObject:transaction.objectId];
+        }
+    }
+    [ApiManager markTransactionsAsRead:unreadTransactions success:nil failure:nil];
+}
 
 // --------------------------------------------
 #pragma mark - Table view

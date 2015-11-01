@@ -89,6 +89,10 @@
 + (void)createCashoutAndExecuteSuccess:(void(^)())successBlock
                                failure:(void(^)(NSError *error))failureBlock;
 
++ (void)markTransactionsAsRead:(NSArray *)transactionIds
+                       success:(void(^)())successBlock
+                       failure:(void(^)(NSError *error))failureBlock;
+
 // --------------------------------------------
 #pragma mark - Installation
 // --------------------------------------------
@@ -125,6 +129,10 @@
 + (void)markReactionAsRead:(Reaction *)reaction
                    success:(void(^)())successBlock
                    failure:(void(^)(NSError *error))failureBlock;
+
+// Get unread reaction
++ (void)getUnreadReactionsAndExecuteSuccess:(void(^)())successBlock
+                                    failure:(void(^)(NSError *error))failureBlock;
 
 // --------------------------------------------
 #pragma mark - Recipients

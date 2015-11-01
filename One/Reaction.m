@@ -33,6 +33,7 @@
 {
     Reaction *reaction = [Reaction object];
     reaction.transactionId = transaction.objectId;
+    reaction.reactedId = transaction.sender.objectId;
     reaction.reactionType = kReactionImage;
     reaction.imageFile = imageFile;
     reaction.readStatus = false;

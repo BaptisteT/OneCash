@@ -172,13 +172,13 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     UIApplicationState state = [application applicationState];
-    if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeNewTransaction]) {
+    if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReadTransaction] || [[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeNewTransaction]) {
         if (state == UIApplicationStateActive) {
             // internal notif
             [self displayInternalNotif:userInfo];
             
             // load latest transactions
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushReceived
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationTransactionPushReceived
                                                                 object:nil
                                                               userInfo:nil];
             
@@ -189,18 +189,22 @@
                                                                 object:nil
                                                               userInfo:nil];
         }
-    } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReadTransaction] || [[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReaction]) {
+    } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeReaction]) {
         if (state == UIApplicationStateActive) {
             // internal notif
             [self displayInternalNotif:userInfo];
             
             // load latest transactions
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushReceived
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationReactionPushReceived
                                                                 object:nil
                                                               userInfo:nil];
             
             // Vibrate
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushClicked
+                                                                object:nil
+                                                              userInfo:nil];
         }
     } else if ([[userInfo valueForKey:@"notif_type"] isEqualToString:kNotifTypeSignup]) {
         if (state == UIApplicationStateActive) {

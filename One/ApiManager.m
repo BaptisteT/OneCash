@@ -601,15 +601,6 @@
                     successBlock(transactions);
                 }
             }
-            
-            // Mark transactions as read
-            NSMutableArray *unreadTransactions = [NSMutableArray new];
-            for (Transaction *transaction in transactions) {
-                if (transaction.receiver && transaction.receiver == [User currentUser] &&  !transaction.readStatus) {
-                    [unreadTransactions addObject:transaction.objectId];
-                }
-            }
-            [ApiManager markTransactionsAsRead:unreadTransactions success:nil failure:nil];
         }
     }];
 }
@@ -820,7 +811,7 @@
 // --------------------------------------------
 #pragma mark - Reaction
 // --------------------------------------------
-// Add image reaction
+// Create image reaction
 + (void)reactToTransaction:(Transaction *)transaction
                  withImage:(UIImage *)image
                    success:(void(^)())successBlock
@@ -853,6 +844,7 @@
     }];
 }
 
+// Mark reaction as read
 + (void)markReactionAsRead:(Reaction *)reaction
                    success:(void(^)())successBlock
                    failure:(void(^)(NSError *error))failureBlock
@@ -868,6 +860,35 @@
             if (failureBlock) {
                 failureBlock(error);
             }
+        }
+    }];
+}
+
+// Get unread reaction
++ (void)getUnreadReactionsAndExecuteSuccess:(void(^)())successBlock
+                                    failure:(void(^)(NSError *error))failureBlock
+{
+    PFQuery *query = [PFQuery queryWithClassName:NSStringFromClass([Reaction class])];
+    [query whereKey:@"reactedId" equalTo:[User currentUser].objectId];
+    [query whereKey:@"readStatus" equalTo:[NSNumber numberWithBool:false]];
+    [query setLimit:1000];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *reactions, NSError *error) {
+        if (error != nil) {
+            OneLog(ONEAPIMANAGERLOG,@"failure - get unread reactions - %@",error.description);
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        } else {
+            OneLog(ONEAPIMANAGERLOG,@"Success - get unread reactions - %lu found",reactions.count);
+            // pin
+            [PFObject unpinAllObjectsInBackgroundWithName:kParseReactionName
+                                                    block:^(BOOL succeeded, NSError * _Nullable error) {
+                                                        [PFObject pinAllInBackground:reactions withName:kParseReactionName block:^(BOOL succeeded, NSError * _Nullable error) {
+                                                            if (succeeded && successBlock) {
+                                                                successBlock();
+                                                            }
+                                                        }];
+                                                    }];
         }
     }];
 }
