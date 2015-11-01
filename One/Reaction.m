@@ -16,6 +16,7 @@
 @dynamic reactionType;
 @dynamic imageFile;
 @dynamic readStatus;
+@dynamic reactedId;
 
 @synthesize reactionImage;
 

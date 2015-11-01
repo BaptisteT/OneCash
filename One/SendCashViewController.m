@@ -376,7 +376,6 @@
         [self setSelectedUser:nil];
     } failure:^(NSError *error) {
         if ([error.description containsString:@"card_error"]) {
-            // todo BT
             // go to check card ?
         }
         [ApiManager fetchUser:[User currentUser] success:nil failure:nil];

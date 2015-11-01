@@ -216,7 +216,8 @@
     // Mark transactions as read
     NSMutableArray *unreadTransactions = [NSMutableArray new];
     for (Transaction *transaction in transactions) {
-        if (transaction.receiver && transaction.receiver == [User currentUser] &&  !transaction.readStatus) {
+        if (transaction.receiver && transaction.receiver == [User currentUser] &&  transaction.readStatus == false) {
+            transaction.readStatus = true;
             [unreadTransactions addObject:transaction.objectId];
         }
     }

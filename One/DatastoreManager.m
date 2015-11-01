@@ -59,7 +59,7 @@
     [query fromLocalDatastore];
     [query fromPinWithName:kParseTransactionsName];
     [query whereKey:@"receiver" equalTo:[User currentUser]];
-    [query whereKey:@"readStatus" equalTo:@"false"];
+    [query whereKey:@"readStatus" equalTo:[NSNumber numberWithBool:false]];
     [query countObjectsInBackgroundWithBlock:^(int number, NSError * _Nullable error) {
         if (!error) {
             if (successBlock) {
