@@ -344,7 +344,7 @@
 }
 
 // Get customer cards
-+ (void)getCustomerCardsAndExecuteSuccess:(void(^)())successBlock
++ (void)getCustomerCardsAndExecuteSuccess:(void(^)(NSArray *cards))successBlock
                                   failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"retrieveCards"
@@ -360,7 +360,7 @@
                                             [DatastoreManager saveCardInfo:[PaymentUtils encodeSTPCardToNSDictionnary:cards[0]]];
                                         }
                                         if (successBlock) {
-                                            successBlock();
+                                            successBlock(cards);
                                         }
                                     }
                                 }];

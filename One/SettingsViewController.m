@@ -99,7 +99,7 @@ struct {
     // Get card
     self.customerCard = [DatastoreManager getCardInfo];
     if ([User currentUser].paymentMethod == kPaymentMethodStripe && !self.customerCard) {
-        [ApiManager getCustomerCardsAndExecuteSuccess:^{
+        [ApiManager getCustomerCardsAndExecuteSuccess:^(NSArray *cards) {
             self.customerCard = [DatastoreManager getCardInfo];
             [self.settingsTableView reloadData];
         } failure:nil];
