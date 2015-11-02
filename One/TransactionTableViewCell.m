@@ -60,7 +60,7 @@
         self.createReactionButton.hidden = NO;
         [self.createReactionButton setImage:[UIImage imageNamed: @"reply"] forState:UIControlStateNormal];
         if (self.transaction.reaction) {
-//            self.createReactionButton.enabled = NO;
+            self.createReactionButton.enabled = NO;
             [self.createReactionButton setImage:[UIImage imageNamed: @"reply_sent"] forState:UIControlStateNormal];
             if (self.transaction.reaction.readStatus) {
                 [self.createReactionButton setImage:[UIImage imageNamed: @"reply_seen"] forState:UIControlStateNormal];
