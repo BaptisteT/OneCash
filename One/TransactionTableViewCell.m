@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *seenImageView;
 @property (strong, nonatomic) CAShapeLayer *borderLayer;
 @property (weak, nonatomic) IBOutlet UIButton *createReactionButton;
+
 @property (nonatomic, strong) CAShapeLayer *createReactionShapeCircle;
 @property (nonatomic, strong) CAShapeLayer *seeReactionShapeCircle;
 @property (weak, nonatomic) IBOutlet UIButton *seeReactionButton;
@@ -57,17 +58,16 @@
         self.createReactionButton.hidden = YES;
     } else {
         self.createReactionButton.hidden = NO;
-        NSString *buttonTitle = self.transaction.reaction ? (self.transaction.reaction.readStatus ? @"✓✓" : @"✓") : @"📷";
-        NSNumber *letterSpacing = @(0);
+        [self.createReactionButton setImage:[UIImage imageNamed: @"reply"] forState:UIControlStateNormal];
         if (self.transaction.reaction) {
-            self.createReactionButton.enabled = NO;
-            if (self.transaction.reaction.readStatus) letterSpacing = @(-5);
+//            self.createReactionButton.enabled = NO;
+            [self.createReactionButton setImage:[UIImage imageNamed: @"reply_sent"] forState:UIControlStateNormal];
+            if (self.transaction.reaction.readStatus) {
+                [self.createReactionButton setImage:[UIImage imageNamed: @"reply_seen"] forState:UIControlStateNormal];
+            }
         } else {
             [self animateOngoingReaction:self.transaction.ongoingReaction];
         }
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:buttonTitle];
-        [attributedString addAttributes:@{NSKernAttributeName: letterSpacing, NSForegroundColorAttributeName: [UIColor lightGrayColor]} range:NSMakeRange(0, [buttonTitle length])];
-        [self.createReactionButton setAttributedTitle:attributedString forState:UIControlStateNormal];
     }
 
     // See reaction
@@ -273,12 +273,12 @@
 
 - (void)initLoadingCircleShape
 {
-    self.createReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(0,0,self.createReactionButton.frame.size.width,self.createReactionButton.frame.size.height) borderWidth:1 Color:[ColorUtils mainGreen] subDivisions:100];
+    self.createReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(0,0,self.createReactionButton.frame.size.width,self.createReactionButton.frame.size.height) borderWidth:3 Color:[ColorUtils mainGreen] subDivisions:100];
 }
 
 - (void)initLoadingSeeCircleShape
 {
-    self.seeReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(0,0,self.seeReactionButton.frame.size.width,self.seeReactionButton.frame.size.height) borderWidth:1 Color:[ColorUtils mainGreen] subDivisions:100];
+    self.seeReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(0,0,self.seeReactionButton.frame.size.width,self.seeReactionButton.frame.size.height) borderWidth:3 Color:[ColorUtils mainGreen] subDivisions:100];
 }
 
 @end
