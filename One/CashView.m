@@ -43,12 +43,14 @@
 
 @implementation CashView {
     BOOL _decayAnimEnded;
+    CGFloat _messageInitialSize;
 }
 
 - (void)initWithFrame:(CGRect)frame andDelegate:(id<CashViewDelegateProtocol>)delegate {
     [self setFrame:frame];
     self.delegate = delegate;
     self.initialCenter = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    _messageInitialSize = self.messageTextField.font.pointSize;
     
     // UI
     [self setStaticUI];
@@ -325,6 +327,7 @@
     if (newString.length > kMaxMessagesLength)
         return NO;
     textField.text = newString;
+    [DesignUtils adjustFontSizeOfTextField:self.messageTextField maxFontSize:_messageInitialSize constraintSize:CGSizeMake(self.frame.size.width - 40,MAXFLOAT)];
     return NO;
 }
 

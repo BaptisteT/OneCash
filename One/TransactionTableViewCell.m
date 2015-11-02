@@ -60,7 +60,7 @@
         self.createReactionButton.hidden = NO;
         [self.createReactionButton setImage:[UIImage imageNamed: @"reply"] forState:UIControlStateNormal];
         if (self.transaction.reaction) {
-//            self.createReactionButton.enabled = NO;
+            self.createReactionButton.enabled = NO;
             [self.createReactionButton setImage:[UIImage imageNamed: @"reply_sent"] forState:UIControlStateNormal];
             if (self.transaction.reaction.readStatus) {
                 [self.createReactionButton setImage:[UIImage imageNamed: @"reply_seen"] forState:UIControlStateNormal];
@@ -128,7 +128,6 @@
             __weak Transaction *weakTransaction = self.transaction;
             [weakTransaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    // todo BT test
                     if (self.transaction == weakTransaction) {
                         [self.seeReactionButton setImage:image forState:UIControlStateNormal];
                         [self animateDownloadingReaction:NO];
@@ -165,8 +164,10 @@
 
 - (IBAction)createReactionButtonClicked:(id)sender {
     self.createReactionButton.enabled = NO;
-    [self.delegate reactToTransaction:self.transaction];
-    self.createReactionButton.enabled = YES;
+    if (!self.transaction.reaction) {
+        [self.delegate reactToTransaction:self.transaction];
+        self.createReactionButton.enabled = YES;
+    }
 }
 
 - (IBAction)seeReactionButtonClicked:(id)sender {

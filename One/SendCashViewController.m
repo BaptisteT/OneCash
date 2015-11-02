@@ -247,7 +247,6 @@
 
 - (void)removeRecipientButtonClicked {
     [self setSelectedUser:nil];
-    [self updateCashViewsReceipientInfos];
 }
 
 - (void)logoutUser {
@@ -282,12 +281,16 @@
         NSDictionary* userInfo = notification.userInfo;
         NSString *username = [userInfo objectForKey:@"username"];
         if (username && username.length > 0) {
+            [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor] transform:CGAffineTransformIdentity userInteraction:YES];
             [self setSelectedUser:nil];
             [ApiManager findUserWithUsername:username success:^(User *user){
+                [DesignUtils hideProgressHUDForView:self.view];
                 if (!self.receiver) {
                     [self setSelectedUser:user];
                 }
-            }  failure:nil];
+            }  failure:^(NSError *error) {
+                [DesignUtils hideProgressHUDForView:self.view];
+            }];
         }
     }
 }
@@ -373,7 +376,8 @@
             self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
         }
         // remove recipient
-        [self setSelectedUser:nil];
+        if (self.ongoingTransactionsCount == 0)
+            [self setSelectedUser:nil];
     } failure:^(NSError *error) {
         if ([error.description containsString:@"card_error"]) {
             // go to check card ?

@@ -16,6 +16,7 @@
 
 #import "ConstantUtils.h"
 #import "OneLogger.h"
+#import "PaymentUtils.h"
 #import "TrackingUtils.h"
 
 #define ONEAPIMANAGERLOG YES && GLOBALLOGENABLED
@@ -110,7 +111,7 @@
                                                                 afterLoginBlock();
                                                             }];
                                                         } else {
-                                                        // No external
+                                                            [User currentUser].isNewOverride = NO;
                                                             afterLoginBlock();
                                                         }
                                                     }
@@ -343,7 +344,7 @@
 }
 
 // Get customer cards
-+ (void)getCustomerCardsAndExecuteSuccess:(void(^)())successBlock
++ (void)getCustomerCardsAndExecuteSuccess:(void(^)(NSArray *cards))successBlock
                                   failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"retrieveCards"
@@ -356,10 +357,10 @@
                                         }
                                     } else {
                                         if (cards && cards.count > 0) {
-                                            [DatastoreManager saveCardInfo:cards[0]];
+                                            [DatastoreManager saveCardInfo:[PaymentUtils encodeSTPCardToNSDictionnary:cards[0]]];
                                         }
                                         if (successBlock) {
-                                            successBlock();
+                                            successBlock(cards);
                                         }
                                     }
                                 }];

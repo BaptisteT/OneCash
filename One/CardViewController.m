@@ -61,6 +61,10 @@
     self.topBar.backgroundColor = [ColorUtils mainGreen];
     self.explanationLabel.numberOfLines = 0;
     self.explanationLabel.textColor = [ColorUtils lightBlack];
+    
+    if (IS_IPHONE_4_OR_LESS) {
+        self.explanationLabel.hidden = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

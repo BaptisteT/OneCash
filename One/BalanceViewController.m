@@ -49,6 +49,7 @@
 
 @implementation BalanceViewController{
     BOOL _layoutFlag;
+    CGFloat _statusInitialSize;
 }
 
 
@@ -63,6 +64,7 @@
     _layoutFlag = YES;
     self.transactions = [NSMutableArray new];
     self.statusTextField.delegate = self;
+    _statusInitialSize = self.statusTextField.font.pointSize;
     
     // Wording
     [self.closeButton setTitle:NSLocalizedString(@"close_button", nil) forState:UIControlStateNormal];
@@ -132,7 +134,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     // Load transactions
-    [self loadLatestTransactionsLocally];
+    [self loadLatestTransactionsLocally:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -163,14 +165,22 @@
 #pragma mark - Transactions
 // --------------------------------------------
 - (void)loadLatestTransactionsLocally {
+    [self loadLatestTransactionsLocally:YES];
+}
+
+- (void)loadLatestTransactionsLocally:(BOOL)alwaysReload {
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
         // reload transactions (only if some are new)
-        BOOL reload = false;
-        for (Transaction *transaction in transactions) {
-            if (![self.transactions containsObject:transaction]) {
-                reload = true;
-                break;
+        BOOL reload = false; // todo BT
+        if (!alwaysReload && transactions && transactions.count > 0) {
+            for (Transaction *transaction in transactions) {
+                if (![self.transactions containsObject:transaction]) {
+                    reload = true;
+                    break;
+                }
             }
+        } else {
+            reload = true;
         }
         if (reload) {
             [self scrollToTop];
@@ -207,7 +217,7 @@
     [attr addAttributes:@{NSFontAttributeName: font, NSForegroundColorAttributeName: color} range:NSMakeRange(0,1)];
     self.balanceLabel.attributedText = attr;
     self.statusTextField.text = [User currentUser].userStatus;
-    [self adjustFontSizeOfStatusTextField];
+    [DesignUtils adjustFontSizeOfTextField:self.statusTextField maxFontSize:_statusInitialSize constraintSize:CGSizeMake(self.statusTextField.frame.size.width - 10,MAXFLOAT)];
 }
 
 // override set transactions to mark as unread
@@ -400,29 +410,8 @@
     if (newString.length > kMaxStatusLength)
         return NO;
     textField.text = newString;
-    [self adjustFontSizeOfStatusTextField];
+    [DesignUtils adjustFontSizeOfTextField:self.statusTextField maxFontSize:_statusInitialSize constraintSize:CGSizeMake(self.statusTextField.frame.size.width - 10,MAXFLOAT)];
     return NO;
-}
-
-- (void)adjustFontSizeOfStatusTextField
-{
-    UIFont *font = self.statusTextField.font;
-    CGSize size = self.statusTextField.frame.size;
-    for (CGFloat maxSize = 17; maxSize >= 1; maxSize -= 1.f)
-    {
-        font = [font fontWithSize:maxSize];
-        CGSize constraintSize = CGSizeMake(size.width, MAXFLOAT);
-        CGSize labelSize = [self.statusTextField.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: font} context:nil].size;
-        if(labelSize.height <= size.height)
-        {
-            self.statusTextField.font = font;
-            [self.statusTextField setNeedsLayout];
-            break;
-        }
-    }
-    // set the font to the minimum size anyway
-    self.statusTextField.font = font;
-    [self.statusTextField setNeedsLayout];
 }
 
 - (void)resignStatusFirstResponder {

@@ -98,6 +98,12 @@ struct {
     
     // Get card
     self.customerCard = [DatastoreManager getCardInfo];
+    if ([User currentUser].paymentMethod == kPaymentMethodStripe && !self.customerCard) {
+        [ApiManager getCustomerCardsAndExecuteSuccess:^(NSArray *cards) {
+            self.customerCard = [DatastoreManager getCardInfo];
+            [self.settingsTableView reloadData];
+        } failure:nil];
+    }
 }
 
 
@@ -110,6 +116,9 @@ struct {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    // Get card
+    self.customerCard = [DatastoreManager getCardInfo];
+    // Reload
     [self.settingsTableView reloadData];
 }
 
@@ -145,9 +154,6 @@ struct {
         event = EVENT_TOUCH_ID_CHANGED;
         property = PEOPLE_TOUCH_ID;
     }
-    // todo BT
-    // bug failure
-    // don't stop UI
     [ApiManager saveCurrentUserAndExecuteSuccess:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [DesignUtils hideProgressHUDForView:self.view];
@@ -157,6 +163,11 @@ struct {
             [self.settingsTableView reloadData];
         });
     } failure:^(NSError *error) {
+        if (section == SectionTypes.tweet) {
+            [User currentUser].autoTweet = !state;
+        } else {
+            [User currentUser].touchId = !state;
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             [DesignUtils hideProgressHUDForView:self.view];
             [self.settingsTableView reloadData];
