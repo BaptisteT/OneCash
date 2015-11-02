@@ -281,12 +281,16 @@
         NSDictionary* userInfo = notification.userInfo;
         NSString *username = [userInfo objectForKey:@"username"];
         if (username && username.length > 0) {
+            [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor] transform:CGAffineTransformIdentity userInteraction:YES];
             [self setSelectedUser:nil];
             [ApiManager findUserWithUsername:username success:^(User *user){
+                [DesignUtils hideProgressHUDForView:self.view];
                 if (!self.receiver) {
                     [self setSelectedUser:user];
                 }
-            }  failure:nil];
+            }  failure:^(NSError *error) {
+                [DesignUtils hideProgressHUDForView:self.view];
+            }];
         }
     }
 }
