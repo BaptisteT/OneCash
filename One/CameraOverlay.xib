@@ -57,7 +57,7 @@
                         <action selector="takePictureButtonClicked:" destination="-1" eventType="touchUpInside" id="h49-cZ-CAw"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the screen to react" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8n-G0-mcI">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap the screen to react" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8n-G0-mcI">
                     <rect key="frame" x="213" y="30" width="174" height="18"/>
                     <animations/>
                     <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
@@ -96,7 +96,7 @@
         </view>
     </objects>
     <resources>
-        <image name="back" width="22" height="32"/>
+        <image name="back" width="1000" height="1000"/>
         <image name="thanks_sticker" width="375" height="196"/>
     </resources>
 </document>
