@@ -134,7 +134,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     // Load transactions
-    [self loadLatestTransactionsLocally];
+    [self loadLatestTransactionsLocally:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -165,10 +165,14 @@
 #pragma mark - Transactions
 // --------------------------------------------
 - (void)loadLatestTransactionsLocally {
+    [self loadLatestTransactionsLocally:YES];
+}
+
+- (void)loadLatestTransactionsLocally:(BOOL)alwaysReload {
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
         // reload transactions (only if some are new)
-        BOOL reload = false;
-        if (transactions && transactions.count > 0) {
+        BOOL reload = false; // todo BT
+        if (!alwaysReload && transactions && transactions.count > 0) {
             for (Transaction *transaction in transactions) {
                 if (![self.transactions containsObject:transaction]) {
                     reload = true;

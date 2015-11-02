@@ -111,7 +111,7 @@
                                                                 afterLoginBlock();
                                                             }];
                                                         } else {
-                                                        // No external
+                                                            [User currentUser].isNewOverride = NO;
                                                             afterLoginBlock();
                                                         }
                                                     }
