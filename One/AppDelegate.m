@@ -62,7 +62,7 @@
     // Twitter
     [PFTwitterUtils initializeWithConsumerKey:kTwitterConsumerKey
                                consumerSecret:kTwitterConsumerSecret];
-    
+
     // Fabrick
     [Fabric with:@[CrashlyticsKit]];
     
@@ -106,6 +106,7 @@
         // Identify user
         [TrackingUtils identifyUser:[User currentUser]];
         [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
+        [self logFabrikUser];
         
         // Check if we come from a new message notif
         NSNumber *notifOpening = [NSNumber numberWithBool:NO];
@@ -289,6 +290,16 @@
     }
 }
 
+// --------------------------------------------
+#pragma mark - Fabrik
+// --------------------------------------------
+- (void)logFabrikUser {
+    User *user = [User currentUser];
+    [CrashlyticsKit setUserIdentifier:user.objectId];
+    if (user.email)
+        [CrashlyticsKit setUserEmail:user.email];
+    [CrashlyticsKit setUserName:user.caseUsername];
+}
 
 
 @end
