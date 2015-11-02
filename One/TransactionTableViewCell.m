@@ -164,8 +164,10 @@
 
 - (IBAction)createReactionButtonClicked:(id)sender {
     self.createReactionButton.enabled = NO;
-    [self.delegate reactToTransaction:self.transaction];
-    self.createReactionButton.enabled = YES;
+    if (!self.transaction.reaction) {
+        [self.delegate reactToTransaction:self.transaction];
+        self.createReactionButton.enabled = YES;
+    }
 }
 
 - (IBAction)seeReactionButtonClicked:(id)sender {
