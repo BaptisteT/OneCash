@@ -128,7 +128,6 @@
             __weak Transaction *weakTransaction = self.transaction;
             [weakTransaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    // todo BT test
                     if (self.transaction == weakTransaction) {
                         [self.seeReactionButton setImage:image forState:UIControlStateNormal];
                         [self animateDownloadingReaction:NO];

@@ -257,4 +257,29 @@
     return img;
 }
 
++ (void)adjustFontSizeOfTextField:(UITextField *)textField
+                          maxFontSize:(CGFloat)max
+                   constraintSize:(CGSize)constraintSize
+{
+    UIFont *font = textField.font;
+    font = [font fontWithSize:max];
+    CGSize originalSize = [@"T" boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: font} context:nil].size;
+    
+    for (CGFloat maxSize = max; maxSize >= 1; maxSize -= 1.f)
+    {
+        font = [font fontWithSize:maxSize];
+        
+        CGSize labelSize = [textField.text boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: font} context:nil].size;
+        if(labelSize.height <= originalSize.height)
+        {
+            textField.font = font;
+            [textField setNeedsLayout];
+            break;
+        }
+    }
+    // set the font to the minimum size anyway
+    textField.font = font;
+    [textField setNeedsLayout];
+}
+
 @end

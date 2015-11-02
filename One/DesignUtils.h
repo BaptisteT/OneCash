@@ -54,4 +54,8 @@ typedef NS_ENUM(NSInteger,OneBubblePosition) {
 
 + (UIImage*)createImageFromView:(UIView *)view;
 
++ (void)adjustFontSizeOfTextField:(UITextField *)textField
+                          maxFontSize:(CGFloat)max
+                   constraintSize:(CGSize)constraintSize;
+
 @end
