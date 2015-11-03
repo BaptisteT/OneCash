@@ -313,6 +313,10 @@
     
     textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     
+    // cursor position
+    UITextPosition *beginning = textField.beginningOfDocument;
+    UITextPosition *position = [textField positionFromPosition:beginning offset:range.location + string.length];
+    textField.selectedTextRange = [textField textRangeFromPosition:position toPosition:position];
     
     // check username starting with these strings
     if (textField.text.length > 0) {

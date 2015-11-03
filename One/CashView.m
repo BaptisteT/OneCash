@@ -327,6 +327,13 @@
     if (newString.length > kMaxMessagesLength)
         return NO;
     textField.text = newString;
+    
+    // cursor position
+    UITextPosition *beginning = textField.beginningOfDocument;
+    UITextPosition *position = [textField positionFromPosition:beginning offset:range.location + string.length];
+    textField.selectedTextRange = [textField textRangeFromPosition:position toPosition:position];
+    
+    // Font size
     [DesignUtils adjustFontSizeOfTextField:self.messageTextField maxFontSize:_messageInitialSize constraintSize:CGSizeMake(self.frame.size.width - 40,MAXFLOAT)];
     return NO;
 }

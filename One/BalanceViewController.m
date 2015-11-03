@@ -171,7 +171,7 @@
 - (void)loadLatestTransactionsLocally:(BOOL)alwaysReload {
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
         // reload transactions (only if some are new)
-        BOOL reload = false; // todo BT
+        BOOL reload = false; 
         if (!alwaysReload && transactions && transactions.count > 0) {
             for (Transaction *transaction in transactions) {
                 if (![self.transactions containsObject:transaction]) {
@@ -410,7 +410,15 @@
     if (newString.length > kMaxStatusLength)
         return NO;
     textField.text = newString;
-    [DesignUtils adjustFontSizeOfTextField:self.statusTextField maxFontSize:_statusInitialSize constraintSize:CGSizeMake(self.statusTextField.frame.size.width - 10,MAXFLOAT)];
+    
+    // cursor position
+    UITextPosition *beginning = textField.beginningOfDocument;
+    UITextPosition *position = [textField positionFromPosition:beginning offset:range.location + string.length];
+    textField.selectedTextRange = [textField textRangeFromPosition:position toPosition:position];
+    
+    // Font size
+    [DesignUtils adjustFontSizeOfTextField:self.statusTextField maxFontSize:_statusInitialSize constraintSize:
+     CGSizeMake(self.statusTextField.frame.size.width - 10,MAXFLOAT)];
     return NO;
 }
 
