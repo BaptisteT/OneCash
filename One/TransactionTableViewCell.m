@@ -132,7 +132,7 @@
                         [self.seeReactionButton setImage:image forState:UIControlStateNormal];
                         [self animateDownloadingReaction:NO];
                         if (transaction.reaction.readStatus == false) {
-                            self.backgroundColor = [ColorUtils veryLightBlack];
+//                            self.backgroundColor = [ColorUtils veryLightGreen];
                         }
                     }
                 });
