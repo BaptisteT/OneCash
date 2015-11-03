@@ -284,12 +284,14 @@
 
 - (void)initLoadingCircleShape
 {
-    self.createReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(0,0,self.createReactionButton.frame.size.width,self.createReactionButton.frame.size.height) borderWidth:3 Color:[ColorUtils mainGreen] subDivisions:100];
+    CGFloat cst = 1;
+    self.createReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(cst,cst,self.createReactionButton.frame.size.width-2*cst,self.createReactionButton.frame.size.height-2*cst) borderWidth:3 Color:[ColorUtils mainGreen] subDivisions:100];
 }
 
 - (void)initLoadingSeeCircleShape
 {
-    self.seeReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(0,0,self.seeReactionButton.frame.size.width,self.seeReactionButton.frame.size.height) borderWidth:3 Color:[ColorUtils mainGreen] subDivisions:100];
+    CGFloat cst = 2;
+    self.seeReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(cst,cst,self.seeReactionButton.frame.size.width-2*cst,self.seeReactionButton.frame.size.height-2*cst) borderWidth:3 Color:[ColorUtils mainGreen] subDivisions:100];
 }
 
 @end

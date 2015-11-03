@@ -182,7 +182,8 @@
                                                Color:(UIColor *)color
                                         subDivisions:(NSInteger)nbSubDivisions
 {
-    CGPoint center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
+    CGRect translatedFrame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    CGPoint center = CGPointMake(CGRectGetMidX(translatedFrame), CGRectGetMidY(translatedFrame));
     CGFloat red, green, blue, alpha, subAlpha = 0, startAngle = 0, endAngle = DEGREES_TO_RADIANS(360)/nbSubDivisions;
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
     
@@ -191,13 +192,13 @@
     
     for (int i=0; i<nbSubDivisions; i++) {
         CAShapeLayer *subLayer = [CAShapeLayer new];
-        subLayer.frame = frame;
+        subLayer.frame = translatedFrame;
         subLayer.fillColor = [UIColor clearColor].CGColor;
         subLayer.lineWidth = borderWidth;
         subLayer.strokeColor = [UIColor colorWithRed:red green:green blue:blue alpha:subAlpha].CGColor;
         
         subLayer.path = [UIBezierPath bezierPathWithArcCenter:center
-                                                       radius:frame.size.width/2 + 4
+                                                       radius:frame.size.width/2.
                                                    startAngle:startAngle
                                                      endAngle:endAngle
                                                     clockwise:YES].CGPath;
@@ -258,7 +259,7 @@
 }
 
 + (void)adjustFontSizeOfTextField:(UITextField *)textField
-                          maxFontSize:(CGFloat)max
+                      maxFontSize:(CGFloat)max
                    constraintSize:(CGSize)constraintSize
 {
     UIFont *font = textField.font;
