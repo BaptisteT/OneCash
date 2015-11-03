@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -1970,7 +1970,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PAh-yJ-okV">
-                                                    <rect key="frame" x="321" y="35" width="30" height="30"/>
+                                                    <rect key="frame" x="319" y="35" width="30" height="30"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="206-VZ-7bF"/>
@@ -2052,7 +2052,7 @@
                                                 <constraint firstItem="1VI-a1-a0L" firstAttribute="centerY" secondItem="Iop-hI-peU" secondAttribute="centerY" id="VhA-Xy-5GK"/>
                                                 <constraint firstItem="Iop-hI-peU" firstAttribute="top" secondItem="vos-XS-bF5" secondAttribute="top" constant="10" id="YUf-ZD-V5W"/>
                                                 <constraint firstItem="BX0-1P-F4q" firstAttribute="top" secondItem="vos-XS-bF5" secondAttribute="topMargin" constant="47" id="fZV-WJ-zvj"/>
-                                                <constraint firstItem="PAh-yJ-okV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vos-XS-bF5" secondAttribute="leading" constant="15" id="fxA-lj-KmH"/>
+                                                <constraint firstItem="PAh-yJ-okV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vos-XS-bF5" secondAttribute="leading" constant="20" id="fxA-lj-KmH"/>
                                                 <constraint firstAttribute="trailing" secondItem="Iop-hI-peU" secondAttribute="trailing" constant="15" id="hKj-Jl-0cd"/>
                                                 <constraint firstItem="PAh-yJ-okV" firstAttribute="leading" secondItem="vos-XS-bF5" secondAttribute="leadingMargin" constant="5" id="jDR-ez-mcI"/>
                                                 <constraint firstItem="Iop-hI-peU" firstAttribute="leading" secondItem="vos-XS-bF5" secondAttribute="leading" constant="15" id="kGL-RW-FAF"/>
@@ -2060,7 +2060,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="BX0-1P-F4q" secondAttribute="trailing" constant="1" id="oqP-13-eRp"/>
                                                 <constraint firstAttribute="centerY" secondItem="Iop-hI-peU" secondAttribute="centerY" constant="-10" id="smh-I8-7fG"/>
                                                 <constraint firstItem="PAh-yJ-okV" firstAttribute="centerY" secondItem="Iop-hI-peU" secondAttribute="centerY" id="wBc-64-vhE"/>
-                                                <constraint firstItem="1VI-a1-a0L" firstAttribute="leading" secondItem="PAh-yJ-okV" secondAttribute="trailing" constant="5" id="zbA-Y6-fH4"/>
+                                                <constraint firstItem="1VI-a1-a0L" firstAttribute="leading" secondItem="PAh-yJ-okV" secondAttribute="trailing" constant="7" id="zbA-Y6-fH4"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
