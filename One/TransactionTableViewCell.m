@@ -76,6 +76,7 @@
     self.seeReactionButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.seeReactionButton setAdjustsImageWhenHighlighted:NO];
     
+    
     // Picture tap gesture
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPicture)];
     [self.userPicture addGestureRecognizer:tapGesture];
@@ -132,8 +133,14 @@
                     if (self.transaction == weakTransaction) {
                         [self.seeReactionButton setImage:image forState:UIControlStateNormal];
                         [self animateDownloadingReaction:NO];
-                        if (transaction.reaction.readStatus == false) {
-//                            self.backgroundColor = [ColorUtils veryLightGreen];
+                        if (transaction.reaction.readStatus == true ) {
+                            [self.seeReactionButton setImage:nil forState:UIControlStateNormal];
+                            self.seeReactionButton.backgroundColor = [ColorUtils veryLightBlack];
+                            self.seeReactionButton.layer.borderWidth = 0;
+                        } else {
+                            [self.seeReactionButton setImage:image forState:UIControlStateNormal];
+                            self.seeReactionButton.layer.borderWidth = 0.5;
+                            self.seeReactionButton.layer.borderColor = [ColorUtils veryLightBlack].CGColor;
                         }
                     }
                 });
@@ -157,6 +164,8 @@
 {
     [super layoutSubviews];
     [self setShapeLayers];
+    self.seeReactionButton.layer.cornerRadius = 5;
+    self.seeReactionButton.clipsToBounds = YES;
 }
 
 // --------------------------------------------
