@@ -2052,7 +2052,7 @@
                                                 <constraint firstItem="1VI-a1-a0L" firstAttribute="centerY" secondItem="Iop-hI-peU" secondAttribute="centerY" id="VhA-Xy-5GK"/>
                                                 <constraint firstItem="Iop-hI-peU" firstAttribute="top" secondItem="vos-XS-bF5" secondAttribute="top" constant="10" id="YUf-ZD-V5W"/>
                                                 <constraint firstItem="BX0-1P-F4q" firstAttribute="top" secondItem="vos-XS-bF5" secondAttribute="topMargin" constant="47" id="fZV-WJ-zvj"/>
-                                                <constraint firstItem="PAh-yJ-okV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vos-XS-bF5" secondAttribute="leading" constant="10" id="fxA-lj-KmH"/>
+                                                <constraint firstItem="PAh-yJ-okV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vos-XS-bF5" secondAttribute="leading" constant="15" id="fxA-lj-KmH"/>
                                                 <constraint firstAttribute="trailing" secondItem="Iop-hI-peU" secondAttribute="trailing" constant="15" id="hKj-Jl-0cd"/>
                                                 <constraint firstItem="PAh-yJ-okV" firstAttribute="leading" secondItem="vos-XS-bF5" secondAttribute="leadingMargin" constant="5" id="jDR-ez-mcI"/>
                                                 <constraint firstItem="Iop-hI-peU" firstAttribute="leading" secondItem="vos-XS-bF5" secondAttribute="leading" constant="15" id="kGL-RW-FAF"/>
