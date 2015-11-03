@@ -70,11 +70,6 @@
     [self.paymentTextField becomeFirstResponder];
     
 //    [ApiManager getCustomerCardsAndExecuteSuccess:^(NSArray *cards) {
-//        if (cards && cards.count > 0) {
-//            [DatastoreManager saveCardInfo:cards[0]];
-//        }
-//        // todo BT
-//        // show original card if any in the UI (cf uber)
 //        
 //    } failure:nil];
 }
