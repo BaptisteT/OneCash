@@ -114,6 +114,7 @@
             self.messageLabel.hidden = NO;
             self.messageLabel.text = [NSString stringWithFormat:@" %@     ",transaction.message];
         }else {
+            self.messageLabel.text = @"";
             self.messageLabel.hidden = YES;
         }
         
