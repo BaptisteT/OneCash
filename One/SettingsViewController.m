@@ -90,6 +90,9 @@ struct {
         [self.settingsTableView setLayoutMargins:UIEdgeInsetsZero];
     }
     
+    // fetch
+    [self fetchUser];
+    
     // Callback
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(willBecomeActiveCallback)
@@ -108,10 +111,7 @@ struct {
 
 
 - (void)willBecomeActiveCallback {
-    // Fetch and reload
-    [ApiManager fetchUser:[User currentUser] success:^{
-        [self.settingsTableView reloadData];
-    } failure:nil];
+    [self fetchUser];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -174,6 +174,13 @@ struct {
         });
         
     }];
+}
+
+- (void)fetchUser {
+    // Fetch and reload
+    [ApiManager fetchUser:[User currentUser] success:^{
+        [self.settingsTableView reloadData];
+    } failure:nil];
 }
 
 // --------------------------------------------

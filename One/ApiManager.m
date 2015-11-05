@@ -179,7 +179,8 @@
                           success:(void(^)(NSArray *users, NSString *string))successBlock
                           failure:(void(^)(NSError *error))failureBlock
 {
-    NSURL *verify = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1.1/users/search.json?q=%@&count=10",string]];
+    NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)string, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 ));
+    NSURL *verify = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1.1/users/search.json?q=%@&count=10",encodedString]];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
     [[PFTwitterUtils twitter] signRequest:request];
@@ -281,6 +282,7 @@
                 if (user.email) [peopleProperty setObject:user.email forKey:PEOPLE_EMAIL];
                 if (user.firstName) [peopleProperty setObject:user.firstName forKey:PEOPLE_FIRST_NAME];
                 if (user.lastName) [peopleProperty setObject:user.lastName forKey:PEOPLE_LAST_NAME];
+                if (user.fullName) [peopleProperty setObject:user.lastName forKey:PEOPLE_FULL_NAME];
                 if (user.caseUsername) [peopleProperty setObject:user.caseUsername forKey:PEOPLE_USERNAME];
                 [TrackingUtils setPeopleProperties:peopleProperty];
             } else {
@@ -918,6 +920,19 @@
                                         if (successBlock) {
                                             successBlock();
                                         }
+                                    }
+                                }];
+}
+
++ (void)sendSms
+{
+    [PFCloud callFunctionInBackground:@"sendAppLink"
+                       withParameters:@{@"phoneNumber": @"+33651270873"}
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+
+                                    } else {
+
                                     }
                                 }];
 }

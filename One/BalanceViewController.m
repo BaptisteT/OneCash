@@ -170,8 +170,12 @@
 
 - (void)loadLatestTransactionsLocally:(BOOL)alwaysReload {
     [DatastoreManager getTransactionsLocallyAndExecuteSuccess:^(NSArray *transactions) {
+        if (!transactions || transactions.count == 0) {
+            [self.view bringSubviewToFront:self.transactionsOnboardingView];
+        }
+        
         // reload transactions (only if some are new)
-        BOOL reload = false; 
+        BOOL reload = false;
         if (!alwaysReload && transactions && transactions.count > 0) {
             for (Transaction *transaction in transactions) {
                 if (![self.transactions containsObject:transaction]) {

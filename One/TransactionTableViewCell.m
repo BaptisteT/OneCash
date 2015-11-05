@@ -294,4 +294,7 @@
     self.seeReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(cst,cst,self.seeReactionButton.frame.size.width-2*cst,self.seeReactionButton.frame.size.height-2*cst) borderWidth:3 Color:[ColorUtils mainGreen] subDivisions:100];
 }
 
+// todo BT
+// remove anim in deallocation ?
+
 @end

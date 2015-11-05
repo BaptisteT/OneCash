@@ -53,6 +53,7 @@
 #define PEOPLE_EMAIL @"email"
 #define PEOPLE_FIRST_NAME @"first_name"
 #define PEOPLE_LAST_NAME @"last_name"
+#define PEOPLE_FULL_NAME @"last_name"
 #define PEOPLE_BALANCE @"balance"
 #define PEOPLE_SENDING_TOTAL @"payment_sent.total"
 #define PEOPLE_CASHOUT_TOTAL @"cashout.total"

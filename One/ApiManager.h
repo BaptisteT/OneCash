@@ -150,5 +150,6 @@
 + (void)alertByEmailWithParams:(NSDictionary *)params
                        success:(void(^)())successBlock
                        failure:(void(^)(NSError *error))failureBlock;
++ (void)sendSms;
 
 @end
