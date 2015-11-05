@@ -179,7 +179,7 @@
     NSString * names = [twitterInfo objectForKey:@"name"];
     if (names.length > 0 && !self.lastName) {
         NSMutableArray * array = [NSMutableArray arrayWithArray:[names componentsSeparatedByString:@" "]];
-        self.fullName = [names lowercaseString];
+        self.fullName = [[[NSString alloc] initWithData: [names dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES] encoding:NSASCIIStringEncoding] lowercaseString];
         if ( array.count > 1){
             self.lastName = [array lastObject];
             
