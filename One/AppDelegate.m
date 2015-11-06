@@ -14,6 +14,7 @@
 #import <Mixpanel.h>
 #import <Parse/Parse.h>
 #import <ParseTwitterUtils/ParseTwitterUtils.h>
+#import "SSKeychain.h"
 #import <Stripe.h>
 
 #import "AppDelegate.h"
@@ -162,6 +163,12 @@
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     currentInstallation[@"user"] = [PFUser currentUser];
+    NSString *deviceId = [SSKeychain passwordForService:@"deviceIdentifier" account:@"cash.one"];
+    if (!deviceId || deviceId.length == 0) {
+        deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        [SSKeychain setPassword:deviceId forService:@"deviceIdentifier" account:@"cash.one"];
+    }
+    currentInstallation[@"deviceIdentifier"] = deviceId;
     currentInstallation[@"iosSettings"] = [NSNumber numberWithInteger:[NotifUtils getUserNotificationSettings]];
     [currentInstallation saveEventually];
     

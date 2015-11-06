@@ -221,4 +221,6 @@
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     [PFObject unpinAllObjectsInBackgroundWithName:kParseTransactionsName];
 }
+
+
 @end
