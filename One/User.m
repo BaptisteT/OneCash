@@ -133,14 +133,22 @@
     }
 }
 
-+ (NSArray *)createUsersFromTwitterResultArray:(NSArray *)twitterUsers
++ (NSArray *)createUniqueUsersFromTwitterResultArray:(NSArray *)twitterUsers
 {
     NSMutableArray *results = [NSMutableArray new];
     for (NSDictionary *twitterUser in twitterUsers) {
         User *user = [User new];
         [user updateUserWithTwitterInfo:twitterUser];
         user.isExternal = true;
-        [results addObject:user];
+        BOOL add = YES;
+        for (User *u in results) {
+            if ([u.username isEqualToString:user.username]) {
+                add = NO;
+                break;
+            }
+        }
+        if (add)
+            [results addObject:user];
     }
     return results;
 }

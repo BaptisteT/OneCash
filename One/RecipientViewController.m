@@ -58,7 +58,6 @@
     
     // UI
     self.topBar.backgroundColor = [ColorUtils mainGreen];
-//    [DesignUtils addBottomBorder:self.textfieldContainer borderSize:0.5 color:[ColorUtils mainGreen]];
     self.recipientTextfield.textColor = [ColorUtils mainGreen];
     self.loadingContainer.hidden = YES;
     
@@ -262,6 +261,12 @@
 // --------------------------------------------
 #pragma mark - Utils
 // --------------------------------------------
+// override
+- (void)setSuggestedUsers:(NSArray *)suggestedUsers {
+    _suggestedUsers = [suggestedUsers sortedArrayUsingComparator:^NSComparisonResult(User * _Nonnull obj1, User *  _Nonnull obj2) {
+        return [obj1.username compare:obj2.username];
+    }];
+}
 - (NSInteger)searchedUserSection {
     return self.recipientTextfield.text.length > 0 ? 0 : -1;
 }

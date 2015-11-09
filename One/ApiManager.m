@@ -190,7 +190,7 @@
             NSError * error = nil;
             NSArray * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             if (successBlock) {
-                successBlock([User createUsersFromTwitterResultArray:result], string);
+                successBlock([User createUniqueUsersFromTwitterResultArray:result], string);
             }
         } else {
             OneLog(ONEAPIMANAGERLOG, @"Failure - twitter users - %@",connectionError);
@@ -794,7 +794,7 @@
                             failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"retrieveSuggestedUsers"
-                       withParameters:nil
+                       withParameters:@{@"acceptExternal": [NSNumber numberWithBool:true]}
                                 block:^(NSArray *results, NSError *error) {
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - getSuggestedUsers - %@",error.description);
@@ -802,13 +802,26 @@
                                             failureBlock(error);
                                         }
                                     } else {
+                                        // deal with external user
+                                        NSMutableArray *userArray = [NSMutableArray new];
+                                        NSMutableArray *externalArray = [NSMutableArray new];
+                                        for (id object in results) {
+                                            if ([object isKindOfClass:[User class]]) {
+                                                [userArray addObject:object];
+                                            } else if ([object isKindOfClass:[NSDictionary class]]) {
+                                                [externalArray addObject:object];
+                                            }
+                                        }
+                                        NSArray *externalUsers = [User createUniqueUsersFromTwitterResultArray:externalArray];
+                                        [userArray addObjectsFromArray:externalUsers];
+                                        
                                         if (successBlock) {
-                                            successBlock(results);
+                                            successBlock(userArray);
                                         }
                                         // pin
                                         [PFObject unpinAllObjectsInBackgroundWithName:kParseSuggestedUsersName
                                                                                 block:^(BOOL succeeded, NSError * _Nullable error) {
-                                                                                    [PFObject pinAllInBackground:results withName:kParseSuggestedUsersName];
+                                                                                    [PFObject pinAllInBackground:userArray withName:kParseSuggestedUsersName];
                                                                                 }];
                                     }
                                 }];
