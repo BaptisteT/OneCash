@@ -220,6 +220,10 @@
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     [PFObject unpinAllObjectsInBackgroundWithName:kParseTransactionsName];
+    [PFObject unpinAllObjectsInBackgroundWithName:kParseUsersName];
+    [PFObject unpinAllObjectsInBackgroundWithName:kParseSuggestedUsersName];
+    [PFObject unpinAllObjectsInBackgroundWithName:kParseLeaderUsersName];
+    [PFObject unpinAllObjectsInBackgroundWithName:kParseReactionName];
 }
 
 

@@ -14,6 +14,7 @@
 #import "UserTableViewCell.h"
 
 #import "ColorUtils.h"
+#import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "TrackingUtils.h"
 
@@ -316,7 +317,8 @@
         return NO;
     }
     
-    textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSString *stringSearched = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    textField.text = stringSearched;
     
     // cursor position
     UITextPosition *beginning = textField.beginningOfDocument;
@@ -325,14 +327,26 @@
     
     // check username starting with these strings
     if (textField.text.length > 0) {
-        self.lastStringSearched = textField.text;
+        self.lastStringSearched = stringSearched;
         // Show HUD if not already
         if (self.loadingContainer.hidden) {
             self.loadingContainer.hidden = NO;
             [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils mainGreen] transform:CGAffineTransformMakeScale(0.5, 0.5) userInteraction:NO];
         }
+        [self performSelector:@selector(findOneAndTwitterUsers:) withObject:stringSearched afterDelay:kSearchRequestDelay];
+    } else {
+        self.searchedUsersArray = nil;
+        [self.recipientsTableView reloadData];
+    }
+    
+    return NO;
+}
+
+- (void)findOneAndTwitterUsers:(NSString *)stringSearched
+{
+    if ([stringSearched isEqualToString:self.lastStringSearched]) {
         // One Users
-        [ApiManager findUsersMatchingStartString:self.lastStringSearched
+        [ApiManager findUsersMatchingStartString:stringSearched
                                          success:^(NSString *string, NSArray *users) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  if ([self.lastStringSearched isEqualToString:string]) {
@@ -348,7 +362,7 @@
                                              });
                                          } failure:^(NSError *error) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                 if ([self.lastStringSearched isEqualToString:string]) {
+                                                 if ([self.lastStringSearched isEqualToString:stringSearched]) {
                                                      // end search indicator
                                                      if (!self.loadingContainer.hidden) {
                                                          self.loadingContainer.hidden = YES;
@@ -359,7 +373,7 @@
                                          }];
         
         // Twitter users
-        [ApiManager getTwitterUsersFromString:self.lastStringSearched
+        [ApiManager getTwitterUsersFromString:stringSearched
                                       success:^(NSArray *twitterUsers, NSString *string) {
                                           dispatch_async(dispatch_get_main_queue(), ^{
                                               if ([self.lastStringSearched isEqualToString:string]) {
@@ -368,15 +382,8 @@
                                               }
                                           });
                                       } failure:nil];
-        
-    } else {
-        self.searchedUsersArray = nil;
-        [self.recipientsTableView reloadData];
     }
-    
-    return NO;
 }
-
 // --------------------------------------------
 #pragma mark - UI
 // --------------------------------------------

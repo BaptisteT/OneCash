@@ -181,7 +181,7 @@
 {
     NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)string, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 ));
     NSURL *verify = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1.1/users/search.json?q=%@&count=10",encodedString]];
-    
+
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
     [[PFTwitterUtils twitter] signRequest:request];
     NSOperationQueue * queue = [[NSOperationQueue alloc] init];
@@ -376,7 +376,6 @@
                        withParameters:@{@"startString": [startString lowercaseString]}
                                 block:^(NSArray *objects, NSError *error) {
                                     if (error == nil) {
-                                        OneLog(ONEAPIMANAGERLOG,@"Success - findUserMatchingStartString");
                                         if (successBlock) {
                                             successBlock(startString,objects);
                                         }
@@ -807,7 +806,9 @@
                                         NSMutableArray *externalArray = [NSMutableArray new];
                                         for (id object in results) {
                                             if ([object isKindOfClass:[User class]]) {
-                                                [userArray addObject:object];
+                                                if ((User *)object != [User currentUser]) {
+                                                    [userArray addObject:object];
+                                                }
                                             } else if ([object isKindOfClass:[NSDictionary class]]) {
                                                 [externalArray addObject:object];
                                             }

@@ -40,6 +40,7 @@
 @dynamic touchId;
 @dynamic userStatus;
 @dynamic isExternal;
+@dynamic fullName;
 
 @synthesize isNewOverride;
 @synthesize bigPicture;
@@ -136,6 +137,7 @@
 + (NSArray *)createUniqueUsersFromTwitterResultArray:(NSArray *)twitterUsers
 {
     NSMutableArray *results = [NSMutableArray new];
+    if (![twitterUsers isKindOfClass:[NSArray class]]) return results;
     for (NSDictionary *twitterUser in twitterUsers) {
         User *user = [User new];
         [user updateUserWithTwitterInfo:twitterUser];
