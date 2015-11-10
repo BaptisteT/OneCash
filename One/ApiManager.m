@@ -445,7 +445,6 @@
                        withParameters:@{@"caseUsername": user.caseUsername, @"pictureURL": user.pictureURL, @"twitterId": user.twitterId}
                                 block:^(User *user, NSError *error) {
                                     if (error == nil) {
-                                        OneLog(ONEAPIMANAGERLOG,@"Success - createExternalUser");
                                         if (successBlock) {
                                             successBlock(user);
                                         }
@@ -459,7 +458,26 @@
                                 }];
 }
 
-
++ (void)updateTwitterPictureOfUser:(NSString *)userId
+                           success:(void(^)(User *user))successBlock
+                           failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"updateTwitterPicture"
+                       withParameters:@{@"userId": userId}
+                                block:^(User *user, NSError *error) {
+                                    if (error == nil) {
+                                        if (successBlock) {
+                                            successBlock(user);
+                                        }
+                                    } else {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createExternalUser - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                        
+                                    }
+                                }];
+}
 
 // --------------------------------------------
 #pragma mark - Transactions

@@ -5,7 +5,7 @@
 //  Created by Baptiste Truchot on 8/26/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
-
+#import "ApiManager.h"
 #import "DatastoreManager.h"
 #import "User.h"
 
@@ -78,7 +78,7 @@
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
                                           size:rescaleSize
                                           mode:UIViewContentModeScaleAspectFill
-                                availableBlock:^(UIImage *image) {
+                                availableBlock:^(UIImage *image, NSInteger errorCode) {
                                         if (image) {
                                             OneLog(LOCALLOGENABLED,@"setAvatar : dl %@",sizeFlag ? @"big" : @"small");
                                             if (sizeFlag) {
@@ -91,6 +91,8 @@
                                                     [imageView setImage:image];
                                                 });
                                             }
+                                        } else if (errorCode == 404) {
+                                            [ApiManager updateTwitterPictureOfUser:self.objectId success:nil failure:nil];
                                         }
                                 }   saveLocally:savingFlag];
     }
@@ -118,7 +120,7 @@
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
                                           size:rescaleSize
                                           mode:UIViewContentModeScaleAspectFill
-                                availableBlock:^(UIImage *image) {
+                                availableBlock:^(UIImage *image, NSInteger errorCode) {
                                     if (image) {
                                         OneLog(LOCALLOGENABLED,@"setAvatar : dl %@",flag ? @"big" : @"small");
                                         if (flag) {
@@ -129,7 +131,10 @@
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [button setImage:image forState:UIControlStateNormal];
                                         });
+                                    } else if (errorCode == 404) {
+                                        [ApiManager updateTwitterPictureOfUser:self.objectId success:nil failure:nil];
                                     }
+
                                 }   saveLocally:YES];
     }
 }

@@ -10,7 +10,7 @@
 @import UIKit;
 @import Foundation;
 
-typedef void (^WMOMImageCacheImageAvailableBlock)(UIImage *image);
+typedef void (^WMOMImageCacheImageAvailableBlock)(UIImage *image, NSInteger errorCode);
 
 @interface ImageCache : NSObject
 {
