@@ -51,7 +51,7 @@
 #else
     BOOL debug = false;
 #endif
-    debug = false;
+    
     //Stop app pausing other sound.
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
     
