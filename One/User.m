@@ -13,6 +13,7 @@
 #import "OneLogger.h"
 #import "ImageCache.h"
 #import "PaymentUtils.h"
+#import "TrackingUtils.h"
 #import "UIImageView+UserName.h"
 
 #define LOCALLOGENABLED NO && GLOBALLOGENABLED
@@ -218,6 +219,7 @@
 
 + (void)logOut {
     [DatastoreManager cleanLocalData];
+    [TrackingUtils resetMixpanel];
     [super logOut];
 }
 

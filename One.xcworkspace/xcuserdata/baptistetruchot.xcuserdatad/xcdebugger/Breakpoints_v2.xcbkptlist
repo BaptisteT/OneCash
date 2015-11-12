@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "One/User.m"
-            timestampString = "468848084.647164"
+            timestampString = "468943141.036011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "-setAvatarInButton:bigSize:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "One/ApiManager.m"
-            timestampString = "468848377.214389"
+            timestampString = "469014592.396168"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465"
-            landmarkName = "+updateTwitterPictureOfUser:success:failure:"
+            startingLineNumber = "816"
+            endingLineNumber = "816"
+            landmarkName = "+getSuggestedUsersAndExecuteSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

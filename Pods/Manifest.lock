@@ -2,11 +2,12 @@ PODS:
   - AFBlurSegue (1.2.1)
   - ApplePayStubs (0.2)
   - Bolts/Tasks (1.4.0)
-  - Crashlytics (3.3.4)
+  - Crashlytics (3.4.0):
+    - Fabric (~> 1.6.0)
   - DateTools (1.7.0)
-  - Fabric (1.5.5):
-    - Fabric/Base (= 1.5.5)
-  - Fabric/Base (1.5.5)
+  - Fabric (1.6.0):
+    - Fabric/Base (= 1.6.0)
+  - Fabric/Base (1.6.0)
   - MBProgressHUD (0.9.1)
   - Mixpanel (2.9.0):
     - Mixpanel/Mixpanel (= 2.9.0)
@@ -44,16 +45,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   pop:
-    :commit: 26a268505fd68e0fb537e22628be49ed898acd41
+    :commit: 0f3a6346f2d976090c946cd428c1446712a2487c
     :git: https://github.com/facebook/pop.git
 
 SPEC CHECKSUMS:
   AFBlurSegue: 27e55f015360f4e11117d2c3a959dbb5316eef78
   ApplePayStubs: 5dd63c36527d1117b2045939fb5b6581b4815433
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
-  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
+  Crashlytics: 1ee87895c37472eb3f01f409ea1654a464d2f8d4
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
-  Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
+  Fabric: d737eda3a26ac940a5430230eedb35f16b226131
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Mixpanel: 42ae6168effc48481d957f7883dd8514a398738d
   Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b

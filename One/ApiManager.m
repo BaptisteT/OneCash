@@ -811,7 +811,7 @@
                             failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"retrieveSuggestedUsers"
-                       withParameters:@{@"acceptExternal": [NSNumber numberWithBool:true]}
+                       withParameters:@{@"acceptExternal": [NSNumber numberWithBool:false]}
                                 block:^(NSArray *results, NSError *error) {
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - getSuggestedUsers - %@",error.description);

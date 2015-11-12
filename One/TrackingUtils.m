@@ -58,4 +58,9 @@
     [mixpanel.people increment:property by:[NSNumber numberWithInt:increment]];
 }
 
++ (void)resetMixpanel {
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel reset];
+}
+
 @end
