@@ -177,8 +177,11 @@
     }
     
     UserTableViewCell *cell = (UserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"UserCell"];
-    [cell initWithUser:(User *)userArray[indexPath.row] showBalance:![self isTwitterSection:indexPath.section]];
-    [cell layoutIfNeeded];
+    User *user = (User *)userArray[indexPath.row];
+    if (user) {
+        [cell initWithUser:user];
+        [cell layoutIfNeeded];
+    }
     return cell;
 }
 
@@ -237,7 +240,7 @@
     User *selectedUser = cell.user;
     
     // Track
-    [TrackingUtils trackEvent:EVENT_RECIPIENT_SET properties:@{@"preselected": [NSNumber numberWithBool:self.recipientTextfield.text.length == 0], @"isExternal": [NSNumber numberWithBool:selectedUser.isExternal]}];
+    [TrackingUtils trackEvent:EVENT_RECIPIENT_SET properties:@{@"preselected": [NSNumber numberWithBool:self.recipientTextfield.text.length == 0], @"isExternal": [NSNumber numberWithBool:selectedUser.isExternal], @"sectionName": [self sectionName:indexPath.section]}];
 
     // External case
     if (!selectedUser.isExternal) {
@@ -306,6 +309,20 @@
 
 - (BOOL)isLeaderSection:(NSInteger)section {
     return section == [self leaderboardSection];
+}
+
+- (NSString *)sectionName:(NSInteger)section {
+    if ([self isSearchSection:section]) {
+        return @"Search";
+    } else if ([self isTwitterSection:section]) {
+        return @"Twitter";
+    } else if ([self isRecentSection:section]) {
+        return @"Recent";
+    } else if ([self isSuggestedSection:section]) {
+        return @"Suggested";
+    } else {
+        return @"Leaders";
+    }
 }
 
 // --------------------------------------------

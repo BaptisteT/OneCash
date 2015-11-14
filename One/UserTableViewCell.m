@@ -24,12 +24,12 @@
 
 @implementation UserTableViewCell
 
-- (void)initWithUser:(User *)user showBalance:(BOOL)flag {
+- (void)initWithUser:(User *)user {
     _user = user;
     self.userStatus.text = user.userStatus;
     self.userStatus.hidden = !user.userStatus || user.userStatus.length == 0;
     
-    if(flag && user.balance > 0) {
+    if(user.balance > 0) {
         NSString *balance = [NSString stringWithFormat:@"$%@",[self abbreviateNumber:(int)user.balance]];
         NSString *string = [NSString stringWithFormat:@"%@ %@",balance, user.caseUsername];
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];

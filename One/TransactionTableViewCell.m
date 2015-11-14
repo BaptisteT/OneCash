@@ -80,6 +80,13 @@
     // Picture tap gesture
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPicture)];
     [self.userPicture addGestureRecognizer:tapGesture];
+    
+    // todo BT
+//    NSDataDetector *detect = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeLink error:nil];
+//    NSArray *matches = [detect matchesInString:transaction.message options:0 range:NSMakeRange(0, [transaction.message length])];
+//    if (matches.count > 0) {
+//        NSLog(@"%@", matches);
+//    }
    
     // payment received
     if (!sendFlag) {
@@ -93,7 +100,7 @@
             self.messageLabel.hidden = YES;
         }
         [transaction.sender setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
-        name = [NSString stringWithFormat:@"from $%@, ",transaction.sender.caseUsername];
+        name = [NSString stringWithFormat:@"from %@, ",transaction.sender.caseUsername];
         
     // cash out
     } else if (transaction.transactionType == kTransactionCashout) {
@@ -120,7 +127,7 @@
         }
         
         [transaction.receiver setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
-        name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
+        name = [NSString stringWithFormat:@"to %@, ",transaction.receiver.caseUsername];
         
         self.seenImageView.hidden = !self.transaction.readStatus;
         if (transaction.reaction) {
@@ -294,7 +301,6 @@
     self.seeReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(cst,cst,self.seeReactionButton.frame.size.width-2*cst,self.seeReactionButton.frame.size.height-2*cst) borderWidth:3 Color:[ColorUtils mainGreen] subDivisions:100];
 }
 
-// todo BT
-// remove anim in deallocation ?
+
 
 @end

@@ -56,8 +56,10 @@
     @try {
         [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
             if (!user) {
-                [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"login"}];
-                OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
+                if (error) {
+                    [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"login"}];
+                    OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
+                }
                 if (failureBlock) {
                     failureBlock(error);
                 }
@@ -503,12 +505,13 @@
         [PFCloud callFunctionInBackground:@"createPaymentTransaction"
                            withParameters:params
                                     block:^(NSArray *objects, NSError *error) {
+                                        BOOL containsMessage = paiement.message != nil && paiement.message.length > 0;
                                         if (error != nil) {
                                             OneLog(ONEAPIMANAGERLOG,@"Failure - createPaymentTransaction - %@",error.description);
                                             if (failureBlock) {
                                                 failureBlock(error);
                                             }
-                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:(paiement.message !=nil)], @"method": method, @"error":@"create_payment_error", @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
+                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:containsMessage], @"method": method, @"error":@"create_payment_error", @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
                                         } else {
                                             // pin transaction
                                             Transaction *tr = (Transaction *)(objects[0]);
@@ -518,7 +521,7 @@
                                             }
                                             
                                             // TRACKING
-                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:(paiement.message !=nil)], @"method": method, @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
+                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:containsMessage], @"method": method, @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
                                             [TrackingUtils incrementPeopleProperty:PEOPLE_SENDING_TOTAL byValue:(int)paiement.transactionAmount];
                                         }
                                     }];
@@ -906,6 +909,10 @@
 + (void)getUnreadReactionsAndExecuteSuccess:(void(^)())successBlock
                                     failure:(void(^)(NSError *error))failureBlock
 {
+    if (![User currentUser]) {
+        if (failureBlock) failureBlock(nil);
+        return;
+    }
     PFQuery *query = [PFQuery queryWithClassName:NSStringFromClass([Reaction class])];
     [query whereKey:@"reactedId" equalTo:[User currentUser].objectId];
     [query whereKey:@"readStatus" equalTo:[NSNumber numberWithBool:false]];

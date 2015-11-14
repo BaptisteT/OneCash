@@ -45,7 +45,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   pop:
-    :commit: 0f3a6346f2d976090c946cd428c1446712a2487c
+    :commit: c0792fd9284fed3d92658632c1551cedd002e869
     :git: https://github.com/facebook/pop.git
 
 SPEC CHECKSUMS:
