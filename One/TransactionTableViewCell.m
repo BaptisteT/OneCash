@@ -5,6 +5,7 @@
 //  Created by Baptiste Truchot on 9/7/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import <KILabel.h>
 #import <NSDate+DateTools.h>
 
 #import "Reaction.h"
@@ -21,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userPicture;
 @property (weak, nonatomic) IBOutlet UILabel *nameAndTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet KILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *seenImageView;
 @property (strong, nonatomic) CAShapeLayer *borderLayer;
 @property (weak, nonatomic) IBOutlet UIButton *createReactionButton;
@@ -81,12 +82,20 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPicture)];
     [self.userPicture addGestureRecognizer:tapGesture];
     
-    // todo BT
-//    NSDataDetector *detect = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeLink error:nil];
-//    NSArray *matches = [detect matchesInString:transaction.message options:0 range:NSMakeRange(0, [transaction.message length])];
-//    if (matches.count > 0) {
-//        NSLog(@"%@", matches);
-//    }
+    // Message label => detect URL
+    self.messageLabel.userInteractionEnabled = YES;
+    self.messageLabel.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
+        if (string && string.length > 0) {
+            NSURL *url = [NSURL URLWithString:string];
+            if (url.scheme.length == 0) {
+                string = [@"http://" stringByAppendingString:string];
+                url  = [[NSURL alloc] initWithString:string];
+            }
+            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+    };
    
     // payment received
     if (!sendFlag) {

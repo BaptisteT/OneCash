@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'AD18FF4066F7B4789446AF76'
-               BlueprintName = 'SVPullToRefresh'
+               BlueprintIdentifier = 'D7594F4F5B126AE8A6A9B686'
+               BlueprintName = 'KILabel'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libSVPullToRefresh.a'>
+               BuildableName = 'libKILabel.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

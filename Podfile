@@ -6,6 +6,7 @@ target 'One' do
 pod 'Stripe'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'KILabel', '1.0.0'
 pod 'MBProgressHUD', '~> 0.9.1'
 pod 'Mixpanel'
 pod 'ParseTwitterUtils'

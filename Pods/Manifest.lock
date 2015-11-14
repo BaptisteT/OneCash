@@ -1,13 +1,14 @@
 PODS:
   - AFBlurSegue (1.2.1)
   - ApplePayStubs (0.2)
-  - Bolts/Tasks (1.4.0)
+  - Bolts/Tasks (1.5.0)
   - Crashlytics (3.4.0):
     - Fabric (~> 1.6.0)
   - DateTools (1.7.0)
   - Fabric (1.6.0):
     - Fabric/Base (= 1.6.0)
   - Fabric/Base (1.6.0)
+  - KILabel (1.0.0)
   - MBProgressHUD (0.9.1)
   - Mixpanel (2.9.0):
     - Mixpanel/Mixpanel (= 2.9.0)
@@ -30,6 +31,7 @@ DEPENDENCIES:
   - Crashlytics
   - DateTools
   - Fabric
+  - KILabel (= 1.0.0)
   - MBProgressHUD (~> 0.9.1)
   - Mixpanel
   - Parse
@@ -51,10 +53,11 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFBlurSegue: 27e55f015360f4e11117d2c3a959dbb5316eef78
   ApplePayStubs: 5dd63c36527d1117b2045939fb5b6581b4815433
-  Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
+  Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   Crashlytics: 1ee87895c37472eb3f01f409ea1654a464d2f8d4
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: d737eda3a26ac940a5430230eedb35f16b226131
+  KILabel: 84049969642d4ac1061ebe38ad4c0da37fed108b
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Mixpanel: 42ae6168effc48481d957f7883dd8514a398738d
   Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
