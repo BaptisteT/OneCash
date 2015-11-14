@@ -5,7 +5,7 @@
 //  Created by Baptiste Truchot on 8/26/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
-
+#import "ApiManager.h"
 #import "DatastoreManager.h"
 #import "User.h"
 
@@ -13,6 +13,7 @@
 #import "OneLogger.h"
 #import "ImageCache.h"
 #import "PaymentUtils.h"
+#import "TrackingUtils.h"
 #import "UIImageView+UserName.h"
 
 #define LOCALLOGENABLED NO && GLOBALLOGENABLED
@@ -40,6 +41,7 @@
 @dynamic touchId;
 @dynamic userStatus;
 @dynamic isExternal;
+@dynamic fullName;
 
 @synthesize isNewOverride;
 @synthesize bigPicture;
@@ -77,7 +79,7 @@
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
                                           size:rescaleSize
                                           mode:UIViewContentModeScaleAspectFill
-                                availableBlock:^(UIImage *image) {
+                                availableBlock:^(UIImage *image, NSInteger errorCode) {
                                         if (image) {
                                             OneLog(LOCALLOGENABLED,@"setAvatar : dl %@",sizeFlag ? @"big" : @"small");
                                             if (sizeFlag) {
@@ -90,6 +92,8 @@
                                                     [imageView setImage:image];
                                                 });
                                             }
+                                        } else if (errorCode == 404) {
+                                            [ApiManager updateTwitterPictureOfUser:self.objectId success:nil failure:nil];
                                         }
                                 }   saveLocally:savingFlag];
     }
@@ -117,7 +121,7 @@
         [[ImageCache defaultCache] imageForURL:[NSURL URLWithString:self.pictureURL]
                                           size:rescaleSize
                                           mode:UIViewContentModeScaleAspectFill
-                                availableBlock:^(UIImage *image) {
+                                availableBlock:^(UIImage *image, NSInteger errorCode) {
                                     if (image) {
                                         OneLog(LOCALLOGENABLED,@"setAvatar : dl %@",flag ? @"big" : @"small");
                                         if (flag) {
@@ -128,19 +132,31 @@
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             [button setImage:image forState:UIControlStateNormal];
                                         });
+                                    } else if (errorCode == 404) {
+                                        [ApiManager updateTwitterPictureOfUser:self.objectId success:nil failure:nil];
                                     }
+
                                 }   saveLocally:YES];
     }
 }
 
-+ (NSArray *)createUsersFromTwitterResultArray:(NSArray *)twitterUsers
++ (NSArray *)createUniqueUsersFromTwitterResultArray:(NSArray *)twitterUsers
 {
     NSMutableArray *results = [NSMutableArray new];
+    if (![twitterUsers isKindOfClass:[NSArray class]]) return results;
     for (NSDictionary *twitterUser in twitterUsers) {
         User *user = [User new];
         [user updateUserWithTwitterInfo:twitterUser];
         user.isExternal = true;
-        [results addObject:user];
+        BOOL add = YES;
+        for (User *u in results) {
+            if ([u.username isEqualToString:user.username]) {
+                add = NO;
+                break;
+            }
+        }
+        if (add)
+            [results addObject:user];
     }
     return results;
 }
@@ -179,6 +195,7 @@
     NSString * names = [twitterInfo objectForKey:@"name"];
     if (names.length > 0 && !self.lastName) {
         NSMutableArray * array = [NSMutableArray arrayWithArray:[names componentsSeparatedByString:@" "]];
+        self.fullName = [[[NSString alloc] initWithData: [names dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES] encoding:NSASCIIStringEncoding] lowercaseString];
         if ( array.count > 1){
             self.lastName = [array lastObject];
             
@@ -202,6 +219,7 @@
 
 + (void)logOut {
     [DatastoreManager cleanLocalData];
+    [TrackingUtils resetMixpanel];
     [super logOut];
 }
 

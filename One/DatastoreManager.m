@@ -55,6 +55,10 @@
 + (void)getNumberOfUnreadReceivedTransactionsAndExecuteSuccess:(void(^)(NSInteger count))successBlock
                                                        failure:(void(^)(NSError *error))failureBlock
 {
+    if (![User currentUser]) {
+        if (failureBlock) failureBlock(nil);
+        return;
+    }
     PFQuery *query = [PFQuery queryWithClassName:[Transaction parseClassName]];
     [query fromLocalDatastore];
     [query fromPinWithName:kParseTransactionsName];
@@ -177,6 +181,10 @@
 + (void)getNumberOfUnreadReactionsAndExecuteSuccess:(void(^)(NSInteger count))successBlock
                                             failure:(void(^)(NSError *error))failureBlock
 {
+    if (![User currentUser]) {
+        if (failureBlock) failureBlock(nil);
+        return;
+    }
     PFQuery *query = [PFQuery queryWithClassName:[Reaction parseClassName]];
     [query fromLocalDatastore];
     [query fromPinWithName:kParseReactionName];
@@ -220,5 +228,11 @@
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     [PFObject unpinAllObjectsInBackgroundWithName:kParseTransactionsName];
+    [PFObject unpinAllObjectsInBackgroundWithName:kParseUsersName];
+    [PFObject unpinAllObjectsInBackgroundWithName:kParseSuggestedUsersName];
+    [PFObject unpinAllObjectsInBackgroundWithName:kParseLeaderUsersName];
+    [PFObject unpinAllObjectsInBackgroundWithName:kParseReactionName];
 }
+
+
 @end

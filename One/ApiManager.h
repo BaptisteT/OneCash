@@ -43,6 +43,10 @@
 + (void)alertTwitterFollowersOnSignUpAndSuccess:(void(^)())successBlock
                                         failure:(void(^)(NSError *error))failureBlock;
 
++ (void)updateTwitterPictureOfUser:(NSString *)userId
+                           success:(void(^)(User *user))successBlock
+                           failure:(void(^)(NSError *error))failureBlock;
+
 // --------------------------------------------
 #pragma mark - User
 // --------------------------------------------
@@ -150,5 +154,6 @@
 + (void)alertByEmailWithParams:(NSDictionary *)params
                        success:(void(^)())successBlock
                        failure:(void(^)(NSError *error))failureBlock;
++ (void)sendSms;
 
 @end

@@ -5,6 +5,7 @@
 //  Created by Baptiste Truchot on 9/7/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import <KILabel.h>
 #import <NSDate+DateTools.h>
 
 #import "Reaction.h"
@@ -21,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userPicture;
 @property (weak, nonatomic) IBOutlet UILabel *nameAndTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
-@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet KILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *seenImageView;
 @property (strong, nonatomic) CAShapeLayer *borderLayer;
 @property (weak, nonatomic) IBOutlet UIButton *createReactionButton;
@@ -80,6 +81,21 @@
     // Picture tap gesture
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPicture)];
     [self.userPicture addGestureRecognizer:tapGesture];
+    
+    // Message label => detect URL
+    self.messageLabel.userInteractionEnabled = YES;
+    self.messageLabel.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
+        if (string && string.length > 0) {
+            NSURL *url = [NSURL URLWithString:string];
+            if (url.scheme.length == 0) {
+                string = [@"http://" stringByAppendingString:string];
+                url  = [[NSURL alloc] initWithString:string];
+            }
+            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }
+    };
    
     // payment received
     if (!sendFlag) {
@@ -93,7 +109,7 @@
             self.messageLabel.hidden = YES;
         }
         [transaction.sender setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
-        name = [NSString stringWithFormat:@"from $%@, ",transaction.sender.caseUsername];
+        name = [NSString stringWithFormat:@"from %@, ",transaction.sender.caseUsername];
         
     // cash out
     } else if (transaction.transactionType == kTransactionCashout) {
@@ -120,31 +136,31 @@
         }
         
         [transaction.receiver setAvatarInImageView:self.userPicture bigSize:NO saveLocally:YES];
-        name = [NSString stringWithFormat:@"to $%@, ",transaction.receiver.caseUsername];
+        name = [NSString stringWithFormat:@"to %@, ",transaction.receiver.caseUsername];
         
         self.seenImageView.hidden = !self.transaction.readStatus;
         if (transaction.reaction) {
             [self.seeReactionButton setImage:nil forState:UIControlStateNormal];
-            if (transaction.reaction.readStatus == false)
+            
+            if (transaction.reaction.readStatus == false) {
                 [self animateDownloadingReaction:YES];
-            __weak Transaction *weakTransaction = self.transaction;
-            [weakTransaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (self.transaction == weakTransaction) {
-                        [self.seeReactionButton setImage:image forState:UIControlStateNormal];
-                        [self animateDownloadingReaction:NO];
-                        if (transaction.reaction.readStatus == true ) {
-                            [self.seeReactionButton setImage:nil forState:UIControlStateNormal];
-                            self.seeReactionButton.backgroundColor = [ColorUtils veryLightBlack];
-                            self.seeReactionButton.layer.borderWidth = 0;
-                        } else {
+                __weak Transaction *weakTransaction = self.transaction;
+                [weakTransaction getReactionImageAndExecuteSuccess:^(UIImage *image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (self.transaction == weakTransaction) {
+                            [self.seeReactionButton setImage:image forState:UIControlStateNormal];
+                            [self animateDownloadingReaction:NO];
                             [self.seeReactionButton setImage:image forState:UIControlStateNormal];
                             self.seeReactionButton.layer.borderWidth = 0.5;
                             self.seeReactionButton.layer.borderColor = [ColorUtils veryLightBlack].CGColor;
                         }
-                    }
-                });
-            } failure:nil];
+                    });
+                } failure:nil];
+            } else {
+                [self.seeReactionButton setImage:nil forState:UIControlStateNormal];
+                self.seeReactionButton.backgroundColor = [ColorUtils veryLightBlack];
+                self.seeReactionButton.layer.borderWidth = 0;
+            }
         }
     }
     NSString *time = transaction.createdAt.shortTimeAgoSinceNow;
@@ -293,5 +309,7 @@
     CGFloat cst = 2;
     self.seeReactionShapeCircle = [DesignUtils createGradientCircleLayerWithFrame:CGRectMake(cst,cst,self.seeReactionButton.frame.size.width-2*cst,self.seeReactionButton.frame.size.height-2*cst) borderWidth:3 Color:[ColorUtils mainGreen] subDivisions:100];
 }
+
+
 
 @end

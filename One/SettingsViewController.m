@@ -90,6 +90,9 @@ struct {
         [self.settingsTableView setLayoutMargins:UIEdgeInsetsZero];
     }
     
+    // fetch
+    [self fetchUser];
+    
     // Callback
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(willBecomeActiveCallback)
@@ -108,10 +111,7 @@ struct {
 
 
 - (void)willBecomeActiveCallback {
-    // Fetch and reload
-    [ApiManager fetchUser:[User currentUser] success:^{
-        [self.settingsTableView reloadData];
-    } failure:nil];
+    [self fetchUser];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -174,6 +174,13 @@ struct {
         });
         
     }];
+}
+
+- (void)fetchUser {
+    // Fetch and reload
+    [ApiManager fetchUser:[User currentUser] success:^{
+        [self.settingsTableView reloadData];
+    } failure:nil];
 }
 
 // --------------------------------------------
@@ -400,11 +407,13 @@ struct {
     
     activityViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     activityViewController.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll, UIActivityTypeAddToReadingList, UIActivityTypeAirDrop];
-    [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
-        if (completed) {
-            [TrackingUtils trackEvent:EVENT_INVITE_SENT properties:@{@"sharing_type" : activityType}];
-        }
-    }];
+    if ([activityViewController respondsToSelector:@selector(setCompletionHandler:)]) {
+        [activityViewController setCompletionWithItemsHandler:^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError){
+            if (completed) {
+                [TrackingUtils trackEvent:EVENT_INVITE_SENT properties:@{@"sharing_type" : activityType}];
+            }
+        }];
+    }
     [self presentViewController:activityViewController animated:YES completion:nil];
 }
 

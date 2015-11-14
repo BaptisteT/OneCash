@@ -56,8 +56,10 @@
     @try {
         [PFTwitterUtils logInWithBlock:^(PFUser *user, NSError *error) {
             if (!user) {
-                [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"login"}];
-                OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
+                if (error) {
+                    [TrackingUtils trackEvent:EVENT_TWITTER_CONNECT_FAIL properties:@{@"cause": @"login"}];
+                    OneLog(ONEAPIMANAGERLOG,@"Error - Twitter login - %@",error.description);
+                }
                 if (failureBlock) {
                     failureBlock(error);
                 }
@@ -179,8 +181,9 @@
                           success:(void(^)(NSArray *users, NSString *string))successBlock
                           failure:(void(^)(NSError *error))failureBlock
 {
-    NSURL *verify = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1.1/users/search.json?q=%@&count=10",string]];
-    
+    NSString *encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)string, NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8 ));
+    NSURL *verify = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1.1/users/search.json?q=%@&count=10",encodedString]];
+
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:verify];
     [[PFTwitterUtils twitter] signRequest:request];
     NSOperationQueue * queue = [[NSOperationQueue alloc] init];
@@ -189,7 +192,7 @@
             NSError * error = nil;
             NSArray * result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
             if (successBlock) {
-                successBlock([User createUsersFromTwitterResultArray:result], string);
+                successBlock([User createUniqueUsersFromTwitterResultArray:result], string);
             }
         } else {
             OneLog(ONEAPIMANAGERLOG, @"Failure - twitter users - %@",connectionError);
@@ -281,6 +284,7 @@
                 if (user.email) [peopleProperty setObject:user.email forKey:PEOPLE_EMAIL];
                 if (user.firstName) [peopleProperty setObject:user.firstName forKey:PEOPLE_FIRST_NAME];
                 if (user.lastName) [peopleProperty setObject:user.lastName forKey:PEOPLE_LAST_NAME];
+                if (user.fullName) [peopleProperty setObject:user.lastName forKey:PEOPLE_FULL_NAME];
                 if (user.caseUsername) [peopleProperty setObject:user.caseUsername forKey:PEOPLE_USERNAME];
                 [TrackingUtils setPeopleProperties:peopleProperty];
             } else {
@@ -374,7 +378,6 @@
                        withParameters:@{@"startString": [startString lowercaseString]}
                                 block:^(NSArray *objects, NSError *error) {
                                     if (error == nil) {
-                                        OneLog(ONEAPIMANAGERLOG,@"Success - findUserMatchingStartString");
                                         if (successBlock) {
                                             successBlock(startString,objects);
                                         }
@@ -444,7 +447,6 @@
                        withParameters:@{@"caseUsername": user.caseUsername, @"pictureURL": user.pictureURL, @"twitterId": user.twitterId}
                                 block:^(User *user, NSError *error) {
                                     if (error == nil) {
-                                        OneLog(ONEAPIMANAGERLOG,@"Success - createExternalUser");
                                         if (successBlock) {
                                             successBlock(user);
                                         }
@@ -458,7 +460,26 @@
                                 }];
 }
 
-
++ (void)updateTwitterPictureOfUser:(NSString *)userId
+                           success:(void(^)(User *user))successBlock
+                           failure:(void(^)(NSError *error))failureBlock
+{
+    [PFCloud callFunctionInBackground:@"updateTwitterPicture"
+                       withParameters:@{@"userId": userId}
+                                block:^(User *user, NSError *error) {
+                                    if (error == nil) {
+                                        if (successBlock) {
+                                            successBlock(user);
+                                        }
+                                    } else {
+                                        OneLog(ONEAPIMANAGERLOG,@"Failure - createExternalUser - %@",error.description);
+                                        if (failureBlock) {
+                                            failureBlock(error);
+                                        }
+                                        
+                                    }
+                                }];
+}
 
 // --------------------------------------------
 #pragma mark - Transactions
@@ -484,12 +505,13 @@
         [PFCloud callFunctionInBackground:@"createPaymentTransaction"
                            withParameters:params
                                     block:^(NSArray *objects, NSError *error) {
+                                        BOOL containsMessage = paiement.message != nil && paiement.message.length > 0;
                                         if (error != nil) {
                                             OneLog(ONEAPIMANAGERLOG,@"Failure - createPaymentTransaction - %@",error.description);
                                             if (failureBlock) {
                                                 failureBlock(error);
                                             }
-                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:(paiement.message !=nil)], @"method": method, @"error":@"create_payment_error", @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
+                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:containsMessage], @"method": method, @"error":@"create_payment_error", @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
                                         } else {
                                             // pin transaction
                                             Transaction *tr = (Transaction *)(objects[0]);
@@ -499,7 +521,7 @@
                                             }
                                             
                                             // TRACKING
-                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:(paiement.message !=nil)], @"method": method, @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
+                                            [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT properties:@{@"amount": [NSNumber numberWithInteger:paiement.transactionAmount], @"message": [NSNumber numberWithBool:containsMessage], @"method": method, @"externalReceiver": [NSNumber numberWithBool:paiement.receiver.isExternal]}];
                                             [TrackingUtils incrementPeopleProperty:PEOPLE_SENDING_TOTAL byValue:(int)paiement.transactionAmount];
                                         }
                                     }];
@@ -792,7 +814,7 @@
                             failure:(void(^)(NSError *error))failureBlock
 {
     [PFCloud callFunctionInBackground:@"retrieveSuggestedUsers"
-                       withParameters:nil
+                       withParameters:@{@"acceptExternal": [NSNumber numberWithBool:false]}
                                 block:^(NSArray *results, NSError *error) {
                                     if (error != nil) {
                                         OneLog(ONEAPIMANAGERLOG,@"Failure - getSuggestedUsers - %@",error.description);
@@ -800,13 +822,28 @@
                                             failureBlock(error);
                                         }
                                     } else {
+                                        // deal with external user
+                                        NSMutableArray *userArray = [NSMutableArray new];
+                                        NSMutableArray *externalArray = [NSMutableArray new];
+                                        for (id object in results) {
+                                            if ([object isKindOfClass:[User class]]) {
+                                                if ((User *)object != [User currentUser]) {
+                                                    [userArray addObject:object];
+                                                }
+                                            } else if ([object isKindOfClass:[NSDictionary class]]) {
+                                                [externalArray addObject:object];
+                                            }
+                                        }
+                                        NSArray *externalUsers = [User createUniqueUsersFromTwitterResultArray:externalArray];
+                                        [userArray addObjectsFromArray:externalUsers];
+                                        
                                         if (successBlock) {
-                                            successBlock(results);
+                                            successBlock(userArray);
                                         }
                                         // pin
                                         [PFObject unpinAllObjectsInBackgroundWithName:kParseSuggestedUsersName
                                                                                 block:^(BOOL succeeded, NSError * _Nullable error) {
-                                                                                    [PFObject pinAllInBackground:results withName:kParseSuggestedUsersName];
+                                                                                    [PFObject pinAllInBackground:userArray withName:kParseSuggestedUsersName];
                                                                                 }];
                                     }
                                 }];
@@ -872,6 +909,10 @@
 + (void)getUnreadReactionsAndExecuteSuccess:(void(^)())successBlock
                                     failure:(void(^)(NSError *error))failureBlock
 {
+    if (![User currentUser]) {
+        if (failureBlock) failureBlock(nil);
+        return;
+    }
     PFQuery *query = [PFQuery queryWithClassName:NSStringFromClass([Reaction class])];
     [query whereKey:@"reactedId" equalTo:[User currentUser].objectId];
     [query whereKey:@"readStatus" equalTo:[NSNumber numberWithBool:false]];
@@ -918,6 +959,19 @@
                                         if (successBlock) {
                                             successBlock();
                                         }
+                                    }
+                                }];
+}
+
++ (void)sendSms
+{
+    [PFCloud callFunctionInBackground:@"sendAppLink"
+                       withParameters:@{@"phoneNumber": @"+33651270873"}
+                                block:^(id object, NSError *error) {
+                                    if (error != nil) {
+
+                                    } else {
+
                                     }
                                 }];
 }

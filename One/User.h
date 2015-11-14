@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 @property (retain) NSString *pictureURL;
 @property (retain) NSString *firstName;
 @property (retain) NSString *lastName;
+@property (retain) NSString *fullName;
 @property (retain) NSString *twitterId;
 @property (nonatomic) PaymentMethod paymentMethod;
 @property (nonatomic) NSInteger balance;
@@ -42,7 +43,7 @@ typedef NS_ENUM(NSInteger,PaymentMethod) {
 - (BOOL)isEmailVerified;
 - (void)updateUserWithTwitterInfo:(NSDictionary *)twitterInfo;
 
-+ (NSArray *)createUsersFromTwitterResultArray:(NSArray *)twitterUsers;
++ (NSArray *)createUniqueUsersFromTwitterResultArray:(NSArray *)twitterUsers;
 
 - (BOOL)isNew;
 - (BOOL)paymentMethodNotAvailable;

@@ -14,6 +14,7 @@
 #import "UserTableViewCell.h"
 
 #import "ColorUtils.h"
+#import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "TrackingUtils.h"
 
@@ -58,7 +59,6 @@
     
     // UI
     self.topBar.backgroundColor = [ColorUtils mainGreen];
-//    [DesignUtils addBottomBorder:self.textfieldContainer borderSize:0.5 color:[ColorUtils mainGreen]];
     self.recipientTextfield.textColor = [ColorUtils mainGreen];
     self.loadingContainer.hidden = YES;
     
@@ -177,8 +177,11 @@
     }
     
     UserTableViewCell *cell = (UserTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"UserCell"];
-    [cell initWithUser:(User *)userArray[indexPath.row] showBalance:![self isTwitterSection:indexPath.section]];
-    [cell layoutIfNeeded];
+    User *user = (User *)userArray[indexPath.row];
+    if (user) {
+        [cell initWithUser:user];
+        [cell layoutIfNeeded];
+    }
     return cell;
 }
 
@@ -237,7 +240,7 @@
     User *selectedUser = cell.user;
     
     // Track
-    [TrackingUtils trackEvent:EVENT_RECIPIENT_SET properties:@{@"preselected": [NSNumber numberWithBool:self.recipientTextfield.text.length == 0], @"isExternal": [NSNumber numberWithBool:selectedUser.isExternal]}];
+    [TrackingUtils trackEvent:EVENT_RECIPIENT_SET properties:@{@"preselected": [NSNumber numberWithBool:self.recipientTextfield.text.length == 0], @"isExternal": [NSNumber numberWithBool:selectedUser.isExternal], @"sectionName": [self sectionName:indexPath.section]}];
 
     // External case
     if (!selectedUser.isExternal) {
@@ -262,6 +265,12 @@
 // --------------------------------------------
 #pragma mark - Utils
 // --------------------------------------------
+// override
+- (void)setSuggestedUsers:(NSArray *)suggestedUsers {
+    _suggestedUsers = [suggestedUsers sortedArrayUsingComparator:^NSComparisonResult(User * _Nonnull obj1, User *  _Nonnull obj2) {
+        return [obj1.username compare:obj2.username];
+    }];
+}
 - (NSInteger)searchedUserSection {
     return self.recipientTextfield.text.length > 0 ? 0 : -1;
 }
@@ -302,6 +311,20 @@
     return section == [self leaderboardSection];
 }
 
+- (NSString *)sectionName:(NSInteger)section {
+    if ([self isSearchSection:section]) {
+        return @"Search";
+    } else if ([self isTwitterSection:section]) {
+        return @"Twitter";
+    } else if ([self isRecentSection:section]) {
+        return @"Recent";
+    } else if ([self isSuggestedSection:section]) {
+        return @"Suggested";
+    } else {
+        return @"Leaders";
+    }
+}
+
 // --------------------------------------------
 #pragma mark - Text field
 // --------------------------------------------
@@ -311,7 +334,8 @@
         return NO;
     }
     
-    textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSString *stringSearched = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    textField.text = stringSearched;
     
     // cursor position
     UITextPosition *beginning = textField.beginningOfDocument;
@@ -320,14 +344,26 @@
     
     // check username starting with these strings
     if (textField.text.length > 0) {
-        self.lastStringSearched = textField.text;
+        self.lastStringSearched = stringSearched;
         // Show HUD if not already
         if (self.loadingContainer.hidden) {
             self.loadingContainer.hidden = NO;
             [DesignUtils showProgressHUDAddedTo:self.loadingContainer withColor:[ColorUtils mainGreen] transform:CGAffineTransformMakeScale(0.5, 0.5) userInteraction:NO];
         }
+        [self performSelector:@selector(findOneAndTwitterUsers:) withObject:stringSearched afterDelay:kSearchRequestDelay];
+    } else {
+        self.searchedUsersArray = nil;
+        [self.recipientsTableView reloadData];
+    }
+    
+    return NO;
+}
+
+- (void)findOneAndTwitterUsers:(NSString *)stringSearched
+{
+    if ([stringSearched isEqualToString:self.lastStringSearched]) {
         // One Users
-        [ApiManager findUsersMatchingStartString:self.lastStringSearched
+        [ApiManager findUsersMatchingStartString:stringSearched
                                          success:^(NSString *string, NSArray *users) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                  if ([self.lastStringSearched isEqualToString:string]) {
@@ -343,7 +379,7 @@
                                              });
                                          } failure:^(NSError *error) {
                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                 if ([self.lastStringSearched isEqualToString:string]) {
+                                                 if ([self.lastStringSearched isEqualToString:stringSearched]) {
                                                      // end search indicator
                                                      if (!self.loadingContainer.hidden) {
                                                          self.loadingContainer.hidden = YES;
@@ -354,7 +390,7 @@
                                          }];
         
         // Twitter users
-        [ApiManager getTwitterUsersFromString:self.lastStringSearched
+        [ApiManager getTwitterUsersFromString:stringSearched
                                       success:^(NSArray *twitterUsers, NSString *string) {
                                           dispatch_async(dispatch_get_main_queue(), ^{
                                               if ([self.lastStringSearched isEqualToString:string]) {
@@ -363,15 +399,8 @@
                                               }
                                           });
                                       } failure:nil];
-        
-    } else {
-        self.searchedUsersArray = nil;
-        [self.recipientsTableView reloadData];
     }
-    
-    return NO;
 }
-
 // --------------------------------------------
 #pragma mark - UI
 // --------------------------------------------

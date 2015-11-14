@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -231,6 +231,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cbG-Qj-SfJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="603" y="64"/>
+        </scene>
+        <!--Tuto View Controller-->
+        <scene sceneID="KZd-3o-WG5">
+            <objects>
+                <viewController storyboardIdentifier="TutoViewController" id="nkC-Uk-WC4" customClass="TutoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oki-lM-6ac"/>
+                        <viewControllerLayoutGuide type="bottom" id="aXk-H0-E8e"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="log-tj-Xis">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X0C-iz-wG2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="597" y="816"/>
         </scene>
         <!--How To View Controller-->
         <scene sceneID="X93-xf-FBn">
@@ -1857,7 +1875,7 @@
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" yo comment tu vas ? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" translatesAutoresizingMaskIntoConstraints="NO" id="9pP-Bd-Msg">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" yo comment tu vas ? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="3" translatesAutoresizingMaskIntoConstraints="NO" id="9pP-Bd-Msg" customClass="KILabel">
                                                             <rect key="frame" x="40" y="0.0" width="142.5" height="40"/>
                                                             <animations/>
                                                             <color key="backgroundColor" red="0.12549020350000001" green="0.53725492949999998" blue="0.14901961389999999" alpha="1" colorSpace="deviceRGB"/>
@@ -1986,7 +2004,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1VI-a1-a0L">
                                                     <rect key="frame" x="356" y="30" width="182.5" height="40"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" yo comment tu vas ? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="Cgx-Cl-GuP">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" yo comment tu vas ? " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="Cgx-Cl-GuP" customClass="KILabel">
                                                             <rect key="frame" x="0.0" y="0.0" width="142.5" height="40"/>
                                                             <animations/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -2715,7 +2733,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jmu-D9-d7J">
-                                                    <rect key="frame" x="68" y="13" width="487" height="33.5"/>
+                                                    <rect key="frame" x="68" y="13" width="480" height="33.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awI-uy-jb8">
                                                             <rect key="frame" x="0.0" y="0.0" width="42" height="17"/>
@@ -2768,18 +2786,22 @@
                                                     </variation>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAQ-cV-nVV">
-                                                    <rect key="frame" x="565" y="15" width="25" height="29.5"/>
+                                                    <rect key="frame" x="558" y="10" width="34" height="40"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="PGO-93-xji"/>
-                                                        <constraint firstAttribute="height" constant="29.5" id="fFF-tw-vTk"/>
+                                                        <constraint firstAttribute="width" secondItem="hAQ-cV-nVV" secondAttribute="height" multiplier="25:29" id="e57-lo-tte"/>
+                                                        <constraint firstAttribute="height" constant="40" id="fFF-tw-vTk"/>
                                                         <constraint firstAttribute="width" constant="15" id="iaQ-7C-H8V"/>
+                                                        <constraint firstAttribute="height" constant="40" id="rqW-FU-KN2"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="socicon" family="socicon" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                     <state key="normal" image="TwitterIcon"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
+                                                            <exclude reference="PGO-93-xji"/>
+                                                            <exclude reference="fFF-tw-vTk"/>
                                                             <exclude reference="iaQ-7C-H8V"/>
                                                         </mask>
                                                     </variation>
@@ -2792,7 +2814,7 @@
                                             <constraints>
                                                 <constraint firstItem="hAQ-cV-nVV" firstAttribute="centerY" secondItem="T0j-j8-Hka" secondAttribute="centerY" id="1Ni-Xp-v2A"/>
                                                 <constraint firstItem="hAQ-cV-nVV" firstAttribute="leading" secondItem="Jmu-D9-d7J" secondAttribute="trailing" id="89K-Qg-ubx"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="hAQ-cV-nVV" secondAttribute="trailing" constant="2" id="Nj9-Je-K8p"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hAQ-cV-nVV" secondAttribute="trailing" id="Nj9-Je-K8p"/>
                                                 <constraint firstItem="0xG-qv-OR8" firstAttribute="leading" secondItem="T0j-j8-Hka" secondAttribute="leading" constant="18" id="aID-qt-iYn"/>
                                                 <constraint firstItem="Jmu-D9-d7J" firstAttribute="leading" secondItem="0xG-qv-OR8" secondAttribute="trailing" constant="10" id="cZ8-p3-rzz"/>
                                                 <constraint firstItem="hAQ-cV-nVV" firstAttribute="leading" secondItem="Jmu-D9-d7J" secondAttribute="trailing" constant="10" id="e39-uu-BUP"/>

@@ -15,7 +15,7 @@
 
 @property (strong, nonatomic) User *user;
 
-- (void)initWithUser:(User *)user showBalance:(BOOL)flag;
+- (void)initWithUser:(User *)user;
 
 @end
 

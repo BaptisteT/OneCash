@@ -76,6 +76,7 @@ static NSInteger const kAssociationTransactionsLimit = 50;
 
 // Recipient
 static NSInteger const kRecentUserCount = 3;
+static float const kSearchRequestDelay = 0.35;
 
 // Settings
 static float const kSettingsHeaderHeight = 25.;

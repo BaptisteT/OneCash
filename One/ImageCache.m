@@ -103,7 +103,7 @@
     if(localData) {
         UIImage *tmpImage = [UIImage imageWithData:localData];
         dispatch_async(dispatch_get_main_queue(),^{
-            availableBlock(tmpImage);//Direct returns, image with right size is here
+            availableBlock(tmpImage,0);//Direct returns, image with right size is here
         });
     } else if([@[@"http",@"https"] containsObject:[url scheme]]){
         OneLog(LOCALLOGENABLED, @"[IMAGECACHE] --> Download image");
@@ -113,22 +113,22 @@
             if (!data || 0 == [data length] ){
                 OneLog(LOCALLOGENABLED, @"[IMAGECACHE] --> image nil or empty, error %@", connectionError);
                 dispatch_async(dispatch_get_main_queue(),^{
-                    availableBlock(nil);
+                    availableBlock(nil,errorCode);
                 });
             } else if (errorCode == 404) {
                  OneLog(LOCALLOGENABLED, @"[IMAGECACHE] --> 404 not found");
                 dispatch_async(dispatch_get_main_queue(),^{
-                    availableBlock(nil);
+                    availableBlock(nil,errorCode);
                 });
             } else if (connectionError || errorCode >= 300) {
                 OneLog(LOCALLOGENABLED, @"[IMAGECACHE] --> %lu",errorCode);
                 dispatch_async(dispatch_get_main_queue(),^{
-                    availableBlock(nil);
+                    availableBlock(nil,errorCode);
                 });
             } else if (!saveFlag) {
                 // avoid saving
                 dispatch_async(dispatch_get_main_queue(),^{
-                    availableBlock([UIImage imageWithData:data]);
+                    availableBlock([UIImage imageWithData:data],errorCode);
                 });
                 return;
             } else {
@@ -138,12 +138,12 @@
             NSData *sizeData = [self _localDataForKey:tmpKey andSize:desiredImageSize];
             UIImage *tmpImage = [UIImage imageWithData:sizeData];
             dispatch_async(dispatch_get_main_queue(),^{
-                availableBlock(tmpImage);
+                availableBlock(tmpImage,errorCode);
             });
         }];
     } else { //no idea about the scheme send back nil directly
         dispatch_async(dispatch_get_main_queue(),^{
-            availableBlock(nil);
+            availableBlock(nil,500);
         });
     }
 }

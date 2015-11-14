@@ -9,6 +9,7 @@
 #import "User.h"
 
 #import "SendCashViewController.h"
+#import "TutoViewController.h"
 #import "WelcomeViewController.h"
 
 #import "ColorUtils.h"
@@ -22,6 +23,9 @@
 
 @interface WelcomeViewController ()
 
+@property (strong, nonatomic) UIPageViewController *tutoPageViewController;
+@property (strong, nonatomic) NSArray *pageImages;
+@property (strong, nonatomic) NSArray *pageTitles;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *howToButton;
 @property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
@@ -45,6 +49,23 @@
     NSString *privacy = NSLocalizedString(@"privacy_policy", nil);
     NSString *completeString = [NSString stringWithFormat:NSLocalizedString(@"terms_label", nil),terms,privacy];
     
+    // Create the data model
+    // todo BT
+    _pageTitles = @[NSLocalizedString(@"wemoms_tagline", nil), NSLocalizedString(@"tuto_feed", nil), NSLocalizedString(@"tuto_question", nil)];
+    _pageImages = @[@"tuto_image_feed", @"tuto_image_feed", @"tuto_image_question"];
+    
+    // Page VC
+    self.tutoPageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
+    self.tutoPageViewController.delegate = self;
+    self.tutoPageViewController.dataSource = self;
+    TutoViewController *startingViewController = [self viewControllerAtIndex:0];
+    NSArray *viewControllers = @[startingViewController];
+    [self.tutoPageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    [self addChildViewController:self.tutoPageViewController];
+    [self.view insertSubview:self.tutoPageViewController.view atIndex:0];
+    [self.tutoPageViewController didMoveToParentViewController:self];
+    self.tutoPageViewController.extendedLayoutIncludesOpaqueBars = YES;
+    
     // UI
     self.view.backgroundColor = [ColorUtils mainGreen];
     self.loginButton.layer.cornerRadius = self.loginButton.frame.size.height / 2;
@@ -66,6 +87,11 @@
     // Gesture
     UITapGestureRecognizer *termsTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnTerms)];
     [self.termsLabel addGestureRecognizer:termsTap];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.tutoPageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.loginButton.frame.origin.y);
 }
 
 
@@ -129,6 +155,57 @@
 // Redirect to terms webpage
 - (void)tapOnTerms {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kOneWebsiteTermsLink]];
+}
+
+// --------------------------------------------
+#pragma mark - Page View Controller Data Source
+// --------------------------------------------
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+{
+    NSUInteger index = ((TutoViewController*) viewController).pageIndex;
+    if ((index == 0) || (index == NSNotFound)) {
+        return nil;
+    }
+    index--;
+    return [self viewControllerAtIndex:index];
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
+    NSUInteger index = ((TutoViewController*) viewController).pageIndex;
+    if (index == NSNotFound) {
+        return nil;
+    }
+    index++;
+    if (index == [self.pageTitles count]) {
+        return nil;
+    }
+    return [self viewControllerAtIndex:index];
+}
+
+- (TutoViewController *)viewControllerAtIndex:(NSUInteger)index
+{
+    if (([self.pageTitles count] == 0) || (index >= [self.pageTitles count])) {
+        return nil;
+    }
+    
+    // Create a new view controller and pass suitable data.
+    TutoViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TutoViewController"];
+    pageContentViewController.tutoImage = self.pageImages[index];
+    pageContentViewController.tutoText = self.pageTitles[index];
+    pageContentViewController.pageIndex = index;
+    
+    return pageContentViewController;
+}
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
+{
+    return [self.pageTitles count];
+}
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+{
+    return 0;
 }
 
 // --------------------------------------------
