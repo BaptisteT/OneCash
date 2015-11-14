@@ -379,8 +379,8 @@
         if (self.ongoingTransactionsCount == 0)
             [self setSelectedUser:nil];
     } failure:^(NSError *error) {
-        if ([error.description containsString:@"card_error"]) {
-            // go to check card ?
+        if ([error.description containsString:@"transactions_limit"]) {
+            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"transactions_limit_title", nil) andMessage:NSLocalizedString(@"transactions_limit_message", nil)];
         }
         [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
         
