@@ -83,6 +83,7 @@
     [self.userPicture addGestureRecognizer:tapGesture];
     
     // Message label => detect URL
+    self.messageLabel.linkDetectionTypes = KILinkTypeOptionURL;
     self.messageLabel.userInteractionEnabled = YES;
     self.messageLabel.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
         if (string && string.length > 0) {

@@ -110,6 +110,8 @@
 "add_status_tuto" = "Add a personalized status here";
 "camera_access_error_title" = "One does not have access to your camera.";
 "camera_access_error_message" = "Please allow access in settings.";
+"new_react_button" = "1 new reaction";
+"new_reacts_button" = "%lu new reactions";
 
 // Recipients
 "to" = "to";
