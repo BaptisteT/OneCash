@@ -17,7 +17,8 @@
 @property (strong, nonatomic) UIImagePickerController * imagePickerController;
 @property (weak, nonatomic) IBOutlet UIButton *cameraFlipButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-@property (weak, nonatomic) IBOutlet UIButton *takePictureButton;
+@property (weak, nonatomic) IBOutlet UIImageView *cameraSticker;
+
 // Edit
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIButton *photoConfirmButton;
@@ -43,7 +44,6 @@
     self.photoConfirmButton.hidden = YES;
     self.photoDeleteButton.hidden = YES;
     self.stickerImageView.hidden = YES;
-    self.cameraFlipButton.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -54,7 +54,7 @@
     } else if (self.imageView.image) {
         self.photoConfirmButton.hidden = NO;
         self.photoDeleteButton.hidden = NO;
-        self.stickerImageView.hidden = NO;
+        self.stickerImageView.hidden = self.cameraSticker.hidden;
     }
 }
 
@@ -103,6 +103,9 @@
     NSArray* nibViews = [[NSBundle mainBundle] loadNibNamed:xibName owner:self options:nil];
     UIView* myView = [ nibViews objectAtIndex: 0];
     myView.frame = self.view.frame;
+    myView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *takePhotoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToTakePicture:)];
+    [myView addGestureRecognizer:takePhotoTap];
     
     imagePickerController.cameraOverlayView = myView;
     
@@ -135,8 +138,12 @@
 }
 
 
-- (IBAction)takePictureButtonClicked:(id)sender {
-    [self.imagePickerController takePicture];
+- (void)tapToTakePicture:(UITapGestureRecognizer *)gesture {
+    if (self.imagePickerController.cameraOverlayView.frame.size.height - [gesture locationInView:self.imagePickerController.cameraOverlayView].y < 100) {
+        self.cameraSticker.hidden = YES;
+    } else {
+        [self.imagePickerController takePicture];
+    }
 }
 
 

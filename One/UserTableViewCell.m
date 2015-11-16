@@ -34,7 +34,9 @@
     // Message label => detect URL
     self.userStatus.linkDetectionTypes = KILinkTypeOptionURL;
     self.userStatus.userInteractionEnabled = YES;
+    [self.userStatus setAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.userStatus.font.pointSize]} forLinkType:KILinkTypeURL];
     self.userStatus.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
+        [TrackingUtils trackEvent:EVENT_LINK_CLICKED properties:@{@"origin": @"message"}];
         if (string && string.length > 0) {
             NSURL *url = [NSURL URLWithString:string];
             if (url.scheme.length == 0) {

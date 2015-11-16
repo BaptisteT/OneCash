@@ -404,7 +404,6 @@
 				A4A2B5081BADDBA300CDAF07 /* Fonts */,
 				3C2E03741B8DA18B00D22D48 /* Main.storyboard */,
 				3C2E03791B8DA18B00D22D48 /* LaunchScreen.xib */,
-				3C401B431BDF47250070F8D2 /* CameraOverlay.xib */,
 				3CC5FDD11B99D73100514A43 /* PushNoAnimationSegue.h */,
 				3CC5FDD21B99D73100514A43 /* PushNoAnimationSegue.m */,
 				A413CD8A1BB1A6FC0079CD41 /* Images.xcassets */,
@@ -520,6 +519,7 @@
 				3C43B6471BA9B239006679DE /* AccountCardViewController.m */,
 				3C401B3F1BDF441F0070F8D2 /* CameraViewController.h */,
 				3C401B401BDF441F0070F8D2 /* CameraViewController.m */,
+				3C401B431BDF47250070F8D2 /* CameraOverlay.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

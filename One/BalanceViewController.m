@@ -199,16 +199,15 @@
         
         // reset balance
         [self setBalanceAndStatus];
-    } failure:nil];
+    } failure:^(NSError *error) {
+        // if not working, try it remotely
+        [self loadOlderTransactionsRemotely];
+    }];
 }
 
 - (void)loadOlderTransactionsRemotely {
-    if (!self.transactions || self.transactions.count == 0) {
-        [self.transactionsTableView.infiniteScrollingView stopAnimating];
-        return;
-    }
-    Transaction *oldest = self.transactions.lastObject;
-    [ApiManager getTransactionsBeforeDate:oldest.createdAt
+    NSDate *beforeDate = self.transactions.count == 0 ? [NSDate date] : ((Transaction *)self.transactions.lastObject).createdAt;
+    [ApiManager getTransactionsBeforeDate:beforeDate
                                   success:^(NSArray *transactions) {
                                       [self.transactionsTableView.infiniteScrollingView stopAnimating];
                                       [self.transactions addObjectsFromArray:transactions];
