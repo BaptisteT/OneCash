@@ -399,7 +399,7 @@
     self.applePaySendingTransaction = transaction;
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
-        NSInteger valueToWithdraw = self.ongoingTransactionsCount - [User currentUser].balance;
+        NSInteger valueToWithdraw = transaction.transactionAmount + (self.ongoingTransactionsCount - transaction.transactionAmount - [User currentUser].balance);
         NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:valueToWithdraw];
         paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:[NSString stringWithFormat:NSLocalizedString(@"apple_pay_item", nil),transaction.receiver.caseUsername] amount:amount]];
 #if DEBUG

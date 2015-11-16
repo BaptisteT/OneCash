@@ -344,6 +344,7 @@
 }
 
 - (IBAction)reactsButtonClicked:(id)sender {
+    if (self.transactions.count == 0) return;
     for (Transaction *transaction in self.transactions) {
         if (transaction.sender == [User currentUser] && transaction.reaction && !transaction.reaction.readStatus) {
             [self.transactionsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.transactions indexOfObject:transaction] inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
