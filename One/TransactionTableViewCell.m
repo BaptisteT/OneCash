@@ -24,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userPicture;
 @property (weak, nonatomic) IBOutlet UILabel *nameAndTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valueLabel;
-@property (weak, nonatomic) IBOutlet KILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *seenImageView;
 @property (strong, nonatomic) CAShapeLayer *borderLayer;
 @property (weak, nonatomic) IBOutlet UIButton *createReactionButton;
@@ -57,6 +57,10 @@
     self.backgroundColor = [UIColor whiteColor];
     
     // Tuto
+    if (self.createReactionOnboarding) {
+        [self.createReactionOnboarding removeFromSuperview];
+        self.createReactionOnboarding = nil;
+    }
     if (self.transaction.sender != [User currentUser] && !self.transaction.reaction  && self.transaction.receiverType != kReceiverAutoRefund && ![DatastoreManager hasLaunchedOnce:@"react"]) {
         [self performSelector:@selector(addReactionOnboarding) withObject:nil afterDelay:1];
     }
@@ -90,27 +94,27 @@
     [self.userPicture addGestureRecognizer:tapGesture];
     
     // Message label => detect URL
-    self.messageLabel.linkDetectionTypes = KILinkTypeOptionURL;
-    self.messageLabel.userInteractionEnabled = YES;
-    [self.messageLabel setAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.messageLabel.font.pointSize]} forLinkType:KILinkTypeURL];
-    self.messageLabel.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
-        [TrackingUtils trackEvent:EVENT_LINK_CLICKED properties:@{@"origin": @"message"}];
-        if (string && string.length > 0) {
-            NSURL *url = [NSURL URLWithString:string];
-            if (url.scheme.length == 0) {
-                string = [@"http://" stringByAppendingString:string];
-                url  = [[NSURL alloc] initWithString:string];
-            }
-            if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                [[UIApplication sharedApplication] openURL:url];
-            }
-        }
-    };
+//    self.messageLabel.linkDetectionTypes = KILinkTypeOptionURL;
+//    self.messageLabel.userInteractionEnabled = YES;
+//    self.messageLabel.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
+//        [TrackingUtils trackEvent:EVENT_LINK_CLICKED properties:@{@"origin": @"message"}];
+//        if (string && string.length > 0) {
+//            NSURL *url = [NSURL URLWithString:string];
+//            if (url.scheme.length == 0) {
+//                string = [@"http://" stringByAppendingString:string];
+//                url  = [[NSURL alloc] initWithString:string];
+//            }
+//            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+//                [[UIApplication sharedApplication] openURL:url];
+//            }
+//        }
+//    };
    
     // payment received
     if (!sendFlag) {
         self.valueLabel.backgroundColor = [ColorUtils mainGreen];
         self.messageLabel.backgroundColor = [ColorUtils darkGreen];
+//        [self.messageLabel setAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.messageLabel.font.pointSize]} forLinkType:KILinkTypeURL];
         if (transaction.message && transaction.message.length > 0) {
             self.messageLabel.hidden = NO;
             self.messageLabel.text = [NSString stringWithFormat:@"%@     ",transaction.message];
@@ -136,7 +140,7 @@
     } else {
         self.valueLabel.backgroundColor = [ColorUtils mainGreen];
         self.messageLabel.textColor = [ColorUtils mainGreen];
-        
+//        [self.messageLabel setAttributes:@{NSForegroundColorAttributeName: [ColorUtils mainGreen], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.messageLabel.font.pointSize]} forLinkType:KILinkTypeURL];
         if (transaction.message && transaction.message.length > 0) {
             self.messageLabel.hidden = NO;
             self.messageLabel.text = [NSString stringWithFormat:@" %@     ",transaction.message];
