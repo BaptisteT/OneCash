@@ -51,8 +51,8 @@
     
     // Create the data model
     // todo BT
-    _pageTitles = @[NSLocalizedString(@"wemoms_tagline", nil), NSLocalizedString(@"tuto_feed", nil), NSLocalizedString(@"tuto_question", nil)];
-    _pageImages = @[@"tuto_image_feed", @"tuto_image_feed", @"tuto_image_question"];
+    _pageTitles = @[NSLocalizedString(@"", nil), NSLocalizedString(@"tuto_makeitrain", nil), NSLocalizedString(@"tuto_selfie", nil), NSLocalizedString(@"tuto_get", nil)];
+    _pageImages = @[@"logoHome", @"", @"", @""];
     
     // Page VC
     self.tutoPageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -91,7 +91,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.tutoPageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.loginButton.frame.origin.y);
+    self.tutoPageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 
@@ -195,7 +195,7 @@
     pageContentViewController.tutoImage = self.pageImages[index];
     pageContentViewController.tutoText = self.pageTitles[index];
     pageContentViewController.pageIndex = index;
-    
+
     return pageContentViewController;
 }
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
