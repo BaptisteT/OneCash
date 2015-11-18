@@ -58,6 +58,7 @@
 #define PEOPLE_FULL_NAME @"full_name"
 #define PEOPLE_BALANCE @"balance"
 #define PEOPLE_SENDING_TOTAL @"payment_sent.total"
+#define PEOPLE_RECEIVED_TOTAL @"payment_received.total"
 #define PEOPLE_CASHOUT_TOTAL @"cashout.total"
 #define PEOPLE_AUTO_TWEET @"auto_tweet"
 #define PEOPLE_TOUCH_ID @"touchId"
