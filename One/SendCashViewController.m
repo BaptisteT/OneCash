@@ -78,7 +78,9 @@
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
     self.pickRecipientAlertLabel.text = NSLocalizedString(@"no_receiver_red_bar", nil);
     [self setSelectedUser:nil];
-    [self.shareUsernameButton setTitle:NSLocalizedString(@"share_username_button", nil) forState:UIControlStateNormal];
+    
+    NSString *title = NSLocalizedString(@"share_username_button", nil);
+    [self.shareUsernameButton setTitle:title forState:UIControlStateNormal];
 
     // UI
     _arrowInitialY = self.arrowImageView.frame.origin.y;
@@ -148,6 +150,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(loadUserAndSetSelected:)
                                                  name:kNotificationUserURLScheme
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(recipientButtonClicked)
+                                                 name:kNotificationOpenRecipients
                                                object:nil];
 }
 
@@ -230,6 +236,7 @@
 
 - (void)recipientButtonClicked {
     if (self.ongoingTransactionsCount == 0) {
+        [self dismissViewControllerAnimated:NO completion:nil];
         [TrackingUtils trackEvent:EVENT_RECIPIENT_CLICKED properties:nil];
         [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
         // Remove selected user
@@ -242,6 +249,7 @@
 }
 
 - (void)navigateToBalance {
+    [self dismissViewControllerAnimated:NO completion:nil];
     [self performSegueWithIdentifier:@"Balance From Send" sender:nil];
 }
 

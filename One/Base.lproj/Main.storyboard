@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -12,7 +12,6 @@
             <string>ProximaNova-Light</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Regular.otf">
-            <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
@@ -196,6 +195,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Jmj-On-FQv">
+                                <rect key="frame" x="280" y="13" width="39" height="37"/>
+                            </pageControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
@@ -203,11 +205,13 @@
                             <constraint firstItem="fbq-UD-eE5" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="1uT-bn-Mu3"/>
                             <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="73" id="33i-k5-8dP"/>
                             <constraint firstAttribute="trailing" secondItem="PuT-E4-Uro" secondAttribute="trailing" id="8Am-h5-BGK"/>
+                            <constraint firstItem="Jmj-On-FQv" firstAttribute="top" secondItem="p0p-5G-JR1" secondAttribute="topMargin" constant="13" id="Ear-vI-OGu"/>
                             <constraint firstItem="MrP-XW-ciz" firstAttribute="top" secondItem="9wp-hL-NXQ" secondAttribute="top" constant="20" id="LdK-hT-ZuN"/>
                             <constraint firstItem="XRh-5R-ruq" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="33" id="TU1-eE-qh4"/>
                             <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="XRh-5R-ruq" secondAttribute="bottom" constant="15" id="VvH-JS-pVm"/>
                             <constraint firstItem="vEJ-Tv-APs" firstAttribute="top" secondItem="fbq-UD-eE5" secondAttribute="bottom" constant="56" id="bJ6-vO-st8"/>
                             <constraint firstItem="XRh-5R-ruq" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="bqW-bA-Ped"/>
+                            <constraint firstItem="Jmj-On-FQv" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="gEn-Tp-SRN"/>
                             <constraint firstAttribute="trailing" secondItem="MrP-XW-ciz" secondAttribute="trailing" constant="20" id="hpZ-9K-x24"/>
                             <constraint firstItem="XRh-5R-ruq" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="15" id="i02-l2-wOQ"/>
                             <constraint firstItem="fbq-UD-eE5" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="279" id="kaG-vp-xEE"/>
@@ -228,6 +232,7 @@
                         <outlet property="bottomView" destination="PuT-E4-Uro" id="kWF-aW-wYe"/>
                         <outlet property="howToButton" destination="MrP-XW-ciz" id="xYN-Ky-XG7"/>
                         <outlet property="loginButton" destination="vEJ-Tv-APs" id="yIz-DK-9it"/>
+                        <outlet property="pageControl" destination="Jmj-On-FQv" id="J2E-xj-zaV"/>
                         <outlet property="taglineLabel" destination="fbq-UD-eE5" id="01u-If-Tev"/>
                         <outlet property="termsLabel" destination="XRh-5R-ruq" id="qFW-g5-aig"/>
                         <segue destination="z09-dk-URt" kind="show" identifier="Email From Welcome" id="WgX-CF-7G0"/>
@@ -2608,18 +2613,21 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zv-Oo-YbG">
-                                <rect key="frame" x="452" y="45" width="118" height="30"/>
+                                <rect key="frame" x="459" y="45.5" width="111" height="29.5"/>
                                 <animations/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="6cm-ta-yJz"/>
                                     <constraint firstAttribute="height" constant="30" id="7K3-4v-7o5"/>
                                     <constraint firstAttribute="width" constant="122" id="rHp-4P-It7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="share_username">
                                     <color key="titleColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="6cm-ta-yJz"/>
+                                        <exclude reference="7K3-4v-7o5"/>
                                         <exclude reference="rHp-4P-It7"/>
                                     </mask>
                                 </variation>
@@ -2695,10 +2703,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4c-q5-IYY">
-                                        <rect key="frame" x="13" y="20" width="55" height="40"/>
+                                        <rect key="frame" x="13" y="18.5" width="43" height="40"/>
                                         <animations/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="55" id="lX6-7G-gfS"/>
+                                            <constraint firstAttribute="width" constant="45" id="lX6-7G-gfS"/>
                                             <constraint firstAttribute="height" constant="40" id="vub-3z-vcM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
@@ -2706,12 +2714,17 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="lX6-7G-gfS"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <action selector="closeButtonClicked:" destination="Sg7-PG-Ydg" eventType="touchUpInside" id="2oC-OE-sOu"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pick recipient" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQ1-Qz-Ejl">
-                                        <rect key="frame" x="50" y="30" width="500" height="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pick recipient" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="oQ1-Qz-Ejl">
+                                        <rect key="frame" x="249" y="30" width="102.5" height="17"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2728,7 +2741,8 @@
                                     <constraint firstAttribute="height" constant="64" id="Tpu-4B-rx4"/>
                                     <constraint firstItem="O4c-q5-IYY" firstAttribute="top" secondItem="hh0-8j-A2w" secondAttribute="top" constant="15" id="UlH-fn-Ri1"/>
                                     <constraint firstItem="O4c-q5-IYY" firstAttribute="leading" secondItem="hh0-8j-A2w" secondAttribute="leading" constant="10" id="ai7-Jg-u71"/>
-                                    <constraint firstItem="oQ1-Qz-Ejl" firstAttribute="centerY" secondItem="O4c-q5-IYY" secondAttribute="centerY" constant="-1.75" id="kVT-Ld-2sn"/>
+                                    <constraint firstItem="oQ1-Qz-Ejl" firstAttribute="centerY" secondItem="O4c-q5-IYY" secondAttribute="centerY" id="kVT-Ld-2sn"/>
+                                    <constraint firstItem="oQ1-Qz-Ejl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hh0-8j-A2w" secondAttribute="leading" constant="5" id="qPI-sj-LAm"/>
                                     <constraint firstAttribute="height" constant="144" id="uEY-01-Xhl"/>
                                     <constraint firstAttribute="centerY" secondItem="oQ1-Qz-Ejl" secondAttribute="centerY" constant="-6.5" id="xgE-5W-Sg8"/>
                                 </constraints>
@@ -2738,6 +2752,7 @@
                                         <exclude reference="TZ7-2s-cQF"/>
                                         <exclude reference="UlH-fn-Ri1"/>
                                         <exclude reference="ai7-Jg-u71"/>
+                                        <exclude reference="LLN-OW-sxh"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -2745,7 +2760,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="40"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6pf-9P-Whq">
-                                        <rect key="frame" x="580" y="12.5" width="15" height="15"/>
+                                        <rect key="frame" x="580" y="12" width="15" height="15"/>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -2975,14 +2990,20 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get tipped!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4q8-Fs-b1N">
-                                <rect key="frame" x="257" y="31" width="86" height="17"/>
+                                <rect key="frame" x="258" y="26" width="84.5" height="27"/>
                                 <animations/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="CdU-Nt-RtN"/>
                                     <constraint firstAttribute="width" constant="86" id="O1B-Vg-ZfU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="O1B-Vg-ZfU"/>
+                                    </mask>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your username is @craffenoux. You can tip and get tipped with it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOc-52-0MB">
                                 <rect key="frame" x="41" y="79" width="518" height="42"/>
@@ -3099,11 +3120,12 @@
                         <constraints>
                             <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="BYS-p4-lar" secondAttribute="bottom" constant="40" id="1Ng-6V-rEo"/>
                             <constraint firstItem="oOc-52-0MB" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="5at-sq-7zF"/>
-                            <constraint firstItem="4q8-Fs-b1N" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" constant="11" id="AWb-AK-NZj"/>
+                            <constraint firstItem="4q8-Fs-b1N" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" constant="6" id="AWb-AK-NZj"/>
                             <constraint firstItem="tPq-F5-x3G" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="FZV-sd-b6N"/>
                             <constraint firstItem="4q8-Fs-b1N" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="JeY-Qi-4cR"/>
                             <constraint firstItem="BYS-p4-lar" firstAttribute="leading" secondItem="02r-ml-43B" secondAttribute="trailing" constant="22" id="QE4-5i-czc"/>
                             <constraint firstItem="eZK-Xb-t78" firstAttribute="leading" secondItem="DEo-Go-LIp" secondAttribute="leading" constant="13" id="Rn9-19-Cy7"/>
+                            <constraint firstItem="eZK-Xb-t78" firstAttribute="centerY" secondItem="4q8-Fs-b1N" secondAttribute="centerY" id="UJJ-cn-oui"/>
                             <constraint firstItem="eZK-Xb-t78" firstAttribute="leading" secondItem="DEo-Go-LIp" secondAttribute="leadingMargin" constant="-7" id="UtL-RG-Fg6"/>
                             <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="da7-qs-SXj" secondAttribute="bottom" constant="40" id="V53-8I-qhE"/>
                             <constraint firstItem="BYS-p4-lar" firstAttribute="top" secondItem="tPq-F5-x3G" secondAttribute="bottom" constant="14" id="XMr-Jy-vLN"/>
@@ -3113,11 +3135,12 @@
                             <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="da7-qs-SXj" secondAttribute="bottom" constant="40" id="oX0-Au-Omr"/>
                             <constraint firstItem="da7-qs-SXj" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" constant="72" id="pf9-Ey-Phf"/>
                             <constraint firstItem="eZK-Xb-t78" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" id="xRb-oZ-DpS"/>
-                            <constraint firstItem="oOc-52-0MB" firstAttribute="top" secondItem="4q8-Fs-b1N" secondAttribute="bottom" constant="31" id="z2m-Fe-nua"/>
+                            <constraint firstItem="oOc-52-0MB" firstAttribute="top" secondItem="4q8-Fs-b1N" secondAttribute="bottom" constant="26" id="z2m-Fe-nua"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="UtL-RG-Fg6"/>
+                                <exclude reference="xRb-oZ-DpS"/>
                             </mask>
                         </variation>
                     </view>

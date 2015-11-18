@@ -24,6 +24,7 @@
 @interface WelcomeViewController ()
 
 @property (strong, nonatomic) UIPageViewController *tutoPageViewController;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) NSArray *pageImages;
 @property (strong, nonatomic) NSArray *pageTitles;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
@@ -31,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
 @property (weak, nonatomic) IBOutlet UILabel *termsLabel;
 @property (strong, nonatomic) IBOutlet UIView *bottomView;
+
 
 @end
 
@@ -51,7 +53,6 @@
     NSString *completeString = [NSString stringWithFormat:NSLocalizedString(@"terms_label", nil),terms,privacy];
     
     // Create the data model
-    // todo BT
     _pageTitles = @[NSLocalizedString(@"", nil), NSLocalizedString(@"tuto_makeitrain", nil), NSLocalizedString(@"tuto_selfie", nil), NSLocalizedString(@"tuto_get", nil)];
     _pageImages = @[@"tuto_home", @"tuto_list", @"tuto_selfie", @"tuto_balance"];
     
@@ -66,6 +67,9 @@
     [self.view insertSubview:self.tutoPageViewController.view atIndex:0];
     [self.tutoPageViewController didMoveToParentViewController:self];
     self.tutoPageViewController.extendedLayoutIncludesOpaqueBars = YES;
+    self.pageControl.numberOfPages = 4;
+    self.pageControl.currentPage = 0;
+    [self.view addSubview:self.pageControl];
     
     // UI
     self.view.backgroundColor = [ColorUtils mainGreen];
@@ -200,14 +204,11 @@
 
     return pageContentViewController;
 }
-- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
-{
-    return [self.pageTitles count];
-}
 
-- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
-    return 0;
+    TutoViewController *currentViewController = pageViewController.viewControllers[0];
+    [self.pageControl setCurrentPage:currentViewController.pageIndex];
 }
 
 // --------------------------------------------

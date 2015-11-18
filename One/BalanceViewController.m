@@ -237,6 +237,7 @@
     for (Transaction *transaction in transactions) {
         if (transaction.receiver && transaction.receiver == [User currentUser] &&  transaction.readStatus == false) {
             transaction.readStatus = true;
+            [TrackingUtils incrementPeopleProperty:PEOPLE_RECEIVED_TOTAL byValue:(int)transaction.transactionAmount];
             [unreadTransactions addObject:transaction.objectId];
         }
     }

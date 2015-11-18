@@ -42,7 +42,9 @@
 
 @end
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    BOOL _launchedWith3D;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -141,8 +143,20 @@
         [self performSelector:@selector(handleDeepLink:) withObject:url afterDelay:1];
     }
     
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                    didFinishLaunchingWithOptions:launchOptions];
+    // 3D
+    _launchedWith3D = false;
+    isAvailable = (&UIApplicationLaunchOptionsShortcutItemKey != NULL);
+    if (isAvailable) {
+        if([launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey]) {
+            _launchedWith3D = true;
+        }
+    }
+    
+    // FB
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    
+    return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -254,6 +268,31 @@
                                                             object:nil
                                                           userInfo:@{@"username": [[url path] stringByReplacingOccurrencesOfString:@"/" withString:@""]}];
     }
+}
+
+// Quick action
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
+{
+    float delay = 0;
+    if (_launchedWith3D) {
+        _launchedWith3D = false;
+        delay = 1;
+    }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        if ([shortcutItem.type isEqualToString:@"cash.one.quick_actions.balance"]) {
+            [TrackingUtils trackEvent:EVENT_3D_HOME properties:@{@"action": @"balance"}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationPushClicked
+                                                                object:nil
+                                                              userInfo:nil];
+        } else if ([shortcutItem.type isEqualToString:@"cash.one.quick_actions.recipient"]) {
+            [TrackingUtils trackEvent:EVENT_3D_HOME properties:@{@"action": @"recipient"}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationOpenRecipients
+                                                                object:nil
+                                                              userInfo:nil];
+        }
+        completionHandler(true);
+    });
 }
 
 

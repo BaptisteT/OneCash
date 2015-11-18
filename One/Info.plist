@@ -29,7 +29,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>49</string>
+	<string>56</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -105,6 +105,25 @@
 		<string>ProximaNova-Semibold</string>
 		<string>ProximaNova-Bold</string>
 		<string>ProximaNova-Black</string>
+	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Select someone to support</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>cash.one.quick_actions.recipient</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeContact</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Check Your Balance</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>cash.one.quick_actions.balance</string>
+		</dict>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

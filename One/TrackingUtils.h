@@ -46,6 +46,7 @@
 #define EVENT_TWITTER_TWEET @"twitter.tweet"
 #define EVENT_REACTION_CREATE @"reaction.create"
 #define EVENT_LINK_CLICKED @"link.clicked" // property : origin
+#define EVENT_3D_HOME @"3d_touch.home" // property : actions
 
 #define PEOPLE_SIGNUP_DATE @"signup.date"
 #define PEOPLE_ALLOW_NOTIF @"notif"
@@ -57,6 +58,7 @@
 #define PEOPLE_FULL_NAME @"full_name"
 #define PEOPLE_BALANCE @"balance"
 #define PEOPLE_SENDING_TOTAL @"payment_sent.total"
+#define PEOPLE_RECEIVED_TOTAL @"payment_received.total"
 #define PEOPLE_CASHOUT_TOTAL @"cashout.total"
 #define PEOPLE_AUTO_TWEET @"auto_tweet"
 #define PEOPLE_TOUCH_ID @"touchId"
