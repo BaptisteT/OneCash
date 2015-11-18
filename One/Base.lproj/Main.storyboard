@@ -76,7 +76,6 @@
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
-            <string>ProximaNova-Regular</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
             <string>ProximaNova-Semibold</string>
@@ -2561,18 +2560,21 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Zv-Oo-YbG">
-                                <rect key="frame" x="452" y="45" width="118" height="30"/>
+                                <rect key="frame" x="459" y="45.5" width="111" height="29.5"/>
                                 <animations/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="6cm-ta-yJz"/>
                                     <constraint firstAttribute="height" constant="30" id="7K3-4v-7o5"/>
                                     <constraint firstAttribute="width" constant="122" id="rHp-4P-It7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="share_username">
                                     <color key="titleColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="6cm-ta-yJz"/>
+                                        <exclude reference="7K3-4v-7o5"/>
                                         <exclude reference="rHp-4P-It7"/>
                                     </mask>
                                 </variation>
@@ -2935,14 +2937,20 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get tipped!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4q8-Fs-b1N">
-                                <rect key="frame" x="257" y="31" width="86" height="17"/>
+                                <rect key="frame" x="258" y="26" width="84.5" height="27"/>
                                 <animations/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="CdU-Nt-RtN"/>
                                     <constraint firstAttribute="width" constant="86" id="O1B-Vg-ZfU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="O1B-Vg-ZfU"/>
+                                    </mask>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your username is @craffenoux. You can tip and get tipped with it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOc-52-0MB">
                                 <rect key="frame" x="41" y="79" width="518" height="42"/>
@@ -3059,11 +3067,12 @@
                         <constraints>
                             <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="BYS-p4-lar" secondAttribute="bottom" constant="40" id="1Ng-6V-rEo"/>
                             <constraint firstItem="oOc-52-0MB" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="5at-sq-7zF"/>
-                            <constraint firstItem="4q8-Fs-b1N" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" constant="11" id="AWb-AK-NZj"/>
+                            <constraint firstItem="4q8-Fs-b1N" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" constant="6" id="AWb-AK-NZj"/>
                             <constraint firstItem="tPq-F5-x3G" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="FZV-sd-b6N"/>
                             <constraint firstItem="4q8-Fs-b1N" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" id="JeY-Qi-4cR"/>
                             <constraint firstItem="BYS-p4-lar" firstAttribute="leading" secondItem="02r-ml-43B" secondAttribute="trailing" constant="22" id="QE4-5i-czc"/>
                             <constraint firstItem="eZK-Xb-t78" firstAttribute="leading" secondItem="DEo-Go-LIp" secondAttribute="leading" constant="13" id="Rn9-19-Cy7"/>
+                            <constraint firstItem="eZK-Xb-t78" firstAttribute="centerY" secondItem="4q8-Fs-b1N" secondAttribute="centerY" id="UJJ-cn-oui"/>
                             <constraint firstItem="eZK-Xb-t78" firstAttribute="leading" secondItem="DEo-Go-LIp" secondAttribute="leadingMargin" constant="-7" id="UtL-RG-Fg6"/>
                             <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="da7-qs-SXj" secondAttribute="bottom" constant="40" id="V53-8I-qhE"/>
                             <constraint firstItem="BYS-p4-lar" firstAttribute="top" secondItem="tPq-F5-x3G" secondAttribute="bottom" constant="14" id="XMr-Jy-vLN"/>
@@ -3073,11 +3082,12 @@
                             <constraint firstItem="wrd-T1-deC" firstAttribute="top" secondItem="da7-qs-SXj" secondAttribute="bottom" constant="40" id="oX0-Au-Omr"/>
                             <constraint firstItem="da7-qs-SXj" firstAttribute="centerX" secondItem="DEo-Go-LIp" secondAttribute="centerX" constant="72" id="pf9-Ey-Phf"/>
                             <constraint firstItem="eZK-Xb-t78" firstAttribute="top" secondItem="H4p-Pj-pVd" secondAttribute="bottom" id="xRb-oZ-DpS"/>
-                            <constraint firstItem="oOc-52-0MB" firstAttribute="top" secondItem="4q8-Fs-b1N" secondAttribute="bottom" constant="31" id="z2m-Fe-nua"/>
+                            <constraint firstItem="oOc-52-0MB" firstAttribute="top" secondItem="4q8-Fs-b1N" secondAttribute="bottom" constant="26" id="z2m-Fe-nua"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="UtL-RG-Fg6"/>
+                                <exclude reference="xRb-oZ-DpS"/>
                             </mask>
                         </variation>
                     </view>

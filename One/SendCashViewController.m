@@ -78,7 +78,9 @@
     self.titleLabel.text = NSLocalizedString(@"send_controller_title", nil);
     self.pickRecipientAlertLabel.text = NSLocalizedString(@"no_receiver_red_bar", nil);
     [self setSelectedUser:nil];
-    [self.shareUsernameButton setTitle:NSLocalizedString(@"share_username_button", nil) forState:UIControlStateNormal];
+    
+    NSString *title = NSLocalizedString(@"share_username_button", nil);
+    [self.shareUsernameButton setTitle:title forState:UIControlStateNormal];
 
     // UI
     _arrowInitialY = self.arrowImageView.frame.origin.y;

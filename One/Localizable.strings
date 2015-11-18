@@ -20,18 +20,18 @@
 "how_title_7" = "Will it work with my credit card?";
 "how_title_8" = "When will I get my money?";
 "how_title_9" = "Is it secure?";
-"how_answer_1" = "One is a micro-payment app to send $1 tips to anyone on Twitter for free!";
+"how_answer_1" = "One is a micro-payment app to support anyone on Twitter with $1 tips, for free!";
 "how_answer_2" = "It’s very simple. Just add a receiver by selecting a Twitter username and then swipe up to send $1 instantly!";
-"how_answer_3" = "One is completely free. No fees are charged for sending or receiving money.";
-"how_answer_4" = "Yes, the receiver just need a One account.";
-"how_answer_5" = "Of course, people can send you tips using your username. It will accumulate on your balance. Whenever you want, press the cash out button and you will receive the value of your balance on your bank account.";
-"how_answer_6" = "You can share your profile card on the 'get tipped' section.";
+"how_answer_3" = "One is completely free! No fees are charged for sending or receiving money.";
+"how_answer_4" = "Yes, even if the receiver is not yet on One! You will receive a refund if he has not signed up after 7 days.";
+"how_answer_5" = "Of course, people can send you money using your username. It will accumulate on your balance. Whenever you want, press the cash out button and you will receive the value of your balance on your bank account.";
+"how_answer_6" = "You can share your profile card on the 'get support' section.";
 "how_answer_7" = "As long as you have a valid US credit or debit card, you will be able to send and receive tips.";
 "how_answer_8" = "Depending on your bank, deposits can take around 2 days to receive the money on your account after cash out.";
 "how_answer_9" = "It is highly secure. No credit or debit card information is ever stored on our servers. We use Stripe payment infrastructure, your data are encrypted and protected by Stripe, one of the most secure payment processing available with a PCI-DSS Level 1 certification. We also use Apple Pay compatible with iPhone 6, 6s, 6+ and 6s+.";
 
 // Log in
-"tagline_label" = "Send $1 tips on Twitter";
+"tagline_label" = "Support people you love with $1";
 "twitter_button" = "Twitter connect";
 
 // Email
@@ -66,13 +66,13 @@
 
 // Cash view
 "message_placeholder" = "Add a message";
-"recipient_alert" = "Pick someone to tip";
+"recipient_alert" = "Pick someone to support";
 "swipe_label" = "Swipe up to send $1";
-"pick_recipient_tuto" = "Tap here to pick someone";
+"pick_recipient_tuto" = "Tap here to add a receiver";
 
 // Send
 "balance_button" = "Balance";
-"send_controller_title" = "Swipe up to tip $1";
+"send_controller_title" = "Swipe up to send $1";
 "no_receiver_red_bar" = "Pick a recipient first by tapping the + icon";
 "no_receiver_title" = "We can't send this dollar";
 "no_receiver_message" = "Please pick a recipient!";
@@ -84,7 +84,7 @@
 "failed_label" = "Fail (%lu)";
 "twitter_user_alert_title" = "%@ is not yet on One";
 "twitter_user_alert_message" = "We informed %@ on Twitter. If he/she does not sign up in one week, we will refund you.";
-"share_username_button" = "Get tipped!";
+"share_username_button" = "💸Get support";
 "transactions_limit_title" = "You have reached the limit of transactions per day";
 "transactions_limit_message" = "Please, try again later.";
 
@@ -116,7 +116,7 @@
 
 // Recipients
 "to" = "to";
-"recipient_title" = "Pick someone to tip";
+"recipient_title" = "Pick someone to support";
 "recent_header" = "Recent";
 "search_header"= "Search results";
 "recipients_search_placeholder" = "Search by username";
@@ -137,8 +137,8 @@
 "auto_tweet_section" = "Auto-tweet my tips";
 "no_card_section" = "Add a Credit Card";
 "card_section" = "Change payment method";
-"sharing_text" = "Now with OneCash you can send $1 tips on Twitter. My Twitter username is %@. Find me on OneCash! Download the app here: %@";
-"sharing_email_object" = "OneCash, send $1 tips to anyone on Twitter";
+"sharing_text" = "You can now support anyone on Twitter with $1 tips. Find me on OneCash : %@! %@";
+"sharing_email_object" = "OneCash, support anyone on Twitter with $1 tips";
 "logout_confirmation_message" = "Are you sure?";
 "no_button_title" = "No";
 "yes_button_title" = "Yes";
@@ -181,9 +181,9 @@
 "touch_id_title" = "Are you the device owner?";
 
 //Username Card
-"share_card_title" = "TIP ME ON ONECASH";
-"card_top_title" = "Get tipped!";
-"card_description" = "Your username is %@.\nYou can tip and get tipped with it!";
+"share_card_title" = "SUPPORT ME ON ONECASH";
+"card_top_title" = "Get support 💸";
+"card_description" = "Your username is %@.\nYou can send and receive tips with it!";
 
 // Share
-"twitter_sharing_wording" = "Show me love and send me $1 tip at one.cash/%@ @onecashapp 💸";
+"twitter_sharing_wording" = "Support me with $1 tips at one.cash/%@ @onecashapp 💸";
