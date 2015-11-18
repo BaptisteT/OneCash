@@ -30,8 +30,14 @@
 "how_answer_8" = "Depending on your bank, deposits can take around 2 days to receive the money on your account after cash out.";
 "how_answer_9" = "It is highly secure. No credit or debit card information is ever stored on our servers. We use Stripe payment infrastructure, your data are encrypted and protected by Stripe, one of the most secure payment processing available with a PCI-DSS Level 1 certification. We also use Apple Pay compatible with iPhone 6, 6s, 6+ and 6s+.";
 
+// Tuto
+"tuto_makeitrain" = "Make it rain!";
+"tuto_selfie" = "Get thanks selfie!";
+"tuto_get" = "Receive money easily!";
+
 // Log in
 "tagline_label" = "Support people you love with $1";
+"tagline_label" = "Support people you love";
 "twitter_button" = "Twitter connect";
 
 // Email
