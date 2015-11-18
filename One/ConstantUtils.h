@@ -89,6 +89,7 @@ static NSString * const kNotificationReactionPushReceived = @"Reaction Push rece
 static NSString * const kNotificationPushClicked = @"Push Clicked";
 static NSString * const kNotificationRefreshTransactions = @"Refresh Transactions";
 static NSString * const kNotificationUserURLScheme = @"User URL Scheme";
+static NSString * const kNotificationOpenRecipients = @"Open Recipients";
 
 // Camera
 static const float kCameraAspectRatio = 4.0 / 3.0;

@@ -149,6 +149,10 @@
                                              selector:@selector(loadUserAndSetSelected:)
                                                  name:kNotificationUserURLScheme
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(recipientButtonClicked)
+                                                 name:kNotificationOpenRecipients
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -230,6 +234,7 @@
 
 - (void)recipientButtonClicked {
     if (self.ongoingTransactionsCount == 0) {
+        [self dismissViewControllerAnimated:NO completion:nil];
         [TrackingUtils trackEvent:EVENT_RECIPIENT_CLICKED properties:nil];
         [self performSegueWithIdentifier:@"Recipient From Send" sender:nil];
         // Remove selected user
@@ -242,6 +247,7 @@
 }
 
 - (void)navigateToBalance {
+    [self dismissViewControllerAnimated:NO completion:nil];
     [self performSegueWithIdentifier:@"Balance From Send" sender:nil];
 }
 

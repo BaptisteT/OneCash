@@ -8,6 +8,7 @@
 #import <KILabel.h>
 #import <NSDate+DateTools.h>
 
+#import "DatastoreManager.h"
 #import "Reaction.h"
 #import "Transaction.h"
 #import "User.h"
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *seenImageView;
 @property (strong, nonatomic) CAShapeLayer *borderLayer;
 @property (weak, nonatomic) IBOutlet UIButton *createReactionButton;
+@property (strong, nonatomic) UIView *createReactionOnboarding;
 
 @property (nonatomic, strong) CAShapeLayer *createReactionShapeCircle;
 @property (nonatomic, strong) CAShapeLayer *seeReactionShapeCircle;
@@ -54,6 +56,11 @@
     self.userPicture.userInteractionEnabled = YES;
     self.backgroundColor = [UIColor whiteColor];
     
+    // Tuto
+    if (self.transaction.sender != [User currentUser] && !self.transaction.reaction  && self.transaction.receiverType != kReceiverAutoRefund && ![DatastoreManager hasLaunchedOnce:@"react"]) {
+        [self performSelector:@selector(addReactionOnboarding) withObject:nil afterDelay:1];
+    }
+    
     // Create Reaction
     [self animateOngoingReaction:NO];
     if (sendFlag || self.transaction.receiverType == kReceiverAutoRefund) {
@@ -78,7 +85,6 @@
     self.seeReactionButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.seeReactionButton setAdjustsImageWhenHighlighted:NO];
     
-    
     // Picture tap gesture
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPicture)];
     [self.userPicture addGestureRecognizer:tapGesture];
@@ -86,7 +92,7 @@
     // Message label => detect URL
     self.messageLabel.linkDetectionTypes = KILinkTypeOptionURL;
     self.messageLabel.userInteractionEnabled = YES;
-    [self.messageLabel setAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.messageLabel.font.pointSize]} forLinkType:KILinkTypeURL];
+    [self.messageLabel setAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.messageLabel.font.pointSize]} forLinkType:KILinkTypeURL];
     self.messageLabel.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
         [TrackingUtils trackEvent:EVENT_LINK_CLICKED properties:@{@"origin": @"message"}];
         if (string && string.length > 0) {
@@ -188,11 +194,29 @@
     self.seeReactionButton.clipsToBounds = YES;
 }
 
+- (void)addReactionOnboarding {
+    if (self.transaction.sender != [User currentUser] && !self.transaction.reaction) {
+        if (!self.createReactionOnboarding) {
+            self.createReactionOnboarding = [DesignUtils createBubbleAboutView:self.createReactionButton
+                                                           withText:NSLocalizedString(@"react_tuto", nil)
+                                                           position:kPositionBottom
+                                                    backgroundColor:[ColorUtils mainGreen]
+                                                          textColor:[UIColor whiteColor]];
+        }
+        [self addSubview:self.createReactionOnboarding];
+        self.clipsToBounds = NO;
+    }
+}
+
 // --------------------------------------------
 #pragma mark - Actions
 // --------------------------------------------
 
 - (IBAction)createReactionButtonClicked:(id)sender {
+    if (self.createReactionOnboarding) {
+        [self.createReactionOnboarding removeFromSuperview];
+        self.createReactionOnboarding = nil;
+    }
     self.createReactionButton.enabled = NO;
     if (!self.transaction.reaction) {
         [self.delegate reactToTransaction:self.transaction];
