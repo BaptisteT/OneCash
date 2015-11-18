@@ -5,7 +5,6 @@
 //  Created by Baptiste Truchot on 9/7/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
-#import <KILabel.h>
 #import <NSDate+DateTools.h>
 
 #import "DatastoreManager.h"
@@ -92,29 +91,11 @@
     // Picture tap gesture
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOnPicture)];
     [self.userPicture addGestureRecognizer:tapGesture];
-    
-    // Message label => detect URL
-//    self.messageLabel.linkDetectionTypes = KILinkTypeOptionURL;
-//    self.messageLabel.userInteractionEnabled = YES;
-//    self.messageLabel.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
-//        [TrackingUtils trackEvent:EVENT_LINK_CLICKED properties:@{@"origin": @"message"}];
-//        if (string && string.length > 0) {
-//            NSURL *url = [NSURL URLWithString:string];
-//            if (url.scheme.length == 0) {
-//                string = [@"http://" stringByAppendingString:string];
-//                url  = [[NSURL alloc] initWithString:string];
-//            }
-//            if ([[UIApplication sharedApplication] canOpenURL:url]) {
-//                [[UIApplication sharedApplication] openURL:url];
-//            }
-//        }
-//    };
    
     // payment received
     if (!sendFlag) {
         self.valueLabel.backgroundColor = [ColorUtils mainGreen];
         self.messageLabel.backgroundColor = [ColorUtils darkGreen];
-//        [self.messageLabel setAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.messageLabel.font.pointSize]} forLinkType:KILinkTypeURL];
         if (transaction.message && transaction.message.length > 0) {
             self.messageLabel.hidden = NO;
             self.messageLabel.text = [NSString stringWithFormat:@"%@     ",transaction.message];
@@ -140,7 +121,6 @@
     } else {
         self.valueLabel.backgroundColor = [ColorUtils mainGreen];
         self.messageLabel.textColor = [ColorUtils mainGreen];
-//        [self.messageLabel setAttributes:@{NSForegroundColorAttributeName: [ColorUtils mainGreen], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.messageLabel.font.pointSize]} forLinkType:KILinkTypeURL];
         if (transaction.message && transaction.message.length > 0) {
             self.messageLabel.hidden = NO;
             self.messageLabel.text = [NSString stringWithFormat:@" %@     ",transaction.message];
