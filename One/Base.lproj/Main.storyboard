@@ -2871,7 +2871,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="socicon" family="socicon" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
-                                                    <state key="normal" image="TwitterIcon"/>
+                                                    <state key="normal" title="a">
+                                                        <color key="titleColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="PGO-93-xji"/>
