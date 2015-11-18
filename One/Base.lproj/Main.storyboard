@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -12,7 +12,6 @@
             <string>ProximaNova-Light</string>
         </mutableArray>
         <mutableArray key="ProximaNova-Regular.otf">
-            <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
@@ -100,6 +99,7 @@
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
+            <string>ProximaNova-Semibold</string>
         </mutableArray>
         <mutableArray key="socicon.ttf">
             <string>socicon</string>
@@ -147,7 +147,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vEJ-Tv-APs">
-                                <rect key="frame" x="222" y="493" width="156" height="34"/>
+                                <rect key="frame" x="222" y="499" width="156" height="34"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -185,47 +185,31 @@
                                 <rect key="frame" x="33" y="542" width="534" height="43"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="15"/>
-                                <color key="textColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbq-UD-eE5">
-                                <rect key="frame" x="280.5" y="420" width="40.5" height="17"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.118052642" green="1" blue="0.1607664681" alpha="0.56427338957055218" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Jmj-On-FQv">
                                 <rect key="frame" x="280" y="13" width="39" height="37"/>
+                                <animations/>
                             </pageControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="fbq-UD-eE5" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="1uT-bn-Mu3"/>
-                            <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="73" id="33i-k5-8dP"/>
+                            <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="67" id="33i-k5-8dP"/>
                             <constraint firstAttribute="trailing" secondItem="PuT-E4-Uro" secondAttribute="trailing" id="8Am-h5-BGK"/>
                             <constraint firstItem="Jmj-On-FQv" firstAttribute="top" secondItem="p0p-5G-JR1" secondAttribute="topMargin" constant="13" id="Ear-vI-OGu"/>
                             <constraint firstItem="MrP-XW-ciz" firstAttribute="top" secondItem="9wp-hL-NXQ" secondAttribute="top" constant="20" id="LdK-hT-ZuN"/>
                             <constraint firstItem="XRh-5R-ruq" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="33" id="TU1-eE-qh4"/>
                             <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="XRh-5R-ruq" secondAttribute="bottom" constant="15" id="VvH-JS-pVm"/>
-                            <constraint firstItem="vEJ-Tv-APs" firstAttribute="top" secondItem="fbq-UD-eE5" secondAttribute="bottom" constant="56" id="bJ6-vO-st8"/>
                             <constraint firstItem="XRh-5R-ruq" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="bqW-bA-Ped"/>
                             <constraint firstItem="Jmj-On-FQv" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="gEn-Tp-SRN"/>
                             <constraint firstAttribute="trailing" secondItem="MrP-XW-ciz" secondAttribute="trailing" constant="20" id="hpZ-9K-x24"/>
-                            <constraint firstItem="XRh-5R-ruq" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="15" id="i02-l2-wOQ"/>
-                            <constraint firstItem="fbq-UD-eE5" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="279" id="kaG-vp-xEE"/>
+                            <constraint firstItem="XRh-5R-ruq" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="9" id="i02-l2-wOQ"/>
                             <constraint firstAttribute="centerX" secondItem="vEJ-Tv-APs" secondAttribute="centerX" id="lJQ-hk-Hgy"/>
                             <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="PuT-E4-Uro" secondAttribute="bottom" id="orI-Ee-jwG"/>
                             <constraint firstItem="PuT-E4-Uro" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" id="qNc-np-Bvm"/>
-                            <constraint firstAttribute="trailing" secondItem="fbq-UD-eE5" secondAttribute="trailing" constant="279" id="qft-m7-3cX"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="kaG-vp-xEE"/>
-                                <exclude reference="qft-m7-3cX"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="h9l-L3-9tl"/>
                     <connections>
@@ -233,7 +217,6 @@
                         <outlet property="howToButton" destination="MrP-XW-ciz" id="xYN-Ky-XG7"/>
                         <outlet property="loginButton" destination="vEJ-Tv-APs" id="yIz-DK-9it"/>
                         <outlet property="pageControl" destination="Jmj-On-FQv" id="J2E-xj-zaV"/>
-                        <outlet property="taglineLabel" destination="fbq-UD-eE5" id="01u-If-Tev"/>
                         <outlet property="termsLabel" destination="XRh-5R-ruq" id="qFW-g5-aig"/>
                         <segue destination="z09-dk-URt" kind="show" identifier="Email From Welcome" id="WgX-CF-7G0"/>
                         <segue destination="Bef-pm-plE" kind="presentation" identifier="How From Welcome" id="YVN-0x-kbu"/>
@@ -268,6 +251,13 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGa-9E-wwu">
+                                <rect key="frame" x="30" y="74" width="540" height="17"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
@@ -276,9 +266,13 @@
                             <constraint firstItem="QA2-3z-8Ma" firstAttribute="centerX" secondItem="log-tj-Xis" secondAttribute="centerX" id="B3S-Pu-b2I"/>
                             <constraint firstAttribute="trailing" secondItem="QA2-3z-8Ma" secondAttribute="trailing" id="FC4-VB-NvM"/>
                             <constraint firstItem="aXk-H0-E8e" firstAttribute="top" secondItem="QA2-3z-8Ma" secondAttribute="bottom" id="R6M-3T-KZc"/>
+                            <constraint firstItem="JGa-9E-wwu" firstAttribute="centerX" secondItem="log-tj-Xis" secondAttribute="centerX" id="TBM-Ah-1dr"/>
                             <constraint firstAttribute="trailing" secondItem="QA2-3z-8Ma" secondAttribute="trailing" id="V9c-hk-cfr"/>
+                            <constraint firstItem="JGa-9E-wwu" firstAttribute="top" secondItem="oki-lM-6ac" secondAttribute="bottom" constant="54" id="cD5-EE-rqs"/>
+                            <constraint firstItem="JGa-9E-wwu" firstAttribute="leading" secondItem="log-tj-Xis" secondAttribute="leading" constant="30" id="eZ4-s4-ZEv"/>
                             <constraint firstItem="QA2-3z-8Ma" firstAttribute="centerY" secondItem="log-tj-Xis" secondAttribute="centerY" id="imS-0h-l0c"/>
                             <constraint firstItem="aXk-H0-E8e" firstAttribute="top" secondItem="QA2-3z-8Ma" secondAttribute="bottom" id="lPz-xA-637"/>
+                            <constraint firstAttribute="trailing" secondItem="JGa-9E-wwu" secondAttribute="trailing" constant="30" id="rTe-iE-Sxa"/>
                             <constraint firstItem="QA2-3z-8Ma" firstAttribute="leading" secondItem="log-tj-Xis" secondAttribute="leading" id="seV-iy-xxT"/>
                             <constraint firstItem="QA2-3z-8Ma" firstAttribute="top" secondItem="log-tj-Xis" secondAttribute="top" id="ucn-9K-N6k"/>
                         </constraints>
@@ -294,6 +288,7 @@
                     </view>
                     <connections>
                         <outlet property="logoImageView" destination="QA2-3z-8Ma" id="QPW-F8-1uc"/>
+                        <outlet property="titleLabel" destination="JGa-9E-wwu" id="D0i-F6-2P4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X0C-iz-wG2" userLabel="First Responder" sceneMemberID="firstResponder"/>

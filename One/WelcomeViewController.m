@@ -53,7 +53,7 @@
     NSString *completeString = [NSString stringWithFormat:NSLocalizedString(@"terms_label", nil),terms,privacy];
     
     // Create the data model
-    _pageTitles = @[NSLocalizedString(@"", nil), NSLocalizedString(@"tuto_makeitrain", nil), NSLocalizedString(@"tuto_selfie", nil), NSLocalizedString(@"tuto_get", nil)];
+    _pageTitles = @[NSLocalizedString(@"tuto_makeitrain", nil), NSLocalizedString(@"tuto_twitter", nil), NSLocalizedString(@"tuto_selfie", nil), NSLocalizedString(@"tuto_get", nil)];
     _pageImages = @[@"tuto_home", @"tuto_list", @"tuto_selfie", @"tuto_balance"];
     
     // Page VC
@@ -80,7 +80,7 @@
     [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     [self.howToButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:completeString];
-    UIColor *color =[UIColor colorWithRed:255 green:255 blue:255 alpha:1];
+    UIColor *color =[UIColor colorWithRed:13./255 green:240./255 blue:80./255 alpha:1];
     NSDictionary *attribute = @{NSForegroundColorAttributeName: color};
     [attrString addAttributes:attribute range:[completeString rangeOfString:terms]];
     [attrString addAttributes:attribute range:[completeString rangeOfString:privacy]];
