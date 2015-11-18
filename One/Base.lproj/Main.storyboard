@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -195,6 +195,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Jmj-On-FQv">
+                                <rect key="frame" x="280" y="13" width="39" height="37"/>
+                            </pageControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
@@ -202,11 +205,13 @@
                             <constraint firstItem="fbq-UD-eE5" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="1uT-bn-Mu3"/>
                             <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="73" id="33i-k5-8dP"/>
                             <constraint firstAttribute="trailing" secondItem="PuT-E4-Uro" secondAttribute="trailing" id="8Am-h5-BGK"/>
+                            <constraint firstItem="Jmj-On-FQv" firstAttribute="top" secondItem="p0p-5G-JR1" secondAttribute="topMargin" constant="13" id="Ear-vI-OGu"/>
                             <constraint firstItem="MrP-XW-ciz" firstAttribute="top" secondItem="9wp-hL-NXQ" secondAttribute="top" constant="20" id="LdK-hT-ZuN"/>
                             <constraint firstItem="XRh-5R-ruq" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="33" id="TU1-eE-qh4"/>
                             <constraint firstItem="Ulh-Vm-9bU" firstAttribute="top" secondItem="XRh-5R-ruq" secondAttribute="bottom" constant="15" id="VvH-JS-pVm"/>
                             <constraint firstItem="vEJ-Tv-APs" firstAttribute="top" secondItem="fbq-UD-eE5" secondAttribute="bottom" constant="56" id="bJ6-vO-st8"/>
                             <constraint firstItem="XRh-5R-ruq" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="bqW-bA-Ped"/>
+                            <constraint firstItem="Jmj-On-FQv" firstAttribute="centerX" secondItem="p0p-5G-JR1" secondAttribute="centerX" id="gEn-Tp-SRN"/>
                             <constraint firstAttribute="trailing" secondItem="MrP-XW-ciz" secondAttribute="trailing" constant="20" id="hpZ-9K-x24"/>
                             <constraint firstItem="XRh-5R-ruq" firstAttribute="top" secondItem="vEJ-Tv-APs" secondAttribute="bottom" constant="15" id="i02-l2-wOQ"/>
                             <constraint firstItem="fbq-UD-eE5" firstAttribute="leading" secondItem="p0p-5G-JR1" secondAttribute="leading" constant="279" id="kaG-vp-xEE"/>
@@ -227,6 +232,7 @@
                         <outlet property="bottomView" destination="PuT-E4-Uro" id="kWF-aW-wYe"/>
                         <outlet property="howToButton" destination="MrP-XW-ciz" id="xYN-Ky-XG7"/>
                         <outlet property="loginButton" destination="vEJ-Tv-APs" id="yIz-DK-9it"/>
+                        <outlet property="pageControl" destination="Jmj-On-FQv" id="J2E-xj-zaV"/>
                         <outlet property="taglineLabel" destination="fbq-UD-eE5" id="01u-If-Tev"/>
                         <outlet property="termsLabel" destination="XRh-5R-ruq" id="qFW-g5-aig"/>
                         <segue destination="z09-dk-URt" kind="show" identifier="Email From Welcome" id="WgX-CF-7G0"/>
