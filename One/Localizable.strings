@@ -31,9 +31,10 @@
 "how_answer_9" = "It is highly secure. No credit or debit card information is ever stored on our servers. We use Stripe payment infrastructure, your data are encrypted and protected by Stripe, one of the most secure payment processing available with a PCI-DSS Level 1 certification. We also use Apple Pay compatible with iPhone 6, 6s, 6+ and 6s+.";
 
 // Tuto
-"tuto_makeitrain" = "Make it rain!";
-"tuto_selfie" = "Get thanks selfie!";
-"tuto_get" = "Receive money easily!";
+"tuto_makeitrain" = "Support people you love on Twitter.";
+"tuto_twitter" = "Send to anyone on Twitter.";
+"tuto_selfie" = "Say thanks with selfie!";
+"tuto_get" = "Get tipped and cashout the money!";
 
 // Log in
 "tagline_label" = "Support people you love with $1";
