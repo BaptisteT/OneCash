@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *howToButton;
 @property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
 @property (weak, nonatomic) IBOutlet UILabel *termsLabel;
+@property (strong, nonatomic) IBOutlet UIView *bottomView;
 
 @end
 
@@ -52,7 +53,7 @@
     // Create the data model
     // todo BT
     _pageTitles = @[NSLocalizedString(@"", nil), NSLocalizedString(@"tuto_makeitrain", nil), NSLocalizedString(@"tuto_selfie", nil), NSLocalizedString(@"tuto_get", nil)];
-    _pageImages = @[@"logoHome", @"", @"", @""];
+    _pageImages = @[@"tuto_home", @"tuto_list", @"tuto_selfie", @"tuto_balance"];
     
     // Page VC
     self.tutoPageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -69,7 +70,8 @@
     // UI
     self.view.backgroundColor = [ColorUtils mainGreen];
     self.loginButton.layer.cornerRadius = self.loginButton.frame.size.height / 2;
-    [self.loginButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    [self.loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.loginButton setBackgroundColor:[ColorUtils mainGreen]];
     self.howToButton.layer.cornerRadius = self.howToButton.frame.size.height / 2;
     [self.howToButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     [self.howToButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -91,7 +93,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.tutoPageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    self.tutoPageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.bottomView.frame.origin.y);
 }
 
 
