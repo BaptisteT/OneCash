@@ -85,6 +85,8 @@
 "twitter_user_alert_title" = "%@ is not yet on One";
 "twitter_user_alert_message" = "We informed %@ on Twitter. If he/she does not sign up in one week, we will refund you.";
 "share_username_button" = "Get tipped!";
+"transactions_limit_title" = "You have reached the limit of transactions per day";
+"transactions_limit_message" = "Please, try again later.";
 
 // APple pay
 "apple_pay_item" = "OneCash @%@";
@@ -108,6 +110,8 @@
 "add_status_tuto" = "Add a personalized status here";
 "camera_access_error_title" = "One does not have access to your camera.";
 "camera_access_error_message" = "Please allow access in settings.";
+"new_react_button" = "1 new reaction";
+"new_reacts_button" = "%lu new reactions";
 
 // Recipients
 "to" = "to";

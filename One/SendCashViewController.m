@@ -379,8 +379,8 @@
         if (self.ongoingTransactionsCount == 0)
             [self setSelectedUser:nil];
     } failure:^(NSError *error) {
-        if ([error.description containsString:@"card_error"]) {
-            // go to check card ?
+        if ([error.description containsString:@"transactions_limit"]) {
+            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"transactions_limit_title", nil) andMessage:NSLocalizedString(@"transactions_limit_message", nil)];
         }
         [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
         
@@ -399,7 +399,7 @@
     self.applePaySendingTransaction = transaction;
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
-        NSInteger valueToWithdraw = self.ongoingTransactionsCount - [User currentUser].balance;
+        NSInteger valueToWithdraw = transaction.transactionAmount + (self.ongoingTransactionsCount - transaction.transactionAmount - [User currentUser].balance);
         NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:valueToWithdraw];
         paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:[NSString stringWithFormat:NSLocalizedString(@"apple_pay_item", nil),transaction.receiver.caseUsername] amount:amount]];
 #if DEBUG

@@ -40,6 +40,7 @@
 @property (strong, nonatomic) UIView *statusOnboardingView;
 @property (strong, nonatomic) NSMutableArray *transactions;
 @property (weak, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) IBOutlet UIButton *reactsButton;
 
 // Reaction
 @property (strong, nonatomic) Transaction *reactTransaction;
@@ -65,6 +66,7 @@
     self.transactions = [NSMutableArray new];
     self.statusTextField.delegate = self;
     _statusInitialSize = self.statusTextField.font.pointSize;
+    self.reactsButton.hidden = YES;
     
     // Wording
     [self.closeButton setTitle:NSLocalizedString(@"close_button", nil) forState:UIControlStateNormal];
@@ -118,6 +120,9 @@
     
     // Update badge
     [ApiManager updateBadge:0];
+    
+    // Unread reactions
+    [self displayUnreadReactionsNumber];
     
     // Notification observer
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -194,16 +199,15 @@
         
         // reset balance
         [self setBalanceAndStatus];
-    } failure:nil];
+    } failure:^(NSError *error) {
+        // if not working, try it remotely
+        [self loadOlderTransactionsRemotely];
+    }];
 }
 
 - (void)loadOlderTransactionsRemotely {
-    if (!self.transactions || self.transactions.count == 0) {
-        [self.transactionsTableView.infiniteScrollingView stopAnimating];
-        return;
-    }
-    Transaction *oldest = self.transactions.lastObject;
-    [ApiManager getTransactionsBeforeDate:oldest.createdAt
+    NSDate *beforeDate = self.transactions.count == 0 ? [NSDate date] : ((Transaction *)self.transactions.lastObject).createdAt;
+    [ApiManager getTransactionsBeforeDate:beforeDate
                                   success:^(NSArray *transactions) {
                                       [self.transactionsTableView.infiniteScrollingView stopAnimating];
                                       [self.transactions addObjectsFromArray:transactions];
@@ -227,6 +231,7 @@
 // override set transactions to mark as unread
 - (void)setTransactions:(NSMutableArray *)transactions {
     _transactions = transactions;
+    
     // Mark transactions as read
     NSMutableArray *unreadTransactions = [NSMutableArray new];
     for (Transaction *transaction in transactions) {
@@ -335,6 +340,18 @@
 
 - (void)returnToBalanceController {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)reactsButtonClicked:(id)sender {
+    if (self.transactions.count == 0) return;
+    for (Transaction *transaction in self.transactions) {
+        if (transaction.sender == [User currentUser] && transaction.reaction && !transaction.reaction.readStatus) {
+            [self.transactionsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.transactions indexOfObject:transaction] inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+            return;
+        }
+    }
+    [self.transactionsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.transactions.count -1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    [self.transactionsTableView triggerInfiniteScrolling];
 }
 
 // --------------------------------------------
@@ -534,7 +551,7 @@
 
 
 // --------------------------------------------
-#pragma mark - Transaction TVC delegate
+#pragma mark - reaction / Transaction TVC delegate
 // --------------------------------------------
 - (void)reactToTransaction:(Transaction *)transaction {
     self.reactTransaction = transaction;
@@ -570,6 +587,19 @@
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self animateDisplayImageReaction:imageView];
     [ApiManager markReactionAsRead:reaction success:nil failure:nil];
+    
+    // Reactions nb
+    [reaction unpinInBackgroundWithName:kParseReactionName block:^(BOOL succeeded, NSError * _Nullable error) {
+        [self displayUnreadReactionsNumber];
+    }];
+}
+
+- (void)displayUnreadReactionsNumber {
+    [DatastoreManager getNumberOfUnreadReactionsAndExecuteSuccess:^(NSInteger count) {
+        NSString *title = count == 1 ? NSLocalizedString(@"new_react_button", nil) : [NSString stringWithFormat:NSLocalizedString(@"new_reacts_button", nil),count];
+        [self.reactsButton setTitle:title forState:UIControlStateNormal];
+        self.reactsButton.hidden = count == 0;
+    } failure:nil];
 }
 
 // --------------------------------------------

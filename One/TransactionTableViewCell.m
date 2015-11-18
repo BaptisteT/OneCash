@@ -16,6 +16,7 @@
 
 #import "ColorUtils.h"
 #import "DesignUtils.h"
+#import "TrackingUtils.h"
 
 @interface TransactionTableViewCell()
 
@@ -83,8 +84,11 @@
     [self.userPicture addGestureRecognizer:tapGesture];
     
     // Message label => detect URL
+    self.messageLabel.linkDetectionTypes = KILinkTypeOptionURL;
     self.messageLabel.userInteractionEnabled = YES;
+    [self.messageLabel setAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.messageLabel.font.pointSize]} forLinkType:KILinkTypeURL];
     self.messageLabel.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
+        [TrackingUtils trackEvent:EVENT_LINK_CLICKED properties:@{@"origin": @"message"}];
         if (string && string.length > 0) {
             NSURL *url = [NSURL URLWithString:string];
             if (url.scheme.length == 0) {

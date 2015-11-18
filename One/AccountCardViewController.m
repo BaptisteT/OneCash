@@ -294,7 +294,14 @@
         } failure:^(NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [DesignUtils hideProgressHUDForView:self.view];
-                [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
+                NSError *e;
+                NSData *data = [[error.userInfo valueForKey:@"error"] dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary * errorDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&e];
+                if (!e && [errorDic valueForKey:@"custom_error_title"]) {
+                    [GeneralUtils showAlertWithTitle:[errorDic valueForKey:@"custom_error_title"] andMessage:[errorDic valueForKey:@"custom_error_message"]];
+                } else {
+                    [GeneralUtils showAlertWithTitle:NSLocalizedString(@"cashout_error_title", nil) andMessage:NSLocalizedString(@"cashout_error_message", nil)];
+                }
             });
         }];
     } else if ([alertView.title isEqualToString:NSLocalizedString(@"transfers_disabled_title", nil)]) {

@@ -94,6 +94,7 @@
             view.translatesAutoresizingMaskIntoConstraints = YES;
         }
     }
+    
     self.centralLabel.layer.cornerRadius = self.centralLabel.frame.size.height / 2;
     self.userPictureImageView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2;
     self.overlayView.layer.cornerRadius = self.userPictureImageView.frame.size.height / 2.2;
