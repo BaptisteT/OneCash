@@ -29,7 +29,6 @@
 @property (strong, nonatomic) NSArray *pageTitles;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *howToButton;
-@property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
 @property (weak, nonatomic) IBOutlet UILabel *termsLabel;
 @property (strong, nonatomic) IBOutlet UIView *bottomView;
 
@@ -46,7 +45,6 @@
     [super viewDidLoad];
     
     // wording
-    self.taglineLabel.text = NSLocalizedString(@"tagline_label", nil);
     [self.loginButton setTitle:NSLocalizedString(@"twitter_button", nil) forState:UIControlStateNormal];
     NSString *terms = NSLocalizedString(@"terms_of_services", nil);
     NSString *privacy = NSLocalizedString(@"privacy_policy", nil);

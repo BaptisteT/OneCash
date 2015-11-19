@@ -31,8 +31,8 @@
 "how_answer_9" = "It is highly secure. No credit or debit card information is ever stored on our servers. We use Stripe payment infrastructure, your data are encrypted and protected by Stripe, one of the most secure payment processing available with a PCI-DSS Level 1 certification. We also use Apple Pay compatible with iPhone 6, 6s, 6+ and 6s+.";
 
 // Tuto
-"tuto_makeitrain" = "Support people you love on Twitter.";
-"tuto_twitter" = "Send to anyone on Twitter.";
+"tuto_makeitrain" = "One,\nSupport people you love";
+"tuto_twitter" = "Send to anyone on Twitter";
 "tuto_selfie" = "Say thanks with selfie!";
 "tuto_get" = "Get tipped and cashout the money!";
 
@@ -75,7 +75,7 @@
 "message_placeholder" = "Add a message";
 "recipient_alert" = "Pick someone to support";
 "swipe_label" = "Swipe up to send $1";
-"pick_recipient_tuto" = "Tap here to add a receiver";
+"pick_recipient_tuto" = "Pick someone";
 
 // Send
 "balance_button" = "Balance";
@@ -144,7 +144,7 @@
 "auto_tweet_section" = "Auto-tweet my tips";
 "no_card_section" = "Add a Credit Card";
 "card_section" = "Change payment method";
-"sharing_text" = "You can now support anyone on Twitter with $1 tips. Find me on OneCash : %@! %@";
+"sharing_text" = "You can now support anyone on Twitter with $1 tips. Find me on OneCash: %@/%@";
 "sharing_email_object" = "OneCash, support anyone on Twitter with $1 tips";
 "logout_confirmation_message" = "Are you sure?";
 "no_button_title" = "No";
