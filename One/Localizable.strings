@@ -94,6 +94,8 @@
 "share_username_button" = "💸Get support";
 "transactions_limit_title" = "You have reached the limit of transactions per day";
 "transactions_limit_message" = "Please, try again later.";
+"transactions_blacklisted_title" = "Your account has been suspended due to abnormal usage.";
+"transactions_blacklisted_message" = "Please contact customer support.";
 
 // APple pay
 "apple_pay_item" = "OneCash @%@";

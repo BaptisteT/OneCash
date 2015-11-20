@@ -389,6 +389,8 @@
     } failure:^(NSError *error) {
         if ([error.description containsString:@"transactions_limit"]) {
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"transactions_limit_title", nil) andMessage:NSLocalizedString(@"transactions_limit_message", nil)];
+        } else if ([error.description containsString:@"user_blacklisted"]) {
+            [GeneralUtils showAlertWithTitle:NSLocalizedString(@"transactions_blacklisted_title", nil) andMessage:NSLocalizedString(@"transactions_blacklisted_message", nil)];
         }
         [ApiManager fetchUser:[User currentUser] success:nil failure:nil];
         

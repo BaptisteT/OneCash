@@ -30,6 +30,7 @@
 		3C4824DD1BC2CBCF005B759D /* UsernameCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4E49F641BBB05860046DA09 /* UsernameCard.xib */; };
 		3C5D581D1BECB7D000F701B2 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5D581C1BECB7D000F701B2 /* SSKeychain.m */; };
 		3C5D581E1BECB7D000F701B2 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5D581C1BECB7D000F701B2 /* SSKeychain.m */; };
+		3C6AF1181BFE1BF8004B3EB2 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C6AF1171BFE1BF8004B3EB2 /* AdSupport.framework */; };
 		3C7CBA5E1BABFC0F002D68E1 /* TweetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CBA5D1BABFC0F002D68E1 /* TweetTableViewCell.m */; };
 		3C86E0EF1B8DAF0B005AD52B /* ConstantUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0EE1B8DAF0B005AD52B /* ConstantUtils.m */; };
 		3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C86E0F11B8DB07C005AD52B /* TrackingUtils.m */; };
@@ -185,6 +186,7 @@
 		3C43B6471BA9B239006679DE /* AccountCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountCardViewController.m; sourceTree = "<group>"; };
 		3C5D581B1BECB7D000F701B2 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		3C5D581C1BECB7D000F701B2 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		3C6AF1171BFE1BF8004B3EB2 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		3C7CBA5C1BABFC0F002D68E1 /* TweetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetTableViewCell.h; sourceTree = "<group>"; };
 		3C7CBA5D1BABFC0F002D68E1 /* TweetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetTableViewCell.m; sourceTree = "<group>"; };
 		3C86E0ED1B8DAF0B005AD52B /* ConstantUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantUtils.h; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C6AF1181BFE1BF8004B3EB2 /* AdSupport.framework in Frameworks */,
 				A482E77B1BA60FC80037CA13 /* AudioToolbox.framework in Frameworks */,
 				3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */,
 				3C13EE4D1B9F32DE00930AC7 /* SystemConfiguration.framework in Frameworks */,
@@ -322,6 +325,7 @@
 		03794D7AE0960F429C553BEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3C6AF1171BFE1BF8004B3EB2 /* AdSupport.framework */,
 				3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */,
 				3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */,
 				A482E77A1BA60FC80037CA13 /* AudioToolbox.framework */,
@@ -1070,8 +1074,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindie, Inc. (86N86JY2JG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mindie, Inc. (86N86JY2JG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1081,7 +1085,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "58fc0a89-b578-46bc-9390-01a22646d040";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1092,8 +1096,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
 				CODE_SIGN_ENTITLEMENTS = One/One.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindie, Inc. (86N86JY2JG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mindie, Inc. (86N86JY2JG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1107,7 +1111,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cash.one;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "58fc0a89-b578-46bc-9390-01a22646d040";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
