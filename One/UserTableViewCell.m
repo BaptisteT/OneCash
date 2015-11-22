@@ -5,8 +5,6 @@
 //  Created by Baptiste Truchot on 9/5/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
-#import <KILabel.h>
-
 #import "User.h"
 
 #import "UserTableViewCell.h"
@@ -19,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userPicture;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *certifiedImageView;
-@property (weak, nonatomic) IBOutlet KILabel *userStatus;
+@property (weak, nonatomic) IBOutlet UILabel *userStatus;
 @property (weak, nonatomic) IBOutlet UIButton *tweetButton;
 
 @end
@@ -30,24 +28,6 @@
     _user = user;
     self.userStatus.text = user.userStatus;
     self.userStatus.hidden = !user.userStatus || user.userStatus.length == 0;
-    
-    // Message label => detect URL
-    self.userStatus.linkDetectionTypes = KILinkTypeOptionURL;
-    self.userStatus.userInteractionEnabled = YES;
-    [self.userStatus setAttributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor], NSFontAttributeName: [UIFont boldSystemFontOfSize:self.userStatus.font.pointSize]} forLinkType:KILinkTypeURL];
-    self.userStatus.urlLinkTapHandler = ^(KILabel *label, NSString *string, NSRange range) {
-        [TrackingUtils trackEvent:EVENT_LINK_CLICKED properties:@{@"origin": @"message"}];
-        if (string && string.length > 0) {
-            NSURL *url = [NSURL URLWithString:string];
-            if (url.scheme.length == 0) {
-                string = [@"http://" stringByAppendingString:string];
-                url  = [[NSURL alloc] initWithString:string];
-            }
-            if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                [[UIApplication sharedApplication] openURL:url];
-            }
-        }
-    };
     
     if(user.balance > 0) {
         NSString *balance = [NSString stringWithFormat:@"$%@",[self abbreviateNumber:(int)user.balance]];

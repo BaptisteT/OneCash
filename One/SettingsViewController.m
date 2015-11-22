@@ -399,8 +399,7 @@ struct {
 
 // Share to FB, sms, email.. using UIActivityViewController
 - (void)displayShareOptions {
-    // todo BT
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"sharing_text",nil),[User currentUser].caseUsername,kOneWebsiteLink];
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"sharing_text",nil),kOneWebsiteLink,[User currentUser].caseUsername];
     NSArray *activityItems = @[message];
     
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];

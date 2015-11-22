@@ -8,7 +8,6 @@ PODS:
   - Fabric (1.6.0):
     - Fabric/Base (= 1.6.0)
   - Fabric/Base (1.6.0)
-  - KILabel (1.0.0)
   - MBProgressHUD (0.9.1)
   - Mixpanel (2.9.0):
     - Mixpanel/Mixpanel (= 2.9.0)
@@ -31,7 +30,6 @@ DEPENDENCIES:
   - Crashlytics
   - DateTools
   - Fabric
-  - KILabel (= 1.0.0)
   - MBProgressHUD (~> 0.9.1)
   - Mixpanel
   - Parse
@@ -57,7 +55,6 @@ SPEC CHECKSUMS:
   Crashlytics: 1ee87895c37472eb3f01f409ea1654a464d2f8d4
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: d737eda3a26ac940a5430230eedb35f16b226131
-  KILabel: 84049969642d4ac1061ebe38ad4c0da37fed108b
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Mixpanel: 42ae6168effc48481d957f7883dd8514a398738d
   Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
