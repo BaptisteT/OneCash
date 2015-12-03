@@ -70,9 +70,9 @@ static NSInteger const kMaxMessagesLength = 30;
 static NSInteger const kMaxStatusLength = 60;
 
 // Sending
-static NSInteger const kUnitTransactionAmount = 1;
+static NSInteger const kDefaultTransactionAmount = 1;
 static float const kAssociationTimerDuration = 2.;
-static NSInteger const kAssociationTransactionsLimit = 50;
+static NSInteger const kTransactionsLimit = 50;
 
 // Recipient
 static NSInteger const kRecentUserCount = 3;

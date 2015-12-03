@@ -22,7 +22,9 @@
 @property (nonatomic) BOOL isEditingMessage;
 @property (nonatomic) CGPoint initialCenter;
 
-- (void)initWithFrame:(CGRect)frame andDelegate:(id<CashViewDelegateProtocol>)delegate ;
+- (NSInteger)getCashViewValue;
+- (void)setCashViewValueAndLabelsTo:(NSInteger)value;
+- (void)initWithFrame:(CGRect)frame initialValue:(NSInteger)value andDelegate:(id<CashViewDelegateProtocol>)delegate;
 - (void)moveViewToCenterAndExecute:(void(^)(POPAnimation *anim,BOOL completed))completionBlock;
 - (BOOL)isAtInitialPosition;
 - (void)updateRecipient;
@@ -38,6 +40,8 @@
 - (User *)receiver;
 - (void)recipientButtonClicked;
 - (void)removeRecipientButtonClicked;
--(void)showPickRecipientAlert;
+- (void)showPickRecipientAlert;
+- (void)updateCashViewStacksValue:(NSInteger)value;
+- (void)showCustomValueVC;
 
 @end

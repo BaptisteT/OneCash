@@ -5,25 +5,30 @@
 //  Created by Baptiste Truchot on 9/6/15.
 //  Copyright (c) 2015 Mindie. All rights reserved.
 //
+#import <AudioToolbox/AudioServices.h>
+#import <Foundation/Foundation.h>
+
+#import "DatastoreManager.h"
 #import "User.h"
 
 #import "CashView.h"
-#import <Foundation/Foundation.h>
+#import "UIButton+NSCopying.h"
 
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
 #import "DesignUtils.h"
 #import "OneLogger.h"
-#import <AudioToolbox/AudioServices.h>
-#import "DatastoreManager.h"
+
 
 
 #define LOCALLOGENABLED NO && GLOBALLOGENABLED
 
 @interface CashView()
+
+@property (weak, nonatomic) IBOutlet UIButton *customValueButton;
+@property (strong, nonatomic) NSArray *defaultValueButtons;
 @property (weak, nonatomic) IBOutlet UILabel *centralLabel;
 @property (weak, nonatomic) IBOutlet UILabel *leftUpOne;
-@property (weak, nonatomic) IBOutlet UILabel *rightUpOne;
 @property (weak, nonatomic) IBOutlet UILabel *leftBottomOne;
 @property (weak, nonatomic) IBOutlet UILabel *rightBottomOne;
 @property (strong, nonatomic) IBOutlet UILabel *dollarLabel;
@@ -34,10 +39,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *removeRecipientButton;
 @property (strong, nonatomic) IBOutlet UILabel *onboardingLabel;
 @property (strong, nonatomic) UIView *onboardingView;
-
-
-
-@property (nonatomic) double rads;
+@property (nonatomic) NSInteger cashValue;
 
 @end
 
@@ -46,7 +48,7 @@
     CGFloat _messageInitialSize;
 }
 
-- (void)initWithFrame:(CGRect)frame andDelegate:(id<CashViewDelegateProtocol>)delegate {
+- (void)initWithFrame:(CGRect)frame initialValue:(NSInteger)value andDelegate:(id<CashViewDelegateProtocol>)delegate {
     [self setFrame:frame];
     self.delegate = delegate;
     self.initialCenter = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
@@ -68,7 +70,6 @@
     [self.addRecipientButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
     self.onboardingLabel.textColor = [UIColor whiteColor];
     self.leftUpOne.textColor = [ColorUtils darkGreen];
-    self.rightUpOne.textColor = [ColorUtils darkGreen];
     self.leftBottomOne.textColor = [ColorUtils darkGreen];
     self.rightBottomOne.textColor = [ColorUtils darkGreen];
     self.messageTextField.backgroundColor = [ColorUtils darkGreen];
@@ -77,9 +78,16 @@
     self.messageTextField.delegate = self;
     self.messageTextField.layer.cornerRadius = self.messageTextField.frame.size.height / 2;
     self.messageTextField.edgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    [self.messageTextField setValue:[ColorUtils mainGreen]
+    [self.messageTextField setValue:[ColorUtils lightGreen]
                     forKeyPath:@"_placeholderLabel.textColor"];
     [self updateRecipient];
+    
+    // Cash value
+    self.cashValue = value;
+    self.customValueButton.layer.cornerRadius = self.customValueButton.layer.frame.size.height / 2;
+    [self.customValueButton setTitleColor:[ColorUtils mainGreen] forState:UIControlStateNormal];
+    self.customValueButton.backgroundColor = [ColorUtils darkGreen];
+    
     // Pan Gesture
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self
                                                                                  action:@selector(handlePan:)];
@@ -93,6 +101,11 @@
         if (![view isKindOfClass:[UITextField class]]) {
             view.translatesAutoresizingMaskIntoConstraints = YES;
         }
+    }
+    
+    if (!self.defaultValueButtons) {
+        [self initChooseValueButtons];
+        [self setCashViewValueAndLabelsTo:self.cashValue];
     }
     
     self.centralLabel.layer.cornerRadius = self.centralLabel.frame.size.height / 2;
@@ -206,20 +219,21 @@
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         [self.messageTextField resignFirstResponder];
         [self setMovingUI];
+        [self setValueButtonsToNonSelectionMode];
         [self.delegate addNewCashSubview];
-        self.rads = 0;
+        CGFloat rads;
         if ([self.delegate receiver] == nil) {
             [self.delegate showPickRecipientAlert];
         } else {
             NSLog(@"%f",translation.y);
             CGFloat factor = MIN(1,fabs(translation.y)/10);
             if (translation.x < 0) {
-                self.rads = 30 * factor;
+                rads = 30 * factor;
             } else {
-                self.rads = -30 * factor;
+                rads = -30 * factor;
             }
             [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-                self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, DEGREES_TO_RADIANS(self.rads));
+                self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, DEGREES_TO_RADIANS(rads));
             } completion:nil];
         }
     }
@@ -250,6 +264,89 @@
 
 -(IBAction)removeRecipientPressed:(id)sender {
     [self.delegate removeRecipientButtonClicked];
+}
+
+- (IBAction)valueButtonClicked:(id)sender {
+    BOOL selectionState = !CGRectEqualToRect(self.customValueButton.frame,((UIButton *)self.defaultValueButtons.firstObject).frame);
+    
+    if (selectionState) {
+        if ([((UIButton *)sender).titleLabel.text isEqualToString:@"+"]) {
+            [self.delegate showCustomValueVC];
+        } else {
+            NSInteger value = [[((UIButton *)sender).titleLabel.text substringFromIndex:1] intValue];
+            [self setCashViewValueAndLabelsTo:value];
+            [self.delegate updateCashViewStacksValue:value];
+        }
+    } else {
+        [self.customValueButton setTitle:@"+" forState:UIControlStateNormal];
+        [self setValueButtonsToSelectionMode];
+    }
+}
+
+
+
+
+// --------------------------------------------
+#pragma mark - CashView value
+// --------------------------------------------
+- (void)setCashViewValueAndLabelsTo:(NSInteger)value
+{
+    self.cashValue = value;
+    for (UILabel *label in @[self.leftUpOne, self.leftBottomOne, self.rightBottomOne]) {
+        label.text = [NSString stringWithFormat:@"$%lu",value];
+    }
+    
+    [self setValueButtonsToNonSelectionMode];
+}
+
+- (void)setValueButtonsToSelectionMode {
+    NSInteger index = self.defaultValueButtons.count;
+    for (UIButton *button in self.defaultValueButtons) {
+        CGRect frame = self.customValueButton.frame;
+        frame.origin.x -= index * (button.frame.size.width + 5);
+        [UIView animateWithDuration:0.25 animations:^{
+            button.frame = frame;
+        }];
+        index--;
+    }
+}
+
+- (void)setValueButtonsToNonSelectionMode {
+    NSString *selectedButtonTitle = [NSString stringWithFormat:@"$%lu",self.cashValue];
+    BOOL customSelected = YES;
+    for (UIButton *button in self.defaultValueButtons) {
+        [UIView animateWithDuration:0.25 animations:^{
+            button.frame = self.customValueButton.frame;
+        }];
+        if ([button.titleLabel.text isEqualToString:selectedButtonTitle]) {
+            [self bringSubviewToFront:button];
+            button.backgroundColor = [UIColor whiteColor];
+            customSelected = NO;
+        } else {
+            button.backgroundColor = [ColorUtils darkGreen];
+        }
+    }
+    if (customSelected) {
+        [self.customValueButton setTitle:selectedButtonTitle forState:UIControlStateNormal];
+        self.customValueButton.backgroundColor = [UIColor whiteColor];
+        [self bringSubviewToFront:self.customValueButton];
+    }
+}
+
+- (NSInteger)getCashViewValue {
+    return self.cashValue;
+}
+
+- (void)initChooseValueButtons {
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSString *buttonTitle in @[@"$1",@"$5",@"$10"]) {
+        UIButton *button = [self.customValueButton copy];
+        [button setTitle:buttonTitle forState:UIControlStateNormal];
+        [self insertSubview:button belowSubview:self.customValueButton];
+        [array addObject:button];
+        [button addTarget:self action:@selector(valueButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    self.defaultValueButtons = array;
 }
 
 

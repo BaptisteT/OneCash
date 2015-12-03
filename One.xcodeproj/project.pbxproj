@@ -133,6 +133,10 @@
 		3CD6C1E01BC6F99700D1D991 /* socicon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CA0E61BBD957C00DBBCB0 /* socicon.ttf */; };
 		3CD6C1E61BCE782000D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */; };
 		3CD6C1E71BCE782000D1D991 /* OneCash-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */; };
+		3CD847F41C105693009275E8 /* UIButton+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD847F31C105693009275E8 /* UIButton+NSCopying.m */; };
+		3CD847F51C105693009275E8 /* UIButton+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD847F31C105693009275E8 /* UIButton+NSCopying.m */; };
+		3CD847F81C108FDB009275E8 /* CustomValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD847F71C108FDB009275E8 /* CustomValueViewController.m */; };
+		3CD847F91C108FDB009275E8 /* CustomValueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CD847F71C108FDB009275E8 /* CustomValueViewController.m */; };
 		3CDFB2561BBC4855001A6913 /* ShareUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E49F621BBAF27D0046DA09 /* ShareUsernameViewController.m */; };
 		3CDFB2591BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; };
 		3CDFB25A1BBD4389001A6913 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */; };
@@ -267,6 +271,10 @@
 		3CD4D6411BB91D75001F2C7A /* OneCash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneCash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CD6C1DF1BC66A7100D1D991 /* OneCash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OneCash.entitlements; sourceTree = "<group>"; };
 		3CD6C1E51BCE782000D1D991 /* OneCash-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OneCash-Info.plist"; sourceTree = "<group>"; };
+		3CD847F21C105693009275E8 /* UIButton+NSCopying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+NSCopying.h"; sourceTree = "<group>"; };
+		3CD847F31C105693009275E8 /* UIButton+NSCopying.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+NSCopying.m"; sourceTree = "<group>"; };
+		3CD847F61C108FDB009275E8 /* CustomValueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomValueViewController.h; sourceTree = "<group>"; };
+		3CD847F71C108FDB009275E8 /* CustomValueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomValueViewController.m; sourceTree = "<group>"; };
 		3CDFB2571BBD4389001A6913 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		3CDFB2581BBD4389001A6913 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UserName.h"; sourceTree = "<group>"; };
@@ -524,6 +532,8 @@
 				3C401B3F1BDF441F0070F8D2 /* CameraViewController.h */,
 				3C401B401BDF441F0070F8D2 /* CameraViewController.m */,
 				3C401B431BDF47250070F8D2 /* CameraOverlay.xib */,
+				3CD847F61C108FDB009275E8 /* CustomValueViewController.h */,
+				3CD847F71C108FDB009275E8 /* CustomValueViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -555,6 +565,8 @@
 				3CC5FD9F1B98835C00514A43 /* NSString+EmailAddresses.m */,
 				3CFA3BBA1BBAA6FF00F94A72 /* UIImageView+UserName.h */,
 				3CFA3BBB1BBAA6FF00F94A72 /* UIImageView+UserName.m */,
+				3CD847F21C105693009275E8 /* UIButton+NSCopying.h */,
+				3CD847F31C105693009275E8 /* UIButton+NSCopying.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -755,7 +767,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" f9ca597e689ec6ddf7ea7adc3fc05ea4f9ce6fb9 0a81e712325d94f766791e99f62e1bac477d6dfc753e67864ec3521c5ca4b210";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" f9ca597e689ec6ddf7ea7adc3fc05ea4f9ce6fb9 0a81e712325d94f766791e99f62e1bac477d6dfc753e67864ec3521c5ca4b210";
 		};
 		3CD4D5FE1BB91D75001F2C7A /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -870,6 +882,7 @@
 				3C13EE501B9F428D00930AC7 /* DatastoreManager.m in Sources */,
 				3C2E036D1B8DA18B00D22D48 /* AppDelegate.m in Sources */,
 				3CC5FDC31B98A6D400514A43 /* SendCashViewController.m in Sources */,
+				3CD847F41C105693009275E8 /* UIButton+NSCopying.m in Sources */,
 				3C86E1021B8DBA5E005AD52B /* InternalNotifView.m in Sources */,
 				3C2E036A1B8DA18B00D22D48 /* main.m in Sources */,
 				3C86E0FE1B8DB577005AD52B /* ApiManager.m in Sources */,
@@ -886,6 +899,7 @@
 				3C86E0F21B8DB07C005AD52B /* TrackingUtils.m in Sources */,
 				3CC5FDDC1B9B5A6000514A43 /* BackEndUtils.m in Sources */,
 				3C86E1061B8DBBE6005AD52B /* ColorUtils.m in Sources */,
+				3CD847F81C108FDB009275E8 /* CustomValueViewController.m in Sources */,
 				3C86E0F81B8DB3DD005AD52B /* NotifUtils.m in Sources */,
 				3CC5FD941B97431000514A43 /* Transaction.m in Sources */,
 				3CA1B9DD1BF24EE3001CBE1D /* TutoViewController.m in Sources */,
@@ -926,6 +940,7 @@
 				3CD4D60D1BB91D75001F2C7A /* DatastoreManager.m in Sources */,
 				3CD4D60E1BB91D75001F2C7A /* AppDelegate.m in Sources */,
 				3CD4D60F1BB91D75001F2C7A /* SendCashViewController.m in Sources */,
+				3CD847F51C105693009275E8 /* UIButton+NSCopying.m in Sources */,
 				3CD4D6101BB91D75001F2C7A /* InternalNotifView.m in Sources */,
 				3CD4D6111BB91D75001F2C7A /* main.m in Sources */,
 				3CD4D6121BB91D75001F2C7A /* ApiManager.m in Sources */,
@@ -942,6 +957,7 @@
 				3CD4D61C1BB91D75001F2C7A /* TrackingUtils.m in Sources */,
 				3CD4D61D1BB91D75001F2C7A /* BackEndUtils.m in Sources */,
 				3CD4D61E1BB91D75001F2C7A /* ColorUtils.m in Sources */,
+				3CD847F91C108FDB009275E8 /* CustomValueViewController.m in Sources */,
 				3CD4D61F1BB91D75001F2C7A /* NotifUtils.m in Sources */,
 				3CD4D6201BB91D75001F2C7A /* Transaction.m in Sources */,
 				3CA1B9DE1BF24EE3001CBE1D /* TutoViewController.m in Sources */,

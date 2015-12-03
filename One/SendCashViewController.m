@@ -20,7 +20,6 @@
 
 #import "CardViewController.h"
 #import "SendCashViewController.h"
-#import "CashView.h"
 
 #import "ColorUtils.h"
 #import "ConstantUtils.h"
@@ -45,6 +44,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *pickRecipientAlertLabel;
 @property (strong, nonatomic) IBOutlet UIButton *shareUsernameButton;
 @property (strong, nonatomic) NSMutableArray *presentedCashViews;
+@property (nonatomic) NSInteger cashValue;
 @property (strong, nonatomic) NSTimer *associationTimer;
 @property (strong, nonatomic) Transaction *transactionToSend;
 @property (strong, nonatomic) Transaction *applePaySendingTransaction;
@@ -68,6 +68,7 @@
     [super viewDidLoad];
     
     // Init
+    self.cashValue = kDefaultTransactionAmount;
     self.sentTransactionsCount = 0;
     self.ongoingTransactionsCount = 0;
     _unreadReactionsCount = 0;
@@ -203,6 +204,9 @@
         blurSegue.saturationDeltaFactor = 0.5;
         blurSegue.blurRadius = 20;
         blurSegue.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
+    } else if ([segueName isEqualToString:@"Custom From Send"]) {
+        ((CustomValueViewController *) [segue destinationViewController]).delegate = self;
+        ((CustomValueViewController *) [segue destinationViewController]).initialValue = self.cashValue;
     }
 }
 
@@ -383,9 +387,6 @@
         if (self.ongoingTransactionsCount == 0) {
             self.titleLabel.text = NSLocalizedString(@"sent_label", nil);
         }
-        // remove recipient
-        if (self.ongoingTransactionsCount == 0)
-            [self setSelectedUser:nil];
     } failure:^(NSError *error) {
         if ([error.description containsString:@"transactions_limit"]) {
             [GeneralUtils showAlertWithTitle:NSLocalizedString(@"transactions_limit_title", nil) andMessage:NSLocalizedString(@"transactions_limit_message", nil)];
@@ -409,7 +410,7 @@
     self.applePaySendingTransaction = transaction;
     PKPaymentRequest *paymentRequest = [Stripe paymentRequestWithMerchantIdentifier:kApplePayMerchantId];
     if ([Stripe canSubmitPaymentRequest:paymentRequest]) {
-        NSInteger valueToWithdraw = transaction.transactionAmount + (self.ongoingTransactionsCount - transaction.transactionAmount - [User currentUser].balance);
+        NSInteger valueToWithdraw = transaction.transactionAmount + MIN(0,self.ongoingTransactionsCount - transaction.transactionAmount - [User currentUser].balance);
         NSDecimalNumber *amount = (NSDecimalNumber *)[NSDecimalNumber numberWithInteger:valueToWithdraw];
         paymentRequest.paymentSummaryItems = @[[PKPaymentSummaryItem summaryItemWithLabel:[NSString stringWithFormat:NSLocalizedString(@"apple_pay_item", nil),transaction.receiver.caseUsername] amount:amount]];
 #if DEBUG
@@ -446,7 +447,6 @@
                                                      [self createPaymentWithTransaction:self.applePaySendingTransaction
                                                                                   token:token.tokenId];
                                                  }
-                                                 self.applePaySendingTransaction = nil;
                                                  completion(PKPaymentAuthorizationStatusSuccess);
                                              }];
 }
@@ -456,8 +456,8 @@
         [TrackingUtils trackEvent:EVENT_CREATE_PAYMENT_FAIL properties:@{@"amount": [NSNumber numberWithInteger:self.applePaySendingTransaction.transactionAmount], @"message": [NSNumber numberWithBool:(self.applePaySendingTransaction.message !=nil)], @"method": @"Apple Pay", @"error":@"apple_pay_auth_fail"}];
         self.ongoingTransactionsCount -= self.applePaySendingTransaction.transactionAmount;
         [self failedAnimation:self.applePaySendingTransaction.transactionAmount];
-        self.applePaySendingTransaction = nil;
     }
+    self.applePaySendingTransaction = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -492,20 +492,21 @@
 
      // Create transaction
      } else {
+         NSInteger cashViewValue = [cashView getCashViewValue];
          [self removeCashSubview:cashView];
          if (self.transactionToSend) {
              [self.associationTimer invalidate];
              BOOL sameReceiver = [self.transactionToSend.receiver.username isEqualToString:self.receiver.username];
              BOOL noMessageConflict = !([self.transactionToSend containsMessage] && cashView.messageTextField.text.length > 0);
-             BOOL belowLimit = self.transactionToSend.transactionAmount <= kAssociationTransactionsLimit;
+             BOOL belowLimit = self.transactionToSend.transactionAmount <= kTransactionsLimit;
              
              // If we can't merge, send the first one
              if (!sameReceiver || !noMessageConflict || !belowLimit) {
                  [self generateTokenAndSendTransaction];
              } else {
-                 self.ongoingTransactionsCount += kUnitTransactionAmount;
+                 self.ongoingTransactionsCount += cashViewValue;
                  // update transaction
-                 self.transactionToSend.transactionAmount += kUnitTransactionAmount;
+                 self.transactionToSend.transactionAmount += cashViewValue;
                  if (cashView.messageTextField.text.length > 0) {
                      self.transactionToSend.message = cashView.messageTextField.text;
                  }
@@ -513,9 +514,9 @@
                  [self startAssociationTimer];
              }
          } else {
-             self.ongoingTransactionsCount += kUnitTransactionAmount;
+             self.ongoingTransactionsCount += cashViewValue;
              self.transactionToSend = [Transaction transactionWithReceiver:self.receiver
-                                                         transactionAmount:kUnitTransactionAmount
+                                                         transactionAmount:cashViewValue
                                                                       type:kTransactionPayment
                                                                    message:cashView.messageTextField.text];
              [self startAssociationTimer];
@@ -542,7 +543,7 @@
     CGFloat height = self.view.frame.size.height * 0.90;
     CGRect frame = CGRectMake((self.view.frame.size.width - width) / 2, (self.view.frame.size.height - height) * 2, width, height);
     CashView *cashView = [[[NSBundle mainBundle] loadNibNamed:@"CashView" owner:self options:nil] objectAtIndex:0];
-    [cashView initWithFrame:frame andDelegate:self];
+    [cashView initWithFrame:frame initialValue:self.cashValue andDelegate:self];
     cashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
     [self.view insertSubview:cashView atIndex:0];
     [self.presentedCashViews addObject:cashView];
@@ -710,6 +711,17 @@
         } completion:^(BOOL finished) {
         }];
     }];
+}
+
+- (void)updateCashViewStacksValue:(NSInteger)value {
+    self.cashValue = value;
+    for (CashView *cashView in self.presentedCashViews) {
+        [cashView setCashViewValueAndLabelsTo:value];
+    }
+}
+
+- (void)showCustomValueVC {
+    [self performSegueWithIdentifier:@"Custom From Send" sender:nil];
 }
 
 

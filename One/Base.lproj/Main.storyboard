@@ -1419,6 +1419,80 @@
             </objects>
             <point key="canvasLocation" x="3524" y="-1332"/>
         </scene>
+        <!--Custom Value View Controller-->
+        <scene sceneID="BsI-AQ-kGW">
+            <objects>
+                <viewController id="Zm6-ID-xV4" customClass="CustomValueViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ySU-EN-AJC"/>
+                        <viewControllerLayoutGuide type="bottom" id="xLj-42-bkv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FB0-hM-bUd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9i9-tM-QmS">
+                                <rect key="frame" x="80" y="260" width="440" height="120"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="type_amount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhN-bL-YYU">
+                                        <rect key="frame" x="10" y="20" width="420" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.32030925500000001" green="1" blue="0.16362500899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="99" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RdA-oj-bh4">
+                                        <rect key="frame" x="201.5" y="65" width="37" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="pWg-uL-gA2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyr-in-Oad">
+                                        <rect key="frame" x="183.5" y="65" width="17" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="textColor" red="0.12549020350000001" green="0.53725492949999998" blue="0.14901961389999999" alpha="1" colorSpace="deviceRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="RdA-oj-bh4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9i9-tM-QmS" secondAttribute="leading" constant="10" id="KX8-97-V7l"/>
+                                    <constraint firstAttribute="height" constant="120" id="Mtf-O9-IXl"/>
+                                    <constraint firstItem="XhN-bL-YYU" firstAttribute="centerX" secondItem="9i9-tM-QmS" secondAttribute="centerX" id="T4V-Wa-LYE"/>
+                                    <constraint firstItem="RdA-oj-bh4" firstAttribute="centerX" secondItem="9i9-tM-QmS" secondAttribute="centerX" id="UaJ-m9-QFk"/>
+                                    <constraint firstItem="yyr-in-Oad" firstAttribute="height" secondItem="RdA-oj-bh4" secondAttribute="height" id="WW9-FJ-Dis"/>
+                                    <constraint firstItem="yyr-in-Oad" firstAttribute="centerY" secondItem="RdA-oj-bh4" secondAttribute="centerY" id="Xyb-b6-cPo"/>
+                                    <constraint firstItem="XhN-bL-YYU" firstAttribute="leading" secondItem="9i9-tM-QmS" secondAttribute="leading" constant="10" id="Zf5-tL-eQz"/>
+                                    <constraint firstItem="RdA-oj-bh4" firstAttribute="leading" secondItem="yyr-in-Oad" secondAttribute="trailing" constant="1" id="kP1-Nr-yFH"/>
+                                    <constraint firstItem="RdA-oj-bh4" firstAttribute="centerY" secondItem="9i9-tM-QmS" secondAttribute="centerY" constant="20" id="vpJ-5U-oXM"/>
+                                    <constraint firstItem="XhN-bL-YYU" firstAttribute="top" secondItem="9i9-tM-QmS" secondAttribute="top" constant="20" id="wET-kt-TOg"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="KX8-97-V7l"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="9i9-tM-QmS" firstAttribute="centerY" secondItem="FB0-hM-bUd" secondAttribute="centerY" constant="20" id="7ZW-Cc-rfi"/>
+                            <constraint firstItem="9i9-tM-QmS" firstAttribute="centerX" secondItem="FB0-hM-bUd" secondAttribute="centerX" id="e3c-eh-S2y"/>
+                            <constraint firstItem="9i9-tM-QmS" firstAttribute="leading" secondItem="FB0-hM-bUd" secondAttribute="leadingMargin" constant="60" id="kAq-bg-3tu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="9i9-tM-QmS" id="JMH-wg-chF"/>
+                        <outlet property="dollarLabel" destination="yyr-in-Oad" id="X1I-l2-tVa"/>
+                        <outlet property="explanationLabel" destination="XhN-bL-YYU" id="Ebl-hX-aSb"/>
+                        <outlet property="valueTextField" destination="RdA-oj-bh4" id="9lP-T7-SKY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yoz-Co-0P0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2824" y="-1036"/>
+        </scene>
         <!--Managed Account View Controller-->
         <scene sceneID="ylz-Mf-RfX">
             <objects>
@@ -2669,6 +2743,7 @@
                         <segue destination="Sg7-PG-Ydg" kind="presentation" identifier="Recipient From Send" id="9qY-8U-Mxz"/>
                         <segue destination="Koy-ZE-4HZ" kind="presentation" identifier="Card From Send" id="0bD-CV-jtZ"/>
                         <segue destination="9gg-cb-kWX" kind="custom" identifier="Share From Send" customClass="AFBlurSegue" id="zOC-kp-YUB"/>
+                        <segue destination="Zm6-ID-xV4" kind="presentation" identifier="Custom From Send" animates="NO" modalPresentationStyle="overCurrentContext" id="Ocl-qw-BeV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKn-61-Mg4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3162,7 +3237,7 @@
         <image name="spin" width="65" height="65"/>
         <image name="stripe_icon" width="119" height="26"/>
         <image name="thanks_sticker" width="375" height="196"/>
-        <image name="tuto_home" width="1242" height="2208"/>
+        <image name="tuto_home" width="621" height="1104"/>
         <image name="verified_user" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>

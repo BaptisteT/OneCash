@@ -10,10 +10,11 @@
 
 #import "BalanceViewController.h"
 #import "CashView.h"
+#import "CustomValueViewController.h"
 #import "RecipientViewController.h"
 #import "SettingsViewController.h"
 
-@interface SendCashViewController : UIViewController <RecipientVCProtocol, CashViewDelegateProtocol, UIAlertViewDelegate, BalanceViewControllerProtocol, SettingsVCProtocol>
+@interface SendCashViewController : UIViewController <RecipientVCProtocol, CashViewDelegateProtocol, UIAlertViewDelegate, BalanceViewControllerProtocol, SettingsVCProtocol, CustomValueVCProtocol>
 
 @property (nonatomic) BOOL navigateDirectlyToBalance;
 @property (strong, nonatomic) User *receiver;

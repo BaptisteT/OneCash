@@ -1,6 +1,6 @@
 {
   "name": "pop",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": {
     "type": "BSD"
   },
@@ -11,7 +11,7 @@
   "summary": "Extensible animation framework for iOS and OS X.",
   "source": {
     "git": "https://github.com/facebook/pop.git",
-    "tag": "1.0.8"
+    "tag": "1.0.9"
   },
   "source_files": "pop/**/*.{h,m,mm,cpp}",
   "public_header_files": "pop/{POP,POPAnimatableProperty,POPAnimation,POPAnimationEvent,POPAnimationExtras,POPAnimationTracer,POPAnimator,POPBasicAnimation,POPCustomAnimation,POPDecayAnimation,POPDefines,POPGeometry,POPLayerExtras,POPPropertyAnimation,POPSpringAnimation}.h",

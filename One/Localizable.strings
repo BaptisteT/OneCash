@@ -84,7 +84,7 @@
 "no_receiver_title" = "We can't send this dollar";
 "no_receiver_message" = "Please pick a recipient!";
 "no_card_message" = "Your $1 tip hasn’t been sent";
-"no_card_title" = "You need to add a valid payment method";
+"no_card_title" = "You need to add a payment method";
 "add_button" = "Add";
 "sending_label" = "$%lu";
 "sent_label" = "Sent!";
@@ -96,6 +96,9 @@
 "transactions_limit_message" = "Please, try again later.";
 "transactions_blacklisted_title" = "Your account has been suspended due to abnormal usage.";
 "transactions_blacklisted_message" = "Please contact customer support.";
+
+// Custom amount
+"type_amount" = "Type an amount";
 
 // APple pay
 "apple_pay_item" = "OneCash @%@";

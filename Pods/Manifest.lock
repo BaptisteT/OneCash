@@ -2,22 +2,20 @@ PODS:
   - AFBlurSegue (1.2.1)
   - ApplePayStubs (0.2)
   - Bolts/Tasks (1.5.0)
-  - Crashlytics (3.4.0):
+  - Crashlytics (3.4.1):
     - Fabric (~> 1.6.0)
   - DateTools (1.7.0)
-  - Fabric (1.6.0):
-    - Fabric/Base (= 1.6.0)
-  - Fabric/Base (1.6.0)
+  - Fabric (1.6.1)
   - MBProgressHUD (0.9.1)
-  - Mixpanel (2.9.0):
-    - Mixpanel/Mixpanel (= 2.9.0)
-  - Mixpanel/Mixpanel (2.9.0)
-  - Parse (1.9.1):
-    - Bolts/Tasks (>= 1.4.0)
+  - Mixpanel (2.9.1):
+    - Mixpanel/Mixpanel (= 2.9.1)
+  - Mixpanel/Mixpanel (2.9.1)
+  - Parse (1.10.0):
+    - Bolts/Tasks (~> 1.5)
   - ParseTwitterUtils (1.9.1):
     - Bolts/Tasks (~> 1.5)
     - Parse (~> 1.9)
-  - pop (1.0.8)
+  - pop (1.0.9)
   - Stripe (6.0.1):
     - Stripe/Core (= 6.0.1)
   - Stripe/Core (6.0.1)
@@ -45,21 +43,21 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   pop:
-    :commit: c0792fd9284fed3d92658632c1551cedd002e869
+    :commit: e422ea6fdc1f661dea35affd3d9c280c574da75e
     :git: https://github.com/facebook/pop.git
 
 SPEC CHECKSUMS:
   AFBlurSegue: 27e55f015360f4e11117d2c3a959dbb5316eef78
   ApplePayStubs: 5dd63c36527d1117b2045939fb5b6581b4815433
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
-  Crashlytics: 1ee87895c37472eb3f01f409ea1654a464d2f8d4
+  Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
-  Fabric: d737eda3a26ac940a5430230eedb35f16b226131
+  Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  Mixpanel: 42ae6168effc48481d957f7883dd8514a398738d
-  Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
+  Mixpanel: 5ca24b2a05f4c77fe9bcfe7671d681d0f3f8d76f
+  Parse: 90b2544822200f84b18bfacc4e8b0a3a6c3584a2
   ParseTwitterUtils: 41e8849e37db471e874c6e515190ded19e043dc8
-  pop: ce367ec8f3b48b47ea8958e31ed2f9c6c7df7f92
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Stripe: 04f215191702c268b89fe0cdf28dc24a9688a71b
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   UIImage+BlurredFrame: ad2f7195c6947ea3117c7d202f75a51958d5061a
