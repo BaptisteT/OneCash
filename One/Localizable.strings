@@ -99,6 +99,7 @@
 
 // Custom amount
 "type_amount" = "Type an amount";
+"excessive_cash_value" = "Transactions can not exceed $%lu";
 
 // APple pay
 "apple_pay_item" = "OneCash @%@";

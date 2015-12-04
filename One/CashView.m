@@ -284,8 +284,6 @@
 }
 
 
-
-
 // --------------------------------------------
 #pragma mark - CashView value
 // --------------------------------------------
@@ -293,7 +291,7 @@
 {
     self.cashValue = value;
     for (UILabel *label in @[self.leftUpOne, self.leftBottomOne, self.rightBottomOne]) {
-        label.text = [NSString stringWithFormat:@"$%lu",value];
+        label.text = [NSString stringWithFormat:@"$%lu",(long)value];
     }
     
     [self setValueButtonsToNonSelectionMode];
@@ -312,7 +310,7 @@
 }
 
 - (void)setValueButtonsToNonSelectionMode {
-    NSString *selectedButtonTitle = [NSString stringWithFormat:@"$%lu",self.cashValue];
+    NSString *selectedButtonTitle = [NSString stringWithFormat:@"$%lu",(long)self.cashValue];
     BOOL customSelected = YES;
     for (UIButton *button in self.defaultValueButtons) {
         [UIView animateWithDuration:0.25 animations:^{
@@ -330,6 +328,8 @@
         [self.customValueButton setTitle:selectedButtonTitle forState:UIControlStateNormal];
         self.customValueButton.backgroundColor = [UIColor whiteColor];
         [self bringSubviewToFront:self.customValueButton];
+    } else {
+        self.customValueButton.backgroundColor = [ColorUtils darkGreen];
     }
 }
 

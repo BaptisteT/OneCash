@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
 @property (weak, nonatomic) IBOutlet UITextField *valueTextField;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UILabel *invalidValueLabel;
 
 @end
 
@@ -32,10 +33,12 @@
     self.explanationLabel.text = NSLocalizedString(@"type_amount", nil);
     self.explanationLabel.textColor = [ColorUtils mainGreen];
     self.dollarLabel.textColor = [ColorUtils mainGreen];
+    self.invalidValueLabel.hidden = YES;
+    self.invalidValueLabel.text = [NSString stringWithFormat:NSLocalizedString(@"excessive_cash_value", nil),kTransactionsLimit];
     
     // Text field
     self.valueTextField.delegate = self;
-    self.valueTextField.text = [NSString stringWithFormat:@"%lu",self.initialValue];
+    self.valueTextField.text = [NSString stringWithFormat:@"%lu",(long)self.initialValue];
     [self.valueTextField becomeFirstResponder];
     
     // Tap gesture
@@ -57,9 +60,11 @@
         [self closeAndUpdateValue];
         return NO;
     }
-    if ([textField.text stringByReplacingCharactersInRange:range withString:string].length > 2) {
+    NSString *value = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (value.length > 2) {
         return NO;
     }
+    self.invalidValueLabel.hidden = [value integerValue] <= kTransactionsLimit;
     return YES;
 }
 
