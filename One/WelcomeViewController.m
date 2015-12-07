@@ -113,7 +113,7 @@
 // --------------------------------------------
 
 - (IBAction)loginWithTwitter:(id)sender {
-    [DesignUtils showProgressHUDAddedTo:self.view withColor:[UIColor whiteColor]];
+    [DesignUtils showProgressHUDAddedTo:self.view withColor:[ColorUtils mainGreen]];
     [ApiManager logInWithTwitterAndExecuteSuccess:^() {
         dispatch_async(dispatch_get_main_queue(), ^{
             [DesignUtils hideProgressHUDForView:self.view];

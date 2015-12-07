@@ -253,7 +253,7 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGa-9E-wwu">
-                                <rect key="frame" x="30" y="64" width="540" height="17"/>
+                                <rect key="frame" x="30" y="44" width="540" height="17"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -263,23 +263,24 @@
                         <animations/>
                         <color key="backgroundColor" red="0.118052642" green="1" blue="0.1607664681" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="JGa-9E-wwu" firstAttribute="top" secondItem="oki-lM-6ac" secondAttribute="bottom" constant="44" id="MdH-gz-aeh"/>
+                            <constraint firstItem="oki-lM-6ac" firstAttribute="bottom" secondItem="JGa-9E-wwu" secondAttribute="top" constant="-44" id="Bsz-fy-HvU"/>
+                            <constraint firstItem="JGa-9E-wwu" firstAttribute="top" secondItem="oki-lM-6ac" secondAttribute="bottom" constant="44" id="On9-AU-yHd"/>
                             <constraint firstItem="JGa-9E-wwu" firstAttribute="centerX" secondItem="log-tj-Xis" secondAttribute="centerX" id="TBM-Ah-1dr"/>
                             <constraint firstAttribute="trailing" secondItem="QA2-3z-8Ma" secondAttribute="trailing" id="V9c-hk-cfr"/>
                             <constraint firstItem="JGa-9E-wwu" firstAttribute="leading" secondItem="log-tj-Xis" secondAttribute="leading" constant="30" id="eZ4-s4-ZEv"/>
                             <constraint firstItem="aXk-H0-E8e" firstAttribute="top" secondItem="QA2-3z-8Ma" secondAttribute="bottom" id="lPz-xA-637"/>
-                            <constraint firstAttribute="trailing" secondItem="JGa-9E-wwu" secondAttribute="trailing" constant="30" id="rTe-iE-Sxa"/>
                             <constraint firstItem="QA2-3z-8Ma" firstAttribute="leading" secondItem="log-tj-Xis" secondAttribute="leading" id="seV-iy-xxT"/>
                             <constraint firstItem="QA2-3z-8Ma" firstAttribute="top" secondItem="log-tj-Xis" secondAttribute="top" id="ucn-9K-N6k"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="rTe-iE-Sxa"/>
+                                <exclude reference="Bsz-fy-HvU"/>
                             </mask>
                         </variation>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="labelTopConstraint" destination="MdH-gz-aeh" id="htu-jg-YLT"/>
                         <outlet property="logoImageView" destination="QA2-3z-8Ma" id="QPW-F8-1uc"/>
                         <outlet property="titleLabel" destination="JGa-9E-wwu" id="D0i-F6-2P4"/>
                     </connections>
